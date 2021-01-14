@@ -1,0 +1,59 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/proyecto/edit/{{proyecto.id_proyecto}}" method="POST">
+                    <div class="form-group">
+                        <h6>Titulo</h6>
+                        <input type="text" value="{{proyecto.titulo}}" class="form-control" name="titulo"  autofocus >
+
+                    </div>
+                    <div class="form-group">
+                        <h6>Modalidad</h6>
+                        <input type="text" value="{{proyecto.modalidad}}" class="form-control" name="modalidad" placeholder="Año">
+             
+                        
+                    </div>
+                   
+                    
+                    <div class="form-group">
+                        <h6>fecha sometido</h6>
+        <input type="date" name="fecha_sometido" min="2020-01-01" max="2020-12-31" step="1" />
+            <!-- Campo de entrada de hora -->
+          
+        <input type="time" name="hora_s" min="00:00" max="23:59" step="60"  />
+                    </div>
+
+                    <div class="form-group">
+                        <h6>fecha dictaminado</h6>
+        <input type="date" name="fecha_dictamen" min="2020-01-01" max="2020-12-31" step="1" />
+            <!-- Campo de entrada de hora -->
+          
+        <input type="time" name="hora_d" min="00:00" max="23:59" step="60"  />
+                    </div>
+
+
+
+    <div class="form-group">
+        <select  class="form-group" name="id_convocatoria">
+          {{#each convocatoria }}
+  <option value="{{id_convocatoria}}"   id="seleccion"> {{nombre_convocatoria}} </option>
+{{/each}}
+</select>
+      </div>
+
+    <input type="hidden" value="{{proyecto.clave_financiamiento}}" class="form-control" name="clave_financiamiento">
+    
+    <input type="hidden" value="{{proyecto.cvu_tecnm}}" class="form-control" name="cvu_tecnm">
+
+                
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block"> Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,52 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="con-md-4 mx-auto">
+            <div class="csrd text-center">
+                <div class="card-header">
+                    <h3>Sing up</h3>
+                </div>
+                <div class="card-body">
+<form action="/singup" method="POST">
+
+<div class="form-group">
+     <h6>Partidas</h6>
+
+                        <select name="cvu_tecnm" class="mx-auto" id="cvu_tecnm">
+                            {{#each responsables }}
+
+                               <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}}</option>
+
+                            {{/each}}
+
+                        </select>
+</div>
+
+<div class="form-group">
+    <input type="text " name="username" placeholder="nombre usuario" class="form-control" >
+
+</div>
+<div class="form-group">
+    <input type="password" name="password" class="form-control" placeholder="contraseña">
+</div>
+
+
+<div class="form-group">
+     <h6>Rol</h6>
+<select name="rol_sistema">
+  <option value="Administrador">Administrador</option>
+  <option value="Responsable" Selected> Lider de proyecto</option>
+  <option value="Visitante"> Reader</option>
+</select>
+</div>
+
+
+<div class="form-group">
+    <button class="btn btn-success btn-block">Sing up</button>
+</div>
+</form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

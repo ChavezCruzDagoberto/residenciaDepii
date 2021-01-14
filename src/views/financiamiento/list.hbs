@@ -1,0 +1,41 @@
+<div class="container p-4">
+    <div class="row">
+        
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Clave de financiamiento</th>
+      <th scope="col">fecha de inicio</th>
+      <th scope="col">fecha de expiracion </th>
+    </tr>
+  </thead>
+  
+  <tbody>
+      {{#each financiamiento}}
+    <tr>
+      <th >{{clave_financiamiento}}</th>
+      <td>{{vigencia_inicio}}</td>
+      <td>{{vigencia_fin}}</td>
+    
+      <td><a href="/financiamiento/delete/{{clave_financiamiento}}" class="btn btn-danger"> Eliminar</a></td>
+      <td> <a href="/financiamiento/edit/{{clave_financiamiento}}" class="btn btn-secondary">Editar</a></td>
+    
+                   
+    </tr>
+    {{else}}
+        <div class="col-m4 mx-auto">
+            <div class="card card-body text-center">
+                <p>NO HAY NINGUN FINANCIAMIENTO GUARDADO AUN </p>
+                <a href="/financiamiento/add"> CREAR UNA</a>
+            </div>
+        </div>
+        {{/each}}
+    
+  </tbody>
+</table>
+
+
+
+
+    </div>
+</div>
