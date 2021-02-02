@@ -1,0 +1,42 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="con-md-4 mx-auto">
+            <div class="csrd text-center">
+                <div class="card-header">
+                    <h3>Cambiar Datos</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/resetPassword" method="POST">
+
+                        <div class="form-group">
+                            <input type="text " value="{{user.username}}" name="username" placeholder="nombre usuario"
+                                class="form-control" readonly required>
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" placeholder="contraseña" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="password" name="password_now" class="form-control"
+                                placeholder="contraseña nueva" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="confirm" class="form-control" placeholder="Confirmar" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">Cambiar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

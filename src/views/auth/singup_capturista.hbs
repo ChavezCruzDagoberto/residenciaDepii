@@ -9,22 +9,7 @@
                     <form action="/singup" method="POST">
 
                         <div class="form-group">
-                            <h6>Usuarios Registrados</h6>
-                            
-                        
-
-                            <select name="cvu_tecnm" class="mx-auto" id="cvu_tecnm">
-                                {{#each responsables }}
-
-                                <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}}</option>
-
-                                {{/each}}
-
-
-                            </select>
-                            <br>
-                            <a href="integrantes/add"> Si el usuario no se encuentra registrado clik aqui</a>
-                            <br>
+                            <h6>Capturista</h6>
                         </div>
 
                         <div class="form-group">
@@ -35,15 +20,9 @@
                             <input type="password" name="password" class="form-control" placeholder="contraseña" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
                         </div>
 
+                        <input type="hidden" name="rol_sistema" value="Capturista">
 
-                        <div class="form-group">
-                            <h6>Rol</h6>
-                            <select name="rol_sistema">
-                                <option value="Administrador">Administrador</option>
-                                <option value="Responsable" Selected> Lider de proyecto</option>
-                               
-                            </select>
-                        </div>
+                        
 
 
                         <div class="form-group">

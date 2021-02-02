@@ -4,38 +4,39 @@
             <div class="card">
                 <div class="card-body">
                     <form action="/integrantes/edit/{{integrante.cvu_tecnm}}" method="POST">
-                    <div class="form-group">
-                        <input type="text" value="{{integrante.cvu_tecnm}}" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM" autofocus >
+                        <div class="form-group">
+                            <input type="text" value="{{integrante.cvu_tecnm}}" class="form-control" name="cvu_tecnm"
+                                placeholder="cvu TecNM" autofocus>
 
-                    </div>
-                    <div class="form-group">
-                        
-                        <input type="text" value="{{integrante.nombre}}" class="form-control" name="nombre" placeholder="Nombre">
-                        <input type="text" value="{{integrante.apellido1}}" class="form-control" name="apellido1" placeholder="apellido">
-                        <input type="text" value="{{integrante.apellido2}}" class="form-control" name="apellido2" placeholder="apellido">
-                        
-                    </div>
-                   
-                    <div class="form-group">
-                        
-                        <input type="text" value="{{integrante.plantel_adscripcion}}" class="form-control" name="plantel_adscripcion" placeholder="Plantel de Adscricion">
-                        
-                        
-                    </div>
-                    <div class="form-group">
-                        
-                        <input type="email"  value="{{integrante.email}}" class="form-control" name="email" placeholder="Email">
-                        
-                        
-                    </div>
-                    <div class="form-group">
-                        
-                        <input type="text" value="{{integrante.rol_proyecto}}" class="form-control" name="rol_proyecto" placeholder="Rol en el proyecto">
-                        
-                        
-                    </div>
+                        </div>
+                        <div class="form-group">
 
-                
+                            <input type="text" value="{{integrante.nombre}}" class="form-control" name="nombre"
+                                placeholder="Nombre">
+                            <input type="text" value="{{integrante.apellido1}}" class="form-control" name="apellido1"
+                                placeholder="apellido">
+                            <input type="text" value="{{integrante.apellido2}}" class="form-control" name="apellido2"
+                                placeholder="apellido">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="text" value="{{integrante.plantel_adscripcion}}" class="form-control"
+                                name="plantel_adscripcion" placeholder="Plantel de Adscricion">
+
+
+                        </div>
+                        <div class="form-group">
+
+                            <input type="email" value="{{integrante.email}}" class="form-control" name="email"
+                                placeholder="Email">
+
+
+                        </div>
+
+
+
                         <div class="form-group">
                             <button class="btn btn-success btn-block"> Guardar</button>
                         </div>
@@ -44,4 +45,4 @@
             </div>
         </div>
     </div>
-</div> 
+</div>

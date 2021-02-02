@@ -4,54 +4,56 @@
             <div class="card">
                 <div class="card-body">
                     <form action="/proyecto/add" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="titulo" placeholder="Nombre del Proyecto" autofocus >
-
-                    </div>
-                    <div class="form-group">
-                       
-                        <input type="text"    class="form-control" name="modalidad" placeholder="modalidad">
-                        
-                        
-                    </div>
-                   
-                    <div class="form-group">
-                        <h6>fecha sometido</h6>
-        <input type="date" name="fecha_sometido" min="2020-01-01" max="2020-12-31" step="1" />
-            <!-- Campo de entrada de hora -->
-          
-        <input type="time" name="hora_s" min="00:00" max="23:59" step="60"  />
-                    </div>
-
-                    <div class="form-group">
-                        <h6>fecha dictaminado</h6>
-        <input type="date" name="fecha_dictamen" min="2020-01-01" max="2020-12-31" step="1" />
-            <!-- Campo de entrada de hora -->
-          
-        <input type="time" name="hora_d" min="00:00" max="23:59" step="60"  />
-                    </div>
-                   
                         <div class="form-group">
-                       
-                        <input type="text"    class="form-control" name="clave_financiamiento" placeholder="clave de financiamiento">
-                        
-                        
-                    </div>
+                            <input type="text" class="form-control" name="titulo" placeholder="Nombre del Proyecto"
+                                autofocus>
+
+                        </div>
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" name="modalidad" placeholder="modalidad">
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <h6>fecha sometido</h6>
+                            <input type="date" name="fecha_sometido" min="2020-01-01" max="2020-12-31" step="1" />
+                            <!-- Campo de entrada de hora -->
+
+                            <input type="time" name="hora_s" min="00:00" max="23:59" step="60" />
+                        </div>
+
+                        <div class="form-group">
+                            <h6>fecha dictaminado</h6>
+                            <input type="date" name="fecha_dictamen" min="2020-01-01" max="2020-12-31" step="1" />
+                            <!-- Campo de entrada de hora -->
+
+                            <input type="time" name="hora_d" min="00:00" max="23:59" step="60" />
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" name="clave_financiamiento"
+                                placeholder="clave de financiamiento">
+
+
+                        </div>
 
                         <div class="form-group">
                             <h6>convocatoria </h6>
 
-                        <select name="id_convocatoria" class="mx-auto" id="select_convocatoria">
-                            {{#each convocatorias }}
+                            <select name="id_convocatoria" class="mx-auto" id="select_convocatoria">
+                                {{#each convocatorias }}
 
-                               <option value={{id_convocatoria}} required>{{nombre_convocatoria}}</option>
+                                <option value={{id_convocatoria}} required>{{nombre_convocatoria}}</option>
 
-                            {{/each}}
+                                {{/each}}
 
-                        </select>
+                            </select>
 
                         </div>
-                
+
                         <div class="form-group">
                             <button class="btn btn-success btn-block"> Agregar</button>
                         </div>
@@ -60,4 +62,4 @@
             </div>
         </div>
     </div>
-</div> 
+</div>

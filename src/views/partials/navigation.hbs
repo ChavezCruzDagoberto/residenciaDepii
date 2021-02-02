@@ -1,100 +1,109 @@
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="#">Gestion Depi</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-      {{#if user }}
-      <li class="nav-item">
-        <a class="nav-link" href="/proyecto">proyectos</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Integrantes
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/integrantes/add">agregar</a>
-          <a class="dropdown-item" href="/integrantes">listar</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">otro que no sirve aun</a>
-        </div>
-      </li>
-
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Convocatorias
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/convocatoria/add">agregar</a>
-          <a class="dropdown-item" href="/convocatoria">listar</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">otro que no sirve aun</a>
-        </div>
-      </li>
-
-
-          <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Financiamiento
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/financiamiento/add">agregar</a>
-          <a class="dropdown-item" href="/financiamiento">listar</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">otro que no sirve aun</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Partidas
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/partida/add">agregar</a>
-          <a class="dropdown-item" href="/partida">listar</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">otro que no sirve aun</a>
-        </div>
-      </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        {{#if user }}
+        <li class="nav-item">
+          <a class="nav-link" href="/proyecto">proyectos</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Integrantes
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/integrantes/add">agregar</a>
+            <a class="dropdown-item" href="/integrantes">listar</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">otro que no sirve aun</a>
+          </div>
+        </li>
 
 
 
-<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Subpartidas
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/subpartida/add">agregar</a>
-          <a class="dropdown-item" href="/subpartida">listar</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">otro que no sirve aun</a>
-        </div>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" href="/singup" >Agregar User </a>
-      </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Convocatorias
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/convocatoria/add">agregar</a>
+            <a class="dropdown-item" href="/convocatoria">listar</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">otro que no sirve aun</a>
+          </div>
+        </li>
 
 
-      <li class="nav-item" >
-        <a href="/logout" class="nav-link"> salir</a>
-      </li>
-    
-    {{else}}
-    <li class="nav-item" >
-        <a href="/signin" class="nav-link"> loguearse</a>
-      </li>
-    
-     {{/if}}
-    </ul>
-   
-  </div>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Financiamiento
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/financiamiento/add">agregar</a>
+            <a class="dropdown-item" href="/financiamiento">listar</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">otro que no sirve aun</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Partidas
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/partida/add">agregar</a>
+            <a class="dropdown-item" href="/partida">listar</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">otro que no sirve aun</a>
+          </div>
+        </li>
+
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Subpartidas
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/subpartida/add">agregar</a>
+            <a class="dropdown-item" href="/subpartida">listar</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">otro que no sirve aun</a>
+          </div>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" href="/singup">Agregar User </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a href="/logout" class="nav-link"> salir</a>
+        </li>
+        <li class="nav-link">
+          {{user.username}}
+        </li>
+
+        {{else}}
+        <li class="nav-item">
+          <a href="/signin" class="nav-link"> loguearse</a>
+        </li>
+
+        {{/if}}
+      </ul>
+
+    </div>
   </div>
 </nav>

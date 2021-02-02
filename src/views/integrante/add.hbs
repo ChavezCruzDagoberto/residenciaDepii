@@ -4,39 +4,34 @@
             <div class="card">
                 <div class="card-body">
                     <form action="/integrantes/add" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM" autofocus >
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM" autofocus required>
 
-                    </div>
-                    <div class="form-group">
-                        
-                        <input type="text" class="form-control" name="nombre" placeholder="Nombre">
-                        <input type="text" class="form-control" name="apellido1" placeholder="apellido">
-                        <input type="text" class="form-control" name="apellido2" placeholder="apellido">
-                        
-                    </div>
-                   
-                    <div class="form-group">
-                        
-                        <input type="text" class="form-control" name="plantel_adscripcion" placeholder="Plantel de Adscricion">
-                        
-                        
-                    </div>
-                    <div class="form-group">
-                        
-                        <input type="email" class="form-control" name="email" placeholder="Email">
-                        
-                        
-                    
-                    <div class="form-group">
-     <h6>Rol</h6>
-<select name="rol_proyecto">
-  <option value="Responsable" Selected>Lider de proyecto</option>
-  <option value="Administrador"> Administrador de rpoyectos</option>
-</select>
-</div>
+                        </div>
+                        <div class="form-group">
 
-                
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+                            <input type="text" class="form-control" name="apellido1" placeholder="apellido" required>
+                            <input type="text" class="form-control" name="apellido2" placeholder="apellido" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" name="plantel_adscripcion"
+                                placeholder="Plantel de Adscricion" required>
+
+
+                        </div>
+                        <div class="form-group">
+
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+
+
+
+                        </div>
+    
+
                         <div class="form-group">
                             <button class="btn btn-success btn-block"> Agregar</button>
                         </div>
@@ -45,4 +40,4 @@
             </div>
         </div>
     </div>
-</div> 
+</div>

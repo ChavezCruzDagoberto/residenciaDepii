@@ -1,0 +1,50 @@
+<div class="container p-4">
+    <div class="row">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">cantidad</th>
+                    <th scope="col">Contribucion</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each consulta}}
+                <form action="/entregable/edit" method="POST">
+                    <tr>
+                        <th>{{nombre}}</th>
+                        <td><input type="text" value="{{cantidad}}" name="cantidad"></td>
+                        <td>{{contribucion}}</td>
+
+                        <td>
+                            <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
+                            <input type="hidden" value="{{id_entregable}}" name="id_entregable">
+                            <button class="btn btn-secondary">Editar y guardar</button>
+                        </td>
+                        <td><a href="/entregable/delete/{{id_entregable}}/{{id_proyecto}}" class="btn btn-danger">
+                                Eliminar</a></td>
+
+
+
+                    </tr>
+                </form>
+                {{else}}
+                <div class="col-m4 mx-auto">
+                    <div class="card card-body text-center">
+                        <p>NO HAY NINGUN Entregable registrado para este proyecto GUARDADO AUN </p>
+                        <a href="/entregable/add/{{id_proyecto}}"> CREAR NUEVO</a>
+                    </div>
+                </div>
+                {{/each}}
+
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+</div>

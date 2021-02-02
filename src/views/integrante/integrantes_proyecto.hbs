@@ -4,14 +4,12 @@
     <table class="table">
       <thead>
         <tr>
+          <th scope="col">Rol</th>
           <th scope="col">cvu_tecnm</th>
           <th scope="col">Nombre</th>
-          <th scope="col">apellido1</th>
-          <th scope="col">apellido2</th>
           <th scope="col">plantel de Adscripcion</th>
-          <th scope="col">email</th>
-          <th scope="col">editar</th>
-          <th scope="col">eliminar</th>
+          <th scope="col">Eliminar del proyecto</th>
+          <th scope="col">Editar</th>
         </tr>
       </thead>
 
@@ -20,14 +18,15 @@
 
 
         <tr>
+          <th>{{rol_proyecto}}</th>
           <th>{{cvu_tecnm}}</th>
-          <td>{{nombre}}</td>
-          <td>{{apellido1}}</td>
-          <td>{{apellido2}}</td>
-          <td>{{plantel_adscripcion}}</td>
-          <td>{{email}}</td>
+          <td>{{nombre}} {{apellido1}} {{apellido2}}</td>
 
-          <td><a href="/integrantes/delete/{{cvu_tecnm}}" class="btn btn-danger" id="prueba"> Eliminar</a></td>
+          <td>{{plantel_adscripcion}}</td>
+
+
+          <td><a href="/integrantes/proyecto/delete/{{cvu_tecnm}}/{{id_proyecto}}" class="btn btn-danger" id="prueba">
+              Eliminar</a></td>
           <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-secondary">Edit</a></td>
 
 

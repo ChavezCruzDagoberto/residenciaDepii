@@ -1,0 +1,52 @@
+<div class="container p-4">
+  <div class="row">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Usuario</th>
+          <th scope="col">Cvu_tecNM</th>
+          <th scope="col">Estado</th>
+          <th scope="col">eliminar</th>          
+          <th scope="col">editar</th>
+          
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each users}}
+
+
+        <tr>
+          <th>{{cvu_tecnm}}</th>
+          <td>{{username}}</td>
+          <td>{{password}}</td>
+          <td>{{estado}}</td>
+          
+
+          <td><a href="/deleteuser/{{cvu_tecnm}}" class="btn btn-danger" id="prueba"> Eliminar</a></td>
+          <td> <a href="/cambiarestado/{{cvu_tecnm}}" class="btn btn-secondary">Suspender/activar</a></td>
+
+
+
+        </tr>
+        {{else}}
+        <div class="col-m4 mx-auto">
+          <div class="card card-body text-center">
+            <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
+            <a href="/integrantes/add"> AGREGAR NUEVO </a>
+          </div>
+        </div>
+        {{/each}}
+
+
+
+
+      </tbody>
+    </table>
+
+
+
+
+  </div>
+</div>

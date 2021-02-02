@@ -1,113 +1,47 @@
+<div class="container p-4">
+  <div class="row">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">No de Informe</th>
+          <th scope="col">fecha de inicio</th>
+          <th scope="col">fecha final</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each consulta}}
+        <form action="/informe/edit/{{id_informe}}" method="POST">
+          <tr>
+            <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
+            <td><input type="text" value="{{fecha_inicio}}" name="fecha_inicio"></td>
+            <td><input type="text" value="{{fecha_fin}}" name="fecha_fin"></td>
+
+            <td>
+              <button class="btn btn-secondary">Editar y guardar</button>
+            </td>
+            <td><a href="/informe/delete/{{id_informe}}" class="btn btn-danger"> Eliminar</a></td>
 
 
 
-<div class="nav-side-menu">
-    <div class="brand">Brand Logo</div>
-    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-  
-        <div class="menu-list">
-  
-            <ul id="menu-content" class="menu-content collapse out">
-                <li>
-                  <a href="/">
-                  <i class="fas fa-tachometer-alt fa-lg"></i> Dashboard
-                  </a>
-                </li>
-
-                <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                  <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Informes <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse" id="products">
-                    <li class="active"><a href="/informe/add">agregar</a></li>
-                    <li><a href="/informe/mostrar/{{proyecto.id_proyecto}}">listar</a></li>
-                    
-                </ul>
-
-
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Services <span class="arrow"></span></a>
-                </li>  
-                <ul class="sub-menu collapse" id="service">
-                  <li>New Service 1</li>
-                  <li>New Service 2</li>
-                  <li>New Service 3</li>
-                </ul>
-
-
-                <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <a href="#"><i class="fab fa-pagelines fa-lg"></i> New <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse" id="new">
-                  <li>New New 1</li>
-                  <li>New New 2</li>
-                  <li>New New 3</li>
-                </ul>
-
-
-                 <li>
-                  <a href="#">
-                  <i class="fas fa-user-tie fa-lg"></i> Profile
-                  </a>
-                  </li>
-
-                 <li>
-                  <a href="#">
-                  <i class="fa fa-users fa-lg"></i> Users
-                  </a>
-                </li>
-            </ul>
-     </div>
-</div>
-
-
-
-<div class="main">
-
-  <div class="container p-4">
-    <div class="row">
-        
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">No de Informe</th>
-      <th scope="col">fecha de inicio</th>
-      <th scope="col">fecha final</th>
-
-    </tr>
-  </thead>
- 
-  <tbody>
-      {{#each consulta}}
-      <form  action="/informe/edit/{{id_informe}}"  method="POST">
-    <tr>
-      <th > {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe" ></th>
-      <td><input type="text" value={{fecha_inicio}} name="fecha_inicio" ></td>
-      <td><input type="text" value={{fecha_fin}} name="fecha_fin" ></td>
-      
-      <td> 
-    <button   class="btn btn-secondary">Editar y guardar</button>
-      </td>
-      <td><a href="/informe/delete/{{id_informe}}" class="btn btn-danger"> Eliminar</a></td>
-      
-    
-                   
-    </tr>
-    </form>
-    {{else}}
+          </tr>
+        </form>
+        {{else}}
         <div class="col-m4 mx-auto">
-            <div class="card card-body text-center">
-                <p>NO HAY NINGUN informe para este proyecto GUARDADO AUN </p>
-                <a href="/convocatoria/add"> CREAR NUEVO</a>
-            </div>
+          <div class="card card-body text-center">
+            <p>NO HAY NINGUN informe para este proyecto GUARDADO AUN </p>
+            <a href="/convocatoria/add"> CREAR NUEVO</a>
+          </div>
         </div>
         {{/each}}
-    
-  </tbody>
-</table>
+
+      </tbody>
+    </table>
 
 
 
 
-    </div>
-</div>
+  </div>
 </div>

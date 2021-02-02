@@ -1,139 +1,139 @@
-
 <div class="nav-side-menu">
-    <div class="brand">Brand Logo</div>
-    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-  
-        <div class="menu-list">
-  
-            <ul id="menu-content" class="menu-content collapse out">
-                <li>
-                  <a href="/">
-                  <i class="fas fa-tachometer-alt fa-lg"></i> Dashboard
-                  </a>
-                </li>
+  <div class="brand">Brand Logo</div>
+  <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
-                <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                  <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Informes <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse" id="products">
-                    <li class="active"><a href="/informe/add">agregar</a></li>
-                    <li><a href="/informe/mostrar/{{proyecto.id_proyecto}}">listar</a></li>
-                    
-                </ul>
+  <div class="menu-list">
 
+    <ul id="menu-content" class="menu-content collapse out">
+      <li>
+        <a href="/">
+          <i class="fas fa-tachometer-alt fa-lg"></i> Dashboard
+        </a>
+      </li>
 
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Services <span class="arrow"></span></a>
-                </li>  
-                <ul class="sub-menu collapse" id="service">
-                  <li>New Service 1</li>
-                  <li>New Service 2</li>
-                  <li>New Service 3</li>
-                </ul>
+      <li data-toggle="collapse" data-target="#products" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Informes <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products">
+        <li class="active"><a href="/informe/add">agregar</a></li>
+        <li><a href="/informe/mostrar/{{proyecto.id_proyecto}}">listar</a></li>
+
+      </ul>
 
 
-                <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <a href="#"><i class="fab fa-pagelines fa-lg"></i> New <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse" id="new">
-                  <li>New New 1</li>
-                  <li>New New 2</li>
-                  <li>New New 3</li>
-                </ul>
+      <li data-toggle="collapse" data-target="#service" class="collapsed">
+        <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Services <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="service">
+        <li>New Service 1</li>
+        <li>New Service 2</li>
+        <li>New Service 3</li>
+      </ul>
 
 
-                 <li>
-                  <a href="#">
-                  <i class="fas fa-user-tie fa-lg"></i> Profile
-                  </a>
-                  </li>
+      <li data-toggle="collapse" data-target="#new" class="collapsed">
+        <a href="#"><i class="fab fa-pagelines fa-lg"></i> New <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="new">
+        <li>New New 1</li>
+        <li>New New 2</li>
+        <li>New New 3</li>
+      </ul>
 
-                 <li>
-                  <a href="#">
-                  <i class="fa fa-users fa-lg"></i> Users
-                  </a>
-                </li>
-            </ul>
-     </div>
+
+      <li>
+        <a href="#">
+          <i class="fas fa-user-tie fa-lg"></i> Profile
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fa fa-users fa-lg"></i> Users
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 
-<div  class="main" id="contenido">
+<div class="main" id="contenido">
   <!--  <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card">!-->
-                <div class="card-body">
-                    <form action="/informe/add" method="POST">
-                    
-                     <div class="form-group">
-                         {{#each proyecto }}
-                         
-                        <label >Proyecto</label>
-                     <input type="text"   value="{{titulo}}" class="form-control" name="titulo"  disabled>
-                        
-                    <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
-                        {{/each}}
-                    </div>
+  <div class="card-body">
+    <form action="/informe/add" method="POST">
+
+      <div class="form-group">
+        {{#each proyecto }}
+
+        <label>Proyecto</label>
+        <input type="text" value="{{titulo}}" class="form-control" name="titulo" disabled>
+
+        <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
+        {{/each}}
+      </div>
 
 
 
-                <table id="elementos" class="table">
-    <thead>
-    <tr>
-      <th scope="col">No de informe</th>
-      <th scope="col">fecha de inicio</th>
-      <th scope="col">fecha de fin</th>
-      
-    </tr>
-  </thead>
-<tr>
-     <td><input type="number" min="1" max="4"    class="form-control" name="no_informe" ></td>
-     <td> <input type="date" name="fecha_inicio"  step="1" /></td>
-     <td><input type="date" name="fecha_fin"  step="1" /></td>
+      <table id="elementos" class="table">
+        <thead>
+          <tr>
+            <th scope="col">No de informe</th>
+            <th scope="col">fecha de inicio</th>
+            <th scope="col">fecha de fin</th>
 
-</tr>
+          </tr>
+        </thead>
+        <tr>
+          <td><input type="number" min="1" max="4" class="form-control" name="no_informe"></td>
+          <td> <input type="date" name="fecha_inicio" step="1" /></td>
+          <td><input type="date" name="fecha_fin" step="1" /></td>
 
-</table>
-     
-    <p>
-<input type="button" onclick="insRow('elementos')" value="agregar nuevo">
-<td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('elementos')"></td>
-</p>
+        </tr>
 
-                       
-                        
-                  
-                        <div class="col-md-4 mx-auto">
-                        <div class="card">
-                            <div class="form-group">
-                            <button class="btn btn-success btn-block"> Agregar</button>
-                        </div>
-                        </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+      </table>
+
+      <p>
+        <input type="button" onclick="insRow('elementos')" value="agregar nuevo">
+        <td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('elementos')"></td>
+      </p>
+
+
+
+
+      <div class="col-md-4 mx-auto">
+        <div class="card">
+          <div class="form-group">
+            <button class="btn btn-success btn-block"> Agregar</button>
+          </div>
         </div>
-    </div>
-</div> 
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+</div>
 
 
 <script>
-function deleteRow(id) {document.getE
-    var ultimo=document.getElementById("elementos").rows.length-1;
-    if(ultimo>1){
-       document.getElementById(id).deleteRow(ultimo);
+  function deleteRow(id) {
+    document.getE
+    var ultimo = document.getElementById("elementos").rows.length - 1;
+    if (ultimo > 1) {
+      document.getElementById(id).deleteRow(ultimo);
     }
-}
+  }
 
-function insRow(id) {
-       var filas = document.getElementById("elementos").rows.length;
-       var x = document.getElementById(id).insertRow(filas);
-       var y = x.insertCell(0);
-       var z = x.insertCell(1);
-       var c=  x.insertCell(2);
-       
-       y.innerHTML = '<input type="number" min="1" max="4"    class="form-control" name="no_informe" >' ;
-       z.innerHTML = '<h6>fecha  de inicio</h6> <input type="date" name="fecha_inicio"  step="1" />';
-       c.innerHTML= '<h6>fecha  de fin</h6> <input type="date" name="fecha_fin"  step="1" />';
-}
+  function insRow(id) {
+    var filas = document.getElementById("elementos").rows.length;
+    var x = document.getElementById(id).insertRow(filas);
+    var y = x.insertCell(0);
+    var z = x.insertCell(1);
+    var c = x.insertCell(2);
+
+    y.innerHTML = '<input type="number" min="1" max="4"    class="form-control" name="no_informe" >';
+    z.innerHTML = '<h6>fecha  de inicio</h6> <input type="date" name="fecha_inicio"  step="1" />';
+    c.innerHTML = '<h6>fecha  de fin</h6> <input type="date" name="fecha_fin"  step="1" />';
+  }
 </script>

@@ -1,11 +1,11 @@
-const express =require('express');
-const router=express.Router();
+const express = require('express');
+const router = express.Router();
 
-const pool=require('../database');
-const {estaLogueado,noEstaLogueado,esAdministrador}=require('../lib/auth');
+const pool = require('../database');
+const { estaLogueado, noEstaLogueado, esAdministrador, esLider, tienePermiso } = require('../lib/auth');
 
 //agregar un Responsable
-router.get('/add',(req,res)=>{
+router.get('/add',esAdministrador , (req, res) => {
 
     //res.send('Form');
     res.render('integrante/add');
@@ -15,146 +15,234 @@ router.get('/add',(req,res)=>{
 
 
 
-//insertar a la base un link
-router.post('/add' ,async (req,res)=>{
-    const estado=1;
-    const {cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email,rol_proyecto}=req.body;
-    const newIntegrante={
-        cvu_tecnm,
-        nombre,
-        apellido1,
-        apellido2,
-        plantel_adscripcion,
-        email,
-        rol_proyecto,
-        estado
-    };
-   // console.log(newIntegrante);
-   //console.log(req.body);
-  await  pool.query(  'INSERT INTO participante set ?',[newIntegrante]);
-   // res.send('recibido');
-  req.flash('success','agreado correctamente');
-   
-   //res.render("integrante/add");
-   res.redirect("/integrantes");
+//insertar a la base un integrante nuevo
+router.post('/add',esAdministrador, async (req, res) => {
+
+    
+    const { cvu_tecnm, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
+    const validacion=await pool.query( 'select * from participante where cvu_tecnm=?',[cvu_tecnm]);
+    const validacion1=await pool.query( 'select * from participante where email=?',[email]);
+ 
+    console.log(validacion,validacion1);
+    if(validacion.length>0){
+        req.flash('message', ' No se pudo registar ya existe el usuario verifique los datos en caso de ser neceario editelo');
+
+    
+    res.redirect("/integrantes");
+
+
+
+
+  }else{
+      if(validacion1.length>0){
+        req.flash('message', ' No se pudo registar el correo electronico esta asociado a otro integrante ');
+
+    
+        res.redirect("/integrantes/add");
+
+      }else{
+
+        const newIntegrante = {
+            cvu_tecnm,
+            nombre,
+            apellido1,
+            apellido2,
+            plantel_adscripcion,
+            email
+        };
+        
+        await pool.query('INSERT INTO participante set ?', [newIntegrante]);
+        req.flash('success', 'agreado correctamente');
+        res.redirect("/integrantes");
+
+
+      }
+
+
+
+  }
+
+
+    
 
 });
 
 
 
 //agregar colaboradores a un proyecto especifico
-router.get('/addColaborador/:id_proyecto',(req,res)=>{
+router.get('/addColaborador/:id_proyecto', esLider, (req, res) => {
 
 
-    const {id_proyecto}=req.params;
+    const { id_proyecto } = req.params;
     //res.send('Form');
-    res.render('integrante/add_integrante_p',{id_proyecto});
+    res.render('integrante/add_integrante_p', { id_proyecto });
 });
 
-router.post('/addColaborador',(req,res)=>{
+router.post('/addColaborador', async (req, res) => {
+    const { cvu_tecnm, id_proyecto, nombre, apellido1, apellido2, plantel_adscripcion, rol_proyecto, email } = req.body;
+
+    const valida = await pool.query('select * from participante where cvu_tecnm=?', [cvu_tecnm]);
+    if (valida.length <= 0) {
+        const nuevoIntegrante = {
+            cvu_tecnm,
+            nombre,
+            apellido1,
+            apellido2,
+            plantel_adscripcion,
+            email
+        };
+
+        await pool.query('insert into participante set ?', [nuevoIntegrante]);
+
+    }
+    const nuevoInt_proyecto = {
+        id_proyecto,
+        cvu_tecnm,
+        rol_proyecto
+    }
+    await pool.query('insert into proyecto_participante set ?', [nuevoInt_proyecto]);
+    req.flash('success', 'se añadio un nuevo participante a tu proyecto');
+    res.redirect('/integrantes/proyecto/' + id_proyecto);
 
 
-    console.log(req.params,req.body);
-    //res.send('Form');
-   
+
 });
+
+//listar pro proyecto
+
+router.get('/proyecto/:id_proyecto',estaLogueado, async (req, res) => {
+    const { id_proyecto } = req.params;
+    // console.log(req.params);
+
+    const integrantes = await pool.query('select * from participante natural join proyecto_participante where id_proyecto= ?', [id_proyecto]);
+    //console.log(integrantes);
+    //res.send("listas tontas");
+    //ruta de la vista//+ la lista de datos a pasar
+    res.render('integrante/integrantes_proyecto', { integrantes });
+});
+
+
+
+//eliminar un participante de un proyecto
+
+router.get('/proyecto/delete/:cvu_tecnm/:id_proyecto',estaLogueado, async (req, res) => {
+    const { cvu_tecnm, id_proyecto } = req.params;
+
+
+    const valida = await pool.query('select * from proyecto_participante where cvu_tecnm= ? and id_proyecto= ?', [cvu_tecnm, id_proyecto]);
+    //console.log(valida[0].rol_proyecto);
+    if (valida[0].rol_proyecto == 'Responsable') {
+        req.flash('message', 'usted no se puede eliminar es el responsable del proyecto');
+        res.redirect('/integrantes/proyecto/' + id_proyecto);
+    } else {
+        // console.log(req.params,req.body);
+
+        await pool.query('delete   from  proyecto_participante where cvu_tecnm= ? and id_proyecto= ?', [cvu_tecnm, id_proyecto]);
+        //console.log(integrantes);
+        //res.send("listas tontas");
+        //ruta de la vista//+ la lista de datos a pasar
+        res.redirect('/integrantes/proyecto/' + id_proyecto);
+    }
+});
+
+
 
 
 //listar de la base de datos
-router.get('/' ,esAdministrador,async (req,res)=>{
-    
-   const integrantes= await  pool.query(  'SELECT * FROM  participante  ');
-   // console.log(integrantes);
+router.get('/', async (req, res) => {
+
+    const integrantes = await pool.query('SELECT * FROM  participante  ');
+    // console.log(integrantes);
     //res.send("listas tontas");
     //ruta de la vista//+ la lista de datos a pasar
-    res.render('integrante/list',{integrantes});
+    res.render('integrante/list', { integrantes });
 });
 
-router.get('/activos' ,esAdministrador,async (req,res)=>{
-    
-    const integrantes= await  pool.query(  'SELECT * FROM  participante where estado="1" ');
+router.get('/activos', esAdministrador, async (req, res) => {
+
+    const integrantes = await pool.query('SELECT * FROM  participante where estado="1" ');
 
     // console.log(integrantes);
-     //res.send("listas tontas");
-     //ruta de la vista//+ la lista de datos a pasar
-     res.render('integrante/list',{integrantes});
- });
+    //res.send("listas tontas");
+    //ruta de la vista//+ la lista de datos a pasar
+    res.render('integrante/list', { integrantes });
+});
 
- router.get('/inactivos' ,esAdministrador,async (req,res)=>{
-    
-    const integrantes= await  pool.query(  'SELECT * FROM  participante where estado="0" ');
-    
+router.get('/inactivos', esAdministrador, async (req, res) => {
+
+    const integrantes = await pool.query('SELECT * FROM  participante where estado="0" ');
+
     // console.log(integrantes);
-     //res.send("listas tontas");
-     //ruta de la vista//+ la lista de datos a pasar
-     res.render('integrante/list',{integrantes});
- });
+    //res.send("listas tontas");
+    //ruta de la vista//+ la lista de datos a pasar
+    res.render('integrante/list', { integrantes });
+});
 
 //ELIMINAR
-router.get('/delete/:cvu_tecnm',esAdministrador ,async (req,res)=>{
-    
-    const {cvu_tecnm}=req.params;
+router.get('/delete/:cvu_tecnm', async (req, res) => {
+
+    const { cvu_tecnm } = req.params;
 
 
-    await  pool.query(  'DELETE FROM  participante  WHERE CVU_TECNM=?',[cvu_tecnm]);
-     console.log(req.params.cvu_tecnm);
-     req.flash('success',cvu_tecnm +' eliminado  correctamente');
-     res.redirect("/integrantes");
+    await pool.query('DELETE FROM  participante  WHERE CVU_TECNM=?', [cvu_tecnm]);
+    console.log(req.params.cvu_tecnm);
+    req.flash('success', cvu_tecnm + ' eliminado  correctamente');
+    res.redirect("/integrantes");
 
-     //ruta de la vista//+ la lista de datos a pasar
-     // res.render('links/list',{links});
- });
-
-
-
- router.get('/desactivar/:cvu_tecnm',esAdministrador ,async (req,res)=>{
-    
-    const {cvu_tecnm}=req.params;
+    //ruta de la vista//+ la lista de datos a pasar
+    // res.render('links/list',{links});
+});
 
 
-    await  pool.query(  'UPDATE participante SET estado=0 WHERE CVU_TECNM=?',[cvu_tecnm]);
-     console.log(req.params.cvu_tecnm);
-     req.flash('success',cvu_tecnm +' eliminado  correctamente');
-     res.redirect("/integrantes/inactivos");
 
-     //ruta de la vista//+ la lista de datos a pasar
-     // res.render('links/list',{links});
- });
+router.get('/desactivar/:cvu_tecnm', esAdministrador, async (req, res) => {
+
+    const { cvu_tecnm } = req.params;
 
 
- //editar
-router.get('/edit/:cvu_tecnm',esAdministrador ,async (req,res)=>{
-    
-    const {cvu_tecnm}=req.params;
-    
-   const nuevo= await  pool.query(  'SELECT * FROM  participante  WHERE CVU_TECNM=?',[cvu_tecnm]);
- console.log(nuevo[0]);
+    await pool.query('UPDATE participante SET estado=0 WHERE CVU_TECNM=?', [cvu_tecnm]);
+    console.log(req.params.cvu_tecnm);
+    req.flash('success', cvu_tecnm + ' eliminado  correctamente');
+    res.redirect("/integrantes/inactivos");
+
+    //ruta de la vista//+ la lista de datos a pasar
+    // res.render('links/list',{links});
+});
+
+
+//editar
+router.get('/edit/:cvu_tecnm', async (req, res) => {
+
+    const { cvu_tecnm } = req.params;
+
+    const nuevo = await pool.query('SELECT * FROM  participante  WHERE CVU_TECNM=?', [cvu_tecnm]);
+    console.log(nuevo[0]);
     // res.redirect("/links");
     //res.send("recibido");
-     //ruta de la vista//+ la lista de datos a pasar
-      res.render('integrante/edit',{integrante: nuevo[0]});
- });
+    //ruta de la vista//+ la lista de datos a pasar
+    res.render('integrante/edit', { integrante: nuevo[0] });
+});
 
 
- router.post('/edit/:cvu_tecnm',esAdministrador ,async (req,res)=>{
-    
-    const {cvu_tecnm}=req.params;
+router.post('/edit/:cvu_tecnm', async (req, res) => {
 
-    const {nombre,apellido1,apellido2,plantel_adscripcion,email,rol_proyecto}= req.body;
-    const newIntegrante ={
+    const { cvu_tecnm } = req.params;
+
+    const { nombre, apellido1, apellido2, plantel_adscripcion, email, } = req.body;
+    const newIntegrante = {
         nombre,
         apellido1,
         apellido2,
         plantel_adscripcion,
         email,
-        rol_proyecto
-        };
 
-   await  pool.query(  'UPDATE   participante  set ? WHERE CVU_TECNM= ? ',[newIntegrante,cvu_tecnm]);
+    };
+
+    await pool.query('UPDATE   participante  set ? WHERE CVU_TECNM= ? ', [newIntegrante, cvu_tecnm]);
     console.log(cvu_tecnm);
 
-   req.flash('success','cambios guardados para '+ cvu_tecnm);
-      res.redirect ('/integrantes');
- });
+    req.flash('success', 'cambios guardados para ' + cvu_tecnm);
+    res.redirect('/integrantes');
+});
 
-module.exports=router;
+module.exports = router;

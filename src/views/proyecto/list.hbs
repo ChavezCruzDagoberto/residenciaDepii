@@ -1,52 +1,52 @@
 <div class="container p-4">
-    <div class="row">
-        
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nombre de la proyecto</th>
-      <th scope="col">modalidad</th>
-      <th scope="col">fecha sometido</th>
-      <th scope="col">fecha dictamen </th>
-      <th scope="col">Financiamiento</th>
-      <th scope="col">responsable</th>
-      <th scope="col">convocatoria </th>
+  <div class="row">
 
-    </tr>
-  </thead>
- 
-  <tbody>
-      {{#each proyectos}}
-    <tr>
-      <th >{{titulo}}</th>
-      <td>{{modalidad}}</td>
-      <td>{{fecha_sometido}}</td>
-      <td >{{fecha_dictamen}}</td>
-      <td>{{clave_financiamiento}}</td>
-      <td>{{nombre}}</td>
-      <td>{{nombre_convocatoria}}</td>
-      <td>{{detalle}}</td>
-    
-      <td><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-danger"> Eliminar</a></td>
-      <td> <a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-secondary">Editar</a></td>
-      <td> <a href="/proyecto/detalle/{{id_proyecto}}" class="btn btn-secondary">Detalle</a></td>
-    
-                   
-    </tr>
-    {{else}}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre de la proyecto</th>
+          <th scope="col">modalidad</th>
+          <th scope="col">fecha sometido</th>
+          <th scope="col">fecha dictamen </th>
+          <th scope="col">Financiamiento</th>
+          <th scope="col">responsable</th>
+          <th scope="col">convocatoria </th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each proyectos}}
+        <tr>
+          <th>{{titulo}}</th>
+          <td>{{modalidad}}</td>
+          <td>{{fecha_sometido}}</td>
+          <td>{{fecha_dictamen}}</td>
+          <td>{{clave_financiamiento}}</td>
+          <td>{{nombre}}</td>
+          <td>{{nombre_convocatoria}}</td>
+          <td>{{detalle}}</td>
+
+          <td><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-danger"> Eliminar</a></td>
+          <td> <a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-secondary">Editar</a></td>
+          <td> <a href="/proyecto/detalle/{{id_proyecto}}" class="btn btn-secondary">Detalle</a></td>
+
+
+        </tr>
+        {{else}}
         <div class="col-m4 mx-auto">
-            <div class="card card-body text-center">
-                <p>NO HAY NINGUNa CONVOCATORIA GUARDADO AUN </p>
-                <a href="/convocatoria/add"> CREAR NUEVO</a>
-            </div>
+          <div class="card card-body text-center">
+            <p>NO HAY NINGUNa CONVOCATORIA GUARDADO AUN </p>
+            <a href="/convocatoria/add"> CREAR NUEVO</a>
+          </div>
         </div>
         {{/each}}
-    
-  </tbody>
-</table>
+
+      </tbody>
+    </table>
 
 
 
 
-    </div>
+  </div>
 </div>

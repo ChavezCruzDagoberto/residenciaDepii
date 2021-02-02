@@ -1,81 +1,98 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 </head>
+
 <body>
 
 </body>
+
 </html>
 
 
 
 <script>
-function deleteRow(id) {document.getE
-    var ultimo=document.getElementById("myTable").rows.length-1;
-    if(ultimo>1){
-       document.getElementById(id).deleteRow(ultimo);
+    function deleteRow(id) {
+        document.getE
+        var ultimo = document.getElementById("myTable").rows.length - 1;
+        if (ultimo > 1) {
+            document.getElementById(id).deleteRow(ultimo);
+        }
     }
-}
 
-function insRow(id) {
-       var filas = document.getElementById("myTable").rows.length;
-       var x = document.getElementById(id).insertRow(filas);
-       var y = x.insertCell(0);
-       var z = x.insertCell(1);
-       y.innerHTML = '<input type="text" id="clave_partida" name="clave_partida" placeholder="Partida presupuestal">' ;
-       z.innerHTML = '<input type="text" id="monto_aprobado" name="monto_aprobado" placeholder="monto Aprobado">';
-}
+    function insRow(id) {
+
+        var filas = document.getElementById("myTable").rows.length;
+        var x = document.getElementById(id).insertRow(filas);
+        var y = x.insertCell(0);
+        var z = x.insertCell(1);
+        y.innerHTML = '<input  type="text" id="clave_partida" name="clave_partida" placeholder="Partida presupuestal">';
+        z.innerHTML = '<input type="text" id="monto_aprobado" name="monto_aprobado" placeholder="monto Aprobado">';
+    }
 </script>
 
 
 <div class="container p-4">
     <div class="row">
         <div class="col-md-4 mx-auto">
-       
-                    <form action="/partida/add" method="POST">
-                    
-                        <div class="form-group">
-                            <h6>Clave de financiamiento</h6>
 
-                        <select name="clave_financiamiento" class="mx-auto" id="selectcvu">
-                            {{#each financiamientos }}
+            <form action="/partida/add" method="POST">
 
-                               <option value={{clave_financiamiento}} required>{{clave_financiamiento}}</option>
+                <div class="form-group">
+                    <h6>Clave de financiamiento</h6>
 
-                            {{/each}}
+                    <select name="clave_financiamiento" class="mx-auto" id="selectcvu">
+                        {{#each financiamientos }}
 
-                        </select>
+                        <option value={{clave_financiamiento}} required>{{clave_financiamiento}}</option>
 
-                        </div>
-                     
+                        {{/each}}
 
-                    
-<table id="myTable" class="table">
-    <thead>
-    <tr>
-      <th scope="col">Partida</th>
-      <th scope="col">Monto</th>
-      
-    </tr>
-  </thead>
-<tr>
-     <td><input type="text" id="clave_partida" name="clave_partida" placeholder="partida presupuestal"></td>
-     <td><input type="text" id="monto_aprobado" name="monto_aprobado" placeholder="monto Aprobado"></td>
-</tr>
+                    </select>
 
-</table>
-     
-    <p>
-<input type="button" onclick="insRow('myTable')" value="agregar nuevo">
-<td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('myTable')"></td>
-</p>
-
-                
-                        <div class="form-group">
-                            <button class="btn btn-success btn-block"> Agregar</button>
-                        </div>
-                    </form>
                 </div>
-            </div>
-        
-</div> 
+
+
+
+                <table id="myTable" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Partida</th>
+                            <th scope="col">Monto</th>
+
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="clave_partida" name="clave_partida"
+                                placeholder="partida presupuestal"></td>
+
+
+
+
+
+
+
+
+
+
+                        <td><input type="text" id="monto_aprobado" name="monto_aprobado" placeholder="monto Aprobado">
+                        </td>
+                    </tr>
+
+                </table>
+
+                <p>
+                    <input type="button" onclick="insRow('myTable')" value="agregar nuevo">
+                    <td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('myTable')"></td>
+                </p>
+
+
+                <div class="form-group">
+                    <button class="btn btn-success btn-block"> Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

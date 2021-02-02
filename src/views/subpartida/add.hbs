@@ -1,72 +1,77 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 </head>
+
 <body>
 
 </body>
+
 </html>
 
 
 
 <script>
-function deleteRow(id) {document.getE
-    var ultimo=document.getElementById("myTable").rows.length-1;
-    if(ultimo>1){
-       document.getElementById(id).deleteRow(ultimo);
+    function deleteRow(id) {
+        document.getE
+        var ultimo = document.getElementById("myTable").rows.length - 1;
+        if (ultimo > 1) {
+            document.getElementById(id).deleteRow(ultimo);
+        }
     }
-}
 
-function insRow(id) {
-       var filas = document.getElementById("myTable").rows.length;
-       var x = document.getElementById(id).insertRow(filas);
-       var y = x.insertCell(0);
-       var z = x.insertCell(1);
-       
-       y.innerHTML = '<input type="text" id="clave_subpartida" name="clave_subpartida" placeholder="Subpartida">' ;
-       z.innerHTML = '<input type="text" id="descripcion" name="descripcion" placeholder="Descripcion ">';
-}
+    function insRow(id) {
+        var filas = document.getElementById("myTable").rows.length;
+        var x = document.getElementById(id).insertRow(filas);
+        var y = x.insertCell(0);
+        var z = x.insertCell(1);
+
+        y.innerHTML = '<input type="text" id="clave_subpartida" name="clave_subpartida" placeholder="Subpartida">';
+        z.innerHTML = '<input type="text" id="descripcion" name="descripcion" placeholder="Descripcion ">';
+    }
 </script>
 
 
 <div class="container p-4">
     <div class="row">
         <div class="col-md-4 mx-auto">
-       
-                    <form action="/subpartida/add" method="POST">
-                    
-                       <div class="form_group">
-                           <input type="text" name="clave_partida" id="" placeholder="clave de la partida" autofocus>
-                       </div>
-                     
 
-                    
-<table id="myTable" class="table">
-    <thead>
-    <tr>
-      <th scope="col">Clave subpartida</th>
-      <th scope="col">Descripcion</th>
-      
-    </tr>
-  </thead>
-<tr>
-     <td><input type="text" id="clave_subpartida" name="clave_subpartida" placeholder="Subpartida"></td>
-     <td><input type="text" id="descripcion" name="descripcion" placeholder="Descripcion "></td>
-</tr>
+            <form action="/subpartida/add" method="POST">
 
-</table>
-     
-    <p>
-<input type="button" onclick="insRow('myTable')" value="agregar nuevo">
-<td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('myTable')"></td>
-</p>
-
-                
-                        <div class="form-group">
-                            <button class="btn btn-success btn-block"> Agregar</button>
-                        </div>
-                    </form>
+                <div class="form_group">
+                    <input type="text" name="clave_partida" id="" placeholder="clave de la partida" autofocus>
                 </div>
-            </div>
-        
-</div> 
+
+
+
+                <table id="myTable" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Clave subpartida</th>
+                            <th scope="col">Descripcion</th>
+
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><input type="text" id="clave_subpartida" name="clave_subpartida" placeholder="Subpartida">
+                        </td>
+                        <td><input type="text" id="descripcion" name="descripcion" placeholder="Descripcion "></td>
+                    </tr>
+
+                </table>
+
+                <p>
+                    <input type="button" onclick="insRow('myTable')" value="agregar nuevo">
+                    <td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('myTable')"></td>
+                </p>
+
+
+                <div class="form-group">
+                    <button class="btn btn-success btn-block"> Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
