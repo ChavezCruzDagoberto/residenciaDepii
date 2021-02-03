@@ -27,8 +27,8 @@ router.post('/add', esAdministrador, async (req, res) => {
     // res.send('recibido');
     req.flash('success', 'agreado correctamente');
 
-    res.render("financiamiento/add");
-    // res.redirect("/integrantes");
+    res.redirect("/financiamiento");
+
 
 });
 

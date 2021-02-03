@@ -1,4 +1,4 @@
-<div class="container p-4">
+<div class=" p-4">
   <div class="row">
 
     <table class="table">
@@ -11,6 +11,9 @@
           <th scope="col">Financiamiento</th>
           <th scope="col">responsable</th>
           <th scope="col">convocatoria </th>
+          <th scope="col">Eliminar</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Saber Mas </th>
 
         </tr>
       </thead>
@@ -25,7 +28,7 @@
           <td>{{clave_financiamiento}}</td>
           <td>{{nombre}}</td>
           <td>{{nombre_convocatoria}}</td>
-          <td>{{detalle}}</td>
+          
 
           <td><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-danger"> Eliminar</a></td>
           <td> <a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-secondary">Editar</a></td>
@@ -36,8 +39,8 @@
         {{else}}
         <div class="col-m4 mx-auto">
           <div class="card card-body text-center">
-            <p>NO HAY NINGUNa CONVOCATORIA GUARDADO AUN </p>
-            <a href="/convocatoria/add"> CREAR NUEVO</a>
+            <p>NO HAY NINGUNA CONVOCATORIA GUARDADO AUN </p>
+            <a href="/proyecto/add"> CREAR NUEVO</a>
           </div>
         </div>
         {{/each}}
