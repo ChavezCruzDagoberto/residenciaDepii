@@ -6,7 +6,7 @@
                     <h3>Cambiar Datos</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/resetPassword" method="POST">
+                    <form name="form1" action="/resetPassword" method="POST" onsubmit="return enviar()">
 
                         <div class="form-group">
                             <input type="text " value="{{user.username}}" name="username" placeholder="nombre usuario"
@@ -20,18 +20,18 @@
 
 
                         <div class="form-group">
-                            <input type="password" name="password_now" class="form-control"
+                            <input type="password" name="password_now" class="form-control" id="pas1"
                                 placeholder="contraseña nueva" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
                         </div>
 
                         <div class="form-group">
-                            <input type="password" name="confirm" class="form-control" placeholder="Confirmar" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
+                            <input type="password" name="confirm" class="form-control" id="pas2" placeholder="Confirmar" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
                         </div>
 
 
 
                         <div class="form-group">
-                            <button class="btn btn-success btn-block">Cambiar</button>
+                            <button class="btn btn-success btn-block" >Cambiar</button>
                         </div>
                     </form>
 
@@ -40,3 +40,20 @@
         </div>
     </div>
 </div>
+
+<script>
+		function enviar(){
+			var clave1=document.getElementById("pas1").value;
+           var  clave2=document.getElementById("pas2").value;
+           console.log(clave1,clave2);
+           if(clave1==clave2){
+               console.log(clave2,clave1);
+               //alert("Enviando el formulario");
+               return true;
+           }else{
+               alert("No coincide la confirmacion de contraseña");
+
+                return false;
+           }
+        }
+</script>

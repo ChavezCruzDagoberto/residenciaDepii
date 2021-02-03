@@ -9,7 +9,7 @@ router.get('/singup',esAdministrador, async (req, res) => {
     const responsables = await conexion.query('SELECT O.cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email FROM participante AS O LEFT JOIN users AS P ON O.cvu_tecnm = P.cvu_tecnm WHERE P.cvu_tecnm IS NULL ');
     if (responsables.length > 0) { res.render('auth/singup', { responsables }); }
     else {
-        req.flash('message', 'todos  tienen cuenta Agrega nuevo');
+        req.flash('message', 'Todos  tienen cuenta agregue un nuevo participante');
 
         res.redirect('integrantes/add');
     }
@@ -95,14 +95,15 @@ router.post('/resetPassword', estaLogueado ,async (req, res) => {
         await conexion.query('UPDATE   users  set ? WHERE id_usuario= ? ', [newDatosUser, user.id_usuario]);
         // console.log(cvu_tecnm);
 
-        req.flash('success', 'cambios guardados para ' + user.id_usuario);
+        req.flash('success', 'Cambios guardados para ' + user.id_usuario);
         req.logOut();
         res.redirect('/signin');
 
 
     } else {
-        req.flash('message', 'algo ha salido mal ');
-        req.redirect('/reset', { user: req.user });
+        req.flash('message', 'Algo ha salido mal intente de nuevo ');
+        res.redirect('/reset');
+        //res.render('auth/resetCuenta', { user :req.user});
 
     }
 
@@ -124,10 +125,10 @@ router.get('/deleteuser/:cvu_tecnm',esAdministrador, async (req, res) => {
     if(cvu_tecnm!=req.user.cvu_tecnm){
 
     await conexion.query('DELETE FROM  users  WHERE CVU_TECNM=?', [cvu_tecnm]);
-    req.flash('success', cvu_tecnm + ' eliminado  correctamente');
+    req.flash('success', cvu_tecnm + ' Eliminado  correctamente');
     res.redirect("/cuentas");
     }else{
-        req.flash('message', ' no puede autoeliminarse esta activo');
+        req.flash('message', ' No puede autoeliminarse esta activo');
     res.redirect("/cuentas");
     }
 
@@ -147,10 +148,10 @@ router.get('/cambiarestado/:cvu_tecnm',esAdministrador, async (req, res) => {
         await conexion.query('UPDATE users SET estado = 1 WHERE cvu_tecnm=?' ,[ cvu_tecnm]);
 
     }
-    req.flash('success', ' se cambio el estado de '+cvu_tecnm);
+    req.flash('success', ' Se modificó el estado de '+cvu_tecnm);
     res.redirect("/cuentas");
     }else{
-        req.flash('message', ' no esta permitido ya que no podra accesar');
+        req.flash('message', ' No esta permitido para este usuario ya que no podra accesar despues');
     res.redirect("/cuentas");
     }
 
