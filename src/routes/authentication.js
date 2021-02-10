@@ -4,7 +4,7 @@ const passport = require('passport');
 const conexion = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 const helpers = require('../lib/helpers');
-
+const { check, validationResult } = require('express-validator');
 
 router.get('/singup', async (req, res) => {
 

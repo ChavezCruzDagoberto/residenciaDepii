@@ -20,7 +20,24 @@ router.get('/add', (req, res) => {
 
 //insertar a la base un integrante nuevo
 
-router.post('/add', async (req, res) => {
+router.post('/add',esAdministrador, 
+[//validacion de los datos que entran del formulario
+    check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().withMessage('Solo Alphanumerico'),
+    check('nombre').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+    check('apellido2').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+    check('apellido1').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+    check('plantel_adscripcion').notEmpty().toUpperCase().withMessage('solo Alphanumerico'),
+    check('email').notEmpty().isEmail().toLowerCase().withMessage('verificar dato email  example@algo.com'),
+]
+,async (req, res) => {
+    const errores=validationResult(req);
+    console.log(errores.array().length);
+    if(errores.array().length>0){
+        
+        return res.status(400).json({errores:errores.array()});
+
+    }else{
+
 
 
     const { cvu_tecnm, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
@@ -66,7 +83,7 @@ router.post('/add', async (req, res) => {
 
   }
 
-
+}
     
 
 });
