@@ -5,7 +5,7 @@ const pool = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador, esLider, tienePermiso } = require('../lib/auth');
 
 //agregar un Responsable
-router.get('/add',esAdministrador , (req, res) => {
+router.get('/add', (req, res) => {
 
     //res.send('Form');
     res.render('integrante/add');
@@ -13,12 +13,9 @@ router.get('/add',esAdministrador , (req, res) => {
 
 
 
-
-
 //insertar a la base un integrante nuevo
-router.post('/add',esAdministrador, async (req, res) => {
+router.post('/add', async (req, res) => {
 
-    
     const { cvu_tecnm, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
     const validacion=await pool.query( 'select * from participante where cvu_tecnm=?',[cvu_tecnm]);
     const validacion1=await pool.query( 'select * from participante where email=?',[email]);
