@@ -61,7 +61,7 @@ body {
   line-height: 1.5;
   color: #174983;
   text-align: left;
-  background-image: url("/images/fondo.jpg");
+  
   
 }
 
@@ -4313,7 +4313,8 @@ input[type="button"].btn-block {
 }
 
 .navbar {
-  position: relative;
+  
+  position: relative ;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;

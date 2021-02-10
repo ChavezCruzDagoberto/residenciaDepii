@@ -5,6 +5,8 @@ const conexion = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 const helpers = require('../lib/helpers');
 
+const {check, validationResult} =require('express-validator');
+
 router.get('/singup',esAdministrador, async (req, res) => {
     const responsables = await conexion.query('SELECT O.cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email FROM participante AS O LEFT JOIN users AS P ON O.cvu_tecnm = P.cvu_tecnm WHERE P.cvu_tecnm IS NULL ');
     if (responsables.length > 0) { res.render('auth/singup', { responsables }); }
@@ -45,10 +47,11 @@ router.get('/signin',noEstaLogueado, (re, res) => {
 router.post('/signin',noEstaLogueado, (req, res, next) => {
 
     passport.authenticate('local.signin', {
-        successRedirect: '/',
+        successRedirect: '/',   
         failureRedirect: '/signin',
         failureFlash: true
     })(req, res, next);
+
 });
 
 /*
@@ -75,7 +78,22 @@ router.get('/reset',estaLogueado, async (req, res) => {
 
 });
 
-router.post('/resetPassword', estaLogueado ,async (req, res) => {
+router.post('/resetPassword', estaLogueado ,
+[//validacion de los datos que entran del formulario
+    check('username').notEmpty().withMessage('El dato username no puede estar vacio'),
+    check('password_now')
+    .notEmpty()
+    .withMessage('ERROR EN EL FORMATO DE PASSWORD   ')
+    .isLength({min: 6}).withMessage('TAMAÑO MINIMO 6'),
+],async (req, res) => {
+
+    const errores =validationResult(req);
+
+    if(!errores.notEmpty){
+        console.log(errores );
+      return res.status(400).json({errors:errores.array()});
+       // res.send("algo ha salido mal");
+    }else{
     const user = req.user;
     const { username, password, password_now } = req.body;
     const validPassword = await helpers.comparePaswsorwd(password, user.password);
@@ -105,7 +123,9 @@ router.post('/resetPassword', estaLogueado ,async (req, res) => {
         res.redirect('/reset');
         //res.render('auth/resetCuenta', { user :req.user});
 
+
     }
+}
 
 
 

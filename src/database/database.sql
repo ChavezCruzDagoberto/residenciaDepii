@@ -1,4 +1,3 @@
-
 CREATE DATABASE residenciap_depi;
 USE residenciap_depi;
 
@@ -44,17 +43,18 @@ nombre varchar(50) not null,
 apellido1 varchar(50) not null,
 apellido2 varchar(50) not null,
 plantel_adscripcion varchar(100) not null,
-email varchar(100) not null
+email varchar(100) not null unique
 );
 
 
 
 create table users(
 id_usuario int(5)  auto_increment primary key,
-username varchar(20) not null,
-  password  varchar(200) not null,
+username varchar(20) not null unique,
+  password  varchar(200) not null unique,
   cvu_tecnm varchar(10) unique,
   rol_sistema varchar(15) ,
+  estado int(1) not null,
  foreign key (cvu_tecnm) references participante(cvu_tecnm)
 );
 
@@ -123,9 +123,13 @@ insert into entregable (nombre,contribucion) values
 
 
 
+
+
+
 create table proyecto_entregable(
 id_proyecto int(10) not null,
 id_entregable int not null,
+cantidad int not null,
 FOREIGN KEY (id_entregable) REFERENCES entregable(id_entregable),
 FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
 primary key(id_proyecto,id_entregable)
@@ -135,48 +139,21 @@ primary key(id_proyecto,id_entregable)
 
 
 
-
-
-
-
-
-
-create table protocolo(
-id_archivo int(5) not null primary key,
-nombre_archivo varchar(10) ,
-url_archivo varchar(200) not null unique,
-anotaciones text ,
-id_proyecto int(10) not null ,
-foreign key (id_proyecto) references proyecto(id_proyecto)
-
-);
-describe protocolo;
-
-
-
-
-create table archivo(
-id_archivo int(5) not null primary key,
-nombre_archivo varchar(10) ,
-url_archivo varchar(200) not null unique,
-anotaciones text ,
-id_informe int(5) ,
-foreign key (id_informe) references informe(id_informe)
-
-);
-describe archivo;
-
-
-create table materiales_servicios(
-idservicio int(5) auto_increment not null primary key,
-monto int(10) not null,
-clave_subpartida int(5) not null,
+create table material_servicio (
+id_material_servicio int not null  auto_increment primary key,
+descripcionms varchar(500)  not null,
 id_proyecto int(10) not null,
-foreign key (id_proyecto) references proyecto(id_proyecto),
-foreign key (clave_subpartida) references detalle_partida(clave_subpartida)
-
+clave_subpartida int(5) not null ,
+monto_solicitado int(8) not null,
+FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
 );
-describe materiales_servicios;
 
 
 
+insert into detalle_partida (clave_partida,clave_subpartida,descripcion) values
+(10000,10001,"productos quimicos de laboratorio"),
+(10000,10002,"adquisicion de tubos de ensayo"),
+(10000,10003,"muestras de residuos peligrosos"),
+(20000,20001,"memorias ram ddr2/ddr3/ddr4"),
+(20000,20002,"usb/discos duros"),
+(20000,20003,"pc laptops"); 

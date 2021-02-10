@@ -4,8 +4,11 @@ const router = express.Router();
 const pool = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador, esLider, tienePermiso } = require('../lib/auth');
 
+//validacion con expressValidator
+const {check, validationResult} =require('express-validator');
+
 //agregar un Responsable
-router.get('/add',esAdministrador , (req, res) => {
+router.get('/add' ,esAdministrador, (req, res) => {
 
     //res.send('Form');
     res.render('integrante/add');
@@ -16,8 +19,23 @@ router.get('/add',esAdministrador , (req, res) => {
 
 
 //insertar a la base un integrante nuevo
-router.post('/add',esAdministrador, async (req, res) => {
+router.post('/add',esAdministrador, 
+[//validacion de los datos que entran del formulario
+    check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().withMessage('Solo Alphanumerico'),
+    check('nombre').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+    check('apellido2').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+    check('apellido1').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+    check('plantel_adscripcion').notEmpty().toUpperCase().withMessage('solo Alphanumerico'),
+    check('email').notEmpty().isEmail().toLowerCase().withMessage('verificar dato email  example@algo.com'),
+]
+,async (req, res) => {
+    const errores=validationResult(req);
+    console.log(errores.array().length);
+    if(errores.array().length>0){
+        
+        return res.status(400).json({errores:errores.array()});
 
+    }else{
     
     const { cvu_tecnm, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
     const validacion=await pool.query( 'select * from participante where cvu_tecnm=?',[cvu_tecnm]);
@@ -30,7 +48,7 @@ router.post('/add',esAdministrador, async (req, res) => {
     
     res.redirect("/integrantes");
 
-
+        return false;   
 
 
   }else{
@@ -62,7 +80,7 @@ router.post('/add',esAdministrador, async (req, res) => {
 
   }
 
-
+}
     
 
 });
