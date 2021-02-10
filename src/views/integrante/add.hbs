@@ -1,11 +1,16 @@
 <div class="container p-4">
     <div class="row">
         <div class="col-md-4 mx-auto">
+            <h1> Agregar participante </h1>
             <div class="card">
+
                 <div class="card-body">
                     <form action="/integrantes/add" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM" autofocus  >
+
+                            <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM" autofocus
+                                required>
+
 
                         </div>
                         <div class="form-group">
@@ -30,7 +35,7 @@
 
 
                         </div>
-    
+
 
                         <div class="form-group">
                             <button class="btn btn-success btn-block"> Agregar</button>

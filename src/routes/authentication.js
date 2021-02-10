@@ -5,9 +5,9 @@ const conexion = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 const helpers = require('../lib/helpers');
 
-const {check, validationResult} =require('express-validator');
 
-router.get('/singup',esAdministrador, async (req, res) => {
+router.get('/singup', async (req, res) => {
+
     const responsables = await conexion.query('SELECT O.cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email FROM participante AS O LEFT JOIN users AS P ON O.cvu_tecnm = P.cvu_tecnm WHERE P.cvu_tecnm IS NULL ');
     if (responsables.length > 0) { res.render('auth/singup', { responsables }); }
     else {
@@ -24,7 +24,7 @@ router.get('/addcapturista', async (req, res) => {
 
 });
 
-router.post('/singup',esAdministrador, (req,res,next)=>{
+router.post('/singup', (req,res,next)=>{
 
     passport.authenticate('local.signup', {
         successRedirect: '/cuentas',
