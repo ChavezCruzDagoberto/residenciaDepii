@@ -5,11 +5,11 @@ const pool = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador, esLider, tienePermiso } = require('../lib/auth');
 
 //validacion con expressValidator
-const {check, validationResult} =require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 //agregar un Responsable
 
-router.get('/add', (req, res) => {
+router.get('/add', esAdministrador, (req, res) => {
 
 
     //res.send('Form');
@@ -20,73 +20,73 @@ router.get('/add', (req, res) => {
 
 //insertar a la base un integrante nuevo
 
-router.post('/add',esAdministrador, 
-[//validacion de los datos que entran del formulario
-    check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().withMessage('Solo Alphanumerico'),
-    check('nombre').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
-    check('apellido2').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
-    check('apellido1').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
-    check('plantel_adscripcion').notEmpty().toUpperCase().withMessage('solo Alphanumerico'),
-    check('email').notEmpty().isEmail().toLowerCase().withMessage('verificar dato email  example@algo.com'),
-]
-,async (req, res) => {
-    const errores=validationResult(req);
-    console.log(errores.array().length);
-    if(errores.array().length>0){
-        
-        return res.status(400).json({errores:errores.array()});
+router.post('/add', esAdministrador,
+    [//validacion de los datos que entran del formulario
+        check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().withMessage('Solo Alphanumerico'),
+        check('nombre').notEmpty().toUpperCase().withMessage('solo Letras'),
+        check('apellido2').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+        check('apellido1').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+        check('plantel_adscripcion').notEmpty().toUpperCase().withMessage('solo Alphanumerico'),
+        check('email').notEmpty().isEmail().toLowerCase().withMessage('verificar dato email  example@algo.com'),
+    ]
+    , async (req, res) => {
+        const errores = validationResult(req);
+        console.log(errores.array());
+        if (errores.array().length > 0) {
 
-    }else{
+            return res.status(400).json({ errores: errores.array() });
 
-
-
-    const { cvu_tecnm, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
-    const validacion=await pool.query( 'select * from participante where cvu_tecnm=?',[cvu_tecnm]);
-    const validacion1=await pool.query( 'select * from participante where email=?',[email]);
- 
-    console.log(validacion,validacion1);
-    if(validacion.length>0){
-        req.flash('message', ' No se pudo registar ya existe el usuario verifique los datos en caso de ser neceario editelo');
-
-    
-    res.redirect("/integrantes");
-
-        return false;   
-
-
-  }else{
-      if(validacion1.length>0){
-        req.flash('message', ' No se pudo registar el correo electronico esta asociado a otro integrante ');
-
-    
-        res.redirect("/integrantes/add");
-
-      }else{
-
-        const newIntegrante = {
-            cvu_tecnm,
-            nombre,
-            apellido1,
-            apellido2,
-            plantel_adscripcion,
-            email
-        };
-        
-        await pool.query('INSERT INTO participante set ?', [newIntegrante]);
-        req.flash('success', 'agreado correctamente');
-        res.redirect("/integrantes");
-
-
-      }
+        } else {
 
 
 
-  }
+            const { cvu_tecnm, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
+            const validacion = await pool.query('select * from participante where cvu_tecnm=?', [cvu_tecnm]);
+            const validacion1 = await pool.query('select * from participante where email=?', [email]);
 
-}
-    
+            console.log(validacion, validacion1);
+            if (validacion.length > 0) {
+                req.flash('message', ' No se pudo registar ya existe el usuario verifique los datos en caso de ser necesario editelo');
 
-});
+
+                res.redirect("/integrantes/add");
+
+                return false;
+
+
+            } else {
+                if (validacion1.length > 0) {
+                    req.flash('message', ' No se pudo registar el correo electronico esta asociado a otro integrante ');
+
+
+                    res.redirect("/integrantes/add");
+
+                } else {
+
+                    const newIntegrante = {
+                        cvu_tecnm,
+                        nombre,
+                        apellido1,
+                        apellido2,
+                        plantel_adscripcion,
+                        email
+                    };
+
+                    await pool.query('INSERT INTO participante set ?', [newIntegrante]);
+                    req.flash('success', 'agreado correctamente');
+                    res.redirect("/integrantes");
+
+
+                }
+
+
+
+            }
+
+        }
+
+
+    });
 
 
 
@@ -131,7 +131,7 @@ router.post('/addColaborador', async (req, res) => {
 
 //listar pro proyecto
 
-router.get('/proyecto/:id_proyecto',estaLogueado, async (req, res) => {
+router.get('/proyecto/:id_proyecto', estaLogueado, async (req, res) => {
     const { id_proyecto } = req.params;
     // console.log(req.params);
 
@@ -146,7 +146,7 @@ router.get('/proyecto/:id_proyecto',estaLogueado, async (req, res) => {
 
 //eliminar un participante de un proyecto
 
-router.get('/proyecto/delete/:cvu_tecnm/:id_proyecto',estaLogueado, async (req, res) => {
+router.get('/proyecto/delete/:cvu_tecnm/:id_proyecto', estaLogueado, async (req, res) => {
     const { cvu_tecnm, id_proyecto } = req.params;
 
 
@@ -204,12 +204,24 @@ router.get('/delete/:cvu_tecnm', async (req, res) => {
 
     const { cvu_tecnm } = req.params;
 
+    if (cvu_tecnm != req.user.cvu_tecnm) {
+        try {
 
-    await pool.query('DELETE FROM  participante  WHERE CVU_TECNM=?', [cvu_tecnm]);
-    console.log(req.params.cvu_tecnm);
-    req.flash('success', cvu_tecnm + ' eliminado  correctamente');
-    res.redirect("/integrantes");
 
+            await pool.query('DELETE FROM  participante  WHERE CVU_TECNM=?', [cvu_tecnm]);
+            console.log(req.params.cvu_tecnm);
+            req.flash('success', cvu_tecnm + ' eliminado  correctamente');
+            res.redirect("/integrantes");
+        } catch (error) {
+            req.flash('message',' no se ha podido eliminar tiene relacion con otros datos importantes');
+            res.redirect("/integrantes");  
+
+        }
+    } else {
+        req.flash('message', 'no puede eliminarse esta activo');
+        res.redirect("/integrantes");
+
+    }
     //ruta de la vista//+ la lista de datos a pasar
     // res.render('links/list',{links});
 });
@@ -234,6 +246,8 @@ router.get('/desactivar/:cvu_tecnm', esAdministrador, async (req, res) => {
 //editar
 router.get('/edit/:cvu_tecnm', async (req, res) => {
 
+
+
     const { cvu_tecnm } = req.params;
 
     const nuevo = await pool.query('SELECT * FROM  participante  WHERE CVU_TECNM=?', [cvu_tecnm]);
@@ -245,25 +259,44 @@ router.get('/edit/:cvu_tecnm', async (req, res) => {
 });
 
 
-router.post('/edit/:cvu_tecnm', async (req, res) => {
+router.post('/edit/:cvu_tecnm',
+    [
+        check('cvu_tecnm1').notEmpty().isAlphanumeric().toUpperCase().withMessage('Solo Alphanumerico'),
+        check('nombre').notEmpty().toUpperCase().withMessage('solo Letras'),
+        check('apellido2').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+        check('apellido1').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
+        check('plantel_adscripcion').notEmpty().toUpperCase().withMessage('solo Alphanumerico'),
+        check('email').notEmpty().isEmail().toLowerCase().withMessage('verificar dato email  example@algo.com'),
+    ], async (req, res) => {
 
-    const { cvu_tecnm } = req.params;
+        const errores = validationResult(req);
+        console.log(errores.array().length);
+        if (errores.array().length > 0) {
 
-    const { nombre, apellido1, apellido2, plantel_adscripcion, email, } = req.body;
-    const newIntegrante = {
-        nombre,
-        apellido1,
-        apellido2,
-        plantel_adscripcion,
-        email,
+            return res.status(400).json({ errores: errores.array() });
 
-    };
+        } else {
 
-    await pool.query('UPDATE   participante  set ? WHERE CVU_TECNM= ? ', [newIntegrante, cvu_tecnm]);
-    console.log(cvu_tecnm);
+            const { cvu_tecnm } = req.params;
 
-    req.flash('success', 'cambios guardados para ' + cvu_tecnm);
-    res.redirect('/integrantes');
-});
+            const { cvu_tecnm1, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
+            const newIntegrante = {
+                cvu_tecnm: cvu_tecnm1,
+                nombre,
+                apellido1,
+                apellido2,
+                plantel_adscripcion,
+                email,
+
+            };
+
+            await pool.query('UPDATE   participante  set ? WHERE CVU_TECNM= ? ', [newIntegrante, cvu_tecnm]);
+            console.log(cvu_tecnm);
+
+            req.flash('success', 'cambios guardados para ' + cvu_tecnm1);
+            res.redirect('/integrantes');
+
+        }
+    });
 
 module.exports = router;

@@ -5,7 +5,12 @@ const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth')
 
 const moment = require('moment');
 
+//validacion con expressValidator
+const { check, validationResult } = require('express-validator');
+
+//fecha en español
 moment.locale('es');
+
 router.get('/add', esAdministrador, (req, res) => {
     console.log(req.user);
     res.render('convocatoria/add');
@@ -14,25 +19,37 @@ router.get('/add', esAdministrador, (req, res) => {
 
 
 
-router.post('/add', esAdministrador, async (req, res) => {
-    const fecha_cierre = req.body.fecha + ' ' + req.body.hora + ':00';
-    const { nombre_convocatoria, anio } = req.body;
+router.post('/add', esAdministrador, [
+    check('nombre_convocatoria').notEmpty().isString().toUpperCase(),
+    check('anio').notEmpty().isNumeric().withMessage("dato de un año "),
+    check('fecha').notEmpty().isDate().withMessage("formato de fecha"),
+],
+    async (req, res) => {
+        const errores = validationResult(req);
+        console.log(errores.array());
+        if (errores.array().length > 0) {
 
-    const newConvocatoria = {
-        nombre_convocatoria,
-        anio,
-        fecha_cierre
-    };
+            return res.status(400).json({ errores: errores.array() });
+
+        } else {
+            const fecha_cierre = req.body.fecha;
+            const { nombre_convocatoria, anio } = req.body;
+
+            const newConvocatoria = {
+                nombre_convocatoria,
+                anio,
+                fecha_cierre
+            };
 
 
-    await conexion.query('INSERT INTO convocatoria set ?', [newConvocatoria]);
-    // res.send('recibido');
-    req.flash('success', 'agreado correctamente');
+            await conexion.query('INSERT INTO convocatoria set ?', [newConvocatoria]);
+            // res.send('recibido');
+            req.flash('success', 'agreado correctamente');
 
-    
-    res.redirect("/convocatoria");
 
-});
+            res.redirect("/convocatoria");
+        }
+    });
 
 
 
@@ -102,23 +119,37 @@ router.get('/edit/:id_convocatoria', esAdministrador, async (req, res) => {
 });
 
 
-router.post('/edit/:id_convocatoria', esAdministrador, async (req, res) => {
+router.post('/edit/:id_convocatoria', esAdministrador,
+    [
+        check('nombre_convocatoria').notEmpty().isString().toUpperCase(),
+        check('anio').notEmpty().isNumeric().withMessage("dato de un año "),
+        check('fecha_cierre').notEmpty().withMessage("formato de fecha"),
+    ], async (req, res) => {
 
-    const { id_convocatoria } = req.params;
+        const errores = validationResult(req);
+        console.log(errores.array());
+        if (errores.array().length > 0) {
 
-    const { nombre_convocatoria, anio, fecha_cierre } = req.body;
-    const newConvocatoria = {
-        nombre_convocatoria,
-        fecha_cierre,
-        anio
-    };
+            return res.status(400).json({ errores: errores.array() });
 
-    await conexion.query('UPDATE   convocatoria  set ? WHERE ID_CONVOCATORIA= ? ', [newConvocatoria, id_convocatoria]);
-    // console.log(cvu_tecnm);
+        } else {
 
-    req.flash('success', 'cambios guardados para ' + id_convocatoria);
-    res.redirect('/convocatoria');
-});
+            const { id_convocatoria } = req.params;
+
+            const { nombre_convocatoria, anio, fecha_cierre } = req.body;
+            const newConvocatoria = {
+                nombre_convocatoria,
+                fecha_cierre,
+                anio
+            };
+
+            await conexion.query('UPDATE   convocatoria  set ? WHERE ID_CONVOCATORIA= ? ', [newConvocatoria, id_convocatoria]);
+            // console.log(cvu_tecnm);
+
+            req.flash('success', 'cambios guardados para ' + id_convocatoria);
+            res.redirect('/convocatoria');
+        }
+    });
 
 
 
