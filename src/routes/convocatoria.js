@@ -55,7 +55,7 @@ router.post('/add', esAdministrador, [
 
 
 //listar de la base de datos
-router.get('/', async (req, res) => {
+router.get('/',estaLogueado, async (req, res) => {
 
     let convocatorias = await conexion.query('SELECT * FROM  convocatoria ');
     let con_editado = [];

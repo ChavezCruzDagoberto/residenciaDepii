@@ -23,7 +23,7 @@
 
             <th>{{clave_financiamiento}}</th>
             <td>{{clave_partida}}</td>
-            <td><input type="text" value={{monto_aprobado}} name="monto_aprobado"></td>
+            <td><input type="text" value={{monto_aprobado}}  pattern="[0-9]+" name="monto_aprobado" required></td>
 
             <td><a href="/partida/delete/{{clave_financiamiento}}/{{clave_partida}}" class="btn btn-danger">
                 Eliminar</a></td>

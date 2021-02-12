@@ -3,6 +3,10 @@ const moment = require('moment');
 const router = express.Router();
 const conexion = require('../database');
 
+//validacion con expressValidator
+const { check, validationResult } = require('express-validator');
+
+
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 
 router.get('/add', esAdministrador,async (req, res) => {
@@ -16,11 +20,28 @@ router.get('/add', esAdministrador,async (req, res) => {
 
 //agrega el financiamiento junto con las partidas que le corresponen al financiamiento
 //las partidas existentes son extraidos de detalle_partida
-router.post('/add', esAdministrador, async (req, res) => {
+router.post('/add', esAdministrador,  [
+    check('clave_financiamiento').notEmpty().isAlphanumeric().toUpperCase(),
+    check('clave_partida').notEmpty().withMessage('no se acepta vacio'),
+    check('monto_aprobado').notEmpty().withMessage('no se acepta vacio'),
+    check('vigencia_fin').notEmpty().isDate().withMessage("formato de fecha"),
+    check('vigencia_inicio').notEmpty().isDate().withMessage("formato de fecha"),
+],async (req, res) => {
+    const errores = validationResult(req);
+        console.log(errores.array());
+        if (errores.array().length > 0) {
 
-    console.log(req.body);
+            return res.status(400).json({ errores: errores.array() });
+
+        } else {
     
     const { clave_financiamiento, vigencia_inicio, vigencia_fin ,clave_partida,monto_aprobado} = req.body;
+    const validacion=await conexion.query('select * from financiamiento where clave_financiamiento= ?',[clave_financiamiento]);
+    if(validacion.length>0){
+        req.flash('message','ya existe un financiamiento con esa clave intente con una nueva');
+        res.redirect('/financiamiento/add');
+    }else{
+    
     const newFinanciamiento = {
         clave_financiamiento,
         vigencia_inicio,
@@ -69,8 +90,8 @@ router.post('/add', esAdministrador, async (req, res) => {
     req.flash('success', 'agreado correctamente');
 
     res.redirect("/financiamiento");
-
-
+    }
+        }
 });
 
 

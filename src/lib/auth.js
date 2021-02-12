@@ -54,7 +54,7 @@ module.exports = {
             if (rol_sistema == 'Responsable') {
                 return next();
             } else {
-                req.flash('success', 'No tiene permiso para este dato');
+                req.flash('message', 'No tiene permiso para este dato');
                 return res.redirect('/');
             }
 

@@ -60,12 +60,6 @@ username varchar(20) not null unique,
 
 describe users;
 
--- para eliminacion de un participante con su usuario si ya existe--
-ALTER TABLE users 
-ADD  CONSTRAINT FK_cvu_tecnm_cvu_tecnm FOREIGN KEY(cvu_tecnm)
-REFERENCES participante (cvu_tecnm) 
-ON DELETE CASCADE;
-
 
 
 

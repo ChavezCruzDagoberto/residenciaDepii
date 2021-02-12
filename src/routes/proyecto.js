@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const conexion = require('../database');
-const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
+const { estaLogueado, noEstaLogueado, esAdministrador, esLider } = require('../lib/auth');
 
 
 const moment = require('moment');
@@ -37,7 +37,7 @@ router.get('/add', estaLogueado, async (req, res) => {
 
 
 
-router.post('/add', estaLogueado, async (req, res) => {
+router.post('/add', esLider, async (req, res) => {
 
 
   //validar si ese usuario tiene un proyecto activo
@@ -51,8 +51,8 @@ router.post('/add', estaLogueado, async (req, res) => {
     const validaconvocatoria = await conexion.query('select * from proyecto WHERE  id_convocatoria=?', [req.body.id_convocatoria]);
     if (validacion.length > 0 && validaconvocatoria.length == 0) {
       const cvu_tecnm = req.user.cvu_tecnm;
-      const fecha_sometido = req.body.fecha_sometido + ' ' + req.body.hora_s + ':00';
-      const fecha_dictamen = req.body.fecha_dictamen + ' ' + req.body.hora_d + ':00';
+      const fecha_sometido = req.body.fecha_sometido ;
+      const fecha_dictamen = req.body.fecha_dictamen ;
 
       const { titulo, modalidad, id_convocatoria } = req.body;
 

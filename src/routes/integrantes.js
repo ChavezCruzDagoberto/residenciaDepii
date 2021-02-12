@@ -170,7 +170,7 @@ router.get('/proyecto/delete/:cvu_tecnm/:id_proyecto', estaLogueado, async (req,
 
 
 //listar de la base de datos
-router.get('/', async (req, res) => {
+router.get('/', esAdministrador, async (req, res) => {
 
     const integrantes = await pool.query('SELECT * FROM  participante  ');
     // console.log(integrantes);
