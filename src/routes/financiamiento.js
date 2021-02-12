@@ -5,26 +5,67 @@ const conexion = require('../database');
 
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 
-router.get('/add', esAdministrador, (req, res) => {
+router.get('/add', esAdministrador,async (req, res) => {
 
-    console.log(req.user);
-    res.render('financiamiento/add');
+
+    var consulta = await conexion.query('select distinct clave_partida from detalle_partida');
+    console.log(consulta);
+    res.render('financiamiento/add', {partidas:consulta});
 });
 
 
-
+//agrega el financiamiento junto con las partidas que le corresponen al financiamiento
+//las partidas existentes son extraidos de detalle_partida
 router.post('/add', esAdministrador, async (req, res) => {
 
-    const { clave_financiamiento, vigencia_inicio, vigencia_fin } = req.body;
+    console.log(req.body);
+    
+    const { clave_financiamiento, vigencia_inicio, vigencia_fin ,clave_partida,monto_aprobado} = req.body;
     const newFinanciamiento = {
         clave_financiamiento,
         vigencia_inicio,
         vigencia_fin
     };
-
-
+   
+    
     await conexion.query('INSERT INTO financiamiento set ?', [newFinanciamiento]);
-    // res.send('recibido');
+
+    if(clave_partida!=null && monto_aprobado!=null)
+    {
+        if (Array.isArray(clave_partida) && Array.isArray(monto_aprobado)) {
+       
+
+            for (const p in clave_partida) {
+                const newPartida = {
+                  clave_financiamiento,
+                  clave_partida: clave_partida[p],
+          
+                  monto_aprobado: monto_aprobado[p],
+          
+          
+                }   
+                //insertar
+                await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida]);
+          
+          
+              }
+    
+        }else{
+    
+            const newPartida1 = {
+                clave_financiamiento,
+                clave_partida,
+                monto_aprobado
+              }
+              await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida1]);
+          
+        }
+
+
+
+    }
+
+
     req.flash('success', 'agreado correctamente');
 
     res.redirect("/financiamiento");
@@ -32,6 +73,15 @@ router.post('/add', esAdministrador, async (req, res) => {
 
 });
 
+
+//listar un financiamiento especifico con sus partidas correspondientes
+
+router.get('/partidas/:clave_financiamiento', esAdministrador, async (req, res) => {
+const {clave_financiamiento}=req.params;
+    const fin_partidas = await conexion.query('select * from financiamiento natural join  financiamiento_partida where clave_financiamiento=?',[clave_financiamiento]);
+res.render('partida/list',{partidas:fin_partidas,financiamiento:clave_financiamiento});
+console.log(fin_partidas);
+});
 
 
 

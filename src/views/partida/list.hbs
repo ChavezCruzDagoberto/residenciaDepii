@@ -1,4 +1,10 @@
 <div class="container p-4">
+  
+  {{#if partidas}}
+
+ <a href="/partida/add/{{financiamiento}}" class="btn btn-success"> Agregar Mas partidas</a>
+{{/if}}
+
   <div class="row">
 
     <table class="table">
@@ -28,11 +34,14 @@
 
           </tr>
         </form>
+
+
         {{else}}
         <div class="col-m4 mx-auto">
           <div class="card card-body text-center">
-            <p>NO HAY NINGUNa Partida GUARDADO AUN </p>
-            <a href="/partida/add"> CREAR NUEVO</a>
+
+            <p>NO HAY NINGUNA Partida GUARDADO AUN </p>
+            <a href="/partida/add/{{financiamiento}}"> CREAR NUEVO</a>
           </div>
         </div>
         {{/each}}

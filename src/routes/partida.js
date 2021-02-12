@@ -9,10 +9,69 @@ router.get('/add', async (req, res) => {
   const financiamientos = await conexion.query('select * from financiamiento');
   const partidas = await conexion.query('select * from detalle_partida');
   res.render('partida/add', { financiamientos, partidas })
+  
+
+});
+
+router.get('/add/:clave_financiamiento', async (req, res) => {
+const {clave_financiamiento}=req.params;
+  const partidas=await conexion.query('select a.clave_partida from (select distinct clave_partida from detalle_partida)as a left join(select clave_partida from financiamiento_partida where clave_financiamiento = ? )as b on a.clave_partida=b.clave_partida where b.clave_partida is null',[clave_financiamiento]);
+  console.log('partidas',partidas.length  );
+if(partidas.length>0){
+  res.render('partida/add_financiamiento',{partidas:partidas,clave:clave_financiamiento})
+}else{
+  req.flash('message' ,'ha agregado las partidas existentes');
+  res.redirect('/financiamiento/partidas/'+clave_financiamiento);}
 
 });
 
 
+router.post('/add/a', async (req, res) => {
+  const { clave_financiamiento,clave_partida,monto_aprobado} = req.body;
+  console.log(req.body);
+  
+  if(clave_partida!=null && monto_aprobado!=null)
+    {
+        if (Array.isArray(clave_partida) && Array.isArray(monto_aprobado)) {
+       
+
+            for (const p in clave_partida) {
+                const newPartida = {
+                  clave_financiamiento,
+                  clave_partida: clave_partida[p],
+          
+                  monto_aprobado: monto_aprobado[p],
+          
+          
+                }   
+                //insertar
+                await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida]);
+          
+          
+              }
+    
+        }else{
+    
+            const newPartida1 = {
+                clave_financiamiento,
+                clave_partida,
+                monto_aprobado
+              }
+              await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida1]);
+          
+        }
+
+
+
+    }
+
+    req.flash('success', 'agreado correctamente');
+
+    res.redirect("/financiamiento/partidas/"+clave_financiamiento);
+
+
+
+  });
 
 router.post('/add', async (req, res) => {
 
@@ -31,7 +90,7 @@ router.post('/add', async (req, res) => {
         monto_aprobado: monto_aprobado[p],
 
 
-      }
+      }   
       //insertar
       await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida]);
 
@@ -41,12 +100,12 @@ router.post('/add', async (req, res) => {
 
   } else {
 
-    const newPartida1 = {
-      clave_financiamiento,
-      clave_partida,
-      monto_aprobado
-    }
-    await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida1]);
+      const newPartida1 = {
+        clave_financiamiento,
+        clave_partida,
+        monto_aprobado
+      }
+      await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida1]);
 
   }
 
@@ -78,7 +137,7 @@ router.get('/delete/:clave_financiamiento/:clave_partida', esAdministrador, asyn
   await conexion.query('DELETE FROM  financiamiento_partida  WHERE CLAVE_FINANCIAMIENTO=? && CLAVE_PARTIDA=?', [clave_financiamiento, clave_partida]);
   //console.log(req.params.id_convocatoria);
   req.flash('success', ' eliminado  correctamente');
-  res.redirect("/partida");
+  res.redirect("/financiamiento/partidas/"+clave_financiamiento);
 
 });
 
@@ -105,7 +164,7 @@ router.post('/edit/:clave_financiamiento/:clave_partida', esAdministrador, async
   await conexion.query('UPDATE   financiamiento_partida  set ? WHERE CLAVE_FINANCIAMIENTO= ?  && CLAVE_PARTIDA=?', [newPartida, clave_financiamiento, clave_partida]);
   //console.log(newFinanciamiento);
   req.flash('success', 'cambios guardados para ');
-  res.redirect('/partida');
+  res.redirect('/financiamiento/partidas/'+clave_financiamiento);
 });
 
 

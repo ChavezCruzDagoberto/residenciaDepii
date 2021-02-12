@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-</head>
-
-<body>
-
-</body>
-
-</html>
 
 
 
@@ -27,8 +17,8 @@
         var y = x.insertCell(0);
         var z = x.insertCell(1);
 
-        y.innerHTML = '<input type="text" id="clave_subpartida" name="clave_subpartida" placeholder="Subpartida">';
-        z.innerHTML = '<input type="text" id="descripcion" name="descripcion" placeholder="Descripcion ">';
+        y.innerHTML = '<input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida" placeholder="Subpartida">';
+        z.innerHTML = '<input type="text" id="descripcion" class="form-control" name="descripcion" placeholder="Descripcion ">';
     }
 </script>
 
@@ -40,7 +30,7 @@
             <form action="/subpartida/add" method="POST">
 
                 <div class="form_group">
-                    <input type="text" name="clave_partida" id="" placeholder="clave de la partida" autofocus>
+                    <input type="text" name="clave_partida" class="form-control" id="" placeholder="clave de la partida" autofocus>
                 </div>
 
 
@@ -54,9 +44,9 @@
                         </tr>
                     </thead>
                     <tr>
-                        <td><input type="text" id="clave_subpartida" name="clave_subpartida" placeholder="Subpartida">
+                        <td><input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida" placeholder="Subpartida">
                         </td>
-                        <td><input type="text" id="descripcion" name="descripcion" placeholder="Descripcion "></td>
+                        <td><input type="text" id="descripcion"  class="form-control" name="descripcion" placeholder="Descripcion "></td>
                     </tr>
 
                 </table>

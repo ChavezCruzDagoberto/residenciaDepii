@@ -1,39 +1,20 @@
+
+
+
+
 <div class="container p-4">
     <div class="row">
         <div class=" mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="/financiamiento/add" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="clave_financiamiento"
-                                placeholder="clave de financiamiento" autofocus required>
-
-                        </div>
-
-
-                        <div class="form-group">
-                            FECHA DE INICIO
-                            <input type="date" name="vigencia_inicio" required />
-                            <!-- Campo de entrada de hora -->
-
-
-                        </div>
-
-                        <div class="form-group">
-                            FECHA DE EXPIRACION
-                            <script> var date = new Date();</script>
-                            <input type="date" name="vigencia_fin" required />
-                            <!-- Campo de entrada de hora -->
-
-
-                        </div>
-
-                        <select hidden id="clave_partida">
+                    <form action="/partida/add/a" method="POST">
+                        
+                        <input type="hidden" name="clave_financiamiento" value="{{clave}}">
+                         <select hidden id="clave_partida">
                             {{#each partidas}}
                             <option value="{{clave_partida}}">{{clave_partida}}</option>
                             {{/each}}
                         </select>
-
 
                         <div class="mx-auto">
                             <!-- Contenedor -->
@@ -75,16 +56,13 @@
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-success btn-block" onclick="leer()"> Agregar</button>
+                            <button class="btn btn-success btn-block"  id="botonenviar" onclick="leer()" disabled> Agregar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 
 
 
@@ -106,7 +84,7 @@
                 options.push(inicio.options[i].value);
 
             }
-            //console.log(inicio.length);
+            console.log('opt',options.length);
 
         }
 
@@ -120,11 +98,15 @@
         }
 
         function agregar(obj) {
-                var inicio = document.getElementById('clave_partida');
+     var inicio = document.getElementById('clave_partida');
+
             if (incremento == 0) {
                 cargarPartidas();
             }
+            console.log(incremento,inicio.length);
             if (incremento < inicio.length) {
+                     var boton = document.getElementById('botonenviar');
+                     boton.removeAttribute("disabled");
 
 
                 incremento++;
