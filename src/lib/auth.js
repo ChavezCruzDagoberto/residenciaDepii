@@ -18,7 +18,7 @@ module.exports = {
             return next();
         } else {
 
-            return res.redirect('/');
+            return res.redirect('back');
 
         }
 
@@ -33,7 +33,7 @@ module.exports = {
                 return next();
             } else {
                 req.flash('success', 'No tiene permiso para este dato');
-                return res.redirect('/');
+                return res.redirect('back');
             }
 
         } else {
@@ -55,7 +55,7 @@ module.exports = {
                 return next();
             } else {
                 req.flash('message', 'No tiene permiso para este dato');
-                return res.redirect('/');
+                return res.redirect('back');
             }
 
         } else {
@@ -74,7 +74,7 @@ module.exports = {
                 return next();
             } else {
                 req.flash('success', 'No tiene permiso para este dato');
-                return res.redirect('/');
+                return res.redirect('back');
             }
 
         } else {

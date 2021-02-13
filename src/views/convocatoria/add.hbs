@@ -11,14 +11,14 @@
                         </div>
                         <div class="form-group">
 
-                            <input type="text" class="form-control" name="anio" placeholder="Año" pattern="[0-9]{4}" required>
+                            <input type="text" class="form-control" name="anio" placeholder="Año"  id="año" pattern="[0-9]{4}" required>
 
 
                         </div>
 
                         <div class="form-group">
                                 <h6>Fecha  y hora de cierre</h6>
-                            <input type="date" name="fecha"   required/>
+                            <input type="date" name="fecha" id="fechaC"  required/>
                                     
                         </div>
 
@@ -33,3 +33,21 @@
         </div>
     </div>
 </div>
+<script>
+      
+      window.onload = load;
+      
+    var fecha = new Date();
+var ano = fecha.getFullYear();
+
+      function load() {
+    var year = document.getElementById("año");
+        
+   
+
+year.value=ano;
+
+
+      }
+      
+    </script>

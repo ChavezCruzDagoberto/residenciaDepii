@@ -151,3 +151,5 @@ insert into detalle_partida (clave_partida,clave_subpartida,descripcion) values
 (20000,20001,"memorias ram ddr2/ddr3/ddr4"),
 (20000,20002,"usb/discos duros"),
 (20000,20003,"pc laptops"); 
+
+ALTER TABLE proyecto add creado date not null;

@@ -13,7 +13,7 @@
 
                         <div class="form-group">
                             FECHA DE INICIO
-                            <input type="date" name="vigencia_inicio" required />
+                            <input type="date" name="vigencia_inicio" id="inicio" required />
                             <!-- Campo de entrada de hora -->
 
 
@@ -22,7 +22,7 @@
                         <div class="form-group">
                             FECHA DE EXPIRACION
                             <script> var date = new Date();</script>
-                            <input type="date" name="vigencia_fin" required />
+                            <input type="date" name="vigencia_fin" id="fin" required />
                             <!-- Campo de entrada de hora -->
 
 
@@ -193,6 +193,8 @@
         }
 
 
+
+
         //Lo que se hará cuando se presione el boton de Borrar
         function borrar(obj) {
             //console.log(options);
@@ -230,6 +232,14 @@
 
 
         }
+   
+   document.getElementById("inicio").onchange = function ()
+{
+  var input = document.getElementById("fin");
+  input.min = this.value;
+}
+   
+   
     </script>
     <footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
