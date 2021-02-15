@@ -246,35 +246,21 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
 });
 
 
-/*
-
- router.get('/detalle/:id_proyecto',estaLogueado ,async (req,res)=>{
-    
-  const {id_proyecto}=req.params;
-  
- const proyecto= await  conexion.query(  'SELECT * FROM  proyecto  WHERE id_proyecto=?',[id_proyecto]);
- 
-
-console.log(proyecto[0]);
-
-  
-
-    res.render('layouts/proyecto',{proyecto: proyecto[0]});
-    //res.send("recibido");
-});
-
-*/
 
 
-router.get('/detalle/:id_proyecto', estaLogueado, async (req, res) => {
+router.get('/detalle/:id_proyecto', estaLogueado, 
+async (req, res,next) => {
 
   const { id_proyecto } = req.params;
 
+ 
 
   const proyecto = await conexion.query('SELECT * FROM  proyecto  WHERE id_proyecto=?', [id_proyecto]);
+  req.app.locals.proyecto=proyecto[0];
 
   const usuario = req.user.rol_sistema;
-  //console.log(usuario);
+ 
+console.log('proyecto',req.app.locals);
 
   if (usuario == 'Administrador') {
     res.render('layouts/proyecto', { proyecto: proyecto[0] });
@@ -282,8 +268,9 @@ router.get('/detalle/:id_proyecto', estaLogueado, async (req, res) => {
 
     res.render('layouts/proyecto_responsable', { proyecto: proyecto[0] });
   }
+  
   //res.send("recibido");
-});
+  });
 
 
 
