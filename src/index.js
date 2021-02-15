@@ -60,7 +60,7 @@ app.use((req, res, next) => {
   app.locals.message = req.flash('message');
   app.locals.user = req.user;
   app.locals.menu = req.flash('menu');
-  app.locals.proyecto ;
+  app.locals.proyectodisponible ;
 
   next()
 });

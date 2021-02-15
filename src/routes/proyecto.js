@@ -22,6 +22,8 @@ router.get('/add', esLider, async (req, res) => {
 
 
 
+
+
 router.post('/add', esLider, async (req, res) => {
 
 
@@ -96,7 +98,7 @@ router.post('/add', esLider, async (req, res) => {
 //listar de la base de datos
 router.get('/', estaLogueado, async (req, res) => {
   
-
+req.app.locals.proyectodisponible=null;
   
    
 
@@ -249,14 +251,14 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
 
 
 router.get('/detalle/:id_proyecto', estaLogueado, 
-async (req, res,next) => {
+async (req, res) => {
 
   const { id_proyecto } = req.params;
 
  
 
   const proyecto = await conexion.query('SELECT * FROM  proyecto  WHERE id_proyecto=?', [id_proyecto]);
-  req.app.locals.proyecto=proyecto[0];
+  req.app.locals.proyectodisponible=proyecto[0];
 
   const usuario = req.user.rol_sistema;
  
@@ -271,6 +273,17 @@ console.log('proyecto',req.app.locals);
   
   //res.send("recibido");
   });
+
+
+
+
+  router.get('/regresar', esLider, async (req, res) => {
+   req.app.locals.proyectodisponible=null;
+
+    res.redirect('/' );
+   
+  });
+
 
 
 
