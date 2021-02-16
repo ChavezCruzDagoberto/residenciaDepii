@@ -45,7 +45,7 @@ const upload = multer({ storage });
 router.get('/add/:id_proyecto', async (req, res) => {
     const cvu_tecnm = req.user.cvu_tecnm;
     const { id_proyecto } = req.params;
-    nombre = await conexion.query('select titulo from proyecto where id_proyecto=? and cvu_tecnm=?', [id_proyecto, cvu_tecnm]);
+    nombre = await conexion.query('select titulo from proyecto where id_proyecto=? ', [id_proyecto]);
 
 
     if (nombre.length > 0) {

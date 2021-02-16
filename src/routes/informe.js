@@ -21,10 +21,18 @@ router.get('/add', estaLogueado, async (req, res) => {
 
   proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM= ? and ESTADO=1 ', [cvu_tecnm]);
 
+  
 
   console.log(proyecto);
   if (proyecto.length > 0) {
-    res.render('proyecto/informe/add', { proyecto });
+    var no_informe=await conexion.query('select * from informe where id_proyecto=?',[proyecto[0].id_proyecto]);
+    if(no_informe.length>0){
+      req.flash("message",'ya tiene informes agregados');
+    res.redirect('/informe/mostrar/'+proyecto[0].id_proyecto);
+    }else{
+    req.flash("message",'solo 1 vez puede agregar sus fechas de informe');
+    res.render('proyecto/informe/add', { proyecto ,message: req.flash("message")});
+    }
   } else { res.send('usted no tiene ningun proyecto activo'); }
 
 
@@ -35,10 +43,10 @@ router.get('/add', estaLogueado, async (req, res) => {
 router.post('/add', estaLogueado, async (req, res) => {
 
 
-  const { id_proyecto } = req.body;
-  const { no_informe } = req.body;
-  const { fecha_inicio } = req.body;
-  const { fecha_fin } = req.body;
+  console.log(req.body);
+  const { id_proyecto,no_informe,fecha_inicio,fecha_fin } = req.body;
+
+  
 
 
 
@@ -75,8 +83,7 @@ router.post('/add', estaLogueado, async (req, res) => {
   req.flash('success', 'agreado correctamente');
 
   //res.render("subpartida/add");
-  res.redirect("/informe");
-
+  res.redirect("/informe/mostrar/"+id_proyecto);
 
 
 
@@ -166,14 +173,15 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
 
 
 //ELIMINAR
-router.get('/delete/:id_informe', esAdministrador, async (req, res) => {
+router.get('/delete/:id_informe'  , async (req, res) => {
 
   const { id_informe } = req.params;
   //console.log(id_informe);
+  valor= await conexion.query('select * from informe where id_informe= ?',[id_informe]);
   await conexion.query('DELETE FROM  informe  WHERE ID_INFORME=?', [id_informe]);
   //console.log(req.params.id_convocatoria);
   req.flash('success', id_informe + ' eliminado  correctamente');
-  res.redirect("/informe");
+  res.redirect("/informe/mostrar/"+valor[0].id_proyecto);
 
 });
 
