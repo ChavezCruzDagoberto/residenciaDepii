@@ -1,7 +1,3 @@
-
-
-
-
 <script>
     function deleteRow(id) {
         document.getE
@@ -17,51 +13,66 @@
         var y = x.insertCell(0);
         var z = x.insertCell(1);
 
-        y.innerHTML = '<input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida" placeholder="Subpartida">';
-        z.innerHTML = '<input type="text" id="descripcion" class="form-control" name="descripcion" placeholder="Descripcion ">';
+        y.innerHTML = '<input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida" placeholder="Subpartida" required>';
+        z.innerHTML = '<input type="text" id="descripcion" class="form-control" name="descripcion" placeholder="Descripcion " required>';
     }
 </script>
 
+<div class="main" id="contenido">
+    <div class="container p-4">
+        <div class="row">
+            <div class=" mx-auto">
 
-<div class="container p-4">
-    <div class="row">
-        <div class="col-md-4 mx-auto">
+                <form action="/subpartida/add" method="POST">
 
-            <form action="/subpartida/add" method="POST">
-
-                <div class="form_group">
-                    <input type="text" name="clave_partida" class="form-control" id="" placeholder="clave de la partida" autofocus>
-                </div>
-
-
-
-                <table id="myTable" class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Clave subpartida</th>
-                            <th scope="col">Descripcion</th>
-
-                        </tr>
-                    </thead>
-                    <tr>
-                        <td><input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida" placeholder="Subpartida">
-                        </td>
-                        <td><input type="text" id="descripcion"  class="form-control" name="descripcion" placeholder="Descripcion "></td>
-                    </tr>
-
-                </table>
-
+                    <div class="form_group">
+                        <input type="text" name="clave_partida" class="form-control" id=""
+                            placeholder="clave de la partida" required autofocus>
+                    </div>
                 <p>
-                    <input type="button" onclick="insRow('myTable')" value="agregar nuevo">
-                    <td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('myTable')"></td>
-                </p>
+                    
+                        <div class="form-group">
+                                                <label for="state_id" class="control-label">Agregar </label>
+                                                <!-- Boton Agregar -->
+                                                <input class="btn btn-secondary btn-sm" type="button"
+                                                    title="Agregar Producto" Value="+" onclick="insRow('myTable')">
+                                                <!-- Boton Borrar -->
+                                                <input class="btn btn-secondary btn-sm" type="button"
+                                                    title="Borrar Producto" Value="-" onclick="deleteRow('myTable')">
+                                                
 
 
-                <div class="form-group">
-                    <button class="btn btn-success btn-block"> Agregar</button>
-                </div>
-            </form>
+                                            </div>  
+                    </p>
+
+
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Clave subpartida</th>
+                                <th scope="col">Descripcion</th>
+
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td><input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida"
+                                    placeholder="Subpartida" required>
+                            </td>
+                            <td><input type="text" id="descripcion" class="form-control" name="descripcion"
+                                    placeholder="Descripcion " required></td>
+                        </tr>
+
+                    </table>
+
+                    
+
+
+                    <div class=" col-md-4 form-group" "mx-auto">
+                        <button class="btn btn-success btn-block"> Agregar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
+    </div>
 </div>

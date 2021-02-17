@@ -262,7 +262,7 @@ async (req, res) => {
 
   const usuario = req.user.rol_sistema;
  
-console.log('proyecto',req.app.locals);
+console.log(req.app.locals);
 
   if (usuario == 'Administrador') {
     res.render('layouts/proyecto', { proyecto: proyecto[0] });

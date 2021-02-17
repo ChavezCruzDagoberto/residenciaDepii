@@ -62,6 +62,9 @@ res.render('profile');
     });*/
 
 router.get('/logout', estaLogueado, (req, res) => {
+    req.app.locals.lider=null;
+    req.app.locals.admin=null;
+    req.app.locals.proyectodisponible=null;
     req.logOut();
     res.redirect('/signin');
 

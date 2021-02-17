@@ -1,55 +1,57 @@
-<div class=" p-4">
-  <div class="row">
+<div class="main" id="contenido">
+  <div class=" p-4">
+    <div class="row">
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Nombre de la proyecto</th>
-          <th scope="col">modalidad</th>
-          <th scope="col">fecha sometido</th>
-          <th scope="col">fecha dictamen </th>
-          <th scope="col">Financiamiento</th>
-          <th scope="col">responsable</th>
-          <th scope="col">convocatoria </th>
-          <th scope="col">Eliminar</th>
-          <th scope="col">Editar</th>
-          <th scope="col">Saber Mas </th>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre de la proyecto</th>
+            <th scope="col">modalidad</th>
+            <th scope="col">fecha sometido</th>
+            <th scope="col">fecha dictamen </th>
+            <th scope="col">Financiamiento</th>
+            <th scope="col">responsable</th>
+            <th scope="col">convocatoria </th>
+            <th scope="col">Eliminar</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Saber Mas </th>
 
-        </tr>
-      </thead>
+          </tr>
+        </thead>
 
-      <tbody>
-        {{#each proyectos}}
-        <tr>
-          <th>{{titulo}}</th>
-          <td>{{modalidad}}</td>
-          <td>{{fecha_sometido}}</td>
-          <td>{{fecha_dictamen}}</td>
-          <td>{{clave_financiamiento}}</td>
-          <td>{{nombre}}</td>
-          <td>{{nombre_convocatoria}}</td>
-          
-
-          <td><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-danger"> Eliminar</a></td>
-          <td> <a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-secondary">Editar</a></td>
-          <td> <a href="/proyecto/detalle/{{id_proyecto}}" class="btn btn-secondary">Detalle</a></td>
+        <tbody>
+          {{#each proyectos}}
+          <tr>
+            <th>{{titulo}}</th>
+            <td>{{modalidad}}</td>
+            <td>{{fecha_sometido}}</td>
+            <td>{{fecha_dictamen}}</td>
+            <td>{{clave_financiamiento}}</td>
+            <td>{{nombre}}</td>
+            <td>{{nombre_convocatoria}}</td>
 
 
-        </tr>
-        {{else}}
-        <div class="col-m4 mx-auto">
-          <div class="card card-body text-center">
-            <p>NO HAY NINGUNA CONVOCATORIA GUARDADO AUN </p>
-            <a href="/proyecto/add"> CREAR NUEVO</a>
+            <td><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-danger"> Eliminar</a></td>
+            <td> <a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-secondary">Editar</a></td>
+            <td> <a href="/proyecto/detalle/{{id_proyecto}}" class="btn btn-secondary">Detalle</a></td>
+
+
+          </tr>
+          {{else}}
+          <div class="col-m4 mx-auto">
+            <div class="card card-body text-center">
+              <p>NO HAY NINGUNA CONVOCATORIA GUARDADO AUN </p>
+              <a href="/proyecto/add"> CREAR NUEVO</a>
+            </div>
           </div>
-        </div>
-        {{/each}}
+          {{/each}}
 
-      </tbody>
-    </table>
-
+        </tbody>
+      </table>
 
 
 
+
+    </div>
   </div>
 </div>

@@ -11,14 +11,12 @@
       <ul class="navbar-nav ml-auto">
 
         {{#if user }}
-        
+
 
         <li class="nav-item">
-          <a href="/logout" class="nav-link"> salir</a>
+          <a href="/logout" class="nav-link"> salir {{user.username}}</a>
         </li>
-        <li class="nav-link">
-          {{user.username}}
-        </li>
+        
 
         {{else}}
         <li class="nav-item">
@@ -37,14 +35,68 @@
 {{#if user}}
 
 <div class="nav-side-menu">
-  <div class="brand">Mio</div>
+  <div class="brand">{{user.rol_sistema}}</div>
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
   <div class="menu-list">
 
     <ul id="menu-content" class="menu-content collapse out">
+      {{#if admin}}
+
+      {{#if proyectodisponible}}
+
+         <li data-toggle="collapse" data-target="#productsx" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Proyecto <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="productsx">
+        <li><a href="/proyecto">Regresar</a></li>
+
+      </ul>
+      
 
 
+        <li data-toggle="collapse" data-target="#products" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Informes <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products">
+        <li><a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}">listar</a></li>
+
+      </ul>
+
+
+      <li data-toggle="collapse" data-target="#service" class="collapsed">
+        <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Protocolo <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="service">
+        <li class="active"><a href="/protocolo/{{proyectodisponible.id_proyecto}}">ver Protocolo</a></li>
+
+      </ul>
+
+
+      <li data-toggle="collapse" data-target="#new" class="collapsed">
+        <a href="#"><i class="fab fa-pagelines fa-lg"></i> Integrante <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="new">
+        <li class="active"><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}">listar Colaboradores</a>
+        </li>
+      </ul>
+
+      <li data-toggle="collapse" data-target="#new1" class="collapsed">
+        <a href="#"><i class="fa fa-users fa-lg"></i> Entregables <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="new1">
+        <li class="active"><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">listar Entregables</a></li>
+      </ul>
+
+
+      <li data-toggle="collapse" data-target="#new2" class="collapsed">
+        <a href="#"><i class="fa fa-users fa-lg"></i> Material y Servicio<span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="new2">
+        <li class="active"><a href="/MaterialServicio/proyecto/{{proyecto.id_proyecto}}">listar Entregables</a></li>
+      </ul>
+
+      {{else}}
       <li data-toggle="collapse" data-target="#products" class="collapsed active">
         <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Integrantes <span class="arrow"></span></a>
       </li>
@@ -53,133 +105,145 @@
         <li><a href="/integrantes">listar</a></li>
 
       </ul>
+
+
+      <li data-toggle="collapse" data-target="#products4" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Cuentas <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products4">
+        <li class="active"><a href="/singup">agregar</a></li>
+        <li><a href="/cuentas">listar</a></li>
+
+      </ul>
+
+
+
+      <li data-toggle="collapse" data-target="#products1" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Convocatorias <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products1">
+        <li class="active"><a href="/convocatoria/add">agregar</a></li>
+        <li><a href="/convocatoria">listar</a></li>
+
+      </ul>
+
+
+
+      <li data-toggle="collapse" data-target="#products2" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Financiamiento <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products2">
+        <li class="active"><a href="/financiamiento/add">agregar</a></li>
+        <li><a href="/financiamiento">listar</a></li>
+
+      </ul>
+
+      <li data-toggle="collapse" data-target="#products3" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Subpartidas <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products3">
+        <li class="active"><a href="/subpartida/add">agregar</a></li>
+        <li><a href="/subpartida">listar</a></li>
+
+      </ul>
+
+
       
-        <li data-toggle="collapse" data-target="#products1" class="collapsed active">
-          <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Convocatorias <span class="arrow"></span></a>
+
+      <li data-toggle="collapse" data-target="#products5" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Proyecto <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products5">
+        <li><a href="/proyecto">listar</a></li>
+
+
+      </ul>
+
+      {{/if}}
+
+
+      {{/if}}
+
+
+      {{#if lider}}
+
+
+
+
+
+      <li data-toggle="collapse" data-target="#productsx" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Proyecto <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="productsx">
+        <li class="active"><a href="/proyecto/add">agregar</a></li>
+        <li><a href="/proyecto">listar</a></li>
+
+      </ul>
+      {{#if proyectodisponible}}
+      <li data-toggle="collapse" data-target="#products" class="collapsed active">
+        <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Informes <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products">
+        <li class="active"><a href="/informe/add">agregar</a></li>
+        <li><a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}">listar</a></li>
+
+      </ul>
+
+
+      <li data-toggle="collapse" data-target="#service" class="collapsed">
+        <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Protocolo <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="service">
+        <li class="active"><a href="/protocolo/add/{{proyectodisponible.id_proyecto}}">agregar Protocolo</a></li>
+        <li class="active"><a href="/protocolo/{{proyectodisponible.id_proyecto}}">ver Protocolo</a></li>
+
+      </ul>
+
+
+      <li data-toggle="collapse" data-target="#new" class="collapsed">
+        <a href="#"><i class="fab fa-pagelines fa-lg"></i> Integrante <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="new">
+        <li class="active"><a href="/integrantes/addColaborador/{{proyectodisponible.id_proyecto}}">Agregar
+            Colaborador</a>
         </li>
-        <ul class="sub-menu collapse" id="products1">
-          <li class="active"><a href="/convocatoria/add">agregar</a></li>
-          <li><a href="/convocatoria">listar</a></li>
-
-        </ul>
-
-
-  
-        <li data-toggle="collapse" data-target="#products2" class="collapsed active">
-          <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Financiamiento <span class="arrow"></span></a>
+        <li class="active"><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}">listar Colaboradores</a>
         </li>
-        <ul class="sub-menu collapse" id="products2">
-          <li class="active"><a href="/financiamiento/add">agregar</a></li>
-          <li><a href="/financiamiento">listar</a></li>
+      </ul>
 
-        </ul>
-
-        <li data-toggle="collapse" data-target="#products2" class="collapsed active">
-          <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Subpartidas <span class="arrow"></span></a>
-        </li>
-        <ul class="sub-menu collapse" id="products2">
-          <li class="active"><a href="/subpartida/add">agregar</a></li>
-          <li><a href="/subpartida">listar</a></li>
-
-        </ul>
-    
-
-        <li data-toggle="collapse" data-target="#products2" class="collapsed active">
-          <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Cuentas <span class="arrow"></span></a>
-        </li>
-        <ul class="sub-menu collapse" id="products2">
-          <li class="active"><a href="/singup">agregar</a></li>
-          <li><a href="/cuentas">listar</a></li>
-
-        </ul>
-
-        <li data-toggle="collapse" data-target="#products2" class="collapsed active">
-          <a href="#"><i class="fab fa-studiovinari fa-lg"></i>Proyecto <span class="arrow"></span></a>
-        </li>
-        <ul class="sub-menu collapse" id="products2">
-          <li class="active"><a href="/proyecto/add">agregar</a></li>
-          <li><a href="/proyecto">listar</a></li>
-
-        </ul>
+      <li data-toggle="collapse" data-target="#new1" class="collapsed">
+        <a href="#"><i class="fa fa-users fa-lg"></i> Entregables <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="new1">
+        <li class="active"><a href="/entregable/add/{{proyectodisponible.id_proyecto}}">Agregar Entregables</a></li>
+        <li class="active"><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">listar Entregables</a></li>
+      </ul>
 
 
+      <li data-toggle="collapse" data-target="#new2" class="collapsed">
+        <a href="#"><i class="fa fa-users fa-lg"></i> Material y Servicio<span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="new2">
+        <li class="active"><a href="/materialServicio/add/{{proyecto.id_proyecto}}">Agregar MyS</a></li>
+        <li class="active"><a href="/MaterialServicio/proyecto/{{proyecto.id_proyecto}}">listar Entregables</a></li>
+      </ul>
+      {{/if}}
+
+      <li>
+        <a href="#">
+          <i class="fas fa-user-tie fa-lg"></i> Profile
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fa fa-users fa-lg"></i> Users
+        </a>
+      </li>
+
+      {{/if}}
 
 
-
-        {{#if proyectodisponible}}
-
-
-
-
-
-<li>
-  <a href="/proyecto/regresar" id="regresar">
-    <i class="fas fa-tachometer-alt fa-lg"></i> regresar
-  </a>
-</li>
-
-<li data-toggle="collapse" data-target="#products" class="collapsed active">
-  <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Informes <span class="arrow"></span></a>
-</li>
-<ul class="sub-menu collapse" id="products">
-  <li class="active"><a href="/informe/add">agregar</a></li>
-  <li><a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}">listar</a></li>
-
-</ul>
-
-
-<li data-toggle="collapse" data-target="#service" class="collapsed">
-  <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Protocolo <span class="arrow"></span></a>
-</li>
-<ul class="sub-menu collapse" id="service">
-  <li class="active"><a href="/protocolo/add/{{proyectodisponible.id_proyecto}}">agregar Protocolo</a></li>
-  <li class="active"><a href="/protocolo/{{proyectodisponible.id_proyecto}}">ver Protocolo</a></li>
-
-</ul>
-
-
-<li data-toggle="collapse" data-target="#new" class="collapsed">
-  <a href="#"><i class="fab fa-pagelines fa-lg"></i> Integrante <span class="arrow"></span></a>
-</li>
-<ul class="sub-menu collapse" id="new">
-  <li class="active"><a href="/integrantes/addColaborador/{{proyectodisponible.id_proyecto}}">Agregar Colaborador</a>
-  </li>
-  <li class="active"><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}">listar Colaboradores</a></li>
-</ul>
-
-<li data-toggle="collapse" data-target="#new1" class="collapsed">
-  <a href="#"><i class="fa fa-users fa-lg"></i> Entregables <span class="arrow"></span></a>
-</li>
-<ul class="sub-menu collapse" id="new1">
-  <li class="active"><a href="/entregable/add/{{proyectodisponible.id_proyecto}}">Agregar Entregables</a></li>
-  <li class="active"><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">listar Entregables</a></li>
-</ul>
-
-
-<li data-toggle="collapse" data-target="#new2" class="collapsed">
-  <a href="#"><i class="fa fa-users fa-lg"></i> Material y Servicio<span class="arrow"></span></a>
-</li>
-<ul class="sub-menu collapse" id="new2">
-  <li class="active"><a href="/materialServicio/add/{{proyecto.id_proyecto}}">Agregar MyS</a></li>
-  <li class="active"><a href="/MaterialServicio/proyecto/{{proyecto.id_proyecto}}">listar Entregables</a></li>
-</ul>
-
-
-<li>
-  <a href="#">
-    <i class="fas fa-user-tie fa-lg"></i> Profile
-  </a>
-</li>
-
-<li>
-  <a href="#">
-    <i class="fa fa-users fa-lg"></i> Users
-  </a>
-</li>
-
-{{/if}}
-
-{{!-- Apartir de aqui comienza mi disenio --}}
 
 
     </ul>
@@ -189,4 +253,3 @@
 {{/if}}
 
 <script text="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-

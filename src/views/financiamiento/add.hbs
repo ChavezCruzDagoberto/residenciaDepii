@@ -1,87 +1,91 @@
-<div class="container p-4">
-    <div class="row">
-        <div class=" mx-auto">
-            <div class="card">
-                <div class="card-body">
-                    <form action="/financiamiento/add" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="clave_financiamiento"
-                                placeholder="clave de financiamiento" autofocus required>
+<div class="main" id="contenido">
+    <div class="container p-4">
+        <div class="row">
+            <div class=" mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/financiamiento/add" method="POST">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="clave_financiamiento"
+                                    placeholder="clave de financiamiento" autofocus required>
 
-                        </div>
-
-
-                        <div class="form-group">
-                            FECHA DE INICIO
-                            <input type="date" name="vigencia_inicio" id="inicio" required />
-                            <!-- Campo de entrada de hora -->
-
-
-                        </div>
-
-                        <div class="form-group">
-                            FECHA DE EXPIRACION
-                            <script> var date = new Date();</script>
-                            <input type="date" name="vigencia_fin" id="fin" required />
-                            <!-- Campo de entrada de hora -->
-
-
-                        </div>
-
-                        <select hidden id="clave_partida">
-                            {{#each partidas}}
-                            <option value="{{clave_partida}}">{{clave_partida}}</option>
-                            {{/each}}
-                        </select>
-
-
-                        <div class="mx-auto">
-                            <!-- Contenedor -->
-
-                            <!-- Titulo del Card -->
-                            <h5 class="card-title">Agregar partidas</h5>
-                            <br>
-
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form id="" action="">
-
-                                        <!-- Productos -->
-                                        <div class="form-group">
-                                            <label for="state_id" class="control-label">Claves</label>
-                                            <!-- Boton Agregar -->
-                                            <input class="btn btn-secondary btn-sm" type="button"
-                                                title="Agregar Producto" Value="+" onclick="agregar()">
-                                            <!-- Boton Borrar -->
-                                            <input class="btn btn-secondary btn-sm" type="button"
-                                                title="Borrar Producto" Value="-" onclick="borrar()">
-                                            <br>
-                                            <br>
-                                            <!-- Div donde se añadiran los Selects -->
-                                            <div class="form-group" id="productos">
-                                            </div>
-
-
-                                        </div>
-
-                                </div>
                             </div>
 
 
+                            <div class="form-group">
+                                FECHA DE INICIO
+                                <input type="date" name="vigencia_inicio" id="inicio" required />
+                                <!-- Campo de entrada de hora -->
+
+
+                            </div>
+
+                            <div class="form-group">
+                                FECHA DE EXPIRACION
+                                <script> var date = new Date();</script>
+                                <input type="date" name="vigencia_fin" id="fin" required />
+                                <!-- Campo de entrada de hora -->
+
+
+                            </div>
+
+                            <select hidden id="clave_partida">
+                                {{#each partidas}}
+                                <option value="{{clave_partida}}">{{clave_partida}}</option>
+                                {{/each}}
+                            </select>
+
+
+                            <div class="mx-auto">
+                                <!-- Contenedor -->
+
+                                <!-- Titulo del Card -->
+                                <h5 class="card-title">Agregar partidas</h5>
+                                <br>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <form id="" action="">
+
+                                            <!-- Productos -->
+                                            <div class="form-group">
+                                                <label for="state_id" class="control-label">Claves</label>
+                                                <!-- Boton Agregar -->
+                                                <input class="btn btn-secondary btn-sm" type="button"
+                                                    title="Agregar Producto" Value="+" onclick="agregar()">
+                                                <!-- Boton Borrar -->
+                                                <input class="btn btn-secondary btn-sm" type="button"
+                                                    title="Borrar Producto" Value="-" onclick="borrar()">
+                                                <br>
+                                                <br>
+                                                <!-- Div donde se añadiran los Selects -->
+                                                <div class="form-group" id="productos">
+                                                </div>
+
+
+                                            </div>
+
+                                    </div>
+                                </div>
 
 
 
-                        </div>
 
-                        <div class="form-group">
-                            <button  id="botonenviar" class="btn btn-success btn-block" onclick="leer()" disabled> Agregar</button>
-                        </div>
-                    </form>
+
+                            </div>
+
+                            <div class="form-group">
+                                <button id="botonenviar" class="btn btn-success btn-block" onclick="leer()" disabled>
+                                    Agregar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 
@@ -90,158 +94,156 @@
 
 
 
+<script language="JavaScript">
+    //Creacion de Variable incremental
+    var incremento = 0;
+    //Llenando el arreglo que contendrá los "Options" de nuestro "Select"
+    var options = [
 
-    <script language="JavaScript">
-        //Creacion de Variable incremental
-        var incremento = 0;
-        //Llenando el arreglo que contendrá los "Options" de nuestro "Select"
-        var options = [
+    ];
+    //Lo que se hará cuando se presione el boton de Agregar
 
-        ];
-        //Lo que se hará cuando se presione el boton de Agregar
-
-        function cargarPartidas() {
-            var inicio = document.getElementById('clave_partida');
-            for (i = 0; i < inicio.length; i++) {
-                options.push(inicio.options[i].value);
-
-            }
-            //console.log(inicio.length);
+    function cargarPartidas() {
+        var inicio = document.getElementById('clave_partida');
+        for (i = 0; i < inicio.length; i++) {
+            options.push(inicio.options[i].value);
 
         }
+        //console.log(inicio.length);
+
+    }
 
 
-        function removeItemFromArr(arr, item) {
-            var i = arr.indexOf(item);
+    function removeItemFromArr(arr, item) {
+        var i = arr.indexOf(item);
 
-            if (i !== -1) {
-                arr.splice(i, 1);
-            }
+        if (i !== -1) {
+            arr.splice(i, 1);
         }
+    }
 
-        function agregar(obj) {
-                var inicio = document.getElementById('clave_partida');
-            if (incremento == 0) {
-                cargarPartidas();
-            }
-            if (incremento < inicio.length) {
-                    var boton = document.getElementById('botonenviar');
-                     boton.removeAttribute("disabled");
-
-
-                incremento++;
-
-
-                //Obteniendo el Div "productos"
-                bloque = document.getElementById('productos');
-
-                elemento = document.createElement('label');
-
-                elemento.innerHTML = "Partida" + incremento;
-
-                bloque.appendChild(elemento);
-                //Creando el Select que irá dentro del Div "productos"
-                elemento = document.createElement('select');
-                elemento.setAttribute("class", "custom-select custom-select-sm-1 mb-3");
-                elemento.setAttribute("name", "clave_partida")
-                elemento.setAttribute("required", "true");;
-                elemento.id = 'select' + incremento;
-                bloque.appendChild(elemento);
-
-
-
-
-                //console.log(incremento);
-
-                if (incremento > 1) {
-
-                    for (i = 1; i < incremento; i++) {
-
-                        var combo = document.getElementById("select" + i);
-
-                        var texto = combo.options[combo.selectedIndex].value;
-                        combo.setAttribute("disabled", "true");
-                        //combo.setAttribute("readonly", "true");
-                        removeItemFromArr(options, texto);
-
-                    }
-                }
-
-
-
-                //Agregando nuestros "Options" a nuestro "Select"
-                for (var i = 0; i < options.length; i++) {
-                    var option = document.createElement("option");
-                    option.value = options[i];
-                    option.text = options[i];
-                    elemento.appendChild(option);
-                }
-
-
-                elemento = document.createElement('input');
-                elemento.setAttribute("class", "form-control ");
-                elemento.setAttribute("name", "monto_aprobado");
-                elemento.setAttribute("placeholder", "monto aprobado");
-                elemento.setAttribute("pattern", "[0-9]+");
-                elemento.setAttribute("required", "true");
-                //elemento.removeAttribute("disabled");
-                elemento.id = 'text' + incremento;
-                bloque.appendChild(elemento);
-
-            }
-
+    function agregar(obj) {
+        var inicio = document.getElementById('clave_partida');
+        if (incremento == 0) {
+            cargarPartidas();
         }
+        if (incremento < inicio.length) {
+            var boton = document.getElementById('botonenviar');
+            boton.removeAttribute("disabled");
 
 
+            incremento++;
 
 
-        //Lo que se hará cuando se presione el boton de Borrar
-        function borrar(obj) {
-            //console.log(options);
-
-            var combo = document.getElementById("select" + (incremento - 1));
-
-            var texto = combo.options[combo.selectedIndex].value;
-            combo.removeAttribute("disabled");
-            console.log(texto);
-            options.push(texto);
-            console.log(options);
-
-            incremento = incremento - 1;
+            //Obteniendo el Div "productos"
             bloque = document.getElementById('productos');
 
+            elemento = document.createElement('label');
 
-            bloque.removeChild(bloque.lastChild);
-            bloque.removeChild(bloque.lastChild);
-            bloque.removeChild(bloque.lastChild);
+            elemento.innerHTML = "Partida" + incremento;
+
+            bloque.appendChild(elemento);
+            //Creando el Select que irá dentro del Div "productos"
+            elemento = document.createElement('select');
+            elemento.setAttribute("class", "custom-select custom-select-sm-1 mb-3");
+            elemento.setAttribute("name", "clave_partida")
+            elemento.setAttribute("required", "true");;
+            elemento.id = 'select' + incremento;
+            bloque.appendChild(elemento);
 
 
-        }
 
 
-        function leer() {
+            //console.log(incremento);
 
-            for (i = 1; i <= incremento; i++) {
-                x = document.getElementById('select' + i);
-                x.removeAttribute("disabled");
+            if (incremento > 1) {
 
+                for (i = 1; i < incremento; i++) {
+
+                    var combo = document.getElementById("select" + i);
+
+                    var texto = combo.options[combo.selectedIndex].value;
+                    combo.setAttribute("disabled", "true");
+                    //combo.setAttribute("readonly", "true");
+                    removeItemFromArr(options, texto);
+
+                }
             }
 
 
 
+            //Agregando nuestros "Options" a nuestro "Select"
+            for (var i = 0; i < options.length; i++) {
+                var option = document.createElement("option");
+                option.value = options[i];
+                option.text = options[i];
+                elemento.appendChild(option);
+            }
 
+
+            elemento = document.createElement('input');
+            elemento.setAttribute("class", "form-control ");
+            elemento.setAttribute("name", "monto_aprobado");
+            elemento.setAttribute("placeholder", "monto aprobado");
+            elemento.setAttribute("pattern", "[0-9]+");
+            elemento.setAttribute("required", "true");
+            //elemento.removeAttribute("disabled");
+            elemento.id = 'text' + incremento;
+            bloque.appendChild(elemento);
 
         }
-   
-   document.getElementById("inicio").onchange = function ()
-{
-  var input = document.getElementById("fin");
-  input.min = this.value;
-}
-   
-   
-    </script>
-    <footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </footer>
+
+    }
+
+
+
+
+    //Lo que se hará cuando se presione el boton de Borrar
+    function borrar(obj) {
+        //console.log(options);
+
+        var combo = document.getElementById("select" + (incremento - 1));
+
+        var texto = combo.options[combo.selectedIndex].value;
+        combo.removeAttribute("disabled");
+        console.log(texto);
+        options.push(texto);
+        console.log(options);
+
+        incremento = incremento - 1;
+        bloque = document.getElementById('productos');
+
+
+        bloque.removeChild(bloque.lastChild);
+        bloque.removeChild(bloque.lastChild);
+        bloque.removeChild(bloque.lastChild);
+
+
+    }
+
+
+    function leer() {
+
+        for (i = 1; i <= incremento; i++) {
+            x = document.getElementById('select' + i);
+            x.removeAttribute("disabled");
+
+        }
+
+
+
+
+
+    }
+
+    document.getElementById("inicio").onchange = function () {
+        var input = document.getElementById("fin");
+        input.min = this.value;
+    }
+
+
+</script>
+<footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</footer>

@@ -1,55 +1,57 @@
-<div class="container p-4">
-  <div class="row">
+<div class="main" id="contenido">
+  <div class="container p-4">
+    <div class="row">
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Cvu_tecNM</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellidos</th>
-          <th scope="col">   </th>
-          <th scope="col">Plantel de Adscripcion</th>
-          <th scope="col">Email</th>
-          <th scope="col">Editar</th>
-          <th scope="col">Eliminar</th>
-        </tr>
-      </thead>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Cvu_tecNM</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col"> </th>
+            <th scope="col">Plantel de Adscripcion</th>
+            <th scope="col">Email</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        {{#each integrantes}}
-
-
-        <tr>
-          <th>{{cvu_tecnm}}</th>
-          <td>{{nombre}}</td>
-          <td>{{apellido1}}</td>
-          <td>{{apellido2}}</td>
-          <td>{{plantel_adscripcion}}</td>
-          <td>{{email}}</td>
-
-          <td><a href="/integrantes/delete/{{cvu_tecnm}}" class="btn btn-danger" id="prueba"> Eliminar</a></td>
-          <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-secondary">Edit</a></td>
+        <tbody>
+          {{#each integrantes}}
 
 
+          <tr>
+            <th>{{cvu_tecnm}}</th>
+            <td>{{nombre}}</td>
+            <td>{{apellido1}}</td>
+            <td>{{apellido2}}</td>
+            <td>{{plantel_adscripcion}}</td>
+            <td>{{email}}</td>
 
-        </tr>
-        {{else}}
-        <div class="col-m4 mx-auto">
-          <div class="card card-body text-center">
-            <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
-            <a href="/integrantes/add"> AGREGAR NUEVO </a>
+            <td><a href="/integrantes/delete/{{cvu_tecnm}}" class="btn btn-danger" id="prueba"> Eliminar</a></td>
+            <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-secondary">Edit</a></td>
+
+
+
+          </tr>
+          {{else}}
+          <div class="col-m4 mx-auto">
+            <div class="card card-body text-center">
+              <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
+              <a href="/integrantes/add"> AGREGAR NUEVO </a>
+            </div>
           </div>
-        </div>
-        {{/each}}
+          {{/each}}
 
 
 
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
 
 
 
+    </div>
   </div>
 </div>

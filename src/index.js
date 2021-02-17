@@ -61,6 +61,8 @@ app.use((req, res, next) => {
   app.locals.user = req.user;
   app.locals.menu = req.flash('menu');
   app.locals.proyectodisponible ;
+  app.locals.lider;
+  app.locals.admin;
 
   next()
 });

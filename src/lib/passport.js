@@ -40,7 +40,10 @@ passport.use('local.signin', new LocalStrategy({
         //console.log(password,user.password);
         const validPassword = await helpers.comparePaswsorwd(password, user.password);
         if (validPassword) {
-
+            
+            console.log("usuario",user);
+            if(user.rol_sistema=='Responsable'){ req.app.locals.lider=user.rol_sistema;}
+            if(user.rol_sistema=='Administrador'){req.app.locals.admin=user.rol_sistema;}
             done(null, user, req.flash('success', 'Bienvenido  ' + user.username));
 
         } else {

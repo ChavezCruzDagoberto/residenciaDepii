@@ -1,46 +1,50 @@
-<div class="container p-4">
-    <div class="row">
-        <div class="col-md-4 mx-auto">
-            <h1> Agregar participante </h1>
-            <div class="card">
+<div class="main" id="contenido">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <h1> Agregar participante </h1>
+                <div class="card">
 
-                <div class="card-body">
-                    <form action="/integrantes/add" method="POST">
-                        <div class="form-group">
+                    <div class="card-body">
+                        <form action="/integrantes/add" method="POST">
+                            <div class="form-group">
 
-                            <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM" autofocus
-                                required>
-
-
-                        </div>
-                        <div class="form-group">
-
-                            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
-                            <input type="text" class="form-control" name="apellido1" placeholder="apellido" required>
-                            <input type="text" class="form-control" name="apellido2" placeholder="apellido" required>
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <input type="text" class="form-control" name="plantel_adscripcion"
-                                placeholder="Plantel de Adscricion" required>
+                                <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM"
+                                    autofocus required>
 
 
-                        </div>
-                        <div class="form-group">
+                            </div>
+                            <div class="form-group">
 
-                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+                                <input type="text" class="form-control" name="apellido1" placeholder="apellido"
+                                    required>
+                                <input type="text" class="form-control" name="apellido2" placeholder="apellido"
+                                    required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <input type="text" class="form-control" name="plantel_adscripcion"
+                                    placeholder="Plantel de Adscricion" required>
+
+
+                            </div>
+                            <div class="form-group">
+
+                                <input type="email" class="form-control" name="email" placeholder="Email" required>
 
 
 
-                        </div>
+                            </div>
 
 
-                        <div class="form-group">
-                            <button class="btn btn-success btn-block"> Agregar</button>
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-block"> Agregar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

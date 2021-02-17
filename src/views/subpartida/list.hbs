@@ -1,47 +1,49 @@
-<div class="container p-4">
-  <div class="row">
+<div class="main" id="contenido">
+  <div class="container p-4">
+    <div class="row">
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">clave de la Partida</th>
-          <th scope="col">Subclave</th>
-          <th scope="col">Descripcion</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {{#each subpartidas}}
-        <form action="/subpartida/edit/{{clave_subpartida}}" method="POST">
+      <table class="table">
+        <thead>
           <tr>
-
-            <th> <input type="text" name="clave_partida" value="{{clave_partida}}" readonly></th>
-            <td>{{clave_subpartida}}</td>
-            <td><input type="text" value="{{descripcion}}" name="descripcion"></td>
-
-            <td><a href="/subpartida/delete/{{clave_subpartida}}" class="btn btn-danger"> Eliminar</a></td>
-            <td>
-              <button class="btn btn-secondary">Editar y guardar</button>
-            </td>
-
-
+            <th scope="col">clave de la Partida</th>
+            <th scope="col">Subclave</th>
+            <th scope="col">Descripcion</th>
           </tr>
-        </form>
-        {{else}}
-        <div class="col-m4 mx-auto">
-          <div class="card card-body text-center">
-            <p>NO HAY NINGUNa SubPartida GUARDADO AUN </p>
-            <a href="/subpartida/add"> CREAR NUEVO</a>
+        </thead>
+
+        <tbody>
+          {{#each subpartidas}}
+          <form action="/subpartida/edit/{{clave_subpartida}}" method="POST">
+            <tr>
+                <input type="hidden" name="clave_partida" value="{{clave_partida}}">
+              <th>{{clave_partida}}</th>
+              <td>{{clave_subpartida}}</td>
+              <td><input type="text" value="{{descripcion}}" name="descripcion"></td>
+
+              <td><a href="/subpartida/delete/{{clave_subpartida}}" class="btn btn-danger"> Eliminar</a></td>
+              <td>
+                <button class="btn btn-secondary">Editar y guardar</button>
+              </td>
+
+
+            </tr>
+          </form>
+          {{else}}
+          <div class="col-m4 mx-auto">
+            <div class="card card-body text-center">
+              <p>NO HAY NINGUNa SubPartida GUARDADO AUN </p>
+              <a href="/subpartida/add"> CREAR NUEVO</a>
+            </div>
           </div>
-        </div>
-        {{/each}}
+          {{/each}}
 
-      </tbody>
-    </table>
-
+        </tbody>
+      </table>
 
 
 
 
+
+    </div>
   </div>
 </div>
