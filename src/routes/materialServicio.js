@@ -20,7 +20,7 @@ router.post('/add', estaLogueado, async (req, res) => {
   
   const { descripcion, clave_subpartida, monto,id_proyecto } = req.body;
   if(Array.isArray(descripcion)){
-    for (const p in monto_solicitado) {
+    for (const p in monto) {
       const newMyS = {
         descripcionms:descripcion[p],
         id_proyecto,
@@ -49,6 +49,7 @@ router.post('/add', estaLogueado, async (req, res) => {
   
   req.flash('success', 'Materiales y Servicios  agregados correctamente');
   res.redirect("/materialServicio/proyecto/" + id_proyecto);
+  
 });
 
 

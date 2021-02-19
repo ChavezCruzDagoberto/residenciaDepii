@@ -1,4 +1,4 @@
-<div class="main" id="contenido">
+<!--<div class="main" id="contenido">
   <div class="card-body">
     <form action="/materialServicio/add" method="POST">
 
@@ -90,3 +90,262 @@
     a.innerHTML = '<td><input type="number"  class="form-control" name="monto" required></td>';
   }
 </script>
+!-->
+
+
+
+
+<div class="main" id="contenido">
+  <div class="card-body">
+    <form action="/materialServicio/add" method="POST">
+
+
+      <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
+      <select hidden   id="subpartidas">
+              {{#each subpartidas}}
+              <option value="{{clave_subpartida}}">{{descripcion}}</option>
+              {{/each}}
+            </select>
+      <table id="elementos" class="table">
+        <thead>
+          <tr>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Subpartida</th>
+            <th scope="col">Monto</th>
+          </tr>
+        </thead>
+      
+
+      </table>
+
+      <div class="form-group">
+        <label for="state_id" class="control-label">Añadir M y S</label>
+        <!-- Boton Agregar -->
+        <input class="btn btn-secondary btn-sm" type="button" title="Agregar Producto" Value="+"
+          onclick="agregar('elementos')">
+        <!-- Boton Borrar -->
+        <input id="eliminar" class="btn btn-secondary btn-sm" type="button" title="Borrar Producto" Value="-" disabled
+          onclick="borrar('elementos')">
+        <br>
+        <br>
+      </div>
+
+
+
+      <div class="col-md-4 mx-auto">
+        <div class="card">
+          <div class="form-group">
+            <button id="botonenviar" class="btn btn-success btn-block" onclick="activar()"> Agregar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+  <script>
+
+    var options = [
+
+    ];
+    var boton = document.getElementById("botonenviar");
+    var boton1 = document.getElementById("eliminar");
+    var inicio = document.getElementById('subpartidas');
+
+    var incremento = 0;
+    var validacion = true;
+
+
+    function cargarEntregables() {
+      if (incremento == 0 && options.length==0) {
+        for (i = 0; i < inicio.length; i++) {
+          options.push([inicio.options[i].value, inicio.options[i].text]);
+        }
+
+      }
+
+
+    }
+
+    function removeItemFromArr(arr, item) {
+      var valor = -1;
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i][0] == item[0] && arr[i][1] == item[1]) {
+
+          // console.log(i);
+          valor = i;
+          break;
+
+        }
+
+      }
+      if (valor !== -1) {
+        arr.splice(valor, 1);
+      }
+      //  console.log(arr);
+    }
+
+    function borrar(id) {
+
+      console.log("antes de borrar", options.length);
+      var ultimo = document.getElementById("elementos").rows.length - 1;
+
+      if (ultimo > 1) {
+
+
+
+
+
+        incremento--;
+        document.getElementById(id).deleteRow(ultimo);
+        var a_s = document.getElementById("subpartida" + incremento);
+        var texto = [a_s.options[a_s.selectedIndex].value, a_s.options[a_s.selectedIndex].text];
+        options.push(texto);
+        a_s.removeAttribute("disabled");
+
+      }
+      if (ultimo == 1) {
+        incremento--;
+        document.getElementById(id).deleteRow(ultimo);
+        boton.setAttribute("disabled", "true");
+        boton1.setAttribute("disabled", "true");
+
+      }
+      console.log("despues de borrar", options.length);
+
+    }
+
+    function añadirNuevo(id) {
+      console.log("antes de añadir", options.length);
+      if (incremento == 1) {
+
+        var filas = document.getElementById("elementos").rows.length;
+        var x = document.getElementById(id).insertRow(filas);
+        var w= x.insertCell(0);
+        var y = x.insertCell(1);
+        var z = x.insertCell(2);
+        var des = "descripcion" + incremento;
+        var id_e = "subpartida" + incremento;
+        var can = "monto" + incremento;
+
+        var opciones = "";
+        for (var i = 0; i < options.length; i++) {
+          //console.log(options[i][1],i);
+          opciones += "<option value=" + options[i][0] + ">" + options[i][1] + "</option>";
+        }
+        w.innerHTML = "<td><input type=" + "text " +  " class=" + "form-control" + " name=" + " descripcion "  +   "id=" + des +  "  required></td>";
+
+        y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_subpartida " + "id=" + id_e + " required>" + opciones + "</select></td>";
+
+
+
+        z.innerHTML = "<td><input type=" + "number" +  " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
+
+        boton.removeAttribute("disabled");
+        boton1.removeAttribute("disabled");
+      }
+
+      if (incremento > 1) {
+
+
+        //validar anterior tenga datos
+
+
+        var cant_a = document.getElementById("monto" + (incremento - 1)).value;
+        var des_a = document.getElementById("descripcion" + (incremento - 1)).value;
+        if (cant_a === "" || des_a==="") {
+          incremento--;
+          alert("Rellene los campos");
+        } else {
+
+
+
+
+
+          var filas = document.getElementById("elementos").rows.length;
+          var x = document.getElementById(id).insertRow(filas);
+          var w= x.insertCell(0);
+          var y = x.insertCell(1);
+          var z = x.insertCell(2);
+
+        var des = "descripcion" + incremento;
+          var id_e = "subpartida" + incremento;
+          var can = "monto" + incremento;
+
+          var idAnterior = "subpartida" + (incremento - 1);
+          selecAnterior = document.getElementById(idAnterior);
+
+          var texto = [selecAnterior.options[selecAnterior.selectedIndex].value, selecAnterior.options[selecAnterior.selectedIndex].text];
+
+
+
+          removeItemFromArr(options, texto);
+          selecAnterior.setAttribute("disabled", "true");
+
+
+          var opciones = "";
+          for (var i = 0; i < options.length; i++) {
+            // console.log(options[i][1],i);
+            opciones += "<option value=" + options[i][0] + ">" + options[i][1] + "</option>";
+          }
+          w.innerHTML = "<td><input type=" + "text " +  " class=" + "form-control" + " name=" + " descripcion "  +   "id=" + des + "  required></td>";
+
+
+          y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_subpartida " + " id=" + id_e + " required>" + opciones + "</select></td>";
+
+
+
+          z.innerHTML = "<td><input type=" + "number"  + " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
+
+
+        }
+      }
+      console.log("despues de añadir",options.length);
+    }
+
+
+    function agregar(id) {
+
+      cargarEntregables();
+      //console.log(options);
+      //console.log(incremento);
+      if (incremento < inicio.length) {
+
+        incremento++;
+
+        añadirNuevo(id);
+      }
+
+
+    }
+
+
+
+    function activar() {
+      console.log(incremento);
+      for (i = 1; i <= incremento; i++) {
+        var a = document.getElementById("subpartida" + i);
+        var b = document.getElementById("monto" + i);
+        var c = document.getElementById("descripcion" + i);
+        
+
+        a.removeAttribute("disabled");
+        b.removeAttribute("disabled");
+        c.removeAttribute("disabled");
+
+
+      }
+
+
+    }
+
+  </script>
+  <!-- Bootstrap 4.0 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </footer>
+</div>
