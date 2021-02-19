@@ -1,62 +1,79 @@
+{{!-- Aqui comienza mi disenio --}}
 <div class="main" id="contenido">
-    <div class="container p-4">
+    <div class="container-fluid">
         <div class="row">
-            <div class="con-md-4 mx-auto">
-                <div class="csrd text-center">
-                    <div class="card-header">
-                        <h3>Crear Cuenta</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="/singup" method="POST">
+            <div class="mx-auto">
 
+                {{!-- Cabecera --}}
+                <div class="m-5" align="center">
+                    <h1> Crear cuenta a integrante. </h1>
+                    <small class="text-muted">
+                        Departamento de Estudios de Posgrado e Investigacion.
+                    </small>
+                </div>
+
+                <div align="center">
+                    <h3>
+                        <small class="text-muted">
+                            Lista de integrantes registrados.
+                        </small>
+                    </h3>
+                </div>
+
+                {{!-- Comienza el formulario para crear cuentas --}}
+                <form action="/singup" method="POST">
+
+                    <div class="col" align="center">
+
+                        <div class="form-group">
+                            <select name="cvu_tecnm" class="form-control" id="cvu_tecnm">
+                                {{#each responsables }}
+                                <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        <a href="integrantes/add"> Si el usuario no se encuentra registrado haga click aqui </a>
+                        <br>
+
+                        <div class="mt-5" align="left">
                             <div class="form-group">
-                                <h6>Usuarios Registrados</h6>
-
-
-
-                                <select name="cvu_tecnm" class="mx-auto" id="cvu_tecnm">
-                                    {{#each responsables }}
-
-                                    <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}}
-                                    </option>
-
-                                    {{/each}}
-
-
-                                </select>
-                                <br>
-                                <a href="integrantes/add"> Si el usuario no se encuentra registrado clik aqui</a>
-                                <br>
+                                <label for="username"> Nombre de usuario </label>
+                                <input type="text" name="username" class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                                <input type="text " name="username" placeholder="nombre usuario" class="form-control"
-                                    required>
-
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" placeholder="contraseña"
+                                <label for="password"> Contraseña </label>
+                                <input type="password" name="password" class="form-control"
                                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
                             </div>
+                            <br>
 
+                            <div align="center">
+                                <h3>
+                                    <small class="text-muted">
+                                        Seleccione un rol para el integrante.
+                                    </small>
+                                </h3>
+                            </div>
 
-                            <div class="form-group">
-                                <h6>Rol</h6>
-                                <select name="rol_sistema">
+                            <div class="form-group" align="center">
+                                <select name="rol_sistema" class="form-control">
                                     <option value="Administrador">Administrador</option>
                                     <option value="Responsable" Selected> Lider de proyecto</option>
-
                                 </select>
                             </div>
 
+                            <br><br>
 
                             <div class="form-group">
-                                <button class="btn btn-success btn-block">Registrar</button>
+                                <button class="btn btn-outline-primary btn-block"> <i class="fas fa-user-alt"></i>&emsp;Registrar </button>
                             </div>
-                        </form>
 
+                        </div>
                     </div>
-                </div>
+                </form>
+
             </div>
         </div>
     </div>
