@@ -43,8 +43,10 @@ const upload = multer({ storage });
 
 
 router.get('/add/:id_proyecto', async (req, res) => {
-    const cvu_tecnm = req.user.cvu_tecnm;
+    
+    
     const { id_proyecto } = req.params;
+    const resultado = await conexion.query('select * from protocolo where id_proyecto= ?', [id_proyecto]);
     nombre = await conexion.query('select titulo from proyecto where id_proyecto=? ', [id_proyecto]);
 
 
@@ -53,7 +55,7 @@ router.get('/add/:id_proyecto', async (req, res) => {
         nombre = nombre[0].titulo;
 
         console.log(nombre);
-        res.render('proyecto/protocolo/subirprotocolo', { id_proyecto });
+        res.render('proyecto/protocolo/subirprotocolo', { id_proyecto ,resultado:resultado[0]});
     }
     else {
         req.flash('message', "no hay");
@@ -65,7 +67,6 @@ router.get('/add/:id_proyecto', async (req, res) => {
 //insertar a la base un link
 router.post('/add/:id_proyecto', upload.single('archivo'), async (req, res) => {
 
-    
     const { id_proyecto } = req.params;
 
     console.log(req.file,req.params,req.body);
@@ -96,7 +97,7 @@ router.get('/:id_proyecto', async (req, res) => {
 
     const resultado = await conexion.query('select * from protocolo where id_proyecto= ?', [id_proyecto]);
     console.log(resultado[0]);
-    res.render('proyecto/protocolo/verProtocolo', { protocolo: resultado[0] });
+    res.render('proyecto/protocolo/verProtocolo', { protocolo: resultado[0] ,id_proyecto});
     //res.send('enviado')
 });
 

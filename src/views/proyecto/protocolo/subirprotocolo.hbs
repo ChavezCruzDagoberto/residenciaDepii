@@ -8,7 +8,10 @@
 
 
 
+                            {{#if resultado}}
+                            <input type="hidden" id="resultado" value="{{resultado.id_proyecto}}" >
 
+                            {{/if}}
                             <div class="form-group">
                                 <label for="">Proyecto: {{proyectodisponible.titulo}}</label>
                                 <input type="file" name="archivo" required>
@@ -25,3 +28,29 @@
         </div>
     </div>
 </div>
+
+<script>
+window.onload =load;
+
+function load(){
+
+var resul= document.getElementById("resultado");
+if(resul){
+
+//var txt;
+  var r = confirm("Ya tiene un archivo agregado desea remplazarlo?");
+  if (r == true) {
+   // txt = "You pressed OK!";
+
+    
+  } else {
+    //txt = "You pressed Cancel!";
+    window.location.href = "/protocolo/"+resul.value;
+  }
+  //console.log(txt);
+}else{console.log("no hay");}
+
+
+}
+
+</script>

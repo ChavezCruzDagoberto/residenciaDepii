@@ -21,6 +21,10 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
 
 
 router.post('/add', estaLogueado, async (req, res) => {
+
+
+  console.log(req.body);
+  
   const { id_entregable, cantidad, id_proyecto } = req.body;
   for (const p in id_entregable) {
     const newProyecto_entregable = {
@@ -33,7 +37,8 @@ router.post('/add', estaLogueado, async (req, res) => {
     await conexion.query('INSERT INTO proyecto_entregable set ?', [newProyecto_entregable]);
   }
   req.flash('success', 'entregables agregados correctamente');
-  res.redirect("/entregable/add/" + id_proyecto);
+  res.redirect("/entregable/proyecto/" + id_proyecto);
+  
 });
 
 
