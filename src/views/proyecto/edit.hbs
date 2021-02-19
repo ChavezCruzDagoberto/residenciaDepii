@@ -1,4 +1,4 @@
-<div class="container p-4">
+{{!-- <div class="container p-4">
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card">
@@ -6,7 +6,8 @@
                     <form action="/proyecto/edit/{{proyecto.id_proyecto}}" method="POST">
                         <div class="form-group">
                             <h6>Titulo</h6>
-                            <input type="text" value="{{proyecto.titulo}}" class="form-control" name="titulo" autofocus required>
+                            <input type="text" value="{{proyecto.titulo}}" class="form-control" name="titulo" autofocus
+                                required>
 
                         </div>
                         <div class="form-group">
@@ -14,22 +15,18 @@
                             <input type="text" value="{{proyecto.modalidad}}" class="form-control" name="modalidad"
                                 placeholder="Año" required>
 
-
                         </div>
-
 
                         <div class="form-group">
                             <h6>fecha sometido</h6>
-                            <input type="date" name="fecha_sometido"  required />
+                            <input type="date" name="fecha_sometido" required />
                         </div>
 
                         <div class="form-group">
                             <h6>fecha dictaminado</h6>
-                            <input type="date" name="fecha_dictamen"  required />
-                            
+                            <input type="date" name="fecha_dictamen" required />
+
                         </div>
-
-
 
                         <div class="form-group">
                             <select class="form-group" name="id_convocatoria" required>
@@ -44,12 +41,86 @@
 
                         <input type="hidden" value="{{proyecto.cvu_tecnm}}" class="form-control" name="cvu_tecnm">
 
-
                         <div class="form-group">
                             <button class="btn btn-success btn-block"> Editar</button>
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+
+{{!-- Aqui comienza mi disenio --}}
+<div class="main">
+    <div class="container-fluid mt-2">
+        <div class="row">
+            <div class="mx-auto">
+
+                {{!-- Cabecera --}}
+                <div class="m-5" align="center">
+                    <h1> Detalles del proyecto. </h1>
+                    <small class="text-muted">
+                        Departamento de Estudios de Posgrado e Investigacion.
+                    </small>
+                </div>
+
+                <form action="/proyecto/edit/{{proyecto.id_proyecto}}" method="POST">
+
+                    <div class="form-group">
+                        <label for="titulo"> Nombre del proyecto </label>
+                        <input type="text" value="{{proyecto.titulo}}" class="form-control" name="titulo" autofocus
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalidad"> Modalidad </label>
+                        <input type="text" value="{{proyecto.modalidad}}" class="form-control" name="modalidad"
+                            required>
+                    </div><br>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label" for="fecha_sometido"> Fecha de sometido </label>
+                        <div class="col-8">
+                            <input class="form-control" type="date" name="fecha_sometido" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label" for="fecha_dictamen"> Fecha de dictamen </label>
+                        <div class="col-8">
+                            <input class="form-control" type="date" name="fecha_dictamen" required />
+                        </div>
+                    </div><br><br>
+
+                    <div align="center">
+                        <h3>
+                            <small class="text-muted">
+                                Seleccione una convocatoria.
+                            </small>
+                        </h3>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" name="id_convocatoria" required>
+                            {{#each convocatoria }}
+                            <option value="{{id_convocatoria}}" id="seleccion"> {{nombre_convocatoria}} </option>
+                            {{/each}}
+                        </select>
+                    </div><br><br>
+
+                    <input type="hidden" value="{{proyecto.clave_financiamiento}}" class="form-control"
+                        name="clave_financiamiento">
+
+                    <input type="hidden" value="{{proyecto.cvu_tecnm}}" class="form-control" name="cvu_tecnm">
+
+                    <div class="form-group">
+                        <button class="btn btn-outline-primary btn-block"><i class="fas fa-save"></i>&ensp;Guardar cambios</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

@@ -1,51 +1,67 @@
 <div class="main" id="contenido">
-    <div class="container p-4">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 mx-auto">
-                <h1> Agregar participante </h1>
-                <div class="card">
+            <div class="mx-auto">
 
-                    <div class="card-body">
-                        <form action="/integrantes/add" method="POST">
-                            <div class="form-group">
-
-                                <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM"
-                                    autofocus required>
-
-
-                            </div>
-                            <div class="form-group">
-
-                                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
-                                <input type="text" class="form-control" name="apellido1" placeholder="apellido"
-                                    required>
-                                <input type="text" class="form-control" name="apellido2" placeholder="apellido"
-                                    required>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <input type="text" class="form-control" name="plantel_adscripcion"
-                                    placeholder="Plantel de Adscricion" required>
-
-
-                            </div>
-                            <div class="form-group">
-
-                                <input type="email" class="form-control" name="email" placeholder="Email" required>
-
-
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <button class="btn btn-success btn-block"> Agregar</button>
-                            </div>
-                        </form>
-                    </div>
+                {{!-- Cabecera --}}
+                <div class="m-5" align="center">
+                    <h1> Nuevo integrante. </h1>
+                    <small class="text-muted">
+                        Departamento de Estudios de Posgrado e Investigacion.
+                    </small>
                 </div>
+
+                {{!-- Campos para anadir integrante --}}
+                <form action="/integrantes/add" method="POST">
+
+                    <div class="col" align="left">
+
+                        <div class="form-group">
+                            <label for="cvu_tecnm"> CVU TecNM </label>
+                            <input type="text" name="cvu_tecnm" class="form-control" autofocus required>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="nombre"> Nombre(s) </label>
+                            <input type="text" name="nombre" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellido1"> Primer apellido </label>
+                            <input type="text" name="apellido1" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellido2"> Segundo apellido </label>
+                            <input type="text" name="apellido2" class="form-control" required>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="plantel_adscripcion"> Plantel de adscripcion</label>
+                            <input type="text" name="plantel_adscripcion" class="form-control" required>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="email"> Email </label>
+                            <input type="text" name="email" class="form-control" required>
+                        </div>
+
+                        <br><br>
+
+                        <div class="form-group">
+                            <button class="btn btn-outline-primary btn-block"><i class="fas fa-user-plus"></i>&emsp;Crear integrante </button>
+                        </div>
+
+                    </div>
+
+                </form>
+
             </div>
         </div>
     </div>

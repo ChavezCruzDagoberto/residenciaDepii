@@ -1,47 +1,54 @@
+{{!-- Aqui comienza mi disenio --}}
 <div class="main" id="contenido">
-  <div class="container p-4">
-    <div class="row">
+  <div class="container-fluid mt-2">
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Clave de financiamiento</th>
-            <th scope="col">fecha de inicio</th>
-            <th scope="col">fecha de expiracion </th>
-            <th scope="col">Eliminar</th>
-            <th scope="col">Editar</th>
-            <th scope="col">Mas</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {{#each financiamiento}}
-          <tr>
-            <th>{{clave_financiamiento}}</th>
-            <td>{{vigencia_inicio}}</td>
-            <td>{{vigencia_fin}}</td>
-
-            <td><a href="/financiamiento/delete/{{clave_financiamiento}}" class="btn btn-danger"> Eliminar</a></td>
-            <td> <a href="/financiamiento/edit/{{clave_financiamiento}}" class="btn btn-secondary">Editar</a></td>
-            <td> <a href="/financiamiento/partidas/{{clave_financiamiento}}" class="btn btn-secondary">Partidas</a></td>
-
-
-          </tr>
-          {{else}}
-          <div class="col-m4 mx-auto">
-            <div class="card card-body text-center">
-              <p>NO HAY NINGUN FINANCIAMIENTO GUARDADO AUN </p>
-              <a href="/financiamiento/add"> CREAR UNA</a>
-            </div>
-          </div>
-          {{/each}}
-
-        </tbody>
-      </table>
-
-
-
-
+    {{!-- Cabecera --}}
+    <div class="m-5" align="center">
+      <h1> Lista de claves de financiamientos. </h1>
+      <small class="text-muted">
+        Departamento de Estudios de Posgrado e Investigacion.
+      </small>
     </div>
+
+    {{!-- Comienza la tabla --}}
+    <table class="table table-sm table-bordered table-striped table-hover">
+
+      {{!-- Cabecera de la tabla --}}
+      <thead>
+        <tr>
+          <th scope="col">Clave de financiamiento</th>
+          <th scope="col">fecha de inicio</th>
+          <th scope="col">fecha de expiracion </th>
+          <th scope="col">Editar</th>
+          <th scope="col">Eliminar</th>
+          <th scope="col">Montos</th>
+        </tr>
+      </thead>
+
+      {{!-- Cuerpo de la tabla --}}
+      <tbody>
+        {{#each financiamiento}}
+
+        <tr>
+          <th>{{clave_financiamiento}}</th>
+          <td>{{vigencia_inicio}}</td>
+          <td>{{vigencia_fin}}</td>
+          <td align="center"> <a href="/financiamiento/edit/{{clave_financiamiento}}" class="btn btn-sm btn-outline-warning"><i class="far fa-edit"></i>&ensp;Editar</a></td>
+          <td align="center"> <a href="/financiamiento/delete/{{clave_financiamiento}}" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
+          <td align="center"> <a href="/financiamiento/partidas/{{clave_financiamiento}}" class="btn btn-sm btn-outline-success"><i class="fas fa-info"></i>&ensp;Partidas</a></td>
+        </tr>
+
+        {{!-- En caso de que no se encuentre algun financiamiento --}}
+        {{else}}
+        <div class="col-m4 mx-auto">
+          <div class="card card-body text-center">
+            <p>NO HAY NINGUN FINANCIAMIENTO GUARDADO AUN </p>
+            <a href="/financiamiento/add"> CREAR UNA</a>
+          </div>
+        </div>
+        {{/each}}
+
+      </tbody>
+    </table>
   </div>
 </div>

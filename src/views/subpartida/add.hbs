@@ -18,61 +18,65 @@
     }
 </script>
 
-<div class="main" id="contenido">
-    <div class="container p-4">
+
+<div class="main">
+    <div class="container-fluid mt-2">
         <div class="row">
-            <div class=" mx-auto">
+            <div class="mx-auto">
+
+                <div class="m-5" align="center">
+                    <h1> Agregar subpartida. </h1>
+                    <small class="text-muted">
+                        Departamento de Estudios de Posgrado e Investigacion.
+                    </small>
+                </div>
 
                 <form action="/subpartida/add" method="POST">
 
                     <div class="form_group">
-                        <input type="text" name="clave_partida" class="form-control" id=""
-                            placeholder="clave de la partida" required autofocus>
+                        <label for="clave_partida"> Clave de la partida </label>
+                        <input type="text" name="clave_partida" class="form-control" id="" required autofocus>
+                    </div><br>
+
+                    <div class="form-group">
+                        <label for="state_id" class="control-label"> Agregar </label><br>
+
+                        <!-- Boton Agregar -->
+                        <button class="btn btn-outline-success btn-sm" onclick="insRow('myTable')"><i
+                                class="fas fa-plus"></i></button>
+
+                        <!-- Boton Borrar -->
+                        <button class="btn btn-outline-danger btn-sm" onclick="deleteRow('myTable')"><i
+                                class="fas fa-minus"></i></button><br><br>
                     </div>
-                <p>
-                    
-                        <div class="form-group">
-                                                <label for="state_id" class="control-label">Agregar </label>
-                                                <!-- Boton Agregar -->
-                                                <input class="btn btn-secondary btn-sm" type="button"
-                                                    title="Agregar Producto" Value="+" onclick="insRow('myTable')">
-                                                <!-- Boton Borrar -->
-                                                <input class="btn btn-secondary btn-sm" type="button"
-                                                    title="Borrar Producto" Value="-" onclick="deleteRow('myTable')">
-                                                
 
+                    {{!-- Comienza la tabla de subpartidas automatica --}}
+                    <table id="myTable" class="table table-sm table-bordered table-striped table-hover">
 
-                                            </div>  
-                    </p>
-
-
-                    <table id="myTable" class="table">
+                        {{!-- Cabecera de la tabla --}}
                         <thead>
                             <tr>
                                 <th scope="col">Clave subpartida</th>
                                 <th scope="col">Descripcion</th>
-
                             </tr>
                         </thead>
+
+                        {{!-- Campos de la tabla --}}
                         <tr>
                             <td><input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida"
-                                    placeholder="Subpartida" required>
-                            </td>
+                                    placeholder="Subpartida" required></td>
                             <td><input type="text" id="descripcion" class="form-control" name="descripcion"
                                     placeholder="Descripcion " required></td>
                         </tr>
 
-                    </table>
+                    </table><br><br>
 
-                    
-
-
-                    <div class=" col-md-4 form-group" "mx-auto">
-                        <button class="btn btn-success btn-block"> Agregar</button>
+                    <div class="mx-auto">
+                        <button class="btn btn-outline-primary btn-block"><i class="fas fa-folder-plus"></i>&ensp;Agregar</button>
                     </div>
+
                 </form>
             </div>
         </div>
-
     </div>
 </div>

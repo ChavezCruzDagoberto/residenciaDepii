@@ -1,45 +1,51 @@
-<div class="container p-4">
-  
-  {{#if partidas}}
+{{!-- Aqui comienza mi disenio --}}
+<div class="main">
+  <div class="container-fluid mt-2">
 
- <a href="/partida/add/{{financiamiento}}" class="btn btn-success"> Agregar Mas partidas</a>
-{{/if}}
+    {{!-- Cabecera --}}
+    <div class="m-5" align="center">
+      <h1> Montos del financiamiento. </h1>
+      <small class="text-muted">
+        Departamento de Estudios de Posgrado e Investigacion.
+      </small>
+    </div>
 
-  <div class="row">
+    {{!-- Comienza la tabla --}}
+    <table class="table table-sm table-bordered table-striped table-hover">
 
-    <table class="table">
+      {{!-- Cabecera de la tabla --}}
       <thead>
         <tr>
-          <th scope="col">clave de Financiamiento</th>
-          <th scope="col">clave de la partida</th>
-          <th scope="col">Monto Aprobado</th>
+          <th scope="col">Clave de Financiamiento</th>
+          <th scope="col">Clave de la partida</th>
+          <th scope="col">Monto aprobado</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Eliminar</th>
         </tr>
       </thead>
 
+      {{!-- Cuerpo de la tabla --}}
       <tbody>
         {{#each partidas}}
-        <form action="/partida/edit/{{clave_financiamiento}}/{{clave_partida}}" method="POST">
-          <tr>
 
+        <form action="/partida/edit/{{clave_financiamiento}}/{{clave_partida}}" method="POST">
+
+          <tr>
             <th>{{clave_financiamiento}}</th>
             <td>{{clave_partida}}</td>
-            <td><input type="text" value={{monto_aprobado}}  pattern="[0-9]+" name="monto_aprobado" required></td>
-
-            <td><a href="/partida/delete/{{clave_financiamiento}}/{{clave_partida}}" class="btn btn-danger">
-                Eliminar</a></td>
-            <td>
-              <button class="btn btn-secondary">Editar y guardar</button>
-            </td>
-
-
+            <td><input type="text" value={{monto_aprobado}} pattern="[0-9]+" name="monto_aprobado" required></td>
+            <td align="center"><button class="btn btn-sm btn-outline-success"><i class="fas fa-save"></i>&ensp;Guardar
+                cambios</button></td>
+            <td align="center"><a href="/partida/delete/{{clave_financiamiento}}/{{clave_partida}}"
+                class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
           </tr>
+
         </form>
 
-
+        {{!-- En caso de que no exista partidas guardadas --}}
         {{else}}
         <div class="col-m4 mx-auto">
           <div class="card card-body text-center">
-
             <p>NO HAY NINGUNA Partida GUARDADO AUN </p>
             <a href="/partida/add/{{financiamiento}}"> CREAR NUEVO</a>
           </div>
@@ -49,9 +55,14 @@
       </tbody>
     </table>
 
+    <br><br>
 
-
-
+    <div align="center">
+      {{#if partidas}}
+      <a href="/partida/add/{{financiamiento}}" class="btn btn-outline-primary"><i class="fas fa-plus"></i>&ensp;Agregar
+        partidas</a>
+      {{/if}}
+    </div><br><br>
 
   </div>
 </div>
