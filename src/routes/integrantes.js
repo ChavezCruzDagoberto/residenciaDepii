@@ -22,12 +22,12 @@ router.get('/add', esAdministrador, (req, res) => {
 
 router.post('/add', esAdministrador,
     [//validacion de los datos que entran del formulario
-        check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().withMessage('Solo Alphanumerico'),
-        check('nombre').notEmpty().toUpperCase().withMessage('solo Letras'),
-        check('apellido2').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
-        check('apellido1').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
-        check('plantel_adscripcion').notEmpty().toUpperCase().withMessage('solo Alphanumerico'),
-        check('email').notEmpty().isEmail().toLowerCase().withMessage('verificar dato email  example@algo.com'),
+        check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().isLength({max:10}).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
+        check('nombre').notEmpty().toUpperCase().isLength({max:50}).withMessage('solo Letras'),
+        check('apellido2').notEmpty().isAlpha().toUpperCase().isLength({max:50}).withMessage('solo Letras'),
+        check('apellido1').notEmpty().isAlpha().toUpperCase().isLength({max:50}).withMessage('solo Letras'),
+        check('plantel_adscripcion').notEmpty().toUpperCase().isLength({max:100}).withMessage('solo Alphanumerico'),
+        check('email').notEmpty().isEmail().toLowerCase().isLength({max:100}).withMessage('verificar dato email  example@algo.com'),
     ]
     , async (req, res) => {
         const errores = validationResult(req);

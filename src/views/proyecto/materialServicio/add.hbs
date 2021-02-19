@@ -1,56 +1,56 @@
-<div class="card-body">
-  <form action="/materialServicio/add" method="POST">
+<div class="main" id="contenido">
+  <div class="card-body">
+    <form action="/materialServicio/add" method="POST">
 
 
-    <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
-    <table id="elementos" class="table">
-      <thead>
+      <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
+      <table id="elementos" class="table">
+        <thead>
+          <tr>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Subpartida</th>
+            <th scope="col">Monto</th>
+          </tr>
+        </thead>
         <tr>
-          <th scope="col">Descripcion</th>
-          <th scope="col">Subpartida</th>
-          <th scope="col">Monto</th>
+
+
+          <td><input type="text" class="form-control" name="descripcion" required></td>
+
+          <td>
+
+            <select name="clave_subpartida" required id="clave_subpartida">
+              {{#each subpartidas}}
+              <option value="{{clave_subpartida}}">{{descripcion}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td><input type="number" class="form-control" name="monto" required></td>
+
         </tr>
-      </thead>
-      <tr>
 
+      </table>
 
-        <td><input type="text" class="form-control" name="descripcion" required></td>
-
-        <td>
-
-          <select name="clave_subpartida" required id="clave_subpartida">
-            {{#each subpartidas}}
-            <option value="{{clave_subpartida}}">{{descripcion}}</option>
-            {{/each}}
-          </select>
-        </td>
-        <td><input type="number" class="form-control" name="monto" required></td>
-
-      </tr>
-
-    </table>
-
-    <p>
-      <input type="button" onclick="insRow('elementos')" value="agregar nuevo">
-      <td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('elementos')"></td>
-    </p>
+      <p>
+        <input type="button" onclick="insRow('elementos')" value="agregar nuevo">
+        <td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('elementos')"></td>
+      </p>
 
 
 
 
-    <div class="col-md-4 mx-auto">
-      <div class="card">
-        <div class="form-group">
-          <button class="btn btn-success btn-block"> Agregar</button>
+      <div class="col-md-4 mx-auto">
+        <div class="card">
+          <div class="form-group">
+            <button class="btn btn-success btn-block"> Agregar</button>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
-</div>
-</div>
-</div>
-</div>
+
+
 
 
 <script>

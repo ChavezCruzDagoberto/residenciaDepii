@@ -1,53 +1,56 @@
-<div class="container p-4">
-    <div class="row">
+<div class="main" id="contenido">
+    <div class="container p-4">
+        <div class="row">
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Material/servicio</th>
-                    <th scope="col">clave_subpartida</th>
-                    <th scope="col">Monto $$$</th>
-
-                </tr>
-            </thead>
-
-            <tbody>
-                {{#each consulta}}
-                <form action="/materialServicio/edit" method="POST">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th>{{descripcionms}}</th>
-                        <td>{{clave_subpartida}}</td>
-                        <td><input type="text" value="{{monto_solicitado}}" name="monto_solicitado"></td>
-                        
-
-                        <td>
-                            <input type="hidden" value="{{clave_subpartida}}" name="clave_subpartida">
-                            <input type="hidden" value="{{descripcionms}}" name="descripcionms">
-                            <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
-                            <input type="hidden" value="{{id_material_servicio}}" name="id_material_servicio">
-                            <button class="btn btn-secondary">Editar y guardar</button>
-                        </td>
-                        <td><a href="/materialServicio/delete/{{id_material_servicio}}/{{id_proyecto}}" class="btn btn-danger">
-                                Eliminar</a></td>
-
-
+                        <th scope="col">Material/servicio</th>
+                        <th scope="col">clave_subpartida</th>
+                        <th scope="col">Monto $$$</th>
 
                     </tr>
-                </form>
-                {{else}}
-                <div class="col-m4 mx-auto">
-                    <div class="card card-body text-center">
-                        <p>NO HAY NINGUN Entregable registrado para este proyecto GUARDADO AUN </p>
-                        <a href="/materialServicio/add/{{id_proyecto}}"> CREAR NUEVO</a>
+                </thead>
+
+                <tbody>
+                    {{#each consulta}}
+                    <form action="/materialServicio/edit" method="POST">
+                        <tr>
+                            <th>{{descripcionms}}</th>
+                            <td>{{clave_subpartida}}</td>
+                            <td><input type="text" value="{{monto_solicitado}}" name="monto_solicitado"></td>
+
+
+                            <td>
+                                <input type="hidden" value="{{clave_subpartida}}" name="clave_subpartida">
+                                <input type="hidden" value="{{descripcionms}}" name="descripcionms">
+                                <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
+                                <input type="hidden" value="{{id_material_servicio}}" name="id_material_servicio">
+                                <button class="btn btn-secondary">Editar y guardar</button>
+                            </td>
+                            <td><a href="/materialServicio/delete/{{id_material_servicio}}/{{id_proyecto}}"
+                                    class="btn btn-danger">
+                                    Eliminar</a></td>
+
+
+
+                        </tr>
+                    </form>
+                    {{else}}
+                    <div class="col-m4 mx-auto">
+                        <div class="card card-body text-center">
+                            <p>NO HAY NINGUN Entregable registrado para este proyecto GUARDADO AUN </p>
+                            <a href="/materialServicio/add/{{id_proyecto}}"> CREAR NUEVO</a>
+                        </div>
                     </div>
-                </div>
-                {{/each}}
+                    {{/each}}
 
-            </tbody>
-        </table>
-
+                </tbody>
+            </table>
 
 
 
+
+        </div>
     </div>
 </div>

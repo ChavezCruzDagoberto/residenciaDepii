@@ -65,9 +65,12 @@ router.get('/add/:id_proyecto', async (req, res) => {
 //insertar a la base un link
 router.post('/add/:id_proyecto', upload.single('archivo'), async (req, res) => {
 
+    
     const { id_proyecto } = req.params;
 
-    console.log(req.file);
+    console.log(req.file,req.params,req.body);
+
+    
     const { filename, path, } = req.file;
 
     const newProtocolo = {
@@ -80,7 +83,8 @@ router.post('/add/:id_proyecto', upload.single('archivo'), async (req, res) => {
     await conexion.query('INSERT INTO protocolo set ?', [newProtocolo]);
 
 
-    res.redirect('/proyecto/detalle/' + id_proyecto);
+    res.redirect('/protocolo/' + id_proyecto);
+    
 
 });
 

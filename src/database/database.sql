@@ -153,3 +153,13 @@ insert into detalle_partida (clave_partida,clave_subpartida,descripcion) values
 (20000,20003,"pc laptops"); 
 
 ALTER TABLE proyecto add creado date not null;
+
+
+create table protocolo (
+id_protocolo int not null auto_increment primary key,
+nombre_archivo varchar(500) not null,
+url_archivo varchar(700) not null,
+anotaciones text ,
+id_proyecto int(10) not null,
+FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
+);
