@@ -24,13 +24,28 @@ router.get('/addcapturista', async (req, res) => {
 
 });
 
-router.post('/singup', (req,res,next)=>{
+router.post('/singup', 
+[//validacion de los datos que entran del formulario
+    check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().isLength({ max: 10 }).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
+    check('password').notEmpty().isLength({ min:6,max: 20 }).withMessage('tamaño minimo de 6 a 50 caracteres maximo'),
+    check('username').notEmpty().isLength({ min:6, max: 20 }).trim().withMessage('tamaño de 6 a 20 caracteres'),
+]
+
+,(req,res,next)=>{
+    const errores = validationResult(req);
+    console.log(errores.array());
+    if (errores.array().length > 0) {
+
+        return res.status(400).json({ errores: errores.array() });
+
+    } else {
 
     passport.authenticate('local.signup', {
         successRedirect: '/cuentas',
         failureRedirect: '/singup',
         failureFlash: true
     })(req, res, next);
+}
 });
 
 
@@ -54,12 +69,7 @@ router.post('/signin',noEstaLogueado, (req, res, next) => {
 
 });
 
-/*
-    router.get('/',esAdministrador,(req,res)=>{
-//res.send('profile');
-res.render('profile');
 
-    });*/
 
 router.get('/logout', estaLogueado, (req, res) => {
     req.app.locals.lider=null;

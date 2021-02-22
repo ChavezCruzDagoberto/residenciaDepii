@@ -39,13 +39,13 @@
                         <div class="mt-5" align="left">
                             <div class="form-group">
                                 <label for="username"> Nombre de usuario </label>
-                                <input type="text" name="username" class="form-control" required>
+                                <input type="text" id="username" name="username" class="form-control" onkeypress="verificar(event)" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="password"> Contraseña </label>
                                 <input type="password" name="password" class="form-control"
-                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
+                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" onkeypress="verificar(event)" required>
                             </div>
                             <br>
 
@@ -78,3 +78,14 @@
         </div>
     </div>
 </div>
+<script>
+function verificar(event) {
+    
+  var x = event.charCode;
+  if(x==32){
+      event.preventDefault();
+     
+
+  }
+}
+</script>

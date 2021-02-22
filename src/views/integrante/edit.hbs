@@ -19,7 +19,7 @@
 
                         <div class="form-group">
                             <label for="cvu_tecnm1"> CVU TecNM </label>
-                            <input type="text" value="{{integrante.cvu_tecnm}}" name="cvu_tecnm1" class="form-control" autofocus required>
+                            <input type="text" value="{{integrante.cvu_tecnm}}" name="cvu_tecnm1" class="form-control" onkeypress="verificar(event)" autofocus required>
                         </div>
 
                         <br>
@@ -31,12 +31,12 @@
 
                         <div class="form-group">
                             <label for="apellido1"> Primer apellido </label>
-                            <input type="text" value="{{integrante.apellido1}}" name="apellido1" class="form-control" required>
+                            <input type="text" value="{{integrante.apellido1}}" name="apellido1" class="form-control" onkeypress="verificar(event)" required>
                         </div>
 
                         <div class="form-group">
                             <label for="apellido2"> Segundo apellido </label>
-                            <input type="text" value="{{integrante.apellido2}}" name="apellido2" class="form-control" required>
+                            <input type="text" value="{{integrante.apellido2}}" name="apellido2" class="form-control" onkeypress="verificar(event)" required>
                         </div>
 
                         <br>
@@ -50,7 +50,7 @@
 
                         <div class="form-group">
                             <label for="email"> Email </label>
-                            <input type="text" value="{{integrante.email}}" name="email" class="form-control" required>
+                            <input type="text" value="{{integrante.email}}" name="email" class="form-control" onkeypress="verificar(event)" required>
                         </div>
 
                         <br><br>
@@ -65,3 +65,15 @@
         </div>
     </div>
 </div>
+
+<script>
+function verificar(event) {
+    
+  var x = event.charCode;
+  if(x==32){
+      event.preventDefault();
+     
+
+  }
+}
+</script>

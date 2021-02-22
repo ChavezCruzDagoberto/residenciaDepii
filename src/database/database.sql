@@ -163,3 +163,58 @@ anotaciones text ,
 id_proyecto int(10) not null,
 FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
 );
+
+
+
+
+
+
+
+
+
+
+
+
+-- elimina la asociacion con convocatoria--
+ALTER TABLE `residenciap_depi`.`proyecto` 
+DROP FOREIGN KEY `proyecto_ibfk_2`;
+ALTER TABLE `residenciap_depi`.`proyecto` 
+DROP INDEX `id_convocatoria` ;
+
+//eliminar columna  id_convocatoria en proyecto
+ALTER TABLE `residenciap_depi`.`proyecto` 
+DROP COLUMN `id_convocatoria`;
+
+
+
+
+
+-- para cuando halla una actualizacion en alguno de los datos  de integrante usados en otras tablas--
+ALTER TABLE `residenciap_depi`.`users` 
+DROP FOREIGN KEY `users_ibfk_1`;
+ALTER TABLE `residenciap_depi`.`users` 
+ADD CONSTRAINT `users_ibfk_1`
+  FOREIGN KEY (`cvu_tecnm`)
+  REFERENCES `residenciap_depi`.`participante` (`cvu_tecnm`)
+  ON UPDATE CASCADE;
+
+
+ALTER TABLE `residenciap_depi`.`proyecto_participante` 
+ADD CONSTRAINT `proyecto_participante_ibfk_1`
+  FOREIGN KEY (`cvu_tecnm`)
+  REFERENCES `residenciap_depi`.`participante` (`cvu_tecnm`)
+  ON UPDATE CASCADE;
+  
+
+
+
+
+  --actualizacion o eliminacion de proyecto relacionado con proyecto participante--
+  ALTER TABLE `residenciap_depi`.`proyecto_participante` 
+DROP FOREIGN KEY `proyecto_participante_ibfk_2`;
+ALTER TABLE `residenciap_depi`.`proyecto_participante` 
+ADD CONSTRAINT `proyecto_participante_ibfk_2`
+  FOREIGN KEY (`id_proyecto`)
+  REFERENCES `residenciap_depi`.`proyecto` (`id_proyecto`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

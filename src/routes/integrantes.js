@@ -22,12 +22,12 @@ router.get('/add', esAdministrador, (req, res) => {
 
 router.post('/add', esAdministrador,
     [//validacion de los datos que entran del formulario
-        check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().isLength({max:10}).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
-        check('nombre').notEmpty().toUpperCase().isLength({max:50}).withMessage('solo Letras'),
-        check('apellido2').notEmpty().isAlpha().toUpperCase().isLength({max:50}).withMessage('solo Letras'),
-        check('apellido1').notEmpty().isAlpha().toUpperCase().isLength({max:50}).withMessage('solo Letras'),
-        check('plantel_adscripcion').notEmpty().toUpperCase().isLength({max:100}).withMessage('solo Alphanumerico'),
-        check('email').notEmpty().isEmail().toLowerCase().isLength({max:100}).withMessage('verificar dato email  example@algo.com'),
+        check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().isLength({ max: 10 }).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
+        check('nombre').notEmpty().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('apellido2').notEmpty().isAlpha().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('apellido1').notEmpty().isAlpha().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('plantel_adscripcion').notEmpty().toUpperCase().isLength({ max: 100 }).withMessage('solo Alphanumerico'),
+        check('email').notEmpty().isEmail().toLowerCase().isLength({ max: 100 }).withMessage('verificar dato email  example@algo.com'),
     ]
     , async (req, res) => {
         const errores = validationResult(req);
@@ -99,35 +99,56 @@ router.get('/addColaborador/:id_proyecto', esLider, (req, res) => {
     res.render('integrante/add_integrante_p', { id_proyecto });
 });
 
-router.post('/addColaborador', async (req, res) => {
-    const { cvu_tecnm, id_proyecto, nombre, apellido1, apellido2, plantel_adscripcion, rol_proyecto, email } = req.body;
+router.post('/addColaborador',
+    [//validacion de los datos que entran del formulario
+        check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().isLength({ max: 10 }).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
+        check('nombre').notEmpty().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('apellido2').notEmpty().isAlpha().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('apellido1').notEmpty().isAlpha().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('plantel_adscripcion').notEmpty().toUpperCase().isLength({ max: 100 }).withMessage('solo Alphanumerico'),
+        check('email').notEmpty().isEmail().toLowerCase().isLength({ max: 100 }).withMessage('verificar dato email  example@algo.com'),
+        check('rol_proyecto').notEmpty().isAlpha().withMessage('solo Letras'),
+        check('id_proyecto').notEmpty().isNumeric().withMessage('Solo campo numerico'),
+    ],
+    async (req, res) => {
+        const errores = validationResult(req);
+        console.log(errores.array());
+        if (errores.array().length > 0) {
 
-    const valida = await pool.query('select * from participante where cvu_tecnm=?', [cvu_tecnm]);
-    if (valida.length <= 0) {
-        const nuevoIntegrante = {
-            cvu_tecnm,
-            nombre,
-            apellido1,
-            apellido2,
-            plantel_adscripcion,
-            email
-        };
+            return res.status(400).json({ errores: errores.array() });
 
-        await pool.query('insert into participante set ?', [nuevoIntegrante]);
-
-    }
-    const nuevoInt_proyecto = {
-        id_proyecto,
-        cvu_tecnm,
-        rol_proyecto
-    }
-    await pool.query('insert into proyecto_participante set ?', [nuevoInt_proyecto]);
-    req.flash('success', 'se añadio un nuevo participante a tu proyecto');
-    res.redirect('/integrantes/proyecto/' + id_proyecto);
+        } else {
 
 
 
-});
+            const { cvu_tecnm, id_proyecto, nombre, apellido1, apellido2, plantel_adscripcion, rol_proyecto, email } = req.body;
+
+            const valida = await pool.query('select * from participante where cvu_tecnm=?', [cvu_tecnm]);
+            if (valida.length <= 0) {
+                const nuevoIntegrante = {
+                    cvu_tecnm,
+                    nombre,
+                    apellido1,
+                    apellido2,
+                    plantel_adscripcion,
+                    email
+                };
+
+                await pool.query('insert into participante set ?', [nuevoIntegrante]);
+
+            }
+            const nuevoInt_proyecto = {
+                id_proyecto,
+                cvu_tecnm,
+                rol_proyecto
+            }
+            await pool.query('insert into proyecto_participante set ?', [nuevoInt_proyecto]);
+            req.flash('success', 'se añadio un nuevo participante a tu proyecto');
+            res.redirect('/integrantes/proyecto/' + id_proyecto);
+
+        }
+
+    });
 
 //listar pro proyecto
 
@@ -213,8 +234,8 @@ router.get('/delete/:cvu_tecnm', async (req, res) => {
             req.flash('success', cvu_tecnm + ' eliminado  correctamente');
             res.redirect("/integrantes");
         } catch (error) {
-            req.flash('message',' no se ha podido eliminar tiene relacion con otros datos importantes');
-            res.redirect("/integrantes");  
+            req.flash('message', ' no se ha podido eliminar tiene relacion con otros datos importantes');
+            res.redirect("/integrantes");
 
         }
     } else {
@@ -260,14 +281,15 @@ router.get('/edit/:cvu_tecnm', async (req, res) => {
 
 
 router.post('/edit/:cvu_tecnm',
-    [
-        check('cvu_tecnm1').notEmpty().isAlphanumeric().toUpperCase().withMessage('Solo Alphanumerico'),
-        check('nombre').notEmpty().toUpperCase().withMessage('solo Letras'),
-        check('apellido2').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
-        check('apellido1').notEmpty().isAlpha().toUpperCase().withMessage('solo Letras'),
-        check('plantel_adscripcion').notEmpty().toUpperCase().withMessage('solo Alphanumerico'),
-        check('email').notEmpty().isEmail().toLowerCase().withMessage('verificar dato email  example@algo.com'),
-    ], async (req, res) => {
+    [//validacion de los datos que entran del formulario
+        check('cvu_tecnm1').notEmpty().isAlphanumeric().toUpperCase().isLength({ max: 10 }).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
+        check('nombre').notEmpty().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('apellido2').notEmpty().isAlpha().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('apellido1').notEmpty().isAlpha().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),
+        check('plantel_adscripcion').notEmpty().toUpperCase().isLength({ max: 100 }).withMessage('solo Alphanumerico'),
+        check('email').notEmpty().isEmail().toLowerCase().isLength({ max: 100 }).withMessage('verificar dato email  example@algo.com'),
+    ]
+    , async (req, res) => {
 
         const errores = validationResult(req);
         console.log(errores.array().length);

@@ -15,7 +15,7 @@
 
                     <div class="form-group">
                         <label for="clave_financiamiento"> Clave del financiamiento </label>
-                        <input type="text" class="form-control" name="clave_financiamiento" autofocus required>
+                        <input type="text" class="form-control" name="clave_financiamiento" onkeypress="verificar(event)" autofocus required>
                     </div><br>
 
                     <div class="form-group row">
@@ -211,6 +211,19 @@
         var input = document.getElementById("fin");
         input.min = this.value;
     }
+
+
+
+function verificar(event) {
+    
+  var x = event.charCode;
+  if(x==32){
+      event.preventDefault();
+     
+
+  }
+}
+
 
 </script>
 <footer>

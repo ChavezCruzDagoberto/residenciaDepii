@@ -18,7 +18,7 @@
 
                         <div class="form-group">
                             <label for="cvu_tecnm"> CVU TecNM </label>
-                            <input type="text" name="cvu_tecnm" class="form-control" autofocus required>
+                            <input type="text" name="cvu_tecnm" class="form-control" onkeypress="verificar(event)" autofocus required>
                         </div>
 
                         <br>
@@ -30,12 +30,12 @@
 
                         <div class="form-group">
                             <label for="apellido1"> Primer apellido </label>
-                            <input type="text" name="apellido1" class="form-control" required>
+                            <input type="text" name="apellido1" class="form-control" onkeypress="verificar(event)" required>
                         </div>
 
                         <div class="form-group">
                             <label for="apellido2"> Segundo apellido </label>
-                            <input type="text" name="apellido2" class="form-control" required>
+                            <input type="text" name="apellido2" class="form-control" onkeypress="verificar(event)" required>
                         </div>
 
                         <br>
@@ -49,7 +49,7 @@
 
                         <div class="form-group">
                             <label for="email"> Email </label>
-                            <input type="text" name="email" class="form-control" required>
+                            <input type="text" name="email" class="form-control" onkeypress="verificar(event)" required>
                         </div>
 
                         <br><br>
@@ -66,3 +66,15 @@
         </div>
     </div>
 </div>
+
+<script>
+function verificar(event) {
+    
+  var x = event.charCode;
+  if(x==32){
+      event.preventDefault();
+     
+
+  }
+}
+</script>

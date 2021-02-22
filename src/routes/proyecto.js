@@ -7,7 +7,7 @@ const { estaLogueado, noEstaLogueado, esAdministrador, esLider } = require('../l
 const moment = require('moment');
 
 moment.locale('es');
-
+/*
 
 router.get('/add', esLider, async (req, res) => {
   const cvu_tecnm = req.user.cvu_tecnm;
@@ -18,12 +18,92 @@ router.get('/add', esLider, async (req, res) => {
 
   res.render('proyecto/add', { convocatorias });
  
+});*/
+router.get('/add', esLider, async (req, res) => {
+  const cvu_tecnm = req.user.cvu_tecnm;
+  console.log(req.user);
+  const valida = await conexion.query('select * from proyecto_participante where cvu_tecnm=?', [cvu_tecnm]);
+ 
+
+  res.render('proyecto/add');
+ 
+});
+
+
+
+router.post('/add', esLider, async (req, res) => {
+
+
+  //validar si ese usuario tiene un proyecto activo
+  const activo = await conexion.query('select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado!=0', [req.user.cvu_tecnm]);
+  if (activo.length == 0) {
+
+    const clave_financiamiento = req.body.clave_financiamiento;
+    //estados del proyecto o=terminado, 1=creado,2=en tiempo,3=atrasado,4=cancelado
+    let estado = 1;
+    const validacion = await conexion.query('select * from proyecto WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
+    //const validaconvocatoria = await conexion.query('select * from proyecto WHERE  id_convocatoria=?', [req.body.id_convocatoria]);
+    console.log(validacion.length);
+    //console.log(validaconvocatoria.length);
+  if (validacion.length == 0 ) {
+      const cvu_tecnm = req.user.cvu_tecnm;
+      const fecha_sometido = req.body.fecha_sometido ;
+      const fecha_dictamen = req.body.fecha_dictamen ;
+
+      const { titulo, modalidad } = req.body;
+      var creado = moment().format('YYYY-MM-DD');
+      
+      const newProyecto = {
+        titulo,
+        modalidad,
+        fecha_sometido,
+        fecha_dictamen,
+        clave_financiamiento,
+        estado,
+        creado
+      };
+
+
+      await conexion.query('INSERT INTO proyecto set ?', [newProyecto]);
+
+      const p = await conexion.query('select * from proyecto where titulo=?', [titulo]);
+
+      const newProyecto_participante = {
+        id_proyecto: p[0].id_proyecto,
+        cvu_tecnm,
+        rol_proyecto: 'Responsable'
+      };
+      await conexion.query('INSERT INTO proyecto_participante set ?', [newProyecto_participante]);
+
+      req.flash('success', 'proyecto agreado correctamente');
+
+      res.redirect("/proyecto");
+
+    } else {
+      req.flash('message', ' no pudo ser creado el proyecto verfique la clave  financiamiento');
+      //console.log('no existe registro');
+      res.redirect("/proyecto/add");
+    }
+  }
+  else {
+
+    req.flash('message', ' tiene un proyecto activo no puede tener control de 2 proyectos a la vez');
+    res.redirect("/proyecto/add");
+  }
+
+
 });
 
 
 
 
 
+
+
+
+
+
+/*
 router.post('/add', esLider, async (req, res) => {
 
 
@@ -87,6 +167,7 @@ router.post('/add', esLider, async (req, res) => {
 
 
 });
+*/
 
 
 
@@ -108,7 +189,7 @@ req.app.locals.proyectodisponible=null;
   } else {
 
     const cvu_tecnm = req.user.cvu_tecnm;
-    const proyectos = await conexion.query('select * from  (select * from convocatoria natural join proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado=1 ', [cvu_tecnm]);
+    const proyectos = await conexion.query('select * from  (select * from  proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado=1 ', [cvu_tecnm]);
 
     console.log('p',proyectos.length);
 if(proyectos.length>0){
@@ -137,7 +218,7 @@ if(proyectos.length>0){
 router.get('/listartodo', esAdministrador, estaLogueado, async (req, res) => {
   const cvu_tecnm = req.user.cvu_tecnm;
     const proyectos = await conexion.query(
-    'select * from (select * from convocatoria natural join proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
+    'select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
   );
   const final = formatearFechas(proyectos);
   res.render('proyecto/list', { proyectos: final });
@@ -153,6 +234,8 @@ router.get('/delete/:id_proyecto', esAdministrador, async (req, res) => {
     await conexion.query('DELETE FROM  proyecto  WHERE ID_PROYECTO=?', [id_proyecto]);
     req.flash('success', id_proyecto + ' eliminado  correctamente');
     res.redirect("/proyecto");
+
+
 
   } catch (error) {
     req.flash('message', ' el proyecto no puede ser eliminado ya que tiene datos asociados');
@@ -177,10 +260,10 @@ try {
  
 
 if(nuevo.length>0){
-  const convocatoria   = await conexion.query(  'select a.id_convocatoria,a.nombre_convocatoria from convocatoria as a left join proyecto as b on a.id_convocatoria=b.id_convocatoria where b.id_convocatoria is null');
-  const con_actual=await conexion.query('select * from convocatoria where id_convocatoria= ?',[nuevo[0].id_convocatoria]);
+  //const convocatoria   = await conexion.query(  'select a.id_convocatoria,a.nombre_convocatoria from convocatoria as a left join proyecto as b on a.id_convocatoria=b.id_convocatoria where b.id_convocatoria is null');
+  //const con_actual=await conexion.query('select * from convocatoria where id_convocatoria= ?',[nuevo[0].id_convocatoria]);
 
-  convocatoria.push(con_actual[0]);
+  //convocatoria.push(con_actual[0]);
 
   var fecha1 = moment() ;
   var fecha2 = moment(nuevo[0].creado);
@@ -188,7 +271,7 @@ if(nuevo.length>0){
    if(temporal<10){
     req.flash('message',"Recuerde que solo le quedan "+(10-temporal) +" dias para editar ");
 
-    res.render('proyecto/edit', { proyecto: nuevo[0], convocatoria ,message:req.flash('message')});
+    res.render('proyecto/edit', { proyecto: nuevo[0],message:req.flash('message')});
    }else{
     req.flash('message',"ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
     res.redirect('/proyecto');
@@ -210,10 +293,11 @@ if(nuevo.length>0){
 
 
 router.post('/edit/:id_proyecto', esLider, async (req, res) => {
+  try {
   const { id_proyecto } = req.params;
   estado = 1;
 
-  const { titulo, modalidad, fecha_sometido, fecha_dictamen, id_convocatoria, clave_financiamiento } = req.body;
+  const { titulo, modalidad, fecha_sometido, fecha_dictamen,  clave_financiamiento } = req.body;
 
   const newProyecto = {
     titulo,
@@ -221,12 +305,11 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
     fecha_sometido ,
     fecha_dictamen,
     clave_financiamiento,
-    id_convocatoria,
     estado
 
   };
 
-  try {
+  
     await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [newProyecto, id_proyecto]);
 
 
@@ -237,8 +320,8 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
 
   } catch (error) {
     console.log(req.user.rol_sistema);
-    if (error.code == 'ER_DUP_ENTRY') {
-      req.flash('message', ' No se pudo actualizar los datos ya existe un registro con esta convocatoria');
+    if (error) {
+      req.flash('message', ' Algo ha salido mal');
       res.redirect('/proyecto');
     }
 
