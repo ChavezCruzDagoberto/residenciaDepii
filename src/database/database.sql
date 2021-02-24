@@ -218,3 +218,9 @@ ADD CONSTRAINT `proyecto_participante_ibfk_2`
   REFERENCES `residenciap_depi`.`proyecto` (`id_proyecto`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+
+
+
+--puede ser nulo el segundo apellido--
+ALTER TABLE `residenciap_depi`.`participante` 
+CHANGE COLUMN `apellido2` `apellido2` VARCHAR(50) NULL ;

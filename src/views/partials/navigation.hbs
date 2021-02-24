@@ -11,8 +11,9 @@
       <ul class="navbar-nav ml-auto">
 
         {{#if user }}
+        <input type="hidden" id="username" value="{{user.username}}">
         <li class="nav-item">
-          <a href="/logout" class="nav-link"> Salir </a>
+          <a  href="#" class="nav-link" id="salir" onclick="confirmar()"> Salir </a>
         </li>
 
         {{else}}
@@ -251,3 +252,19 @@
 {{/if}}
 
 <script text="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script>
+
+  function confirmar(){
+
+    var us=document.getElementById("username").value;
+    var r = confirm( us+"  \n ¿desea salir del sistema?");
+  if (r == true) {
+   // txt = "You pressed OK!";
+window.location.href="/logout";
+    
+  } else {
+    //txt = "You pressed Cancel!";
+   
+  }
+  }
+</script>
