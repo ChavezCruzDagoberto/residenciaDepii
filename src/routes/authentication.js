@@ -6,6 +6,18 @@ const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth')
 const helpers = require('../lib/helpers');
 const { check, validationResult } = require('express-validator');
 
+const rateLimit=require('express-rate-limit');
+const intentos=rateLimit({
+    windowMs: 10*60*1000,
+    max:3,
+    message:"se estan recibiendo muchos intentos de esta IP reintente en 10 min"
+});
+const intentos1=rateLimit({
+    windowMs: 10*60*1000,
+    max:3,
+    message:"se estan recibiendo muchos intentos de esta IP reintente en 10 min"
+});
+
 router.get('/singup', async (req, res) => {
 
     const responsables = await conexion.query('SELECT O.cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email FROM participante AS O LEFT JOIN users AS P ON O.cvu_tecnm = P.cvu_tecnm WHERE P.cvu_tecnm IS NULL ');
@@ -53,13 +65,13 @@ router.post('/singup',
 
 
 
-router.get('/signin',noEstaLogueado, (re, res) => {
+router.get('/signin',intentos1,noEstaLogueado, (re, res) => {
     res.render('auth/signin')
 
 });
 
 
-router.post('/signin',noEstaLogueado, (req, res, next) => {
+router.post('/signin',intentos,noEstaLogueado, (req, res, next) => {
 
     passport.authenticate('local.signin', {
         successRedirect: '/',   
