@@ -19,12 +19,12 @@
 
                     <div class="form-group">
                         <label for="username"> Nombre de usuario </label>
-                        <input type="text" name="username" class="form-control" onkeypress="verificar(event)" required>
+                        <input type="text" id="username" name="username" class="form-control" title="solo letras mayusculas y minisculas de 6 a 20 caracteres sin espacio"  onkeypress="verificar(event)" pattern="[a-zA-Z]{6,20}" required>
                     </div>
 
                     <div class="form-group">
                         <label for="password"> Contraseña </label>
-                        <input type="password" name="password" class="form-control" required>
+                        <input type="password"   title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito, mayor a 6 caracteres"  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"  name="password" class="form-control" required>
                     </div>
 
                     <br><br>
@@ -37,14 +37,34 @@
             </form>
         </div>
     </div>
+
+
+    
+
+
+
     <script>
 function verificar(event) {
     
   var x = event.charCode;
+
+
   if(x==32){
+
+
+
+
       event.preventDefault();
      
 
   }
+
+  
 }
+
+
+
 </script>
+
+
+
