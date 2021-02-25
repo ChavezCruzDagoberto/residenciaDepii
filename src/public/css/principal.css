@@ -580,12 +580,14 @@ pre code {
 }
 
 .row {
-  display: -ms-flexbox;
-  display: flex;
+  
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  
+  width: 50%;
+  height: 100%;
+  margin-left: 15%;
+  align-content: center;
 }
 
 .no-gutters {
