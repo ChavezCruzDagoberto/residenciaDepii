@@ -65,13 +65,13 @@ router.post('/singup',
 
 
 
-router.get('/signin',intentos1,noEstaLogueado, (re, res) => {
+router.get('/signin',noEstaLogueado, (re, res) => {
     res.render('auth/signin')
 
 });
 
 
-router.post('/signin',intentos,noEstaLogueado, (req, res, next) => {
+router.post('/signin',noEstaLogueado, (req, res, next) => {
 
     passport.authenticate('local.signin', {
         successRedirect: '/',   

@@ -581,9 +581,7 @@ pre code {
 
 .row {
   
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  
+
   width: 50%;
   height: 100%;
   margin-left: 15%;

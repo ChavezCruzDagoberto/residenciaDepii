@@ -347,12 +347,9 @@ async (req, res) => {
  
 console.log(req.app.locals);
 
-  if (usuario == 'Administrador') {
-    res.render('layouts/proyecto', { proyecto: proyecto[0] });
-  } else {
-
     res.render('layouts/proyecto_responsable', { proyecto: proyecto[0] });
-  }
+  
+    
   
   //res.send("recibido");
   });
