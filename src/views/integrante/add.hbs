@@ -1,63 +1,72 @@
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
 <div class="main" id="contenido">
+
+    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
     <div class="container-fluid">
-        <div class="row">
-            <div class="mx-auto">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-100">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-50" align="center">
 
                 {{!-- Cabecera --}}
-                <div class="m-5" align="center">
-                    <h1> Nuevo integrante. </h1>
-                    <small class="text-muted">
-                        Departamento de Estudios de Posgrado e Investigacion.
-                    </small>
+                <div class="m-5">
+                    <h1> Crear nuevo integrante. </h1>
                 </div>
 
                 {{!-- Campos para anadir integrante --}}
                 <form action="/integrantes/add" method="POST">
 
-                    <div class="col" align="left">
+                    {{!-- Primer renglon con campos --}}
+                    <div class="form-row justify-content-center align-items-end">
 
-                        <div class="form-group">
-                            <label for="cvu_tecnm"> CVU TecNM </label>
-                            <input type="text" name="cvu_tecnm" class="form-control" onkeypress="verificar(event)" autofocus required>
+                        <div class="form-group col-sm-2">
+                            <label for="cvu_tecnm"> No. CVU TecNM </label>
+                            <input type="text" name="cvu_tecnm" class="form-control" onkeypress="verificar(event)"
+                                autofocus required>
                         </div>
 
-                        <br>
-
-                        <div class="form-group">
+                        <div class="form-group col-sm-6">
                             <label for="nombre"> Nombre(s) </label>
                             <input type="text" name="nombre" class="form-control" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-sm-3">
                             <label for="apellido1"> Primer apellido </label>
-                            <input type="text" name="apellido1" class="form-control" onkeypress="verificar(event)" required>
+                            <input type="text" name="apellido1" class="form-control" onkeypress="verificar(event)"
+                                required>
                         </div>
 
-                        <div class="form-group">
+                    </div>
+
+                    {{!-- Segundo renglon con campos --}}
+                    <div class="form-row justify-content-center align-items-end">
+
+                        <div class="form-group col-sm-3">
                             <label for="apellido2"> Segundo apellido </label>
                             <input type="text" name="apellido2" class="form-control" onkeypress="verificar(event)">
                         </div>
 
-                        <br>
-
-                        <div class="form-group">
+                        <div class="form-group col-sm-4">
                             <label for="plantel_adscripcion"> Plantel de adscripcion</label>
                             <input type="text" name="plantel_adscripcion" class="form-control" required>
                         </div>
 
-                        <br>
-
-                        <div class="form-group">
+                        <div class="form-group col-sm-4">
                             <label for="email"> Email </label>
                             <input type="text" name="email" class="form-control" onkeypress="verificar(event)" required>
                         </div>
 
-                        <br><br>
+                    </div>
 
-                        <div class="form-group">
-                            <button class="btn btn-outline-primary btn-block"><i class="fas fa-user-plus"></i>&emsp;Crear integrante </button>
+                    {{!-- Boton --}}
+                    <div class="m-5" align="center">
+                        <div class="form-group col-sm-4" align="center">
+                            <button class="btn btn-outline-primary btn-block">
+                                <i class="fas fa-user-plus"></i>&emsp;Crear integrante
+                            </button>
                         </div>
-
                     </div>
 
                 </form>
@@ -68,13 +77,12 @@
 </div>
 
 <script>
-function verificar(event) {
-    
-  var x = event.charCode;
-  if(x==32){
-      event.preventDefault();
-     
+    function verificar(event) {
 
-  }
-}
+        var x = event.charCode;
+        if (x == 32) {
+            event.preventDefault();
+
+        }
+    }
 </script>

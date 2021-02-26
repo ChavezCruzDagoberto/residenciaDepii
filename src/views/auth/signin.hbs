@@ -1,15 +1,17 @@
+{{!-- LOGIN. --}}
+
+{{!-- Contenedor principal del tamanio de la pantalla. --}}
 <div class="container-fluid">
 
-    {{!-- Flex principal --}}
-    <div class="d-flex justify-content-center m-5 p-5">
+    {{!-- Flex que permite centrar horizontalmente. --}}
+    <div class="d-flex justify-content-center vh-100">
 
-        {{!-- Form-group para inicio de sesion --}}
-        <div class="form-group w-25" align="center">
+        {{!-- div para centar verticalmente y anchar los inputs de inicio de sesion --}}
+        <div class="form-group w-25 my-auto">
 
             <!-- logotipo del ITO -->
-            <div>
+            <div class="mb-5" align="center">
                 <img src="images/logoito.png" height="100rem">
-                <br><br><br><br>
             </div>
 
             {{!-- Campos para el inicio de sesion --}}
@@ -19,17 +21,21 @@
 
                     <div class="form-group">
                         <label for="username"> Nombre de usuario </label>
-                        <input type="text" id="username" name="username" class="form-control" title="solo letras mayusculas y minisculas de 6 a 20 caracteres sin espacio"  onkeypress="verificar(event)" pattern="[a-zA-Z]{6,20}" required>
+                        <input type="text" id="username" name="username" class="form-control" style="text-align:center;"
+                            title="Solo letras mayusculas y minisculas de 6 a 20 caracteres sin espacio"
+                            onkeypress="verificar(event)" pattern="[a-zA-Z]{6,20}" required>
                     </div>
 
                     <div class="form-group">
                         <label for="password"> Contraseña </label>
-                        <input type="password"   title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito, mayor a 6 caracteres"  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"  name="password" class="form-control" required>
+                        <input type="password" style="text-align:center;"
+                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito, mayor a 6 caracteres"
+                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" name="password" class="form-control"
+                            required>
                     </div>
 
-                    <br><br>
-                    <div class="form-group">
-                        <button class="btn btn-outline-primary btn-block">Iniciar sesion</button>
+                    <div class="form-group mt-5">
+                        <button class="btn btn-outline-primary btn-block"><i class="fas fa-sign-in-alt"></i>&ensp;Iniciar sesion</button>
                     </div>
 
                 </div>
@@ -37,34 +43,16 @@
             </form>
         </div>
     </div>
+</div>
 
+<script>
+    function verificar(event) {
 
-    
+        var x = event.charCode;
 
+        if (x == 32) {
+            event.preventDefault();
+        }
 
-
-    <script>
-function verificar(event) {
-    
-  var x = event.charCode;
-
-
-  if(x==32){
-
-
-
-
-      event.preventDefault();
-     
-
-  }
-
-  
-}
-
-
-
+    }
 </script>
-
-
-
