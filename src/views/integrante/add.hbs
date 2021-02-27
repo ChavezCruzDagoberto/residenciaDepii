@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-center vh-100">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-50" align="center">
+            <div class="my-auto w-30" align="center">
 
                 {{!-- Cabecera --}}
                 <div class="m-5">
@@ -18,98 +18,98 @@
                 </div>
 
                 {{!-- Campos para anadir integrante --}}
-                <form action="/integrantes/add" method="POST">
+                <form action="/integrantes/add" method="POST" class="pt-2">
 
-                    {{!-- Primer renglon con campos --}}
-                    <div class="form-row justify-content-center align-items-end">
+                    <div class="form-inline justify-content-end">
+                        <label for="cvu_tecnm" class="m-2"> No. CVU TecNM </label>
+                        <input type="text" id="cvu_tecnm" name="cvu_tecnm" class="form-control col-sm-3"
+                            title="formato de numeros y letras de 8 caracteres " onkeypress="validarCvu(event)"
+                            pattern="[A-Z0-9]{8}" autofocus required>
+                        <label class="m-1" style="color: red;"> * </label>
+                    </div><br>
 
-                        <div class="form-group col-sm-2">
-                            <label for="cvu_tecnm"> No. CVU TecNM </label>
-                            <input type="text" id="cvu_tecnm" name="cvu_tecnm" class="form-control" title="formato de numeros y letras de 8 caracteres "
-                                onkeypress="validarCvu(event)" pattern="[A-Z0-9]{8}" autofocus required>
-                        </div>
+                    <div class="form-inline justify-content-end">
+                        <label for="nombre" class="m-2"> Nombre(s) </label>
+                        <input type="text" id="nombre" name="nombre" class="form-control"
+                            title="solo letras min de 3 a max 25 caracteres" onkeypress="validarNombre(event)"
+                            pattern="[A-Z ]{3,25}" required>
+                        <label class="m-1" style="color: red;"> * </label>
+                    </div><br>
 
-                        <div class="form-group col-sm-6">
-                            <label for="nombre"> Nombre(s) </label>
-                            <input type="text" id="nombre" name="nombre" class="form-control" title="solo letras min de 3 a max 25 caracteres"
-                                onkeypress="validarNombre(event)" pattern="[A-Z ]{3,25}"  required>
-                        </div>
+                    <div class="form-inline justify-content-end">
+                        <label for="apellido1" class="m-2"> Primer apellido </label>
+                        <input type="text" id="apellido1" name="apellido1" class="form-control"
+                            title="solo letras min de 3 a max 15 caracteres" onkeypress="validarApellido1(event)"
+                            pattern="[A-Z ]{3,15}" required>
+                        <label class="m-1" style="color: red;"> * </label>
+                    </div><br>
 
-                        <div class="form-group col-sm-3">
-                            <label for="apellido1"> Primer apellido </label>
-                            <input type="text" id="apellido1" name="apellido1" class="form-control" title="solo letras min de 3 a max 15 caracteres"
-                                onkeypress="validarApellido1(event)" pattern="[A-Z ]{3,15}" required>
-                        </div>
+                    <div class="form-inline justify-content-end">
+                        <label for="apellido2" class="m-2"> Segundo apellido </label>
+                        <input type="text" id="apellido2" name="apellido2" class="form-control"
+                            title="solo letras min de 3 a max 15 caracteres.En caso de no tener segundo apellido dejelo vacio"
+                            onkeypress="validarApellido2(event)" pattern="[A-Z ]{0,15}">
+                        <label class="m-1" style="color: white;"> * </label>
+                    </div><br>
 
-                <div align="right">
-
-                    {{!-- Segundo renglon con campos --}}
-                    <div class="form-row justify-content-center align-items-end">
-
-                        <div class="form-group col-sm-3">
-                            <label for="apellido2"> Segundo apellido </label>
-                            <input type="text" id="apellido2" name="apellido2" class="form-control" title="solo letras min de 3 a max 15 caracteres.En caso de no tener segundo apellido dejelo vacio"
-                                onkeypress="validarApellido2(event)"  pattern="[A-Z ]{0,15}">
-                        </div>
-
-                        <div class="form-group col-sm-4">
-                            <label for="plantel_adscripcion"> Plantel de adscripcion</label>
-                            <input type="text" id="adscripcion" name="plantel_adscripcion"  title="solo letras min de 3 a max 40 caracteres.Preferible ej. TECNM CAMPUS OAXACA"
+                    <div class="form-inline justify-content-end">
+                        <label for="plantel_adscripcion" class="m-2"> Plantel de adscripcion</label>
+                        <input type="text" id="adscripcion" name="plantel_adscripcion"
+                            title="solo letras min de 3 a max 40 caracteres.Preferible ej. TECNM CAMPUS OAXACA"
                             onkeypress="validarAdscripcion(event)" class="form-control" pattern="[A-Z ]{3,40}" required>
-                        </div>
+                        <label class="m-1" style="color: red;"> * </label>
+                    </div><br>
 
-                        <div class="form-group col-sm-4">
-                            <label for="email"> Email </label>
-                            <input type="email" id="email" name="email" title="Formato preferible example@gmail.com"
+                    <div class="form-inline justify-content-end">
+                        <label for="email" class="m-2"> Email </label>
+                        <input type="email" id="email" name="email" title="Formato preferible example@gmail.com"
                             class="form-control" onkeypress="validarEmail(event)" required>
-                        </div>
+                        <label class="m-1" style="color: red;"> * </label>
+                    </div><br>
 
-                    </div>
+                    <label style="color: red;"> * Campo obligatorio </label><br>
 
                     {{!-- Boton --}}
                     <div class="m-5" align="center">
-                        <div class="form-group col-sm-4" align="center">
-                            <button class="btn btn-outline-primary btn-block" >
+                        <div class="form-group col-sm-6" align="center">
+                            <button class="btn btn-outline-primary btn-block">
                                 <i class="fas fa-user-plus"></i>&emsp;Crear integrante
                             </button>
                         </div>
+                    </div>
 
-                    </form>
+                </form>
 
-                </div>
             </div>
+
         </div>
     </div>
 </div>
 
-<script>
-   
 
-function validarNombre(event){
-var a = document.getElementById("nombre");
+<script>
+    function validarNombre(event) {
+        var a = document.getElementById("nombre");
         var b = a.value;
-        var c=contarEspacios(b);
+        var c = contarEspacios(b);
         console.log(c);
         if (b.length < 25) {
-            if ( (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209)  || (event.charCode == 32 )  ) {
-                if(c>=1 &&event.charCode==32){
-event.preventDefault();
-                }else{a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();}
+            if ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 32)) {
+                if (c >= 1 && event.charCode == 32) {
+                    event.preventDefault();
+                } else { a.value = (b + String.fromCharCode(event.charCode)).toUpperCase(); }
 
             }
         }
         event.preventDefault();
 
-}
+    }
 
-
-  
-
-function validarCvu(event) {
+    function validarCvu(event) {
         var a = document.getElementById("cvu_tecnm");
         var b = a.value;
         if (b.length < 8) {
-            if (   (event.charCode >= 48 && event.charCode <= 57)||  (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209)) {
+            if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209)) {
                 a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();
 
             }
@@ -117,7 +117,7 @@ function validarCvu(event) {
         event.preventDefault();
     }
 
-function validarApellido1(event) {
+    function validarApellido1(event) {
         var a = document.getElementById("apellido1");
         var b = a.value;
         if (b.length < 15) {
@@ -128,9 +128,6 @@ function validarApellido1(event) {
         }
         event.preventDefault();
     }
-
-
-
 
     function validarApellido2(event) {
         var a = document.getElementById("apellido2");
@@ -144,54 +141,50 @@ function validarApellido1(event) {
         event.preventDefault();
     }
 
-      function validarEmail(event) {
+    function validarEmail(event) {
         var a = document.getElementById("email");
         var b = a.value;
-        var c=b.indexOf(".");
-        var d=b.indexOf("@");
+        var c = b.indexOf(".");
+        var d = b.indexOf("@");
         if (b.length < 30) {
-            if ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209)   || (event.charCode == 64) || (event.charCode == 46)) {
-              
+            if ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 64) || (event.charCode == 46)) {
 
-              if((c>=1 &&event.charCode==46) ||d>=1 &&event.charCode==64){
-event.preventDefault();
-                }else{
+                if ((c >= 1 && event.charCode == 46) || d >= 1 && event.charCode == 64) {
+                    event.preventDefault();
+                } else {
 
-                a.value = (b + String.fromCharCode(event.charCode)).toLowerCase();
+                    a.value = (b + String.fromCharCode(event.charCode)).toLowerCase();
                 }
             }
         }
         event.preventDefault();
     }
 
+    function contarEspacios(valor) {
+        var contador = 0;
+        for (i = 0; i < valor.length; i++) {
+            if (valor[i] == " ") contador++;
 
+        }
+        return contador;
 
-function contarEspacios(valor){
-    var contador=0;
-for(i=0;i<valor.length;i++){
-if(valor[i]==" ")contador++;
+    }
 
-}
-return contador;
-
-}
-
-function validarAdscripcion(event){
-var a = document.getElementById("adscripcion");
+    function validarAdscripcion(event) {
+        var a = document.getElementById("adscripcion");
         var b = a.value;
-        var c=contarEspacios(b);
-        
+        var c = contarEspacios(b);
+
         if (b.length < 40) {
-            if ( (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209)  || (event.charCode == 32 )  ) {
-                if(c>=3 &&event.charCode==32){
-event.preventDefault();
-                }else{a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();}
+            if ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 32)) {
+                if (c >= 3 && event.charCode == 32) {
+                    event.preventDefault();
+                } else { a.value = (b + String.fromCharCode(event.charCode)).toUpperCase(); }
 
             }
         }
         event.preventDefault();
 
-}
+    }
 
-    
 </script>
