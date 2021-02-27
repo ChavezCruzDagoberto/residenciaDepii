@@ -19,6 +19,8 @@
       </thead>
 
       <tbody>
+        
+        
         {{#each consulta}}
         <form action="/informe/edit/{{id_informe}}" method="POST">
           <tr>
@@ -34,6 +36,7 @@
 
 
           </tr>
+          <input type="hidden" name="id_proyecto" id="" value="{{id_proyecto}}">
         </form>
         {{else}}
         <div class="col-m4 mx-auto">
