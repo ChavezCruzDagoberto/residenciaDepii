@@ -59,9 +59,9 @@
                   onclick="deleteRow('elementos')" disabled>
                 <br>
                 <br>
-
-                
               </div>
+
+
             </div>
 
             <table id="elementos" class="table table-sm table-bordered table-striped table-hover mt-5">
@@ -77,12 +77,8 @@
             </table>
 
             <div class="form-group">
-<<<<<<< HEAD
               <button class="btn btn-outline-primary btn-block" id="botonenviar" onclick="activar()" disabled><i
                   class="fas fa-user-plus"></i>&emsp;Crear integrante
-=======
-              <button class="btn btn-outline-primary btn-block"  id="botonenviar" onclick="activar()" disabled><i class="fas fa-user-plus"></i>&emsp;Agregar Informe
->>>>>>> 7b52846b92c67515fc6f07e57664a0fae6b68dbe
               </button>
 
             </div>
@@ -198,7 +194,6 @@
       var input = document.getElementById(fecha_final);
       input.min = this.value;
     }
-<<<<<<< HEAD
   }
 
   function activar() {
@@ -210,26 +205,6 @@
       a.removeAttribute("disabled");
       b.removeAttribute("disabled");
       c.removeAttribute("disabled");
-=======
-
-
-    function activar() {
-
-        var con=confirm("Son todos los informes que desee agregar\n recuerde que solo puede agrgarlos 1 sola vez");
-       if (con == true) {
-  
-          console.log(incremento);
-      for (i = 1; i <= incremento; i++) {
-        var a = document.getElementById("no_informe" + i);
-        var b = document.getElementById("fecha_inicio" + i);
-        var c = document.getElementById("fecha_fin" + i);
-        a.removeAttribute("disabled");
-        b.removeAttribute("disabled");
-        c.removeAttribute("disabled");
-
-      }
-
->>>>>>> 7b52846b92c67515fc6f07e57664a0fae6b68dbe
 
   } else {
     event.preventDefault();
