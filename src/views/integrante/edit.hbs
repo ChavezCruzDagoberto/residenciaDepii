@@ -1,79 +1,84 @@
-{{!-- Aqui comienza mi disenio --}}
+{{!-- EDITAR INTEGRANTE --}}
+
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
 <div class="main" id="contenido">
+
+    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
     <div class="container-fluid">
-        <div class="row">
-            <div class="mx-auto">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-100">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-50" align="center">
 
                 {{!-- Cabecera --}}
                 <div class="m-5" align="center">
                     <h1> Editar integrante. </h1>
-                    <small class="text-muted">
-                        Departamento de Estudios de Posgrado e Investigacion.
-                    </small>
+                </div><br>
+
+                <div align="right">
+
+                    {{!-- Campos para editar el integrante --}}
+                    <form action="/integrantes/edit/{{integrante.cvu_tecnm}}" method="POST" class="pt-2">
+
+                        <div class="form-inline justify-content-end">
+                            <label for="cvu_tecnm1" class="m-2"> CVU TecNM </label>
+                            <input type="text" value="{{integrante.cvu_tecnm}}" name="cvu_tecnm1"
+                                class="form-control col-sm-2" onkeypress="verificar(event)" autofocus required>
+                        </div>
+
+                        <br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="nombre" class="m-2"> Nombre(s) </label>
+                            <input type="text" value="{{integrante.nombre}}" name="nombre" class="form-control col-sm-4"
+                                required>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="apellido1" class="m-2"> Primer apellido </label>
+                            <input type="text" value="{{integrante.apellido1}}" name="apellido1"
+                                class="form-control col-sm-3" onkeypress="verificar(event)" required>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="apellido2" class="m-2"> Segundo apellido </label>
+                            <input type="text" value="{{integrante.apellido2}}" name="apellido2"
+                                class="form-control col-sm-3" onkeypress="verificar(event)">
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="plantel_adscripcion" class="m-2"> Plantel de adscripcion </label>
+                            <input type="text" value="{{integrante.plantel_adscripcion}}" name="plantel_adscripcion"
+                                class="form-control col-sm-6" required>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="email" class="m-2"> Email </label>
+                            <input type="text" value="{{integrante.email}}" name="email" class="form-control col-sm-6"
+                                onkeypress="verificar(event)" required>
+                        </div><br>
+
+                        <div class="form-group mt-5" align="center">
+                            <button class="btn btn-outline-primary btn-block col-sm-4"><i
+                                    class="fas fa-save"></i>&emsp;Guardar cambios </button>
+                        </div>
+
+                    </form>
                 </div>
-
-                {{!-- Campos para editar el integrante --}}
-                <form action="/integrantes/edit/{{integrante.cvu_tecnm}}" method="POST">
-
-                    <div class="col" align="left">
-
-                        <div class="form-group">
-                            <label for="cvu_tecnm1"> CVU TecNM </label>
-                            <input type="text" value="{{integrante.cvu_tecnm}}" name="cvu_tecnm1" class="form-control" onkeypress="verificar(event)" autofocus required>
-                        </div>
-
-                        <br>
-
-                        <div class="form-group">
-                            <label for="nombre"> Nombre(s) </label>
-                            <input type="text" value="{{integrante.nombre}}" name="nombre" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="apellido1"> Primer apellido </label>
-                            <input type="text" value="{{integrante.apellido1}}" name="apellido1" class="form-control" onkeypress="verificar(event)" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="apellido2"> Segundo apellido </label>
-                            <input type="text" value="{{integrante.apellido2}}" name="apellido2" class="form-control" onkeypress="verificar(event)" >
-                        </div>
-
-                        <br>
-
-                        <div class="form-group">
-                            <label for="plantel_adscripcion"> Plantel de adscripcion </label>
-                            <input type="text" value="{{integrante.plantel_adscripcion}}" name="plantel_adscripcion" class="form-control" required>
-                        </div>
-
-                        <br>
-
-                        <div class="form-group">
-                            <label for="email"> Email </label>
-                            <input type="text" value="{{integrante.email}}" name="email" class="form-control" onkeypress="verificar(event)" required>
-                        </div>
-
-                        <br><br>
-
-                        <div class="form-group">
-                            <button class="btn btn-outline-primary btn-block"><i class="fas fa-save"></i>&emsp;Guardar cambios </button>
-                        </div>
-
-                    </div>
-                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-function verificar(event) {
-    
-  var x = event.charCode;
-  if(x==32){
-      event.preventDefault();
-     
+    function verificar(event) {
 
-  }
-}
+        var x = event.charCode;
+
+        if (x == 32) {
+            event.preventDefault();
+        }
+    }
 </script>

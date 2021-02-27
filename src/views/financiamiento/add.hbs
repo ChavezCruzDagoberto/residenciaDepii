@@ -1,60 +1,67 @@
-{{!-- Aqui comienza mi disenio --}}
-<div class="main">
-    <div class="container-fluid mt-2">
-        <div class="row">
-            <div class="mx-auto">
+{{!-- FINANCIAMIENTO --}}
 
-                <div class="m-5" align="center">
-                    <h1> Agregar financiamiento. </h1>
-                    <small class="text-muted">
-                        Departamento de Estudios de Posgrado e Investigacion.
-                    </small>
+{{!-- Div que permite la barra izquierda --}}
+<div class="main" id="contenido">
+
+    {{!-- div que permite ocupar el 100% de la pantalla --}}
+    <div class="container-fluid vh-100">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-100">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-30" align="center">
+
+                <div align="right">
+
+                    <div class="m-5" align="center">
+                        <h1> Agregar financiamiento. </h1>
+                    </div>
+
+                    <form action="/financiamiento/add" method="POST">
+
+                        <div class="form-inline justify-content-end">
+                            <label for="clave_financiamiento" class="m-2"> Clave del financiamiento </label>
+                            <input type="text" class="form-control" name="clave_financiamiento"
+                                onkeypress="verificar(event)" autofocus required>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
+                            <input class="form-control" type="date" name="vigencia_inicio" id="inicio" required />
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
+                            <script> var date = new Date();</script>
+                            <input class="form-control" type="date" name="vigencia_fin" id="fin" required />
+                        </div><br>
+
+                        <select hidden id="clave_partida">
+                            {{#each partidas}}
+                            <option value="{{clave_partida}}">{{clave_partida}}</option>
+                            {{/each}}
+                        </select>
+
+                        <br><br>
                 </div>
 
-                <form action="/financiamiento/add" method="POST">
 
-                    <div class="form-group">
-                        <label for="clave_financiamiento"> Clave del financiamiento </label>
-                        <input type="text" class="form-control" name="clave_financiamiento" onkeypress="verificar(event)" autofocus required>
-                    </div><br>
+                <div align="center">
+                    <h3>
+                        <small class="text-muted">
+                            Agregar partidas.
+                        </small>
+                    </h3>
+                </div><br>
 
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label" for="vigencia_inicio"> Fecha de inicio </label>
-                        <div class="col-8">
-                            <input class="form-control" type="date" name="vigencia_inicio" id="inicio" required />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label" for="vigencia_fin"> Fecha de expiracion </label>
-                        <script> var date = new Date();</script>
-                        <div class="col-8">
-                            <input class="form-control" type="date" name="vigencia_fin" id="fin" required />
-                        </div>
-                    </div>
-
-                    <select hidden id="clave_partida">
-                        {{#each partidas}}
-                        <option value="{{clave_partida}}">{{clave_partida}}</option>
-                        {{/each}}
-                    </select>
-
-                    <br><br>
-
-                    <div align="center">
-                        <h3>
-                            <small class="text-muted">
-                                Agregar partidas.
-                            </small>
-                        </h3>
-                    </div><br>
-
-                    <div class="row">
-                        <div class="col-12">
+                <div align="center">
+                    <div class="justify-content-center">
+                        <div class="">
 
                             <!-- Productos -->
-                            <div class="form-group">
-                                <label class="control-label"> Partidas </label><br>
+                            <div class="form-group" align="center">
+                                <label class="control-label"> Partidas </label>
 
                                 <!-- Boton Agregar -->
                                 <button class="btn btn-outline-success btn-sm" onclick="agregar()"><i
@@ -68,14 +75,15 @@
                                 <div class="form-group" id="productos"></div>
 
                                 <div class="form-group">
-                                    <button id="botonenviar" class="btn btn-outline-primary btn-block" onclick="leer()"
+                                    <button id="botonenviar" class="btn btn-outline-primary btn-block col-sm-4" onclick="leer()"
                                         disabled><i class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -214,15 +222,15 @@
 
 
 
-function verificar(event) {
-    
-  var x = event.charCode;
-  if(x==32){
-      event.preventDefault();
-     
+    function verificar(event) {
 
-  }
-}
+        var x = event.charCode;
+        if (x == 32) {
+            event.preventDefault();
+
+
+        }
+    }
 
 
 </script>

@@ -1,114 +1,74 @@
-{{!-- <div class="main" id="contenido">
-  <div class=" p-4">
-    <div class="row">
+{{!-- LISTA DE PROYECTOS --}}
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Nombre de la proyecto</th>
-            <th scope="col">modalidad</th>
-            <th scope="col">fecha sometido</th>
-            <th scope="col">fecha dictamen </th>
-            <th scope="col">Financiamiento</th>
-            <th scope="col">responsable</th>
-            <th scope="col">convocatoria </th>
-            <th scope="col">Eliminar</th>
-            <th scope="col">Editar</th>
-            <th scope="col">Saber Mas </th>
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="contenido">
 
-          </tr>
-        </thead>
+  {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+  <div class="container-fluid">
 
-        <tbody>
-          {{#each proyectos}}
-          <tr>
-            <th>{{titulo}}</th>
-            <td>{{modalidad}}</td>
-            <td>{{fecha_sometido}}</td>
-            <td>{{fecha_dictamen}}</td>
-            <td>{{clave_financiamiento}}</td>
-            <td>{{nombre}}</td>
-            <td>{{nombre_convocatoria}}</td>
+    {{!-- div centra horizontalmente el contenido --}}
+    <div class="d-flex justify-content-center vh-100">
 
-            <td><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-danger"> Eliminar</a></td>
-            <td> <a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-secondary">Editar</a></td>
-            <td> <a href="/proyecto/detalle/{{id_proyecto}}" class="btn btn-secondary">Detalle</a></td>
+      {{!-- div centra verticalmente el contenido --}}
+      <div class="my-auto w-100" align="center">
 
-          </tr>
-          {{else}}
-          <div class="col-m4 mx-auto">
-            <div class="card card-body text-center">
-              <p>NO HAY NINGUNA CONVOCATORIA GUARDADO AUN </p>
-              <a href="/proyecto/add"> CREAR NUEVO</a>
-            </div>
-          </div>
-          {{/each}}
-
-        </tbody>
-      </table>
-
-    </div>
-  </div>
-</div> --}}
-
-<div class="main">
-  <div class="container-fluid mt-2">
-
-    {{!-- Cabecera --}}
-    <div class="m-5" align="center">
-      <h1> Lista de proyectos. </h1>
-      <small class="text-muted">
-        Departamento de Estudios de Posgrado e Investigacion.
-      </small>
-    </div>
-
-{{!-- Comienza la tabla --}}
-    <table class="table table-sm table-bordered table-striped table-hover">
-
-      {{!-- Cabecera de la tabla --}}
-      <thead>
-        <tr>
-          <th scope="col">Nombre de la proyecto</th>
-          <th scope="col">Modalidad</th>
-          <th scope="col">Fecha sometido</th>
-          <th scope="col">Fecha dictamen </th>
-          <th scope="col">Financiamiento</th>
-          <th scope="col">Responsable</th>
-          
-          <th scope="col">Editar</th>
-          <th scope="col">Eliminar</th>
-          <th scope="col">Detalles</th>
-        </tr>
-      </thead>
-
-{{!-- Cuerpo de la tabla --}}
-      <tbody>
-        {{#each proyectos}}
-        <tr>
-          <th>{{titulo}}</th>
-          <td>{{modalidad}}</td>
-          <td>{{fecha_sometido}}</td>
-          <td>{{fecha_dictamen}}</td>
-          <td>{{clave_financiamiento}}</td>
-          <td>{{nombre}}</td>
-          
-          <td align="center"><a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-sm btn-outline-warning"><i class="far fa-edit"></i>&ensp;Editar</a></td>
-          <td align="center"><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
-          <td align="center"><a href="/proyecto/detalle/{{id_proyecto}}" class="btn btn-sm btn-outline-success"><i class="fas fa-info"></i>&ensp;Detalles</a></td>
-        </tr>
-
-        {{!-- En caso de no encontrar proyectos creados --}}
-        {{else}}
-        <div class="col-m4 mx-auto">
-          <div class="card card-body text-center">
-            <p>NO HAY NINGUNA CONVOCATORIA GUARDADO AUN </p>
-            <a href="/proyecto/add"> CREAR NUEVO</a>
-          </div>
+        {{!-- Cabecera --}}
+        <div class="m-5" align="center">
+          <h1> Lista de proyectos. </h1>
         </div>
-        {{/each}}
 
-      </tbody>
-    </table>
+        {{!-- Comienza la tabla --}}
+        <table class="table table-sm table-bordered table-striped table-hover">
 
+          {{!-- Cabecera de la tabla --}}
+          <thead>
+            <tr>
+              <th scope="col">Nombre de la proyecto</th>
+              <th scope="col">Modalidad</th>
+              <th scope="col">Fecha sometido</th>
+              <th scope="col">Fecha dictamen </th>
+              <th scope="col">Financiamiento</th>
+              <th scope="col">Responsable</th>
+
+              <th scope="col">Editar</th>
+              <th scope="col">Eliminar</th>
+              <th scope="col">Detalles</th>
+            </tr>
+          </thead>
+
+          {{!-- Cuerpo de la tabla --}}
+          <tbody>
+            {{#each proyectos}}
+            <tr>
+              <th>{{titulo}}</th>
+              <td>{{modalidad}}</td>
+              <td>{{fecha_sometido}}</td>
+              <td>{{fecha_dictamen}}</td>
+              <td>{{clave_financiamiento}}</td>
+              <td>{{nombre}}</td>
+
+              <td align="center"><a href="/proyecto/edit/{{id_proyecto}}" class="btn btn-sm btn-outline-warning"><i
+                    class="far fa-edit"></i>&ensp;Editar</a></td>
+              <td align="center"><a href="/proyecto/delete/{{id_proyecto}}" class="btn btn-sm btn-outline-danger"><i
+                    class="fas fa-trash"></i>&ensp;Eliminar</a></td>
+              <td align="center"><a href="/proyecto/detalle/{{id_proyecto}}" class="btn btn-sm btn-outline-success"><i
+                    class="fas fa-info"></i>&ensp;Detalles</a></td>
+            </tr>
+
+            {{!-- En caso de no encontrar proyectos creados --}}
+            {{else}}
+            <div class="col-m4 mx-auto">
+              <div class="card card-body text-center">
+                <p>NO HAY NINGUNA CONVOCATORIA GUARDADO AUN </p>
+                <a href="/proyecto/add"> CREAR NUEVO</a>
+              </div>
+            </div>
+            {{/each}}
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
   </div>
 </div>
