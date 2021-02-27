@@ -1,14 +1,24 @@
+{{!-- ADMINISTRADOR -> LISTA DE INTEGRANTES EN EL PROYECTO --}}
+
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
 <div class="main" id="contenido">
-<div class="container p-4">
-  <div class="row">
+
+  {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+  <div class="container-fluid">
+
+    {{!-- div centra horizontalmente el contenido --}}
+    <div class="d-flex justify-content-center vh-100">
+
+      {{!-- div centra verticalmente el contenido --}}
+      <div class="my-auto w-30" align="center">
 
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Rol</th>
-          <th scope="col">cvu_tecnm</th>
+          <th scope="col">No. CVU TecNM</th>
           <th scope="col">Nombre</th>
-          <th scope="col">plantel de Adscripcion</th>
+          <th scope="col">Plantel de Adscripcion</th>
           <th scope="col">Eliminar del proyecto</th>
           <th scope="col">Editar</th>
         </tr>
