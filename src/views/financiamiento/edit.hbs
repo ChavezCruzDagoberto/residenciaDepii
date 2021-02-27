@@ -1,84 +1,45 @@
-{{!-- <div class="main" id="contenido">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-md-4 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/financiamiento/edit/{{financiamiento.clave_financiamiento}}" method="POST">
+{{!-- EDITAR FINANCIAMIENTO --}}
 
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="clave_financiamiento"
-                                    value="{{financiamiento.clave_financiamiento}}" disabled>
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="contenido">
 
-                            </div>
+    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+    <div class="container-fluid">
 
-                            <div class="form-group">
-                                FECHA DE INICIO
-                                <input type="date" value="{{financiamiento.vigencia_inicio }}" name="vigencia_inicio"
-                                    min="2020-01-01" max="2020-12-31" step="1" required />
-                                <!-- Campo de entrada de hora -->
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-100">
 
-                            </div>
-                            <div class="form-group">
-                                FECHA DE EXPIRACION
-
-                                <input type="date" value="{{financiamiento.vigencia_fin}}" name="vigencia_fin"
-                                    min="2020-01-01" max="2020-12-31" step="1" required />
-                                <!-- Campo de entrada de hora -->
-
-                            </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-success btn-block"> Editar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-{{!-- Aqui comienza mi disenio --}}
-<div class="main">
-    <div class="container-fluid mt-2">
-        <div class="row">
-            <div class="mx-auto">
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-30" align="center">
 
                 {{!-- Cabecera --}}
                 <div class="m-5" align="center">
                     <h1> Detalles del financiamiento. </h1>
-                    <small class="text-muted">
-                        Departamento de Estudios de Posgrado e Investigacion.
-                    </small>
                 </div>
 
                 <form action="/financiamiento/edit/{{financiamiento.clave_financiamiento}}" method="POST">
 
-                    <div class="form-group">
-                        <label for="clave_financiamiento"> Clave de financiamiento </label>
-                        <input type="text" class="form-control" name="clave_financiamiento"
+                    <div class="form-inline justify-content-end">
+                        <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
+                        <input type="text" class="form-control col-sm-2" name="clave_financiamiento"
                             value="{{financiamiento.clave_financiamiento}}" disabled>
                     </div><br>
 
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label" for="vigencia_inicio"> Fecha de inicio </label>
-                        <div class="col-8">
-                            <input class="form-control" type="date" value="{{financiamiento.vigencia_inicio }}"
-                                name="vigencia_inicio" min="2020-01-01" max="2020-12-31" step="1" required />
-                        </div>
-                    </div>
+                    <div class="form-inline justify-content-end">
+                        <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
+                        <input class="form-control" type="date" value="{{financiamiento.vigencia_inicio }}"
+                            name="vigencia_inicio" min="2020-01-01" max="2020-12-31" step="1" required />
+                    </div><br>
 
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label" for="vigencia_fin"> Fecha de expiracion </label>
-                        <div class="col-8">
-                            <input class="form-control" type="date" value="{{financiamiento.vigencia_fin}}"
-                                name="vigencia_fin" min="2020-01-01" max="2020-12-31" step="1" required />
-                        </div>
+                    <div class="form-inline justify-content-end">
+                        <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
+                        <input class="form-control" type="date" value="{{financiamiento.vigencia_fin}}"
+                            name="vigencia_fin" min="2020-01-01" max="2020-12-31" step="1" required />
                     </div><br><br>
 
                     <div class="form-group">
-                        <button class="btn btn-outline-primary btn-block"><i class="fas fa-edit"></i>&ensp;Guardar cambios</button>
+                        <button class="btn btn-outline-primary btn-block col-sm-4"><i class="fas fa-edit"></i>&ensp;Guardar
+                            cambios</button>
                     </div>
 
                 </form>

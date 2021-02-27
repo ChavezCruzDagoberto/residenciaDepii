@@ -1,15 +1,20 @@
-{{!-- Aqui comienza mi disenio --}}
+{{!-- CREAR CUENTAS A INTEGRANTES --}}
+
+{{!-- Div que permite la barra izquierda --}}
 <div class="main" id="contenido">
+
+    {{!-- div que permite ocupar el 100% de la pantalla --}}
     <div class="container-fluid vh-100">
-        <div class="row my-auto">
-            <div class="mx-auto">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-100">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-30" align="center">
 
                 {{!-- Cabecera --}}
                 <div class="m-5" align="center">
                     <h1> Crear cuenta a integrante. </h1>
-                    <small class="text-muted">
-                        Departamento de Estudios de Posgrado e Investigacion.
-                    </small>
                 </div>
 
                 <div align="center">
@@ -69,8 +74,8 @@
 
                             <br><br>
 
-                            <div class="form-group">
-                                <button class="btn btn-outline-primary btn-block"> <i
+                            <div class="form-group" align="center">
+                                <button class="btn btn-outline-primary btn-block col-sm-4"> <i
                                         class="fas fa-user-alt"></i>&emsp;Registrar </button>
                             </div>
 
@@ -89,38 +94,33 @@
         if (x == 32) {
             event.preventDefault();
 
-
         }
     }
-
-
 
     window.onload = contraseña;
 
     function contraseña() {
 
-       var a= document.getElementById("password");
+        var a = document.getElementById("password");
         // paso 1 - pedir un número al usuario
 
         var abecedario = ["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
 
         var numero = 10;
         var numeroAleatorio = 3;
 
         // paso 2 - escribir x caracteres
-            var contraseña="";
+        var contraseña = "";
         for (var i = 0; i < numero; i++) {
             numeroAleatorio = parseInt(Math.random() * abecedario.length);
-            contraseña+=abecedario[numeroAleatorio]
-            
+            contraseña += abecedario[numeroAleatorio]
+
         }
         console.log(contraseña);
-        a.value=contraseña;
+        a.value = contraseña;
         // paso 3 - conseguir que cada caracter sea aleatorio.
 
         // paso 4 - tenemos x caracteres aleatorios
     }
-
 
 </script>

@@ -1,3 +1,5 @@
+{{!-- AGREGAR INTEGRANTE --}}
+
 {{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
 <div class="main" id="contenido">
 
@@ -8,6 +10,7 @@
         <div class="d-flex justify-content-center vh-100">
 
             {{!-- div centra verticalmente el contenido --}}
+<<<<<<< HEAD
             <div class="my-auto w-50" align="center">
 
                 {{!-- Cabecera --}}
@@ -38,9 +41,13 @@
                             <input type="text" id="apellido1" name="apellido1" class="form-control" title="solo letras min de 3 a max 15 caracteres"
                                 onkeypress="validarApellido1(event)" pattern="[A-Z ]{3,15}" required>
                         </div>
+=======
+            <div class="my-auto w-30" align="center">
+>>>>>>> 57a35e16d21479df5092d4b2a31521493dd90dad
 
-                    </div>
+                <div align="right">
 
+<<<<<<< HEAD
                     {{!-- Segundo renglon con campos --}}
                     <div class="form-row justify-content-center align-items-end">
 
@@ -70,11 +77,71 @@
                             <button class="btn btn-outline-primary btn-block" >
                                 <i class="fas fa-user-plus"></i>&emsp;Crear integrante
                             </button>
+=======
+                    {{!-- Cabecera --}}
+                    <div class="m-5" align="center">
+                        <h1> Crear nuevo integrante. </h1>
+                    </div><br>
+
+                    {{!-- Campos para anadir integrante --}}
+                    <form action="/integrantes/add" method="POST" class="pt-2">
+
+                        <div class="form-inline justify-content-end">
+                            <label for="cvu_tecnm" class="m-2"> No. CVU TecNM </label>
+                            <input type="text" name="cvu_tecnm" class="form-control col-sm-2"
+                                onkeypress="verificar(event)" autofocus required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="nombre" class="m-2"> Nombre(s) </label>
+                            <input type="text" name="nombre" class="form-control col-sm-4" onkeypress="verificar(event)"
+                                required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="apellido1" class="m-2"> Primer apellido </label>
+                            <input type="text" name="apellido1" class="form-control col-sm-3"
+                                onkeypress="verificar(event)" required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="apellido2" class="m-2"> Segundo apellido </label>
+                            <input type="text" name="apellido2" class="form-control col-sm-3"
+                                onkeypress="verificar(event)">
+                            <label class="m-1" style="color: white;"> * </label>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="plantel_adscripcion" class="m-2"> Plantel de adscripcion</label>
+                            <input type="text" name="plantel_adscripcion" class="form-control col-sm-4" required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
+
+                        <div class="form-inline justify-content-end">
+                            <label for="email" class="m-2"> Email </label>
+                            <input type="text" name="email" class="form-control col-sm-4" onkeypress="verificar(event)"
+                                required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
+
+                        <label  style="color: red;"> * Campo obligatorio </label><br>
+
+                        {{!-- Boton --}}
+                        <div class="m-5" align="center">
+                            <div class="form-group col-sm-6" align="center">
+                                <button class="btn btn-outline-primary btn-block">
+                                    <i class="fas fa-user-plus"></i>&emsp;Crear integrante
+                                </button>
+                            </div>
+>>>>>>> 57a35e16d21479df5092d4b2a31521493dd90dad
                         </div>
-                    </div>
 
-                </form>
+                    </form>
 
+                </div>
             </div>
         </div>
     </div>
@@ -83,6 +150,7 @@
 <script>
    
 
+<<<<<<< HEAD
 
 function validarNombre(event){
 var a = document.getElementById("nombre");
@@ -124,6 +192,11 @@ function validarApellido1(event) {
                 a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();
 
             }
+=======
+        var x = event.charCode;
+        if (x == 32) {
+            event.preventDefault();
+>>>>>>> 57a35e16d21479df5092d4b2a31521493dd90dad
         }
         event.preventDefault();
     }
