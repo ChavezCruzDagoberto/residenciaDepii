@@ -44,6 +44,8 @@ router.post('/add', estaLogueado, async (req, res) => {
 
 
   console.log(req.body);
+
+  
   const { id_proyecto,no_informe,fecha_inicio,fecha_fin } = req.body;
 
   
@@ -124,7 +126,7 @@ router.post('/listarinforme', estaLogueado, async (req, res) => {
   let consulta = await conexion.query('select * from informe where ID_PROYECTO=?', [id_proyecto]);
 
 
-  res.render('proyecto/informe/listarporproyecto', { consulta });
+  res.render('proyecto/informe/listarporproyecto', { consulta,id_proyecto:id_proyecto });
 
 
   console.log(consulta);
@@ -136,20 +138,21 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
   let { id_proyecto } = req.params;
   console.log(id_proyecto);
   let consulta = await conexion.query('select * from informe where ID_PROYECTO=?', [id_proyecto]);
-
+//console.log(consulta);
   let editado = [];
   for (const p in consulta) {
     let f = moment(consulta[p].fecha_inicio);
     let g = moment(consulta[p].fecha_fin);
     //let fecha_inicio=f.format('LLL');
     //let fecha_fin=g.format('LLL');
-    let fecha_inicio = f.format('YYYY-MM-DD  HH:mm:ss');
-    let fecha_fin = g.format('YYYY-MM-DD  HH:mm:ss');
+    let fecha_inicio = f.format('YYYY-MM-DD');
+    let fecha_fin = g.format('YYYY-MM-DD');
     const a = {
       id_informe: consulta[p].id_informe,
       no_informe: consulta[p].no_informe,
       fecha_inicio,
-      fecha_fin
+      fecha_fin,
+      id_proyecto:consulta[p].id_proyecto
 
     };
     editado.push(a);
@@ -159,10 +162,10 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
 
 
 
-  res.render('proyecto/informe/listarporproyecto', { consulta: editado });
+  res.render('proyecto/informe/listarporproyecto', { consulta: editado});
 
 
-  console.log(editado);
+ // console.log(editado);
 
 });
 
@@ -207,22 +210,24 @@ router.get('/delete/:id_informe'  , async (req, res) => {
 
 router.post('/edit/:id_informe', async (req, res) => {
 
-  //const {id_informe}=req.params;
+  const {id_informe}=req.params;
   console.log(req.params, req.body);
+  
 
-  //const {no_informe,fecha_inicio,fecha_fin}= req.body;
-  /*
-  const newConvocatoria ={
-     nombre_convocatoria,
-     anio
+  const {no_informe,fecha_inicio,fecha_fin,id_proyecto}= req.body;
+  
+  const newInforme ={
+     no_informe,
+     fecha_inicio,
+     fecha_fin
       };
 
- await  conexion.query(  'UPDATE   convocatoria  set ? WHERE ID_CONVOCATORIA= ? ',[newConvocatoria,id_convocatoria]);
+ await  conexion.query(  'UPDATE   informe  set ? WHERE id_informe = ? ',[newInforme,id_informe]);
  // console.log(cvu_tecnm);
 
- req.flash('success','cambios guardados para '+ id_convocatoria);
-    res.redirect ('/convocatoria');
-    */
+ req.flash('success','cambios guardados ');
+    res.redirect ('/informe/mostrar/'+id_proyecto);
+    
 });
 
 

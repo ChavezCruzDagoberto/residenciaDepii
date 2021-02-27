@@ -7,7 +7,8 @@
                         <form action="/integrantes/addColaborador" method="POST">
 
                             <div class="form-group">
-                                <input type="text" class="form-control" name="cvu_tecnm" placeholder="cvu TecNM"
+                                <input type="text" id="cvu_tecnm" class="form-control" name="cvu_tecnm"
+                                    placeholder="cvu TecNM" pattern="[a-zA-Z0-9]{8}" onkeyup="letrasEspacio(event)"
                                     autofocus>
 
                             </div>
@@ -16,7 +17,8 @@
 
                             <div class="form-group">
 
-                                <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre"
+                                    onkeyup="soloLetras(event)">
                                 <input type="text" class="form-control" name="apellido1" placeholder="apellido">
                                 <input type="text" class="form-control" name="apellido2" placeholder="apellido">
 
@@ -56,3 +58,122 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    var aux = "";
+    function soloLetras(event) {
+
+        var a = document.getElementById("nombre");
+        var b = a.value;
+
+        var evento = event.keyCode;
+
+        if (event.keyCode == 32) {
+            b = b.replace(/ /g, "");
+            a.value = b;
+            aux = b;
+            //console.log(b.length);
+        } else {
+            if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 192) {
+                a.value = b.toUpperCase();
+                aux = b.toUpperCase();
+            } else {
+
+                if (event.keyCode == 8) {
+                    a.value = b;
+                    aux = b
+                }
+                else { a.value = aux; }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    var aux1 = "";
+
+    function numeroLetras(event) {
+
+        var a = document.getElementById("cvu_tecnm");
+        var b = a.value;
+
+        console.log(event.keyCode);
+
+        if (event.keyCode == 32) {
+            b = b.replace(/ /g, "");
+            a.value = b;
+            aux1 = b;
+            //console.log(b.length);
+        } else {
+            if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 192) {
+                a.value = b.toUpperCase();
+                aux1 = b.toUpperCase();
+            } else {
+
+                if (event.keyCode == 8) {
+                    a.value = b;
+                    aux1 = b
+                }
+                else { a.value = aux1; }
+            }
+        }
+    }
+
+
+
+
+
+
+    var aux3 = "";
+    function numeros(event) {
+        var a = document.getElementById("cvu_tecnm");
+        var b = a.value;
+        if (!(event.keyCode >= 48 && event.keyCode <= 57)) {
+            if (event.keyCode == 8) {
+                a.value = b;
+                aux3 = b;
+            } else {
+                a.value = aux3;
+            }
+        } else { aux3 = b; }
+
+
+    }
+
+
+
+
+
+    var aux4 = "";
+   
+    function letrasEspacio(event) {
+
+        var a = document.getElementById("cvu_tecnm");
+        var b = a.value;
+
+      
+
+
+            if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 192 || event.keyCode==32) {
+                a.value = b.toUpperCase();
+                aux4 = b.toUpperCase();
+            } else {
+
+                if (event.keyCode == 8) {
+                    a.value = b;
+                    aux4 = b
+                }
+                else { a.value = aux4; }
+            }
+
+        
+    }
+
+
+</script>
