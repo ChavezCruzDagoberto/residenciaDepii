@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-center vh-100">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-30" align="center">
+            <div class="my-auto w-75" align="center">
 
                 {{!-- Cabecera --}}
                 <div class="m-5">
@@ -18,67 +18,70 @@
                 </div>
 
                 {{!-- Campos para anadir integrante --}}
-                <form action="/integrantes/add" method="POST" class="pt-2">
+                <div class="d-flex justify-content-center">
+                    <form action="/integrantes/add" method="POST" class="pt-2 w-50">
 
-                    <div class="form-inline justify-content-end">
-                        <label for="cvu_tecnm" class="m-2"> No. CVU TecNM </label>
-                        <input type="text" id="cvu_tecnm" name="cvu_tecnm" class="form-control col-sm-3"
-                            title="formato de numeros y letras de 8 caracteres " onkeypress="validarCvu(event)"
-                            pattern="[A-Z0-9]{8}" autofocus required>
-                        <label class="m-1" style="color: red;"> * </label>
-                    </div><br>
+                        <div class="form-inline justify-content-end">
+                            <label for="cvu_tecnm" class="m-2"> No. CVU TecNM </label>
+                            <input type="text" id="cvu_tecnm" name="cvu_tecnm" class="form-control col-sm-3"
+                                title="formato de numeros y letras de 8 caracteres " onkeypress="validarCvu(event)"
+                                pattern="[A-Z0-9]{8}" autofocus required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label for="nombre" class="m-2"> Nombre(s) </label>
-                        <input type="text" id="nombre" name="nombre" class="form-control"
-                            title="solo letras min de 3 a max 25 caracteres" onkeypress="validarNombre(event)"
-                            pattern="[A-Z ]{3,25}" required>
-                        <label class="m-1" style="color: red;"> * </label>
-                    </div><br>
+                        <div class="form-inline justify-content-end">
+                            <label for="nombre" class="m-2"> Nombre(s) </label>
+                            <input type="text" id="nombre" name="nombre" class="form-control col-sm-4"
+                                title="solo letras min de 3 a max 25 caracteres" onkeypress="validarNombre(event)"
+                                pattern="[A-Z ]{3,25}" required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label for="apellido1" class="m-2"> Primer apellido </label>
-                        <input type="text" id="apellido1" name="apellido1" class="form-control"
-                            title="solo letras min de 3 a max 15 caracteres" onkeypress="validarApellido1(event)"
-                            pattern="[A-Z ]{3,15}" required>
-                        <label class="m-1" style="color: red;"> * </label>
-                    </div><br>
+                        <div class="form-inline justify-content-end">
+                            <label for="apellido1" class="m-2"> Primer apellido </label>
+                            <input type="text" id="apellido1" name="apellido1" class="form-control col-sm-4"
+                                title="solo letras min de 3 a max 15 caracteres" onkeypress="validarApellido1(event)"
+                                pattern="[A-Z ]{3,15}" required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label for="apellido2" class="m-2"> Segundo apellido </label>
-                        <input type="text" id="apellido2" name="apellido2" class="form-control"
-                            title="solo letras min de 3 a max 15 caracteres.En caso de no tener segundo apellido dejelo vacio"
-                            onkeypress="validarApellido2(event)" pattern="[A-Z ]{0,15}">
-                        <label class="m-1" style="color: white;"> * </label>
-                    </div><br>
+                        <div class="form-inline justify-content-end">
+                            <label for="apellido2" class="m-2"> Segundo apellido </label>
+                            <input type="text" id="apellido2" name="apellido2" class="form-control col-sm-4"
+                                title="solo letras min de 3 a max 15 caracteres.En caso de no tener segundo apellido dejelo vacio"
+                                onkeypress="validarApellido2(event)" pattern="[A-Z ]{0,15}">
+                            <label class="m-1" style="color: white;"> * </label>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label for="plantel_adscripcion" class="m-2"> Plantel de adscripcion</label>
-                        <input type="text" id="adscripcion" name="plantel_adscripcion"
-                            title="solo letras min de 3 a max 40 caracteres.Preferible ej. TECNM CAMPUS OAXACA"
-                            onkeypress="validarAdscripcion(event)" class="form-control" pattern="[A-Z ]{3,40}" required>
-                        <label class="m-1" style="color: red;"> * </label>
-                    </div><br>
+                        <div class="form-inline justify-content-end">
+                            <label for="plantel_adscripcion" class="m-2"> Plantel de adscripcion</label>
+                            <input type="text" id="adscripcion" name="plantel_adscripcion"
+                                title="solo letras min de 3 a max 40 caracteres.Preferible ej. TECNM CAMPUS OAXACA"
+                                onkeypress="validarAdscripcion(event)" class="form-control col-sm-6"
+                                pattern="[A-Z ]{3,40}" required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label for="email" class="m-2"> Email </label>
-                        <input type="email" id="email" name="email" title="Formato preferible example@gmail.com"
-                            class="form-control" onkeypress="validarEmail(event)" required>
-                        <label class="m-1" style="color: red;"> * </label>
-                    </div><br>
+                        <div class="form-inline justify-content-end">
+                            <label for="email" class="m-2"> Email </label>
+                            <input type="email" id="email" name="email" title="Formato preferible example@gmail.com"
+                                class="form-control col-sm-5" onkeypress="validarEmail(event)" required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
 
-                    <label style="color: red;"> * Campo obligatorio </label><br>
+                        <label style="color: red;"> * Campo obligatorio </label><br>
 
-                    {{!-- Boton --}}
-                    <div class="m-5" align="center">
-                        <div class="form-group col-sm-6" align="center">
-                            <button class="btn btn-outline-primary btn-block">
-                                <i class="fas fa-user-plus"></i>&emsp;Crear integrante
-                            </button>
+                        {{!-- Boton --}}
+                        <div class="m-5" align="center">
+                            <div class="form-group" align="center">
+                                <button class="btn btn-outline-primary col-sm-4 btn-block">
+                                    <i class="fas fa-user-plus"></i>&emsp;Crear integrante
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                </form>
+                    </form>
+                </div>
 
             </div>
 

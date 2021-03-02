@@ -10,59 +10,67 @@
         <div class="d-flex justify-content-center vh-100">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-50" align="center">
+            <div class="my-auto w-75" align="center">
 
                 {{!-- Cabecera --}}
-                <div class="m-5" align="center">
+                <div class="m-5">
                     <h1> Editar integrante. </h1>
-                </div><br>
+                </div>
 
-                <div align="right">
-
-                    {{!-- Campos para editar el integrante --}}
-                    <form action="/integrantes/edit/{{integrante.cvu_tecnm}}" method="POST" class="pt-2">
+                {{!-- Campos para editar el integrante --}}
+                <div class="d-flex justify-content-center">
+                    <form action="/integrantes/edit/{{integrante.cvu_tecnm}}" method="POST" class="pt-2 w-50">
 
                         <div class="form-inline justify-content-end">
                             <label for="cvu_tecnm1" class="m-2"> CVU TecNM </label>
                             <input type="text" id="cvu_tecnm" value="{{integrante.cvu_tecnm}}" name="cvu_tecnm1"
-                                class="form-control col-sm-2" onkeypress="validarCvu(event)" autofocus required>
-                        </div>
-
-                        <br>
+                                class="form-control col-sm-3" onkeypress="validarCvu(event)" autofocus required>
+                            <label class="m-1" style="color: red;"> * </label>
+                        </div><br>
 
                         <div class="form-inline justify-content-end">
                             <label for="nombre" class="m-2"> Nombre(s) </label>
-                            <input type="text" id="nombre" value="{{integrante.nombre}}" name="nombre" class="form-control col-sm-4"
-                               onkeypress="validarNombre(event)" required>
+                            <input type="text" id="nombre" value="{{integrante.nombre}}" name="nombre"
+                                class="form-control col-sm-4" onkeypress="validarNombre(event)" required>
+                            <label class="m-1" style="color: red;"> * </label>
                         </div><br>
 
                         <div class="form-inline justify-content-end">
                             <label for="apellido1" class="m-2"> Primer apellido </label>
                             <input type="text" id="apellido1" value="{{integrante.apellido1}}" name="apellido1"
-                               onkeypress="validarApellido1(event)" class="form-control col-sm-3"  required>
+                                onkeypress="validarApellido1(event)" class="form-control col-sm-4" required>
+                            <label class="m-1" style="color: red;"> * </label>
                         </div><br>
 
                         <div class="form-inline justify-content-end">
                             <label for="apellido2" class="m-2"> Segundo apellido </label>
                             <input type="text" id="apellido2" value="{{integrante.apellido2}}" name="apellido2"
-                              onkeypress="validarApellido2(event)"  class="form-control col-sm-3" >
+                                onkeypress="validarApellido2(event)" class="form-control col-sm-4">
+                            <label class="m-1" style="color: white;"> * </label>
                         </div><br>
 
                         <div class="form-inline justify-content-end">
                             <label for="plantel_adscripcion" class="m-2"> Plantel de adscripcion </label>
                             <input type="text" value="{{integrante.plantel_adscripcion}}" name="plantel_adscripcion"
-                              onkeypress="validarAdscripcion(event)"   class="form-control col-sm-6" required>
+                                onkeypress="validarAdscripcion(event)" class="form-control col-sm-6" required>
+                            <label class="m-1" style="color: red;"> * </label>
                         </div><br>
 
                         <div class="form-inline justify-content-end">
                             <label for="email" class="m-2"> Email </label>
-                            <input type="text" value="{{integrante.email}}" name="email" class="form-control col-sm-6"
+                            <input type="text" value="{{integrante.email}}" name="email" class="form-control col-sm-5"
                                 onkeypress="validarEmail(event)" required>
+                            <label class="m-1" style="color: red;"> * </label>
                         </div><br>
 
-                        <div class="form-group mt-5" align="center">
-                            <button class="btn btn-outline-primary btn-block col-sm-4"><i
-                                    class="fas fa-save"></i>&emsp;Guardar cambios </button>
+                        <label style="color: red;"> * Campo obligatorio </label><br>
+
+
+                        <div class="m-5" align="center">
+                            <div class="form-group" align="center">
+                                <button class="btn btn-outline-primary btn-block col-sm-4"><i
+                                        class="fas fa-save"></i>&emsp;Guardar cambios </button>
+                            </div>
                         </div>
 
                     </form>
