@@ -7,7 +7,7 @@
     <div class="container-fluid">
 
         {{!-- div centra horizontalmente el contenido --}}
-        <div class="d-flex justify-content-center vh-100">
+        <div class="d-flex justify-content-center vh-80">
 
             {{!-- div centra verticalmente el contenido --}}
             <div class="my-auto w-75" align="center">
@@ -22,7 +22,7 @@
                     <form action="/integrantes/edit/{{integrante.cvu_tecnm}}" method="POST" class="pt-2 w-50">
 
                         <div class="form-inline justify-content-end">
-                            <label for="cvu_tecnm1" class="m-2"> CVU TecNM </label>
+                            <label for="cvu_tecnm1" class="m-2"> No. CVU TecNM </label>
                             <input type="text" id="cvu_tecnm" value="{{integrante.cvu_tecnm}}" name="cvu_tecnm1"
                                 class="form-control col-sm-3" onkeypress="validarCvu(event)" autofocus required>
                             <label class="m-1" style="color: red;"> * </label>

@@ -7,10 +7,10 @@
     <div class="container-fluid">
 
         {{!-- div centra horizontalmente el contenido --}}
-        <div class="d-flex justify-content-center vh-100">
+        <div class="d-flex justify-content-center vh-80">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-30" align="center">
+            <div class="my-auto w-25" align="center">
 
                 <div class="m-5" align="center">
                     <h1> Agregar subpartida. </h1>
@@ -22,26 +22,25 @@
                     <div class="form-inline justify-content-end">
                         <label for="clave_partida" class="m-2"> Clave de la partida </label>
                         <input type="text" name="clave_partida" class="form-control col-sm-4" id="" required autofocus>
+                    </div><br><br>
+
+
+                    <div align="center">
+                        <h3>
+                            <small class="text-muted">
+                                Agregar subpartidas.
+                            </small>
+                        </h3>
                     </div><br>
 
                     <div class="form-group">
-                        <label for="state_id" class="control-label"> Agregar </label><br>
-
-                        <!-- Boton Agregar 
-                        <button class="btn btn-outline-success btn-sm" onclick="insRow('myTable')"><i
-                                class="fas fa-plus"></i></button>
-
-                        Boton Borrar 
-                        <button class="btn btn-outline-danger btn-sm" onclick="deleteRow('myTable')"><i
-                                class="fas fa-minus"></i></button><br><br>
-
-                                -->
-                                <input class="btn btn-outline-success btn-sm" type="button"
-                                                    title="Agregar Producto" Value="+" onclick="insRow('myTable')">
-                                                <!-- Boton Borrar -->
-                                                <input class="btn btn-outline-danger btn-sm" type="button"
-                                                    title="Borrar Producto" Value="-" onclick="deleteRow('myTable')">
-                    </div>
+                        {{!-- Boton Agregar --}}
+                        <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto" Value="+"
+                            onclick="insRow('myTable')">
+                        <!-- Boton Borrar -->
+                        <input class="btn btn-outline-danger btn-sm" type="button" title="Borrar Producto" Value="-"
+                            onclick="deleteRow('myTable')">
+                    </div><br><br>
 
                     {{!-- Comienza la tabla de subpartidas automatica --}}
                     <table id="myTable" class="table table-sm table-bordered table-striped table-hover">
