@@ -42,10 +42,11 @@ router.post('/add', esLider, async (req, res) => {
     //estados del proyecto o=terminado, 1=creado,2=en tiempo,3=atrasado,4=cancelado
     let estado = 1;
     const validacion = await conexion.query('select * from proyecto WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
+    const validacion1 = await conexion.query('select * from financiamiento WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     //const validaconvocatoria = await conexion.query('select * from proyecto WHERE  id_convocatoria=?', [req.body.id_convocatoria]);
-    console.log(validacion.length);
+    console.log(validacion.length,validacion1.length);
     //console.log(validaconvocatoria.length);
-  if (validacion.length == 0 ) {
+  if (validacion.length == 0  && validacion1.length>0) {
       const cvu_tecnm = req.user.cvu_tecnm;
       const fecha_sometido = req.body.fecha_sometido ;
       const fecha_dictamen = req.body.fecha_dictamen ;

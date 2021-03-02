@@ -142,12 +142,13 @@
     }
 
     function validarEmail(event) {
+        //console.log(event.charCode);
         var a = document.getElementById("email");
         var b = a.value;
         var c = b.indexOf(".");
         var d = b.indexOf("@");
         if (b.length < 30) {
-            if ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 64) || (event.charCode == 46)) {
+            if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 64) || (event.charCode == 46)) {
 
                 if ((c >= 1 && event.charCode == 46) || d >= 1 && event.charCode == 64) {
                     event.preventDefault();

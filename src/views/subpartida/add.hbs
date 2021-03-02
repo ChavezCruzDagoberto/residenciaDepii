@@ -27,13 +27,20 @@
                     <div class="form-group">
                         <label for="state_id" class="control-label"> Agregar </label><br>
 
-                        <!-- Boton Agregar -->
+                        <!-- Boton Agregar 
                         <button class="btn btn-outline-success btn-sm" onclick="insRow('myTable')"><i
                                 class="fas fa-plus"></i></button>
 
-                        <!-- Boton Borrar -->
+                        Boton Borrar 
                         <button class="btn btn-outline-danger btn-sm" onclick="deleteRow('myTable')"><i
                                 class="fas fa-minus"></i></button><br><br>
+
+                                -->
+                                <input class="btn btn-outline-success btn-sm" type="button"
+                                                    title="Agregar Producto" Value="+" onclick="insRow('myTable')">
+                                                <!-- Boton Borrar -->
+                                                <input class="btn btn-outline-danger btn-sm" type="button"
+                                                    title="Borrar Producto" Value="-" onclick="deleteRow('myTable')">
                     </div>
 
                     {{!-- Comienza la tabla de subpartidas automatica --}}

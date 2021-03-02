@@ -24,7 +24,7 @@ router.post('/add', esAdministrador,  [
     check('clave_financiamiento').notEmpty().isAlphanumeric().toUpperCase(),
     check('clave_partida').notEmpty().withMessage('no se acepta vacio'),
     check('monto_aprobado').notEmpty().withMessage('no se acepta vacio'),
-    check('vigencia_fin').notEmpty().isDate().withMessage("formato de fecha"),
+    check('vigencia_fin').notEmpty().withMessage("formato de fecha"),
     check('vigencia_inicio').notEmpty().isDate().withMessage("formato de fecha"),
 ],async (req, res) => {
     const errores = validationResult(req);
@@ -34,8 +34,10 @@ router.post('/add', esAdministrador,  [
             return res.status(400).json({ errores: errores.array() });
 
         } else {
-    
+    console.log(req.body);
     const { clave_financiamiento, vigencia_inicio, vigencia_fin ,clave_partida,monto_aprobado} = req.body;
+    var final= vigencia_fin.substring(6,10)+"-"+vigencia_fin.substring(3,5)+"-"+vigencia_fin.substring(0,2);
+    //console.log(final);
     const validacion=await conexion.query('select * from financiamiento where clave_financiamiento= ?',[clave_financiamiento]);
     if(validacion.length>0){
         req.flash('message','ya existe un financiamiento con esa clave intente con una nueva');
@@ -45,7 +47,7 @@ router.post('/add', esAdministrador,  [
     const newFinanciamiento = {
         clave_financiamiento,
         vigencia_inicio,
-        vigencia_fin
+        vigencia_fin:final
     };
    
     

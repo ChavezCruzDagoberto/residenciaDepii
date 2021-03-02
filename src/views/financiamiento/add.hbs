@@ -28,13 +28,13 @@
 
                         <div class="form-inline justify-content-end">
                             <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
-                            <input class="form-control" type="date" name="vigencia_inicio" id="inicio" required />
+                            <input class="form-control" type="date" name="vigencia_inicio" id="inicio" onchange="cambiofecha()" required />
                         </div><br>
 
                         <div class="form-inline justify-content-end">
                             <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
-                            <script> var date = new Date();</script>
-                            <input class="form-control" type="date" name="vigencia_fin" id="fin" required />
+                            
+                            <input class="form-control" type="text" name="vigencia_fin" id="fin" required />
                         </div><br>
 
                         <select hidden id="clave_partida">
@@ -44,44 +44,55 @@
                         </select>
 
                         <br><br>
-                </div>
 
 
-                <div align="center">
-                    <h3>
-                        <small class="text-muted">
-                            Agregar partidas.
-                        </small>
-                    </h3>
-                </div><br>
 
-                <div align="center">
-                    <div class="justify-content-center">
-                        <div class="">
+                        <div align="center">
+                            <h3>
+                                <small class="text-muted">
+                                    Agregar partidas.
+                                </small>
+                            </h3>
+                        </div><br>
 
-                            <!-- Productos -->
-                            <div class="form-group" align="center">
-                                <label class="control-label"> Partidas </label>
+                        <div align="center">
+                            <div class="justify-content-center">
+                                <div class="">
 
-                                <!-- Boton Agregar -->
-                                <button class="btn btn-outline-success btn-sm" onclick="agregar()"><i
-                                        class="fas fa-plus"></i></button>
+                                    <!-- Productos -->
+                                    <div class="form-group" align="center">
+                                        <label class="control-label"> Partidas </label>
 
-                                <!-- Boton Borrar -->
-                                <button class="btn btn-outline-danger btn-sm" onclick="borrar()"><i
-                                        class="fas fa-minus"></i></button><br><br>
+                                        <!-- Boton Agregar
+                                        <button class="btn btn-outline-success btn-sm" onclick="agregar()"><i
+                                                class="fas fa-plus"></i></button>
 
-                                <!-- Div donde se añadiran los Selects -->
-                                <div class="form-group" id="productos"></div>
+                                         Boton Borrar 
+                                        <button class="btn btn-outline-danger btn-sm" onclick="borrar()"><i
+                                                class="fas fa-minus"></i></button>
+                                                -->
+                                                
+                                                <input class="btn btn-outline-success btn-sm" type="button"
+                                                    title="Agregar Producto" value="+" onclick="agregar()">
+                                                    
+                                                <!-- Boton Borrar -->
+                                                <input class="btn btn-outline-danger btn-sm " type="button"
+                                                    title="Borrar Producto" value="-" onclick="borrar()">
+                                                <br><br>
 
-                                <div class="form-group">
-                                    <button id="botonenviar" class="btn btn-outline-primary btn-block col-sm-4" onclick="leer()"
-                                        disabled><i class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
+                                        <!-- Div donde se añadiran los Selects -->
+                                        <div class="form-group" id="productos"></div>
+
+                                        <div class="form-group">
+                                            <button id="botonenviar" class="btn btn-outline-primary btn-block col-sm-4"
+                                                onclick="leer()" disabled><i
+                                                    class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
+                                        </div>
+
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -93,6 +104,13 @@
 
 {{!-- Script --}}
 <script language="JavaScript">
+
+
+
+
+
+
+
     //Creacion de Variable incremental
     var incremento = 0;
     //Llenando el arreglo que contendrá los "Options" de nuestro "Select"
@@ -214,11 +232,12 @@
         }
 
     }
-
+/*
     document.getElementById("inicio").onchange = function () {
         var input = document.getElementById("fin");
         input.min = this.value;
     }
+    */
 
 
 
@@ -233,6 +252,26 @@
     }
 
 
+
+
+function cambiofecha(){
+var inicial=document.getElementById("inicio");
+console.log(inicial);
+var finicial=inicial.value;
+var start=new Date(finicial);
+start.setFullYear(start.getFullYear()+1);
+
+var startf = start.toISOString().slice(0,10).replace(/-/g,"/");
+for(i=0;i<startf;i++){
+    console.log(startf[i]);
+}
+var final=startf.substring(8,10)+"/"+startf.substring(5,7)+"/"+startf.substring(0,4);
+console.log(final);
+document.getElementById("fin").value= final;
+
+
+
+}
 </script>
 <footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

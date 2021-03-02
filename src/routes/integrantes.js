@@ -296,25 +296,45 @@ router.post('/edit/:cvu_tecnm',
 
         } else {
 
-            const { cvu_tecnm } = req.params;
+            try {
 
-            const { cvu_tecnm1, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
-            const newIntegrante = {
-                cvu_tecnm: cvu_tecnm1,
-                nombre,
-                apellido1,
-                apellido2,
-                plantel_adscripcion,
-                email,
+                const { cvu_tecnm } = req.params;
 
-            };
+                const { cvu_tecnm1, nombre, apellido1, apellido2, plantel_adscripcion, email } = req.body;
+                const valicionExiste = await pool.query('select * from participante where cvu_tecnm=?', [cvu_tecnm1]);
 
-            await pool.query('UPDATE   participante  set ? WHERE CVU_TECNM= ? ', [newIntegrante, cvu_tecnm]);
-            console.log(cvu_tecnm);
+                if (valicionExiste.length >0 && cvu_tecnm1!=cvu_tecnm) {
+                    
 
-            req.flash('success', 'cambios guardados para ' + cvu_tecnm1);
-            res.redirect('/integrantes');
+                    req.flash('message', 'Algo ha salido mal usuario existente con clave  ' + cvu_tecnm1);
+                    res.redirect('/integrantes/edit/' + cvu_tecnm);
+                    
+                } else {
 
+
+
+                    const newIntegrante = {
+                        cvu_tecnm: cvu_tecnm1,
+                        nombre,
+                        apellido1,
+                        apellido2,
+                        plantel_adscripcion,
+                        email,
+
+                    };
+
+                    await pool.query('UPDATE   participante  set ? WHERE CVU_TECNM= ? ', [newIntegrante, cvu_tecnm]);
+                    console.log(cvu_tecnm);
+
+                    req.flash('success', 'cambios guardados para ' + cvu_tecnm1);
+                    res.redirect('/integrantes');
+                
+                }
+            }
+            catch (error) {
+                req.flash('message', 'Algo ha salido mal usuario existente con clave  ' + cvu_tecnm1);
+                res.redirect('/integrantes/edit/' + cvu_tecnm);
+            }
         }
     });
 

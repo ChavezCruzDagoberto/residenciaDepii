@@ -31,9 +31,17 @@
                     <div class="col" align="center">
 
                         <div class="form-group">
-                            <select name="cvu_tecnm" class="form-control" id="cvu_tecnm">
+                            <select name="cvu_tecnm" class="form-control" id="cvu_tecnm" onchange="consultarCorreo()">
+                                <option value=""required>Seleccione un integrante </option>
                                 {{#each responsables }}
                                 <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}} </option>
+                                {{/each}}
+                            </select>
+
+                            <select hidden name="email" class="form-control" id="email">
+                                <option value="" > </option>
+                                {{#each responsables }}
+                                <option value="{{cvu_tecnm}}">{{email}} </option>
                                 {{/each}}
                             </select>
                         </div>
@@ -43,13 +51,12 @@
 
                         <div class="mt-5" align="left">
                             <div class="form-group">
-                                <label for="username"> Nombre de usuario </label>
-                                <input type="text" id="username" name="username" class="form-control"
-                                    onkeypress="verificar(event)" required>
+                                <label for="usernam"> Correo electronico/Username </label>
+                                <input type="email" id="username1" name="username" class="form-control"  required>
                             </div>
 
                             <div class="form-group">
-                                <label for="password"> Contraseña </label>
+                                <label for="password"> Contraseña generada automaticamente  </label>
                                 <input type="password" id="password" name="password" class="form-control"
                                     title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
                                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" onkeypress="verificar(event)"
@@ -97,30 +104,66 @@
         }
     }
 
-    window.onload = contraseña;
+    window.onload = generarcontraseña;
 
-    function contraseña() {
+    function generarcontraseña() {
 
         var a = document.getElementById("password");
         // paso 1 - pedir un número al usuario
 
-        var abecedario = ["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
+        var abecedaria = ["a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        var abecedario = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
         var numero = 10;
         var numeroAleatorio = 3;
 
         // paso 2 - escribir x caracteres
         var contraseña = "";
+        var mayus = false;
+        var minus = false;
+        var num = false;
         for (var i = 0; i < numero; i++) {
             numeroAleatorio = parseInt(Math.random() * abecedario.length);
             contraseña += abecedario[numeroAleatorio]
+            if (numeroAleatorio>=0 && numeroAleatorio<26){ minus=true;}
+            if (numeroAleatorio>=26 && numeroAleatorio<52){mayus=true;}
+            if (numeroAleatorio>=52 && numeroAleatorio<=62){num=true;}
 
         }
+        if(minus &&mayus &&num){
+            a.value = contraseña;
+
+        }else{
+            generarcontraseña();
+        }
         console.log(contraseña);
-        a.value = contraseña;
+
+
+
+      
         // paso 3 - conseguir que cada caracter sea aleatorio.
 
         // paso 4 - tenemos x caracteres aleatorios
+    }
+
+
+
+    function consultarCorreo() {
+        var a = document.getElementById("cvu_tecnm");
+        var indice = a.selectedIndex;
+        var b = document.getElementById("email");
+
+        if (a.value == b[indice].value) {
+
+            var c = document.getElementById("username1")
+            console.log(c);
+            c.value = b[indice].text;
+        } else {
+
+            console.log("no son iguales");
+        }
+
+
+
     }
 
 </script>
