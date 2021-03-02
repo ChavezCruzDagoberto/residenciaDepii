@@ -4,13 +4,13 @@
 <div class="main" id="contenido">
 
   {{!-- div que permite ocupar el 100% de la pantalla --}}
-  <div class="container-fluid vh-100">
+  <div class="container-fluid">
 
     {{!-- div centra horizontalmente el contenido --}}
     <div class="d-flex justify-content-center vh-100">
 
       {{!-- div centra verticalmente el contenido --}}
-      <div class="my-auto w-100" align="center">
+      <div class="align-items-start w-100 mt-5" align="center">
 
         {{!-- Cabecera --}}
         <div class="m-5" align="center">
@@ -49,6 +49,15 @@
 
             {{!-- En caso de que la tabla no contenga ningun elemento --}}
             {{else}}
+
+            <div class="card bg-light mb-3" style="max-width: 50rem;">
+              <div class="card-header" align="left"> ¡MENSAJE! </div>
+              <div class="card-body">
+                <p class="card-text"> NO SE ENCUENTRA NINGUNA CUENTA REGISTRADA. </p>
+                <a href="/financiamiento/add"> Crear nueva cuenta a integrante. </a>
+              </div>
+            </div>
+
             <div class="col-m4 mx-auto">
               <div class="card card-body text-center">
                 <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>

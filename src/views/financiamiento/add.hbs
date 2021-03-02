@@ -10,15 +10,16 @@
         <div class="d-flex justify-content-center vh-100">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-30" align="center">
+            <div class="my-auto w-75" align="center">
 
-                <div align="right">
 
-                    <div class="m-5" align="center">
-                        <h1> Agregar financiamiento. </h1>
-                    </div>
+                <div class="m-5" align="center">
+                    <h1> Agregar financiamiento. </h1>
+                </div>
 
-                    <form action="/financiamiento/add" method="POST">
+                <div class="d-flex justify-content-center w-100">
+
+                    <form action="/financiamiento/add" method="POST" class="w-50">
 
                         <div class="form-inline justify-content-end">
                             <label for="clave_financiamiento" class="m-2"> Clave del financiamiento </label>
@@ -28,13 +29,14 @@
 
                         <div class="form-inline justify-content-end">
                             <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
-                            <input class="form-control" type="date" name="vigencia_inicio" id="inicio" onchange="cambiofecha()" required />
+                            <input class="form-control col-sm-3" type="date" name="vigencia_inicio" id="inicio"
+                                onchange="cambiofecha()" required />
                         </div><br>
 
                         <div class="form-inline justify-content-end">
                             <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
-                            
-                            <input class="form-control" type="text" name="vigencia_fin" id="fin" required />
+
+                            <input class="form-control col-sm-3" type="text" name="vigencia_fin" id="fin" required />
                         </div><br>
 
                         <select hidden id="clave_partida">
@@ -45,54 +47,41 @@
 
                         <br><br>
 
-
-
                         <div align="center">
                             <h3>
                                 <small class="text-muted">
-                                    Agregar partidas.
+                                    Partidas para el financiamiento.
                                 </small>
                             </h3>
                         </div><br>
 
                         <div align="center">
                             <div class="justify-content-center">
-                                <div class="">
 
-                                    <!-- Productos -->
-                                    <div class="form-group" align="center">
-                                        <label class="control-label"> Partidas </label>
+                                <!-- Productos -->
+                                <div class="form-group" align="center">
+                                    <!-- Boton Agregar -->
+                                    <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto"
+                                        value="+" onclick="agregar()">
 
-                                        <!-- Boton Agregar
-                                        <button class="btn btn-outline-success btn-sm" onclick="agregar()"><i
-                                                class="fas fa-plus"></i></button>
+                                    <!-- Boton Borrar -->
+                                    <input class="btn btn-outline-danger btn-sm " type="button" title="Borrar Producto"
+                                        value="-" onclick="borrar()">
+                                    <br><br>
 
-                                         Boton Borrar 
-                                        <button class="btn btn-outline-danger btn-sm" onclick="borrar()"><i
-                                                class="fas fa-minus"></i></button>
-                                                -->
-                                                
-                                                <input class="btn btn-outline-success btn-sm" type="button"
-                                                    title="Agregar Producto" value="+" onclick="agregar()">
-                                                    
-                                                <!-- Boton Borrar -->
-                                                <input class="btn btn-outline-danger btn-sm " type="button"
-                                                    title="Borrar Producto" value="-" onclick="borrar()">
-                                                <br><br>
+                                    <!-- Div donde se añadiran los Selects -->
+                                    <div class="d-flex flex-column align-items-center w-100" id="productos"></div><br><br>
 
-                                        <!-- Div donde se añadiran los Selects -->
-                                        <div class="form-group" id="productos"></div>
-
-                                        <div class="form-group">
-                                            <button id="botonenviar" class="btn btn-outline-primary btn-block col-sm-4"
-                                                onclick="leer()" disabled><i
-                                                    class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
-                                        </div>
-
+                                    <div class="form-group">
+                                        <button id="botonenviar" class="btn btn-outline-primary btn-block col-sm-4"
+                                            onclick="leer()" disabled><i
+                                                class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -100,43 +89,27 @@
     </div>
 </div>
 
-
-
 {{!-- Script --}}
 <script language="JavaScript">
-
-
-
-
-
-
-
     //Creacion de Variable incremental
     var incremento = 0;
     //Llenando el arreglo que contendrá los "Options" de nuestro "Select"
     var options = [
-
     ];
     //Lo que se hará cuando se presione el boton de Agregar
-
     function cargarPartidas() {
         var inicio = document.getElementById('clave_partida');
         for (i = 0; i < inicio.length; i++) {
             options.push(inicio.options[i].value);
-
         }
         //console.log(inicio.length);
-
     }
-
     function removeItemFromArr(arr, item) {
         var i = arr.indexOf(item);
-
         if (i !== -1) {
             arr.splice(i, 1);
         }
     }
-
     function agregar(obj) {
         var inicio = document.getElementById('clave_partida');
         if (incremento == 0) {
@@ -145,41 +118,29 @@
         if (incremento < inicio.length) {
             var boton = document.getElementById('botonenviar');
             boton.removeAttribute("disabled");
-
             incremento++;
-
             //Obteniendo el Div "productos"
             bloque = document.getElementById('productos');
-
             elemento = document.createElement('label');
-
-            elemento.innerHTML = "Partida" + incremento;
-
+            elemento.innerHTML = "Partida " + incremento + ":";
             bloque.appendChild(elemento);
             //Creando el Select que irá dentro del Div "productos"
             elemento = document.createElement('select');
-            elemento.setAttribute("class", "custom-select custom-select-sm-1 mb-3");
+            elemento.setAttribute("class", "custom-select custom-select-sm-1 mt-1 mb-2 col-sm-5");
             elemento.setAttribute("name", "clave_partida")
             elemento.setAttribute("required", "true");;
             elemento.id = 'select' + incremento;
             bloque.appendChild(elemento);
-
             //console.log(incremento);
-
             if (incremento > 1) {
-
                 for (i = 1; i < incremento; i++) {
-
                     var combo = document.getElementById("select" + i);
-
                     var texto = combo.options[combo.selectedIndex].value;
                     combo.setAttribute("disabled", "true");
                     //combo.setAttribute("readonly", "true");
                     removeItemFromArr(options, texto);
-
                 }
             }
-
             //Agregando nuestros "Options" a nuestro "Select"
             for (var i = 0; i < options.length; i++) {
                 var option = document.createElement("option");
@@ -188,8 +149,13 @@
                 elemento.appendChild(option);
             }
 
+            bloque = document.getElementById('productos');
+            elemento = document.createElement('label');
+            elemento.innerHTML = "Monto:";
+            bloque.appendChild(elemento);
+
             elemento = document.createElement('input');
-            elemento.setAttribute("class", "form-control ");
+            elemento.setAttribute("class", "form-control col-sm-5 mb-5");
             elemento.setAttribute("name", "monto_aprobado");
             elemento.setAttribute("placeholder", "monto aprobado");
             elemento.setAttribute("pattern", "[0-9]+");
@@ -197,81 +163,55 @@
             //elemento.removeAttribute("disabled");
             elemento.id = 'text' + incremento;
             bloque.appendChild(elemento);
-
         }
-
     }
-
     //Lo que se hará cuando se presione el boton de Borrar
     function borrar(obj) {
         //console.log(options);
-
         var combo = document.getElementById("select" + (incremento - 1));
-
         var texto = combo.options[combo.selectedIndex].value;
         combo.removeAttribute("disabled");
         console.log(texto);
         options.push(texto);
         console.log(options);
-
         incremento = incremento - 1;
         bloque = document.getElementById('productos');
-
         bloque.removeChild(bloque.lastChild);
         bloque.removeChild(bloque.lastChild);
         bloque.removeChild(bloque.lastChild);
-
     }
-
     function leer() {
-
         for (i = 1; i <= incremento; i++) {
             x = document.getElementById('select' + i);
             x.removeAttribute("disabled");
-
         }
-
     }
-/*
-    document.getElementById("inicio").onchange = function () {
-        var input = document.getElementById("fin");
-        input.min = this.value;
-    }
-    */
-
-
-
+    /*
+        document.getElementById("inicio").onchange = function () {
+            var input = document.getElementById("fin");
+            input.min = this.value;
+        }
+        */
     function verificar(event) {
-
         var x = event.charCode;
         if (x == 32) {
             event.preventDefault();
-
-
         }
     }
-
-
-
-
-function cambiofecha(){
-var inicial=document.getElementById("inicio");
-console.log(inicial);
-var finicial=inicial.value;
-var start=new Date(finicial);
-start.setFullYear(start.getFullYear()+1);
-
-var startf = start.toISOString().slice(0,10).replace(/-/g,"/");
-for(i=0;i<startf;i++){
-    console.log(startf[i]);
-}
-var final=startf.substring(8,10)+"/"+startf.substring(5,7)+"/"+startf.substring(0,4);
-console.log(final);
-document.getElementById("fin").value= final;
-
-
-
-}
+    function cambiofecha() {
+        var inicial = document.getElementById("inicio");
+        console.log(inicial);
+        var finicial = inicial.value;
+        var start = new Date(finicial);
+        start.setFullYear(start.getFullYear() + 1);
+        var startf = start.toISOString().slice(0, 10).replace(/-/g, "/");
+        for (i = 0; i < startf; i++) {
+            console.log(startf[i]);
+        }
+        var final = startf.substring(8, 10) + "/" + startf.substring(5, 7) + "/" + startf.substring(0, 4);
+        console.log(final);
+        document.getElementById("fin").value = final;
+    }
 </script>
 <footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
