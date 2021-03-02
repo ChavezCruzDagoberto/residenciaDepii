@@ -10,17 +10,21 @@
     <link rel="stylesheet" type="text/css" href="/css/principal.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/css/css_proyecto_responsable.css" media="screen" />
 
+
+  
 </head>
 
 <body onload="noatras();">
 
     {{> navigation}}
 
-    {{> message}}
+<br>
+<br>
+   {{> message}}
     
     {{{body}}}
 
-
+ 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -37,6 +41,14 @@ window.location.hash="Again-No-back-button"
 window.onhashchange=function(){
                     window.location.hash="no-back-button";
                     }
+
+
+
 }
+
+
+
+
+
 </script>
 </html>
