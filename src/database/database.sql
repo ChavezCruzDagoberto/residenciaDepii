@@ -3,7 +3,7 @@ USE residenciap_depi;
 
 create table convocatoria(
 id_convocatoria int(5) auto_increment primary key,
-nombre_convocatoria varchar(200) not null,
+nombre_convocatoria varchar(200) not null,	
 anio int(4) not null,
 fecha_cierre timestamp
 );
@@ -41,7 +41,7 @@ CREATE TABLE participante(
 cvu_tecnm varchar(10) not null primary key,
 nombre varchar(50) not null,
 apellido1 varchar(50) not null,
-apellido2 varchar(50) not null,
+apellido2 varchar(50) ,
 plantel_adscripcion varchar(100) not null,
 email varchar(100) not null unique
 );
@@ -50,7 +50,7 @@ email varchar(100) not null unique
 
 create table users(
 id_usuario int(5)  auto_increment primary key,
-username varchar(20) not null unique,
+username varchar(60) not null unique,
   password  varchar(200) not null unique,
   cvu_tecnm varchar(10) unique,
   rol_sistema varchar(15) ,
@@ -63,6 +63,7 @@ describe users;
 
 
 
+
 create table proyecto(
 id_proyecto int(10) not null primary key auto_increment,
 titulo varchar(500) not null,
@@ -71,9 +72,8 @@ fecha_sometido timestamp not null,
 fecha_dictamen timestamp not null,
 clave_financiamiento varchar(10) unique, 
 FOREIGN KEY (clave_financiamiento) REFERENCES financiamiento(clave_financiamiento),
-id_convocatoria int(5) unique, 
-FOREIGN KEY (id_convocatoria) REFERENCES convocatoria(id_convocatoria),
-estado int(1) not null
+estado int(1) not null,
+creado date not null
 );
 
 describe proyecto;
@@ -152,7 +152,8 @@ insert into detalle_partida (clave_partida,clave_subpartida,descripcion) values
 (20000,20002,"usb/discos duros"),
 (20000,20003,"pc laptops"); 
 
-ALTER TABLE proyecto add creado date not null;
+
+
 
 
 create table protocolo (
@@ -166,30 +167,8 @@ FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
 
 
 
+/*integridad referencial*/
 
-
-
-
-
-
-
-
-
--- elimina la asociacion con convocatoria--
-ALTER TABLE `residenciap_depi`.`proyecto` 
-DROP FOREIGN KEY `proyecto_ibfk_2`;
-ALTER TABLE `residenciap_depi`.`proyecto` 
-DROP INDEX `id_convocatoria` ;
-
-//eliminar columna  id_convocatoria en proyecto
-ALTER TABLE `residenciap_depi`.`proyecto` 
-DROP COLUMN `id_convocatoria`;
-
-
-
-
-
--- para cuando halla una actualizacion en alguno de los datos  de integrante usados en otras tablas--
 ALTER TABLE `residenciap_depi`.`users` 
 DROP FOREIGN KEY `users_ibfk_1`;
 ALTER TABLE `residenciap_depi`.`users` 
@@ -200,16 +179,13 @@ ADD CONSTRAINT `users_ibfk_1`
 
 
 ALTER TABLE `residenciap_depi`.`proyecto_participante` 
-ADD CONSTRAINT `proyecto_participante_ibfk_1`
+ADD CONSTRAINT `proyecto_participante_ibfk`
   FOREIGN KEY (`cvu_tecnm`)
   REFERENCES `residenciap_depi`.`participante` (`cvu_tecnm`)
   ON UPDATE CASCADE;
   
-
-
-
-
-  --actualizacion o eliminacion de proyecto relacionado con proyecto participante--
+  
+  
   ALTER TABLE `residenciap_depi`.`proyecto_participante` 
 DROP FOREIGN KEY `proyecto_participante_ibfk_2`;
 ALTER TABLE `residenciap_depi`.`proyecto_participante` 
@@ -218,9 +194,4 @@ ADD CONSTRAINT `proyecto_participante_ibfk_2`
   REFERENCES `residenciap_depi`.`proyecto` (`id_proyecto`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-
-
-
---puede ser nulo el segundo apellido--
-ALTER TABLE `residenciap_depi`.`participante` 
-CHANGE COLUMN `apellido2` `apellido2` VARCHAR(50) NULL ;
+  
