@@ -160,11 +160,12 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
   }
 
 
-
+if(req.user.rol_sistema=="Administrador"){
 
   res.render('proyecto/informe/listarporproyecto', { consulta: editado});
-
-
+}else{
+  res.render('proyecto/informe/listarProyectoResponsable', { consulta: editado});
+}
  // console.log(editado);
 
 });

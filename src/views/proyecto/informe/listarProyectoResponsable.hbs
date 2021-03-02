@@ -1,0 +1,58 @@
+<div class="main">
+  <div class="container-fluid mt-2">
+
+    <div class="m-5" align="center">
+      <h1> Informes </h1>
+      <small class="text-muted">
+        Departamento de Estudios de Posgrado e Investigacion.
+      </small>
+    </div>
+
+    <table class="table table-sm table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">No de Informe</th>
+          <th scope="col">fecha de inicio</th>
+          <th scope="col">fecha final</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        
+        
+        {{#each consulta}}
+        <form action="/informe/edit/{{id_informe}}" method="POST">
+          <tr>
+            <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
+            <td>{{fecha_inicio}}</td>
+            <td>{{fecha_fin}}</td>
+<!-- 
+            <td>
+              <button class="btn btn-secondary">Actualizar Fecha</button>
+            </td>
+           <td><a href="/informe/delete/{{id_informe}}" class="btn btn-danger"> Eliminar</a></td> !-->
+
+
+
+          </tr>
+          <input type="hidden" name="id_proyecto" id="" value="{{id_proyecto}}">
+        </form>
+        {{else}}
+        <div class="col-m4 mx-auto">
+          <div class="card card-body text-center">
+            <p>NO HAY NINGUN informe para este proyecto GUARDADO AUN </p>
+            <a href="/informe/add"> CREAR NUEVO</a>
+          </div>
+        </div>
+        {{/each}}
+
+      </tbody>
+    </table>
+
+
+
+
+  </div>
+</div>
+</div>
