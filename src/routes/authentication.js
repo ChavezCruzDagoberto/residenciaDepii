@@ -31,7 +31,6 @@ router.get('/singup',esAdministrador, async (req, res) => {
 
 });
 
-
 router.get('/addcapturista', async (req, res) => {
     res.render('auth/singup_capturista'); 
 
@@ -61,16 +60,10 @@ router.post('/singup', esAdministrador,
 }
 });
 
-
-
-
-
-
 router.get('/signin',noEstaLogueado, (re, res) => {
     res.render('auth/signin')
 
 });
-
 
 router.post('/signin',noEstaLogueado,intentos, (req, res, next) => {
 
@@ -82,8 +75,6 @@ router.post('/signin',noEstaLogueado,intentos, (req, res, next) => {
 
 });
 
-
-
 router.get('/logout', estaLogueado, (req, res) => {
     req.app.locals.lider=null;
     req.app.locals.admin=null;
@@ -93,14 +84,10 @@ router.get('/logout', estaLogueado, (req, res) => {
 
 });
 
-
-
-
 router.get('/reset',estaLogueado, async (req, res) => {
 
     const user = req.user;
     res.render('auth/resetCuenta', { user });
-
 
 });
 
@@ -133,9 +120,6 @@ router.post('/resetPassword', estaLogueado ,
 
         }
 
-
-
-
         await conexion.query('UPDATE   users  set ? WHERE id_usuario= ? ', [newDatosUser, user.id_usuario]);
         // console.log(cvu_tecnm);
 
@@ -143,27 +127,20 @@ router.post('/resetPassword', estaLogueado ,
         req.logOut();
         res.redirect('/signin');
 
-
     } else {
         req.flash('message', 'Algo ha salido mal intente de nuevo ');
         res.redirect('/reset');
         //res.render('auth/resetCuenta', { user :req.user});
 
-
     }
 }
 
-
-
-
 });
-
 
 router.get('/cuentas', esAdministrador,async (req, res) => {
 
     const users=await conexion.query('select * from users');
     res.render('auth/list', { users });
-
 
 });
 router.get('/deleteuser/:cvu_tecnm',esAdministrador, async (req, res) => {
@@ -178,9 +155,7 @@ router.get('/deleteuser/:cvu_tecnm',esAdministrador, async (req, res) => {
     res.redirect("/cuentas");
     }
 
-
 });
-
 
 router.get('/cambiarestado/:cvu_tecnm',esAdministrador, async (req, res) => {
     const { cvu_tecnm } = req.params;
