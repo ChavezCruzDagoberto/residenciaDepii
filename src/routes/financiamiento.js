@@ -138,13 +138,20 @@ router.get('/', esAdministrador, async (req, res) => {
 
 //ELIMINAR
 router.get('/delete/:clave_financiamiento', esAdministrador, async (req, res) => {
-
-    const { clave_financiamiento } = req.params;
+    const { clave_financiamiento } = req.params;   
+    try {
+            
+        
+    
     await conexion.query('DELETE FROM  financiamiento  WHERE CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     //console.log(req.params.id_convocatoria);
     req.flash('success', clave_financiamiento + ' eliminado  correctamente');
     res.redirect("/financiamiento");
-
+} catch (error) {
+        
+    req.flash('message', clave_financiamiento + ' esta asociado a un proyecto no se puede eliminar');
+    res.redirect("/financiamiento");
+}
 });
 
 

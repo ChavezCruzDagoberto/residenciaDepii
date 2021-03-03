@@ -7,7 +7,36 @@ const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth')
 router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
 
   const { id_proyecto } = req.params;
+
+
+  const financia=await conexion.query('select id_proyecto,clave_financiamiento,clave_partida,monto_aprobado from proyecto natural join financiamiento natural join financiamiento_partida where id_proyecto=?',[id_proyecto]);
+  const agregados=await conexion.query('select id_proyecto,a.clave_subpartida,monto_solicitado,b.clave_partida  from material_servicio as a inner join detalle_partida as b  on a.clave_subpartida=b.clave_subpartida where id_proyecto=?',[id_proyecto]);
   //const envia=await conexion.query('select * from (select clave_partida from proyecto natural join financiamiento_partida where id_proyecto=?)as a natural join detalle_partida',[id_proyecto]);
+  var claves = new Map();
+  
+  var contador=financia.length-1;
+  console.log(financia[0],agregados[0])
+  
+  while(contador>=0){
+var resultado=financia[contador].monto_aprobado;
+for(i=0;i<agregados.length;i++){
+  if(financia[contador].clave_partida==agregados[i].clave_partida){
+//console.log(financia[contador].clave_partida,agregados[i].clave_partida);
+resultado=resultado-agregados[i].monto_solicitado;
+}
+
+  }
+  claves.set(financia[contador].clave_partida,resultado);
+  //console.log(financia[contador].clave_partida, ":", resultado);  
+
+
+contador--;
+  }
+  console.log(claves);
+  
+  
+  
+  
   const validacion = await conexion.query('select detalle_partida.clave_partida,detalle_partida.clave_subpartida,detalle_partida.descripcion from detalle_partida left join (select * from material_servicio where id_proyecto = ?)as a on a.clave_subpartida = detalle_partida.clave_subpartida where a.clave_subpartida is null; ', [id_proyecto]);
  //console.log(envia);
   res.render('proyecto/materialServicio/add',{subpartidas:validacion,id_proyecto});
