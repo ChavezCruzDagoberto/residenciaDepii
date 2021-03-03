@@ -52,12 +52,15 @@
 
             {{!-- En caso de que no exista partidas guardadas --}}
             {{else}}
-            <div class="col-m4 mx-auto">
-              <div class="card card-body text-center">
-                <p>NO HAY NINGUNA Partida GUARDADO AUN </p>
-                <a href="/partida/add/{{financiamiento}}"> CREAR NUEVO</a>
+
+            <div class="card bg-light mb-3" style="max-width: 50rem;">
+              <div class="card-header" align="left"> ¡MENSAJE! </div>
+              <div class="card-body">
+                <p class="card-text"> NO SE ENCUENTRA ALMACENADA NINGUNA PARTIDA. </p>
+                <a href="/partida/add/{{financiamiento}}"> Crear nueva partida. </a>
               </div>
             </div>
+            
             {{/each}}
 
           </tbody>
