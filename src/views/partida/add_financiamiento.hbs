@@ -13,64 +13,62 @@
             <div class="my-auto w-75" align="center">
 
                 {{!-- Cabecera --}}
-                <div class="m-5">
+                <div class="m-5" align="center">
                     <h1> Agregar partidas al financiamiento. </h1>
                 </div>
 
-                <form action="/partida/add/a" method="POST">
+                <div class="d-flex justify-content-center w-100">
+                    
+                    <form action="/partida/add/a" method="POST" class="w-50">
 
-                    <input type="hidden" name="clave_financiamiento" value="{{clave}}">
-                    <select hidden id="clave_partida">
-                        {{#each partidas}}
-                        <option value="{{clave_partida}}">{{clave_partida}}</option>
-                        {{/each}}
-                    </select>
+                        <input type="hidden" name="clave_financiamiento" value="{{clave}}">
+                        <select hidden id="clave_partida">
+                            {{#each partidas}}
+                            <option value="{{clave_partida}}">{{clave_partida}}</option>
+                            {{/each}}
+                        </select>
 
-                    <div class="mx-auto">
-                        <!-- Contenedor -->
-
-                        <!-- Titulo del Card -->
-                        <h5 class="card-title">Agregar partidas</h5>
-                        <br>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <form id="" action="">
-
-                                    <!-- Productos -->
-                                    <div class="form-group">
-                                        <label for="state_id" class="control-label">Claves</label>
-                                        <!-- Boton Agregar -->
-                                        <input class="btn btn-secondary btn-sm" type="button" title="Agregar Producto"
-                                            Value="+" onclick="agregar()">
-                                        <!-- Boton Borrar -->
-                                        <input class="btn btn-secondary btn-sm" type="button" title="Borrar Producto"
-                                            Value="-" onclick="borrar()">
-                                        <br>
-                                        <br>
-                                        <!-- Div donde se añadiran los Selects -->
-                                        <div class="form-group" id="productos">
-                                        </div>
-
-                                    </div>
-
-                            </div>
+                        <div align="center">
+                            <h3>
+                                <small class="text-muted">
+                                    Partidas.
+                                </small>
+                            </h3>
                         </div>
 
-                    </div>
+                        <div align="center">
+                            <div class="justify-content-center">
 
-                    <div class="form-group">
-                        <button class="btn btn-success btn-block" id="botonenviar" onclick="leer()" disabled>
-                            Agregar</button>
-                    </div>
-                </form>
+                                <!-- Productos -->
+                                <div class="form-group" align="center">
+
+                                    <!-- Boton Agregar -->
+                                    <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto"
+                                        Value="+" onclick="agregar()">
+                                    <!-- Boton Borrar -->
+                                    <input class="btn btn-outline-danger btn-sm" type="button" title="Borrar Producto"
+                                        Value="-" onclick="borrar()">
+                                    <br><br>
+
+                                    <!-- Div donde se añadiran los Selects -->
+                                    <div class="d-flex flex-column align-items-center w-100" id="productos"></div>
+                                    <br><br>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-outline-primary btn-block col-sm-4" id="botonenviar"
+                                            onclick="leer()" disabled><i
+                                                class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 
 <script language="JavaScript">
     //Creacion de Variable incremental
@@ -114,15 +112,13 @@
 
             //Obteniendo el Div "productos"
             bloque = document.getElementById('productos');
-
             elemento = document.createElement('label');
-
-            elemento.innerHTML = "Partida" + incremento;
+            elemento.innerHTML = "Partida " + incremento + ":";
 
             bloque.appendChild(elemento);
             //Creando el Select que irá dentro del Div "productos"
             elemento = document.createElement('select');
-            elemento.setAttribute("class", "custom-select custom-select-sm-1 mb-3");
+            elemento.setAttribute("class", "custom-select custom-select-sm-1 mt-1 mb-2 col-sm-5");
             elemento.setAttribute("name", "clave_partida")
             elemento.setAttribute("required", "true");;
             elemento.id = 'select' + incremento;
@@ -152,8 +148,13 @@
                 elemento.appendChild(option);
             }
 
+            bloque = document.getElementById('productos');
+            elemento = document.createElement('label');
+            elemento.innerHTML = "Monto:";
+            bloque.appendChild(elemento);
+
             elemento = document.createElement('input');
-            elemento.setAttribute("class", "form-control ");
+            elemento.setAttribute("class", "form-control col-sm-5 mb-5");
             elemento.setAttribute("name", "monto_aprobado");
             elemento.setAttribute("placeholder", "monto aprobado");
             elemento.setAttribute("pattern", "[0-9]+");
