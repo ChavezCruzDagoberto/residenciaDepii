@@ -349,7 +349,7 @@ async (req, res) => {
 console.log(req.app.locals);
 
     res.render('layouts/proyecto_responsable', { proyecto: proyecto[0] });
-  
+  //res.render('proyecto/seguimiento');
     
   
   //res.send("recibido");
