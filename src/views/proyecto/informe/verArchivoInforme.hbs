@@ -6,8 +6,8 @@
         <thead>
           <tr>
             <th scope="col">Url</th>
-            <th scope="col">Anotaciones</th>
-            <th scope="col">Revisiones</th>
+            <th scope="col">Archivo</th>
+           
 
 
 
@@ -16,22 +16,22 @@
 
         <tbody>
           {{#if informe}}
+          <input type="hidden" name="observaciones" id="observaciones" value="{{informe.anotaciones}}">
           <tr>
             <th>{{informe.url_archivo}}</th>
-            <th>{{informe.anotaciones}}</th>
-            <th>{{informe.revisiones}}</th>
+            
             <input type="hidden" name="id_proyecto" value="{{informe.id_proyecto}}">
             <td><a href="/informe/leerInforme/{{informe.id_proyecto}}/{{informe.id_informe}}" class="btn btn-secondary" target="blank"> ver</a></td>
-
-            <td><a href="/proyecto/anotar/" class="btn btn-danger"> anotar</a></td>
-
+            {{#if admin}}
+            <td><a href="/informe/observaciones/{{informe.id_proyecto}}/{{informe.id_informe}}" id="anotar"  class="btn btn-danger"> anotar</a></td>
+            {{/if}}
 
 
           </tr>
           {{else}}
           <div class="col-m4 mx-auto">
             <div class="card card-body text-center">
-              <p>NO TIENE AGREGADO SU PROTOCOLO AUN </p>
+              <p>NO TIENE AGREGADO SU INFORME AUN </p>
               <a href="/protocolo/add/{{id_proyecto}}"> CREAR NUEVO</a>
             </div>
           </div>
@@ -40,9 +40,58 @@
         </tbody>
       </table>
 
+ <div class="d-flex justify-content-center">
+    <div class="form-group" id="obs">
 
-
+    </div>
+    </div>
 
     </div>
   </div>
 </div>
+
+<script>
+
+window.onload =load;
+
+function load(){
+
+var resul= document.getElementById("observaciones").value;
+
+var div= document.getElementById("obs");
+if(resul.length>0){
+
+
+
+var etiqueta= document.createElement("label");
+etiqueta.innerHTML="Observaciones realizadas por el Coordinador :";
+
+
+div.appendChild(etiqueta);
+var salto= document.createElement("br");
+div.appendChild(salto);
+
+var textarea=document.createElement("textarea");
+textarea.setAttribute("cols","50");
+textarea.setAttribute("rows","10");
+textarea.setAttribute("readonly","true");
+textarea.value=resul;
+div.appendChild(textarea);
+
+
+
+
+
+}else{
+
+var etiqueta= document.createElement("label");
+etiqueta.innerHTML="No se ha realizado observacion ";
+
+
+div.appendChild(etiqueta);
+
+}
+
+
+}
+</script>

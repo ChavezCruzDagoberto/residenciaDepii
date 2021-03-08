@@ -11,7 +11,7 @@
                             {{#if resultado}}
                             <input type="hidden" id="resultado" value="{{resultado.id_proyecto}}" >
                             <label for="etiqueta">recuerde que la revision solo es una vez </label>
-                            <input type="hidden" id="revisiones" value="{{resultado.revisiones}}" >
+                            <input type="hidden" id="revisiones" value="{{resultado.intentos}}" >
                             <input type="hidden" id="inf" value="{{resultado.id_informe}}" >
                             {{/if}}
                             <div class="form-group">
@@ -42,7 +42,7 @@ var resul= document.getElementById("resultado");
 //console.log(intentos);
 if(resul ){
 var intentos=document.getElementById("revisiones").value;
-if(intentos<1){
+if(intentos<=1){
   var r = confirm("Ya tiene un archivo agregado desea remplazarlo?\n En caso de ser asi revise su archivo porque solo se permite 1 revision");
   if (r == true) {
    // txt = "You pressed OK!";

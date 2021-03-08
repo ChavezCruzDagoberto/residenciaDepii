@@ -58,7 +58,7 @@ router.get('/add', estaLogueado, async (req, res) => {
 
   //res.render();
 
-  proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM= ? and ESTADO<=1  ', [cvu_tecnm]);
+  proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM= ? and ESTADO>=1   ', [cvu_tecnm]);
 
   
 
@@ -310,13 +310,13 @@ router.post('/cargar/:id_informe',upload.single('archivo'),async(req,res)=>{
     console.log(existe_base);
     if(existe_base[0].revisiones<2){
 
-      var rev=(existe_base[0].revisiones)+1;
+      var int=(existe_base[0].intentos)+1;
       const newInforme1 = {
         id_proyecto: id_proyecto,
         id_informe: id_informe,
         url_archivo:path,
         anotaciones: '',
-        revisiones: rev
+        intentos: int
     };
 
       await conexion.query('UPDATE   archivo_informes  set ? WHERE id_informe=? and  id_proyecto= ? ', [newInforme1,id_informe, id_proyecto]);
@@ -334,7 +334,8 @@ router.post('/cargar/:id_informe',upload.single('archivo'),async(req,res)=>{
       id_informe: id_informe,
       url_archivo:path,
       anotaciones: '',
-      revisiones: 0
+      revisiones: 0,
+      intentos:1
   };
 
   await conexion.query('INSERT INTO archivo_informes set ?', [newInforme]);
@@ -402,6 +403,42 @@ function urlCorrecto(ubicacion) {
   //console.log(ubicacion.replace(String.fromCharCode(c),"/"));
   return ubicacion.replace(String.fromCharCode(c), "/");
 }
+
+
+router.get('/observaciones/:id_proyecto/:id_informe',async(req,res)=>{
+  var {id_proyecto,id_informe}=req.params;
+  var validacion=await conexion.query('select * from archivo_informes where id_proyecto=? and id_informe=?',[id_proyecto,id_informe]);
+  
+  res.render('proyecto/informe/observacionesInforme',{id_proyecto,id_informe,validacion:validacion[0]});
+console.log("validacion",validacion);
+
+});
+
+
+router.post('/observaciones/:id_proyecto/:id_informe',async(req,res)=>{
+
+console.log("post",req.body,req.params);
+
+
+const {anotaciones}=req.body;
+const {id_proyecto,id_informe}=req.params;
+
+var consulta= await conexion.query('select * from archivo_informes where id_proyecto=?  and id_informe=?',[id_proyecto,id_informe]);
+if(consulta.length>0){
+var int=(consulta[0].revisiones)+1;
+const aux={
+  anotaciones:anotaciones,
+  revisiones:int
+
+}
+
+  await conexion.query('UPDATE   archivo_informes  set ? WHERE id_proyecto=? and id_informe=?', [aux, id_proyecto,id_informe]);
+
+  res.redirect('/informe/verInforme/'+id_informe+'/'+id_proyecto);
+}
+
+});
+
 
 
 module.exports = router;

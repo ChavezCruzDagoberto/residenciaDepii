@@ -60,9 +60,9 @@ function load(){
 
 var resul= document.getElementById("observaciones").value;
 
-
-if(resul.length>0){
 var div= document.getElementById("entrada");
+if(resul.length>0){
+
 
 var etiqueta= document.createElement("label");
 etiqueta.innerHTML="Observaciones realizadas por el Coordinador :";
@@ -82,6 +82,14 @@ div.appendChild(textarea);
 
 
 
+
+}else{
+
+var etiqueta= document.createElement("label");
+etiqueta.innerHTML="No se ha realizado observacion ";
+
+
+div.appendChild(etiqueta);
 
 }
 

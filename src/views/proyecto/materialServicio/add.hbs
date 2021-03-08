@@ -98,6 +98,23 @@
 <div class="main" id="contenido">
   <div class="card-body">
     <form action="/materialServicio/add" method="POST">
+      <div class="form-group">
+        <label for="">Monto restante para justificar</label><br>
+        {{#each restante}}
+            <label for="">clave: {{clave_partida}} monto_restante $</label>  <label for="" id="{{clave_partida}}" > {{monto_restante}}</label><br>
+
+              {{/each}}
+      </div>
+
+
+
+
+      <select hidden   id="claves">
+              {{#each subpartidas}}
+              <option value="{{clave_partida}}">{{clave_subpartida}}</option>
+              {{/each}}
+            </select>
+
 
 
       <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
@@ -153,6 +170,7 @@
     var boton = document.getElementById("botonenviar");
     var boton1 = document.getElementById("eliminar");
     var inicio = document.getElementById('subpartidas');
+     var principalc = document.getElementById('claves');
 
     var incremento = 0;
     var validacion = true;
@@ -233,7 +251,7 @@
         var opciones = "";
         for (var i = 0; i < options.length; i++) {
           //console.log(options[i][1],i);
-          opciones += "<option value=" + options[i][0] + ">" + options[i][1] + "</option>";
+          opciones += "<option value=" + options[i][0] + ">"+ options[i][1] + "</option>";
         }
         w.innerHTML = "<td><input type=" + "text " +  " class=" + "form-control" + " name=" + " descripcion "  +   "id=" + des +  "  required></td>";
 
@@ -275,11 +293,35 @@
           var can = "monto" + incremento;
 
           var idAnterior = "subpartida" + (incremento - 1);
+          var montant="monto"+(incremento-1);
+          var inmonto=document.getElementById(montant).value;
+   
+
+
+
+
+
           selecAnterior = document.getElementById(idAnterior);
 
+            
+
           var texto = [selecAnterior.options[selecAnterior.selectedIndex].value, selecAnterior.options[selecAnterior.selectedIndex].text];
+        
+        var clave=selecAnterior.options[selecAnterior.selectedIndex].value;
 
+       
+       
+        for(h=0;h<principalc.options.length;h++){
+          if(principalc.options[h].text==clave){
+            var desc=principalc.options[h].value;
+             var descontar=document.getElementById(des);
+               console.log(descontar);
+              console.log("encontrado",principalc.options[h].value);
 
+          }
+        }
+
+     console.log("monto",inmonto,clave);
 
           removeItemFromArr(options, texto);
           selecAnterior.setAttribute("disabled", "true");
