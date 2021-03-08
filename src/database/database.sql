@@ -162,7 +162,8 @@ nombre_archivo varchar(500) not null,
 url_archivo varchar(700) not null,
 anotaciones text ,
 id_proyecto int(10) not null,
-FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
+FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
+revisiones int(1) not null
 );
 
 
@@ -195,3 +196,23 @@ ADD CONSTRAINT `proyecto_participante_ibfk_2`
   ON DELETE CASCADE
   ON UPDATE CASCADE;
   
+
+    create table archivo_informes(
+  id_proyecto int(10) not null,
+  id_informe int(5) not null,
+  url_archivo varchar(500) not null,
+  anotaciones text,
+  revisiones int(1) not null,
+  FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
+  FOREIGN KEY (id_informe) REFERENCES informe(id_informe),
+  primary key(id_proyecto,id_informe)
+  );
+ 
+
+
+
+  ALTER TABLE protocolo
+ADD intentos int(1) not null; 
+
+alter table archivo_informes
+add intentos int(1) not null;

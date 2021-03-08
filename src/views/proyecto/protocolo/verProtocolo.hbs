@@ -6,10 +6,10 @@
         <thead>
           <tr>
             <th scope="col">Nombre del Archivo</th>
-            <th scope="col">Notas</th>
             <th scope="col">URL</th>
+            {{#if admin}}
             <th scope="col">Anotaciones</th>
-
+          {{/if}}
 
           </tr>
         </thead>
@@ -18,13 +18,13 @@
           {{#if protocolo}}
           <tr>
             <th>{{protocolo.nombre_archivo}}</th>
-            <th>{{protocolo.anotaciones}}</th>
             <input type="hidden" name="id_proyecto" value="{{protocolo.id_proyecto}}">
+            <input type="hidden" name="observaciones" id="observaciones" value="{{protocolo.anotaciones}}">
             <td><a href="/protocolo/leer/{{protocolo.id_proyecto}}" class="btn btn-secondary" target="blank"> ver</a></td>
 
-
-            <td><a href="/proyecto/anotar/" class="btn btn-danger"> anotar</a></td>
-
+ {{#if admin}}
+            <td><a href="/protocolo/observaciones/{{id_proyecto}}" class="btn btn-danger"> Realizar observaciones</a></td>
+{{/if}}
 
 
           </tr>
@@ -40,9 +40,51 @@
         </tbody>
       </table>
 
+<div class="form-group" id="entrada" >
+
+</div>
+
 
 
 
     </div>
   </div>
 </div>
+
+
+
+<script>
+  window.onload =load;
+
+function load(){
+
+var resul= document.getElementById("observaciones").value;
+
+
+if(resul.length>0){
+var div= document.getElementById("entrada");
+
+var etiqueta= document.createElement("label");
+etiqueta.innerHTML="Observaciones realizadas por el Coordinador :";
+
+
+div.appendChild(etiqueta);
+var salto= document.createElement("br");
+div.appendChild(salto);
+
+var textarea=document.createElement("textarea");
+textarea.setAttribute("cols","50");
+textarea.setAttribute("rows","10");
+textarea.setAttribute("readonly","true");
+textarea.value=resul;
+div.appendChild(textarea);
+
+
+
+
+
+}
+
+
+}
+</script>

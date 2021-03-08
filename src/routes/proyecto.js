@@ -76,6 +76,41 @@ router.post('/add', esLider, async (req, res) => {
       };
       await conexion.query('INSERT INTO proyecto_participante set ?', [newProyecto_participante]);
 
+
+      //agregar informes dinamicamente
+      var fecha_inicio=moment(validacion1[0].vigencia_inicio);
+     // console.log("inicio",fecha_inicio);
+      var i=0;
+      var a=fecha_inicio;
+  var informes=[];
+  var sem_an=[];
+      while(i<4){
+         if(i<3){
+          var c= a.add(3,'month').format('YYYY-MM-DD');
+          informes.push(c);
+           var x=moment(informes[i]);
+            sem_an.push(x.subtract(1,'week').format('YYYY-MM-DD'));
+       
+         }else{
+          var c= a.add(4,'month').format('YYYY-MM-DD');
+          informes.push(c);
+           var x=moment(informes[i]);
+           sem_an.push(x.subtract(1,'month').format('YYYY-MM-DD'));
+
+         }
+        // console.log((i+1),sem_an[i],informes[i],p[0].id_proyecto);
+         const newInforme = {
+           no_informe:(i+1),
+           fecha_inicio:sem_an[i],
+           fecha_fin:informes[i],
+          id_proyecto: p[0].id_proyecto,
+
+        };
+        await conexion.query('INSERT INTO informe set ?', [newInforme]);
+  
+      i++;
+      }
+      ///////////////////////////////////////
       req.flash('success', 'proyecto agreado correctamente');
 
       res.redirect("/proyecto");
@@ -190,7 +225,7 @@ req.app.locals.proyectodisponible=null;
   } else {
 
     const cvu_tecnm = req.user.cvu_tecnm;
-    const proyectos = await conexion.query('select * from  (select * from  proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado=1 ', [cvu_tecnm]);
+    const proyectos = await conexion.query('select * from  (select * from  proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado>=1 and estado<4 ', [cvu_tecnm]);
 
     console.log('p',proyectos.length);
 if(proyectos.length>0){

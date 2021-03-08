@@ -4,21 +4,22 @@
             <div class="col-md-4 mx-auto">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/protocolo/add/{{id_proyecto}}" method="POST" enctype="multipart/form-data">
+                        <form action="/informe/cargar/{{id_informe}}" method="POST" enctype="multipart/form-data">
 
-
+                            
 
                             {{#if resultado}}
                             <input type="hidden" id="resultado" value="{{resultado.id_proyecto}}" >
                             <label for="etiqueta">recuerde que la revision solo es una vez </label>
-                            <input type="hidden" id="intentos" value="{{resultado.intentos}}" >
+                            <input type="hidden" id="revisiones" value="{{resultado.revisiones}}" >
+                            <input type="hidden" id="inf" value="{{resultado.id_informe}}" >
                             {{/if}}
                             <div class="form-group">
                                 <label for="">Proyecto: {{proyectodisponible.titulo}}</label>
                                 <input  type="file"  id="archivo" name="archivo" accept=".pdf" max="1" min="1"  required>
                             </div>
                             <div class="form-group">
-                                <button type="submit" id="bntprotocolo" class="btn btn-success btn-block"> save</button>
+                                <button type="submit" id="btnInforme" class="btn btn-success btn-block"> Guardar</button>
                             </div>
 
 
@@ -31,6 +32,7 @@
 </div>
 
 <script>
+    
 window.onload =load;
 
 function load(){
@@ -39,8 +41,8 @@ var resul= document.getElementById("resultado");
 //var intentos=resul.value;
 //console.log(intentos);
 if(resul ){
-var intentos=document.getElementById("intentos").value;
-if(intentos<=1){
+var intentos=document.getElementById("revisiones").value;
+if(intentos<1){
   var r = confirm("Ya tiene un archivo agregado desea remplazarlo?\n En caso de ser asi revise su archivo porque solo se permite 1 revision");
   if (r == true) {
    // txt = "You pressed OK!";
@@ -48,13 +50,15 @@ if(intentos<=1){
     
   } else {
     //txt = "You pressed Cancel!";
-    window.location.href = "/protocolo/"+resul.value;
+    var x=document.getElementById("inf").value;
+
+    window.location.href = "/informe/verInforme/"+x+ '/' + resul.value;
   }
 }else{
     
     //boton.setAttribute("disabled","true");
     alert("ya  no puede cargar mas archivos");
-window.location.href = "/protocolo/"+resul.value;
+window.location.href = "/informe/mostrar/"+resul.value;
 
 
 }

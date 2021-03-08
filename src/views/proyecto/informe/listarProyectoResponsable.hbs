@@ -14,6 +14,8 @@
           <th scope="col">No de Informe</th>
           <th scope="col">fecha de inicio</th>
           <th scope="col">fecha final</th>
+          <th scope="col">SubirArchivo</th>
+          <th scope="col">ir a Archivo</th>
 
         </tr>
       </thead>
@@ -22,11 +24,13 @@
         
         
         {{#each consulta}}
-        <form action="/informe/edit/{{id_informe}}" method="POST">
+       <!-- <form action="/informe/edit/{{id_informe}}" method="POST">-->
           <tr>
             <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
             <td>{{fecha_inicio}}</td>
             <td>{{fecha_fin}}</td>
+            <td><a href="/informe/cargar/{{id_informe}}" class="btn btn-danger"> Cargar Informe</a></td>
+            <td><a href="/informe/cargar/{{id_informe}}" class="btn btn-danger"> Cargar Informe</a></td> 
 <!-- 
             <td>
               <button class="btn btn-secondary">Actualizar Fecha</button>

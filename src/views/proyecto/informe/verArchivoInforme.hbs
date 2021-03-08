@@ -1,0 +1,48 @@
+<div class="main" id="contenido">
+  <div class="container p-4">
+    <div class="row">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Url</th>
+            <th scope="col">Anotaciones</th>
+            <th scope="col">Revisiones</th>
+
+
+
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#if informe}}
+          <tr>
+            <th>{{informe.url_archivo}}</th>
+            <th>{{informe.anotaciones}}</th>
+            <th>{{informe.revisiones}}</th>
+            <input type="hidden" name="id_proyecto" value="{{informe.id_proyecto}}">
+            <td><a href="/informe/leerInforme/{{informe.id_proyecto}}/{{informe.id_informe}}" class="btn btn-secondary" target="blank"> ver</a></td>
+
+            <td><a href="/proyecto/anotar/" class="btn btn-danger"> anotar</a></td>
+
+
+
+          </tr>
+          {{else}}
+          <div class="col-m4 mx-auto">
+            <div class="card card-body text-center">
+              <p>NO TIENE AGREGADO SU PROTOCOLO AUN </p>
+              <a href="/protocolo/add/{{id_proyecto}}"> CREAR NUEVO</a>
+            </div>
+          </div>
+          {{/if}}
+
+        </tbody>
+      </table>
+
+
+
+
+    </div>
+  </div>
+</div>

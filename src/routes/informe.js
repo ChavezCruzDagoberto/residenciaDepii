@@ -10,6 +10,45 @@ const moment = require('moment');
 moment.locale('es');
 
 
+const path = require('path');
+const multer = require('multer');
+let nombre = '';
+
+const fs = require("fs");
+
+
+
+const storage = multer.diskStorage({
+
+    destination: (req, file, cb) => {
+
+        cb(null, './archivosInforme')
+    },
+    filename: (req, file, cb) => {
+
+        if (file.mimetype !== 'application/pdf') {
+             //return cb(null,false );
+
+            cb(new Error('solo pdfs son permitidos'))
+            //return cb(null,)
+
+        }
+        else {
+
+           // const valida=
+           
+
+            cb(null, nombre  + path.extname(file.originalname))
+        }
+    }
+});
+
+
+
+
+const upload = multer({ storage });
+
+
 
 router.get('/add', estaLogueado, async (req, res) => {
   let cvu_tecnm = req.user.cvu_tecnm;
@@ -19,7 +58,7 @@ router.get('/add', estaLogueado, async (req, res) => {
 
   //res.render();
 
-  proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM= ? and ESTADO=1 ', [cvu_tecnm]);
+  proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM= ? and ESTADO<=1  ', [cvu_tecnm]);
 
   
 
@@ -104,7 +143,7 @@ router.get('/', estaLogueado, async (req, res) => {
   var cvu_tecnm = req.user.cvu_tecnm;
   if (admin == "Administrador") {
 
-    proyecto = await conexion.query('select * from proyecto where  ESTADO=1 ');
+    proyecto = await conexion.query('select * from proyecto where  ESTADO>=1');
   } else {
     proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM=? and ESTADO=1 ', [cvu_tecnm]);
 
@@ -138,7 +177,10 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
   let { id_proyecto } = req.params;
   console.log(id_proyecto);
   let consulta = await conexion.query('select * from informe where ID_PROYECTO=?', [id_proyecto]);
-//console.log(consulta);
+
+  console.log(consulta);
+  
+  let ids_informes = [];
   let editado = [];
   for (const p in consulta) {
     let f = moment(consulta[p].fecha_inicio);
@@ -155,10 +197,17 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
       id_proyecto:consulta[p].id_proyecto
 
     };
+    ids_informes.push(consulta[p].id_informe);
     editado.push(a);
 
   }
+  console.log(ids_informes);
 
+  let archivos=[];
+  for(const aux in ids_informes){
+    var temporal= await conexion.query('select * from archivo_informes where id_informe=? and id_proyecto=?',[ids_informes[aux],id_proyecto] );
+    console.log(temporal);
+  }
 
 if(req.user.rol_sistema=="Administrador"){
 
@@ -191,24 +240,6 @@ router.get('/delete/:id_informe'  , async (req, res) => {
 
 
 
-
-
-/*
- router.get('/edit/:id_informe',estaLogueado ,async (req,res)=>{
-    
-    const {id_informe}=req.params;
-    
-   const nuevo= await  conexion.query(  'SELECT * FROM  informe  WHERE id_proyecto=?',[id_proyecto]);
- console.log(nuevo[0]);
-
-    
-
-      res.render('proyecto/edit',{proyecto: nuevo[0]});
-      //res.send("recibido");
- });
- */
-
-
 router.post('/edit/:id_informe', async (req, res) => {
 
   const {id_informe}=req.params;
@@ -234,13 +265,143 @@ router.post('/edit/:id_informe', async (req, res) => {
 
 
 
-function findsubstr(str) {
 
-  var substring = str.substr(0, 6); s
+router.get('/cargar/:id_informe',async(req,res)=>{
 
-  console.log(substring);
+  const {id_informe}=req.params;
+
+
+
+ try {
+   
+
+  var extraerProyecto= await conexion.query('select * from informe where id_informe=? ',[id_informe]);
+ var no_informe=extraerProyecto[0].no_informe;
+  //console.log("extra",extraerProyecto);
+  var id_pro= extraerProyecto[0].id_proyecto;
+  extraerProyecto=await conexion.query('select * from proyecto where id_proyecto=?',[id_pro]);
+
+  const verenArchivos= await conexion.query('select * from archivo_informes where id_informe=? and id_proyecto=?',[id_informe,id_pro]);
+  console.log("existe?",verenArchivos,id_informe,id_pro);
+  nombre=extraerProyecto[0].titulo+"_informe"+no_informe;
+  console.log(nombre);
+  res.render('proyecto/informe/cargarArchivoInformes',{id_informe:id_informe ,resultado:verenArchivos[0]});
+
+ } catch (error) {
+   
+ }
+
+
+});
+
+
+router.post('/cargar/:id_informe',upload.single('archivo'),async(req,res)=>{
+
+  const {id_informe}=req.params;
+  const { filename, path, } = req.file;
+  try {
+    var consulta= await conexion.query('select * from informe where id_informe=?',[id_informe]);
+    if(consulta.length>0){
+      var id_proyecto=consulta[0].id_proyecto;
+  
+      var existe_base=await conexion.query('select * from archivo_informes where id_informe=? and id_proyecto=?',[id_informe,id_proyecto] );
+  if(existe_base.length>0){
+
+    console.log(existe_base);
+    if(existe_base[0].revisiones<2){
+
+      var rev=(existe_base[0].revisiones)+1;
+      const newInforme1 = {
+        id_proyecto: id_proyecto,
+        id_informe: id_informe,
+        url_archivo:path,
+        anotaciones: '',
+        revisiones: rev
+    };
+
+      await conexion.query('UPDATE   archivo_informes  set ? WHERE id_informe=? and  id_proyecto= ? ', [newInforme1,id_informe, id_proyecto]);
+     req.flash("success","correcto");
+      res.redirect('/informe/verInforme/'+id_informe+ '/' + id_proyecto);
+
+  }else{
+      req.flash('message',"ya no es permitido");
+      res.redirect('/informe/mostrar/'+ id_proyecto);
+  }
+  }else{
+
+    const newInforme = {
+      id_proyecto: id_proyecto,
+      id_informe: id_informe,
+      url_archivo:path,
+      anotaciones: '',
+      revisiones: 0
+  };
+
+  await conexion.query('INSERT INTO archivo_informes set ?', [newInforme]);
+  await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{estado:3},id_proyecto]);
+  res.redirect('/informe/verInforme/'+id_informe+ '/' + id_proyecto);
+  
+  } 
+     
+
+    }
+
+  } catch (error) {
+    
+  }
+
+
+  //console.log("sijajaj");
+
+});
+
+
+
+router.get('/verInforme/:id_informe/:id_proyecto', async (req, res) => {
+  const { id_informe,id_proyecto } = req.params;
+
+
+  const resultado = await conexion.query('select * from archivo_informes where id_informe=? and  id_proyecto= ?', [id_informe ,id_proyecto]);
+  console.log(resultado[0]);
+  res.render('proyecto/informe/verArchivoInforme', { informe: resultado[0] ,id_proyecto});
+  //res.send('enviado')
+});
+
+
+router.get('/leerInforme/:id_proyecto/:id_informe', async (req, res) => {
+  const { id_proyecto,id_informe } = req.params;
+  
+
+  const resultado = await conexion.query('select url_archivo from archivo_informes where id_proyecto= ? and id_informe=?', [id_proyecto,id_informe]);
+  console.log(resultado);
+  
+  if (resultado.length >= 1) {
+      var url = urlCorrecto(resultado[0].url_archivo);
+      url = './' + url;
+      console.log(url);
+
+      //var archivo=fs.readFileSync(url,'UTF-8');
+
+      //console.log(archivo.length);
+
+      var data = fs.readFileSync(url);
+      res.contentType("application/pdf");
+      res.send(data);
+
+
+  } else { res.send('no hay'); }
+
+  //res.render('proyecto/protocolo/lectura');
+});
+
+
+
+function urlCorrecto(ubicacion) {
+
+  const c = 92;
+  //console.log(ubicacion.replace(String.fromCharCode(c),"/"));
+  return ubicacion.replace(String.fromCharCode(c), "/");
 }
-
 
 
 module.exports = router;
