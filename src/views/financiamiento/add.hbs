@@ -30,8 +30,8 @@
                                     <label for="clave_financiamiento" class="m-2"> Clave del financiamiento </label>
                                 </div>
                                 <div class="col-sm-6" align="left">
-                                    <input type="text" class="form-control col-sm-6" name="clave_financiamiento"
-                                        onkeypress="verificar(event)" autofocus required>
+                                    <input type="text" id="clave_financiamiento" class="form-control col-sm-6" name="clave_financiamiento" title="clave de financiamiento  con formato de 9 caracteres ej. 4738.58-P"
+                                      placeholder="0000.00-X"  pattern="[A-Z0-9.-]{9}" onkeypress="verificarClave(event)" autofocus required>
                                 </div>
                             </div><br>
 
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-sm-6" align="left">
                                     <input class="form-control col-sm-6" type="text" name="vigencia_fin" id="fin"
-                                        required />
+                                        readonly />
                                 </div>
                             </div><br>
 
@@ -80,10 +80,12 @@
                                 <!-- Productos -->
                                 <div class="form-group" align="center">
                                     <!-- Boton Agregar -->
+                                    <label for="">Agregar</label>
                                     <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto"
                                         value="+" onclick="agregar()">
 
                                     <!-- Boton Borrar -->
+                                    <label for="">Borrar</label>
                                     <input class="btn btn-outline-danger btn-sm " type="button" title="Borrar Producto"
                                         value="-" onclick="borrar()">
                                     <br><br>
@@ -186,15 +188,17 @@
 
             bloque = document.getElementById('productos');
             elemento = document.createElement('label');
-            elemento.innerHTML = "Monto:";
+            elemento.innerHTML = "Monto: $$";
             bloque.appendChild(elemento);
 
             elemento = document.createElement('input');
+            elemento.setAttribute("type","text");
             elemento.setAttribute("class", "form-control col-sm-5 mb-5");
             elemento.setAttribute("name", "monto_aprobado");
             elemento.setAttribute("placeholder", "monto aprobado");
             elemento.setAttribute("pattern", "[0-9]+");
             elemento.setAttribute("required", "true");
+            elemento.setAttribute("onkeypress","validarNumeros(event)");
             //elemento.removeAttribute("disabled");
             elemento.id = 'text' + incremento;
             bloque.appendChild(elemento);
@@ -234,6 +238,23 @@
             event.preventDefault();
         }
     }
+
+
+     function verificarClave(event) {
+         
+        var a = document.getElementById("clave_financiamiento");
+        var b = a.value;
+        if (b.length < 9) {
+            if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) ||
+             (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209)||
+             (event.charCode==45) ||(event.charCode==46)) {
+                a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();
+
+            }
+        }
+        event.preventDefault();
+    }
+
     function cambiofecha() {
         var inicial = document.getElementById("inicio");
         console.log(inicial);
@@ -247,6 +268,13 @@
         var final = startf.substring(8, 10) + "/" + startf.substring(5, 7) + "/" + startf.substring(0, 4);
         console.log(final);
         document.getElementById("fin").value = final;
+    }
+
+
+ function validarNumeros(event){
+      if(event.charCode<=57 && event.charCode>=48){}
+      else{event.preventDefault();}
+
     }
 </script>
 <footer>

@@ -26,8 +26,8 @@
                                     <label for="clave_partida" class="m-2"> Clave de la partida </label>
                                 </div>
                                 <div class="col-sm-6" align="left">
-                                    <input type="text" name="clave_partida" class="form-control col-sm-6" id="" required
-                                        autofocus>
+                                    <input type="text" name="clave_partida" class="form-control col-sm-6" id="partida" 
+                                    pattern="[0-9]{5}" onkeypress="validarPartida(event)" required  autofocus>
                                 </div>
                             </div>
                         </div><br><br><br>
@@ -64,7 +64,7 @@
                             {{!-- Campos de la tabla --}}
                             <tr>
                                 <td><input type="text" id="clave_subpartida" class="form-control"
-                                        name="clave_subpartida" placeholder="Subpartida" required></td>
+                                    onkeypress="validarSubpartida(event)" pattern="[0-9]{3,5}"    name="clave_subpartida" placeholder="Subpartida" required></td>
                                 <td><input type="text" id="descripcion" class="form-control" name="descripcion"
                                         placeholder="Descripcion " required></td>
                             </tr>
@@ -114,7 +114,29 @@
         var y = x.insertCell(0);
         var z = x.insertCell(1);
 
-        y.innerHTML = '<input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida" placeholder="Subpartida" required>';
+        y.innerHTML = '<input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida" onkeypress="validarSubpartida(event)" pattern="[0-9]{3,5}" placeholder="Subpartida" required>';
         z.innerHTML = '<input type="text" id="descripcion" class="form-control" name="descripcion" placeholder="Descripcion " required>';
+    
+    
+    }
+
+
+     function validarPartida(event) {
+        var a = document.getElementById("partida");
+        var b = a.value;
+        if (b.length < 5) {
+            if ((event.charCode >= 48 && event.charCode <= 57) ) {
+                a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();
+
+            }
+        }
+        event.preventDefault();
+    }
+    function validarSubpartida(event) {
+     
+      if(event.charCode<=57 && event.charCode>=48){}
+      else{event.preventDefault();}
+
+    
     }
 </script>

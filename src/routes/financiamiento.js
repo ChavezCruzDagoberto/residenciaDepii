@@ -140,6 +140,7 @@ router.get('/', esAdministrador, async (req, res) => {
 router.get('/delete/:clave_financiamiento', esAdministrador, async (req, res) => {
     const { clave_financiamiento } = req.params;   
     try {
+
             
         
     
@@ -160,12 +161,29 @@ router.get('/edit/:clave_financiamiento', esAdministrador, async (req, res) => {
 
     const { clave_financiamiento } = req.params;
 
+    let validacion=await conexion.query('select * from proyecto where clave_financiamiento=?',[clave_financiamiento]);
+    if(validacion.length<=0){
     const nuevo = await conexion.query('SELECT * FROM  financiamiento  WHERE CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
+    
     console.log(nuevo[0]);
+    var f_i=moment(nuevo[0].vigencia_inicio).format('YYYY-MM-DD');
+    var f_f=moment(nuevo[0].vigencia_fin).format('YYYY-MM-DD');
+
+    console.log(f_i,f_f);
+const aux={
+    clave_financiamiento:nuevo[0].clave_financiamiento,
+    vigencia_inicio:f_i,
+    vigencia_fin:f_f
+}
 
 
 
-    res.render('financiamiento/edit', { financiamiento: nuevo[0] });
+    res.render('financiamiento/edit', { financiamiento: aux });
+    }else{
+        req.flash('message', 'ya no se puede realizar modificaciones ya tiene asignado un proyecto' );
+    res.redirect('/financiamiento');
+        
+    }
     //res.send("recibido");
 });
 

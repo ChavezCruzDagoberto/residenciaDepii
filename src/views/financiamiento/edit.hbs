@@ -35,8 +35,8 @@
 
                             </div>
                             <div class="col-sm-6" align="left">
-                                <input class="form-control col-sm-6" type="date" value="{{financiamiento.vigencia_inicio }}"
-                                    name="vigencia_inicio" min="2020-01-01" max="2020-12-31" step="1" required />
+                                <input class="form-control col-sm-6" id="inicio" type="date" value="{{financiamiento.vigencia_inicio }}"
+                                  onchange="cambiofecha()"  name="vigencia_inicio" required />
                             </div>
                         </div><br>
                         <div class="row">
@@ -45,8 +45,8 @@
 
                             </div>
                             <div class="col-sm-6" align="left">
-                                <input class="form-control col-sm-6" type="date" value="{{financiamiento.vigencia_fin}}"
-                                    name="vigencia_fin" min="2020-01-01" max="2020-12-31" step="1" required />
+                                <input class="form-control col-sm-6" id="fin" type="date" value="{{financiamiento.vigencia_fin}}"
+                                    name="vigencia_fin" required readonly />
                             </div>
                         </div><br>
                     </div><br><br>
@@ -79,3 +79,20 @@
         }
     }
 </style>
+
+<script>
+   function cambiofecha() {
+        var inicial = document.getElementById("inicio");
+ //console.log(inicial);
+        var finicial = inicial.value;
+        var start = new Date(finicial);
+        start.setFullYear(start.getFullYear() + 1);
+        var startf = start.toISOString().slice(0, 10).replace(/-/g, "/");
+        for (i = 0; i < startf; i++) {
+            console.log(startf[i]);
+        }
+        var final = startf.substring(0, 4) + "-" + startf.substring(5, 7) + "-" + startf.substring(8, 10);
+       // console.log(final);
+        document.getElementById("fin").value = final;
+    }
+</script>

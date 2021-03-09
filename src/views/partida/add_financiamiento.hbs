@@ -166,15 +166,17 @@
 
             bloque = document.getElementById('productos');
             elemento = document.createElement('label');
-            elemento.innerHTML = "Monto:";
+            elemento.innerHTML = "Monto: $$";
             bloque.appendChild(elemento);
 
             elemento = document.createElement('input');
+            elemento.setAttribute("type","text");
             elemento.setAttribute("class", "form-control col-sm-5 mb-5");
             elemento.setAttribute("name", "monto_aprobado");
             elemento.setAttribute("placeholder", "monto aprobado");
             elemento.setAttribute("pattern", "[0-9]+");
             elemento.setAttribute("required", "true");
+            elemento.setAttribute("onkeypress", "validarNumeros(event)");
             //elemento.removeAttribute("disabled");
             elemento.id = 'text' + incremento;
             bloque.appendChild(elemento);
@@ -212,6 +214,11 @@
             x.removeAttribute("disabled");
 
         }
+
+    }
+    function validarNumeros(event){
+      if(event.charCode<=57 && event.charCode>=48){}
+      else{event.preventDefault();}
 
     }
 </script>
