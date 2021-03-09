@@ -1,51 +1,75 @@
 {{!-- LIDER DE PROYECTO -> AGREGAR PROYECTO --}}
 
 {{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
     {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
-    <div class="container-fluid">
+    <div class="container w-100">
 
         {{!-- div centra horizontalmente el contenido --}}
         <div class="d-flex justify-content-center vh-90">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-75" align="center">
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
 
-                <div class="m-5" align="center">
+                <div class="w-100 mb-5">
                     <h1> Agregar proyecto de investigacion. </h1>
-                </div>
+                </div><br><br>
 
-                <form action="/proyecto/add" method="POST" class="pt-2">
+                <form action="/proyecto/add" method="POST" class="w-100">
 
-                    <div class="form-inline justify-content-end">
-                        <label for="titulo" class="m-2"> Nombre del proyecto </label>
-                        <input type="text" class="form-control col-sm-9" name="titulo" autofocus required>
-                    </div><br>
+                    <div class="container">
 
-                    <div class="form-inline justify-content-end">
-                        <label for="modalidad" class="m-2"> Modalidad </label>
-                        <input type="text" class="form-control col-sm-5" name="modalidad" required>
-                    </div><br>
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="titulo" class="m-2"> Nombre del proyecto </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input type="text" class="form-control col-sm-10" name="titulo" autofocus required>
+                            </div>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label class="m-2" for="fecha_sometido"> Fecha de sometido </label>
-                        <input class="form-control" type="date" name="fecha_sometido" required />
-                    </div><br>
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="modalidad" class="m-2"> Modalidad </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input type="text" class="form-control col-sm-7" name="modalidad" required>
+                            </div>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label class="m-2" for="fecha_dictamen"> Fecha de dictaminado </label>
-                            <input class="form-control" type="date" name="fecha_dictamen" required />
-                    </div><br>
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label class="m-2" for="fecha_sometido"> Fecha de sometido </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input class="form-control col-sm-6" type="date" name="fecha_sometido" required />
+                            </div>
+                        </div><br>
 
-                    <div class="form-inline justify-content-end">
-                        <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
-                        <input type="text" class="form-control" name="clave_financiamiento" required>
-                    </div
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label class="m-2" for="fecha_dictamen"> Fecha de dictaminado </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input class="form-control col-sm-6" type="date" name="fecha_dictamen" required />
+                            </div>
+                        </div><br>
+
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input type="text" class="form-control col-sm-4" name="clave_financiamiento" required>
+                            </div>
+                        </div><br>
+
+                    </div>
 
                     <div class="form-group">
-                        <button class="btn btn-outline-primary btn-block col-sm-4 mt-5"><i
-                                class="fas fa-plus"></i>&ensp;Agregar</button>
+                        <button class="btn btn-outline-primary btn-block col-sm-4 mt-5">
+                            <i class="fas fa-plus"></i>&ensp;Agregar</button>
                     </div>
                 </form>
 
@@ -53,3 +77,18 @@
         </div>
     </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>

@@ -13,7 +13,7 @@
         {{#if user }}
         <input type="hidden" id="username" value="{{user.username}}">
         <li class="nav-item">
-          <a  href="#" class="nav-link" id="salir" onclick="confirmar()"> Salir </a>
+          <a href="#" class="nav-link" id="salir" onclick="confirmar()"> Salir </a>
         </li>
 
         {{else}}
@@ -22,7 +22,6 @@
         </li>
 
         {{/if}}
-
 
       </ul>
     </div>
@@ -50,8 +49,6 @@
         <li><a href="/proyecto">Regresar</a></li>
       </ul>
 
-
-
       <li data-toggle="collapse" data-target="#products" class="collapsed active">
         <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Informes <span class="arrow"></span></a>
       </li>
@@ -60,7 +57,6 @@
 
       </ul>
 
-
       <li data-toggle="collapse" data-target="#service" class="collapsed">
         <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Protocolo <span class="arrow"></span></a>
       </li>
@@ -68,7 +64,6 @@
         <li class="active"><a href="/protocolo/{{proyectodisponible.id_proyecto}}">ver Protocolo</a></li>
 
       </ul>
-
 
       <li data-toggle="collapse" data-target="#new" class="collapsed">
         <a href="#"><i class="fab fa-pagelines fa-lg"></i> Integrante <span class="arrow"></span></a>
@@ -85,14 +80,12 @@
         <li class="active"><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">listar Entregables</a></li>
       </ul>
 
-
       <li data-toggle="collapse" data-target="#new2" class="collapsed">
         <a href="#"><i class="fa fa-users fa-lg"></i> Material y Servicio<span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="new2">
         <li class="active"><a href="/MaterialServicio/proyecto/{{proyecto.id_proyecto}}">listar Entregables</a></li>
       </ul>
-
 
       {{!-- Aqui comienza el disenio para el Administrador. --}}
       {{else}}
@@ -107,7 +100,6 @@
         <li> <a href="/integrantes"> Listar </a></li>
       </ul>
 
-
       {{!-- Cuentas. --}}
       <li data-toggle="collapse" data-target="#products4" class="collapsed active">
         <a href="#"><i class="fas fa-user-alt"></i></i>Cuentas <span class="arrow"></span></a>
@@ -118,7 +110,7 @@
 
       </ul>
 
-    <!--
+      <!--
 
       <li data-toggle="collapse" data-target="#products1" class="collapsed active">
         <a href="#"><i class="fab fa-studiovinari fa-lg"></i> Convocatorias <span class="arrow"></span></a>
@@ -149,23 +141,17 @@
 
       </ul>
 
-
-
-
       <li data-toggle="collapse" data-target="#products5" class="collapsed active">
         <a href="#"><i class="fas fa-tasks"></i></i>Proyecto <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="products5">
         <li><a href="/proyecto">listar</a></li>
 
-
       </ul>
 
       {{/if}}
 
-
       {{/if}}
-
 
       {{#if lider}}
 
@@ -188,7 +174,6 @@
 
       </ul>
 
-
       <li data-toggle="collapse" data-target="#service" class="collapsed">
         <a href="#"><i class="fab fa-fort-awesome-alt fa-lg"></i> Protocolo <span class="arrow"></span></a>
       </li>
@@ -197,7 +182,6 @@
         <li class="active"><a href="/protocolo/{{proyectodisponible.id_proyecto}}">ver Protocolo</a></li>
 
       </ul>
-
 
       <li data-toggle="collapse" data-target="#new" class="collapsed">
         <a href="#"><i class="fab fa-pagelines fa-lg"></i> Integrante <span class="arrow"></span></a>
@@ -218,32 +202,17 @@
         <li class="active"><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">listar Entregables</a></li>
       </ul>
 
-
       <li data-toggle="collapse" data-target="#new2" class="collapsed">
         <a href="#"><i class="fa fa-users fa-lg"></i> Material y Servicio<span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="new2">
         <li class="active"><a href="/materialServicio/add/{{proyectodisponible.id_proyecto}}">Agregar MyS</a></li>
-        <li class="active"><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}">listar Entregables</a></li>
+        <li class="active"><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}">Listar
+            Entregables</a></li>
       </ul>
       {{/if}}
 
-      <li>
-        <a href="#">
-          <i class="fas fa-user-tie fa-lg"></i> Profile
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <i class="fa fa-users fa-lg"></i> Users
-        </a>
-      </li>
-
       {{/if}}
-
-
-
 
     </ul>
   </div>
@@ -254,17 +223,17 @@
 <script text="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script>
 
-  function confirmar(){
+  function confirmar() {
 
-    var us=document.getElementById("username").value;
-    var r = confirm( us+"  \n ¿desea salir del sistema?");
-  if (r == true) {
-   // txt = "You pressed OK!";
-window.location.href="/logout";
-    
-  } else {
-    //txt = "You pressed Cancel!";
-   
-  }
+    var us = document.getElementById("username").value;
+    var r = confirm(us + "  \n ¿desea salir del sistema?");
+    if (r == true) {
+      // txt = "You pressed OK!";
+      window.location.href = "/logout";
+
+    } else {
+      //txt = "You pressed Cancel!";
+
+    }
   }
 </script>

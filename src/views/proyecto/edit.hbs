@@ -1,116 +1,64 @@
-{{!-- <div class="container p-4">
-    <div class="row">
-        <div class="col-md-4 mx-auto">
-            <div class="card">
-                <div class="card-body">
-                    <form action="/proyecto/edit/{{proyecto.id_proyecto}}" method="POST">
-                        <div class="form-group">
-                            <h6>Titulo</h6>
-                            <input type="text" value="{{proyecto.titulo}}" class="form-control" name="titulo" autofocus
-                                required>
+{{!-- EDITAR PROYECTO -> lider de proyectos --}}
 
-                        </div>
-                        <div class="form-group">
-                            <h6>Modalidad</h6>
-                            <input type="text" value="{{proyecto.modalidad}}" class="form-control" name="modalidad"
-                                placeholder="Año" required>
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
 
-                        </div>
+    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+    <div class="container w-100">
 
-                        <div class="form-group">
-                            <h6>fecha sometido</h6>
-                            <input type="date" name="fecha_sometido" required />
-                        </div>
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-90">
 
-                        <div class="form-group">
-                            <h6>fecha dictaminado</h6>
-                            <input type="date" name="fecha_dictamen" required />
-
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-group" name="id_convocatoria" required>
-                                {{#each convocatoria }}
-                                <option value="{{id_convocatoria}}" id="seleccion"> {{nombre_convocatoria}} </option>
-                                {{/each}}
-                            </select>
-                        </div>
-
-                        <input type="hidden" value="{{proyecto.clave_financiamiento}}" class="form-control"
-                            name="clave_financiamiento">
-
-                        <input type="hidden" value="{{proyecto.cvu_tecnm}}" class="form-control" name="cvu_tecnm">
-
-                        <div class="form-group">
-                            <button class="btn btn-success btn-block"> Editar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-
-
-{{!-- Aqui comienza mi disenio --}}
-<div class="main">
-    <div class="container-fluid mt-2">
-        <div class="row">
-            <div class="mx-auto">
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
 
                 {{!-- Cabecera --}}
-                <div class="m-5" align="center">
+                <div class="w-100 mb-5">
                     <h1> Detalles del proyecto. </h1>
-                    <small class="text-muted">
-                        Departamento de Estudios de Posgrado e Investigacion.
-                    </small>
-                </div>
+                </div><br><br>
 
                 <form action="/proyecto/edit/{{proyecto.id_proyecto}}" method="POST">
 
-                    <div class="form-group">
-                        <label for="titulo"> Nombre del proyecto </label>
-                        <input type="text" value="{{proyecto.titulo}}" class="form-control" name="titulo" autofocus
-                            required>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="titulo"> Nombre del proyecto </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input type="text" value="{{proyecto.titulo}}" class="form-control col-sm-10" name="titulo"
+                                    autofocus required>
+                            </div>
+                        </div><br>
+
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="modalidad"> Modalidad </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input type="text" value="{{proyecto.modalidad}}" class="form-control col-sm-6" name="modalidad"
+                                    required>
+                            </div>
+                        </div><br>
+
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <labelfor="fecha_sometido"> Fecha de sometido </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input class="form-control col-sm-6" type="date" name="fecha_sometido" required />
+                            </div>
+                        </div><br>
+
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="fecha_dictamen"> Fecha de dictamen </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input class="form-control col-sm-6" type="date" name="fecha_dictamen" required />
+                            </div>
+                        </div><br><br><br>
+
                     </div>
-
-                    <div class="form-group">
-                        <label for="modalidad"> Modalidad </label>
-                        <input type="text" value="{{proyecto.modalidad}}" class="form-control" name="modalidad"
-                            required>
-                    </div><br>
-
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label" for="fecha_sometido"> Fecha de sometido </label>
-                        <div class="col-8">
-                            <input class="form-control" type="date" name="fecha_sometido" required />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label" for="fecha_dictamen"> Fecha de dictamen </label>
-                        <div class="col-8">
-                            <input class="form-control" type="date" name="fecha_dictamen" required />
-                        </div>
-                    </div><br><br>
-
-                    <div align="center">
-                        <h3>
-                            <small class="text-muted">
-                                Seleccione una convocatoria.
-                            </small>
-                        </h3>
-                    </div>
-                        <!--
-                    <div class="form-group">
-                        <select class="form-control" name="id_convocatoria" required>
-                            {{#each convocatoria }}
-                            <option value="{{id_convocatoria}}" id="seleccion"> {{nombre_convocatoria}} </option>
-                            {{/each}}
-                        </select>
-                    </div>!-->
-                    <br><br>
 
                     <input type="hidden" value="{{proyecto.clave_financiamiento}}" class="form-control"
                         name="clave_financiamiento">
@@ -118,7 +66,8 @@
                     <input type="hidden" value="{{proyecto.cvu_tecnm}}" class="form-control" name="cvu_tecnm">
 
                     <div class="form-group">
-                        <button class="btn btn-outline-primary btn-block"><i class="fas fa-save"></i>&ensp;Guardar cambios</button>
+                        <button class="btn btn-outline-primary btn-block col-sm-4"><i class="fas fa-save"></i>&ensp;Guardar
+                            cambios</button>
                     </div>
                 </form>
 
@@ -126,3 +75,18 @@
         </div>
     </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>

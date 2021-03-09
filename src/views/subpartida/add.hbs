@@ -16,66 +16,68 @@
                     <h1> Agregar subpartida. </h1>
                 </div>
 
-                {{!-- Comienza el formulario --}}
-                <form action="/subpartida/add" method="POST">
+                <div class="d-flex justify-content-center">
+                    {{!-- Comienza el formulario --}}
+                    <form action="/subpartida/add" method="POST">
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6" align="right">
-                                <label for="clave_partida" class="m-2"> Clave de la partida </label>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="clave_partida" class="m-2"> Clave de la partida </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" name="clave_partida" class="form-control col-sm-6" id="" required
+                                        autofocus>
+                                </div>
                             </div>
-                            <div class="col-sm-6" align="left">
-                                <input type="text" name="clave_partida" class="form-control col-sm-6" id="" required
-                                    autofocus>
-                            </div>
-                        </div>
-                    </div><br><br><br>
+                        </div><br><br><br>
 
 
-                    <div align="center">
-                        <h3>
-                            <small class="text-muted">
-                                Agregar subpartidas.
-                            </small>
-                        </h3>
-                    </div><br>
+                        <div align="center">
+                            <h3>
+                                <small class="text-muted">
+                                    Agregar subpartidas.
+                                </small>
+                            </h3>
+                        </div><br>
 
-                    <div class="form-group">
-                        {{!-- Boton Agregar --}}
-                        <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto" Value="+"
-                            onclick="insRow('myTable')">
-                        <!-- Boton Borrar -->
-                        <input class="btn btn-outline-danger btn-sm" type="button" title="Borrar Producto" Value="-"
-                            onclick="deleteRow('myTable')">
-                    </div><br><br>
+                        <div class="form-group">
+                            {{!-- Boton Agregar --}}
+                            <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto"
+                                Value="+" onclick="insRow('myTable')">
+                            <!-- Boton Borrar -->
+                            <input class="btn btn-outline-danger btn-sm" type="button" title="Borrar Producto" Value="-"
+                                onclick="deleteRow('myTable')">
+                        </div><br><br>
 
-                    {{!-- Comienza la tabla de subpartidas automatica --}}
-                    <table id="myTable" class="table table-sm table-bordered table-striped table-hover">
+                        {{!-- Comienza la tabla de subpartidas automatica --}}
+                        <table id="myTable" class="table table-sm table-bordered table-striped table-hover">
 
-                        {{!-- Cabecera de la tabla --}}
-                        <thead>
+                            {{!-- Cabecera de la tabla --}}
+                            <thead>
+                                <tr>
+                                    <th scope="col">Clave subpartida</th>
+                                    <th scope="col">Descripcion</th>
+                                </tr>
+                            </thead>
+
+                            {{!-- Campos de la tabla --}}
                             <tr>
-                                <th scope="col">Clave subpartida</th>
-                                <th scope="col">Descripcion</th>
+                                <td><input type="text" id="clave_subpartida" class="form-control"
+                                        name="clave_subpartida" placeholder="Subpartida" required></td>
+                                <td><input type="text" id="descripcion" class="form-control" name="descripcion"
+                                        placeholder="Descripcion " required></td>
                             </tr>
-                        </thead>
 
-                        {{!-- Campos de la tabla --}}
-                        <tr>
-                            <td><input type="text" id="clave_subpartida" class="form-control" name="clave_subpartida"
-                                    placeholder="Subpartida" required></td>
-                            <td><input type="text" id="descripcion" class="form-control" name="descripcion"
-                                    placeholder="Descripcion " required></td>
-                        </tr>
+                        </table><br><br>
 
-                    </table><br><br>
+                        <div class="mx-auto">
+                            <button class="btn btn-outline-primary btn-block col-sm-4"><i
+                                    class="fas fa-plus"></i>&ensp;Agregar</button>
+                        </div>
 
-                    <div class="mx-auto">
-                        <button class="btn btn-outline-primary btn-block col-sm-4"><i
-                                class="fas fa-plus"></i>&ensp;Agregar</button>
-                    </div>
-
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
