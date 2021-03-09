@@ -1,25 +1,10 @@
 {{!-- LISTA DE CUENTAS. --}}
 
-{{!-- Media queries --}}
-<style>
-  @media (min-width: 768px) {
-    #contenedorprincipal {
-      width: 75% !important;
-    }
-  }
-
-  @media (max-width: 767px) {
-    #principal {
-      margin-left: 0px !important;
-    }
-  }
-</style>
-
 {{!-- Div que permite la barra izquierda --}}
 <div class="main" id="principal">
 
   {{!-- div que permite ocupar el 100% de la pantalla --}}
-  <div class="container-fluid">
+  <div class="container w-100">
 
     {{!-- div centra horizontalmente el contenido --}}
     <div class="d-flex justify-content-center vh-90">
@@ -88,3 +73,18 @@
     </div>
   </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>

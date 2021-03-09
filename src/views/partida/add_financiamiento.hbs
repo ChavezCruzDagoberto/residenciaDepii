@@ -1,25 +1,25 @@
 {{!-- AGREGAR PARTIDA DESDE LOS MONTOS DE FINANCIAMIENTO DE PARTIDAS --}}
 
 {{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
     {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
-    <div class="container-fluid">
+    <div class="container w-100">
 
         {{!-- div centra horizontalmente el contenido --}}
         <div class="d-flex justify-content-center vh-80">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-75" align="center">
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
 
                 {{!-- Cabecera --}}
-                <div class="m-5" align="center">
+                <div class="w-100 mb-5">
                     <h1> Agregar partidas al financiamiento. </h1>
                 </div>
 
                 <div class="d-flex justify-content-center w-100">
                     
-                    <form action="/partida/add/a" method="POST" class="w-50">
+                    <form action="/partida/add/a" method="POST" class="w-100">
 
                         <input type="hidden" name="clave_financiamiento" value="{{clave}}">
                         <select hidden id="clave_partida">
@@ -70,6 +70,22 @@
     </div>
 </div>
 
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>
+
+{{!-- Validaciones con JS --}}
 <script language="JavaScript">
     //Creacion de Variable incremental
     var incremento = 0;

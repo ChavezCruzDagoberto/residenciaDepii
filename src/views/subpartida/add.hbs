@@ -1,28 +1,35 @@
 {{!-- AGREGAR SUBPARTIDA --}}
 
 {{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
     {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
-    <div class="container-fluid">
+    <div class="container w-100">
 
         {{!-- div centra horizontalmente el contenido --}}
         <div class="d-flex justify-content-center vh-80">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-25" align="center">
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
 
-                <div class="m-5" align="center">
+                <div class="w-100 mb-5">
                     <h1> Agregar subpartida. </h1>
                 </div>
 
                 {{!-- Comienza el formulario --}}
                 <form action="/subpartida/add" method="POST">
 
-                    <div class="form-inline justify-content-end">
-                        <label for="clave_partida" class="m-2"> Clave de la partida </label>
-                        <input type="text" name="clave_partida" class="form-control col-sm-4" id="" required autofocus>
-                    </div><br><br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="clave_partida" class="m-2"> Clave de la partida </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input type="text" name="clave_partida" class="form-control col-sm-6" id="" required
+                                    autofocus>
+                            </div>
+                        </div>
+                    </div><br><br><br>
 
 
                     <div align="center">
@@ -74,6 +81,22 @@
     </div>
 </div>
 
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
+
+{{!-- Validaciones con JS --}}
 <script>
     function deleteRow(id) {
         document.getE
