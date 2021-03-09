@@ -1,4 +1,4 @@
-
+{{!-- Lista de informes --}}
 
 <div class="main">
 
@@ -14,20 +14,34 @@
         </div>
         <div class="form-group">
 
-
           <input type="submit" value="Enviar" id="btnEnviar">
         </div>
       </form>
-
 
       <div id="contenedor" class="form-group">
 
       </div>
 
-
     </div>
   </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>
+
+{{!-- Validaciones con JS --}}
 <script>
 
   const btnEnviar = document.querySelector('#seleccion');
@@ -35,7 +49,6 @@
     alert('hola');
 
   });
-
 
   funcion leerInformes(){
     fetch('/informe', { method: 'GET' })

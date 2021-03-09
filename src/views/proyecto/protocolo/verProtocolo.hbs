@@ -1,98 +1,121 @@
-<div class="main" id="contenido">
-  <div class="container p-4">
-    <div class="row">
+{{!-- VER PROTOCOLO -> ADMINISTRADOR --}}
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Nombre del Archivo</th>
-            <th scope="col">URL</th>
-            {{#if admin}}
-            <th scope="col">Anotaciones</th>
-          {{/if}}
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
 
-          </tr>
-        </thead>
+  {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+  <div class="container w-100">
 
-        <tbody>
-          {{#if protocolo}}
-          <tr>
-            <th>{{protocolo.nombre_archivo}}</th>
-            <input type="hidden" name="id_proyecto" value="{{protocolo.id_proyecto}}">
-            <input type="hidden" name="observaciones" id="observaciones" value="{{protocolo.anotaciones}}">
-            <td><a href="/protocolo/leer/{{protocolo.id_proyecto}}" class="btn btn-secondary" target="blank"> ver</a></td>
+    {{!-- div centra horizontalmente el contenido --}}
+    <div class="d-flex justify-content-center vh-80">
 
- {{#if admin}}
-            <td><a href="/protocolo/observaciones/{{id_proyecto}}" class="btn btn-danger"> Realizar observaciones</a></td>
-{{/if}}
+      {{!-- div centra verticalmente el contenido --}}
+      <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
+        <div class="w-100 mb-5">
+          <h1> Ver protocolo </h1>
+        </div>
 
-          </tr>
-          {{else}}
-          <div class="col-m4 mx-auto">
-            <div class="card card-body text-center">
-              <p>NO TIENE AGREGADO SU PROTOCOLO AUN </p>
-              <a href="/protocolo/add/{{id_proyecto}}"> CREAR NUEVO</a>
+        <table class="table-responsive-sm table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nombre del Archivo</th>
+              <th scope="col">URL</th>
+
+              {{#if admin}}
+              <th scope="col">Anotaciones</th>
+              {{/if}}
+            </tr>
+          </thead>
+
+          <tbody>
+            {{#if protocolo}}
+            <tr>
+              <th>{{protocolo.nombre_archivo}}</th>
+              <input type="hidden" name="id_proyecto" value="{{protocolo.id_proyecto}}">
+              <input type="hidden" name="observaciones" id="observaciones" value="{{protocolo.anotaciones}}">
+              <td><a href="/protocolo/leer/{{protocolo.id_proyecto}}" class="btn btn-outline-success" target="blank"><i
+                    class="far fa-eye"></i>&ensp;Ver</a>
+              </td>
+
+              {{#if admin}}
+              <td><a href="/protocolo/observaciones/{{id_proyecto}}" class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i>&ensp;Realizar observaciones</a>
+              </td>
+              {{/if}}
+            </tr>
+
+            {{!-- En caso de no encontrar ningun protocolo --}}
+            {{else}}
+            <div class="card bg-light mb-3" style="max-width: 50rem;">
+              <div class="card-header" align="left"> ¡MENSAJE! </div>
+              <div class="card-body">
+                <p class="card-text"> NO SE ENCUENTRA REGISTRADO EL PROTOCOLO. </p>
+                <a href="/protocolo/add/{{id_proyecto}}"> Crear nuevo. </a>
+              </div>
             </div>
-          </div>
-          {{/if}}
+            {{/if}}
 
-        </tbody>
-      </table>
+          </tbody>
+        </table><br><br><br>
 
-<div class="form-group" id="entrada" >
+        <div class="form-group" id="entrada">
 
-</div>
+        </div>
 
-
-
-
+      </div>
     </div>
   </div>
 </div>
 
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
 
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>
 
+{{!-- Validaciones con JS --}}
 <script>
-  window.onload =load;
+  window.onload = load;
 
-function load(){
+  function load() {
 
-var resul= document.getElementById("observaciones").value;
+    var resul = document.getElementById("observaciones").value;
 
-var div= document.getElementById("entrada");
-if(resul.length>0){
+    var div = document.getElementById("entrada");
+    if (resul.length > 0) {
 
+      var etiqueta = document.createElement("label");
+      etiqueta.innerHTML = "Observaciones realizadas por el Coordinador :";
 
-var etiqueta= document.createElement("label");
-etiqueta.innerHTML="Observaciones realizadas por el Coordinador :";
+      div.appendChild(etiqueta);
+      var salto = document.createElement("br");
+      div.appendChild(salto);
 
+      var textarea = document.createElement("textarea");
+      textarea.setAttribute("class", "form-control");
+      textarea.setAttribute("cols", "50");
+      textarea.setAttribute("rows", "10");
+      textarea.setAttribute("readonly", "true");
+      textarea.value = resul;
+      div.appendChild(textarea);
 
-div.appendChild(etiqueta);
-var salto= document.createElement("br");
-div.appendChild(salto);
+    } else {
 
-var textarea=document.createElement("textarea");
-textarea.setAttribute("cols","50");
-textarea.setAttribute("rows","10");
-textarea.setAttribute("readonly","true");
-textarea.value=resul;
-div.appendChild(textarea);
+      var etiqueta = document.createElement("label");
+      etiqueta.innerHTML = "No se ha realizado observacion ";
 
+      div.appendChild(etiqueta);
 
+    }
 
-
-
-}else{
-
-var etiqueta= document.createElement("label");
-etiqueta.innerHTML="No se ha realizado observacion ";
-
-
-div.appendChild(etiqueta);
-
-}
-
-
-}
+  }
 </script>

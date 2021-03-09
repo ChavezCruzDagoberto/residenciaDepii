@@ -1,64 +1,145 @@
-<div class="main" id="contenido">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-md-4 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/integrantes/addColaborador" method="POST">
+{{!-- AGREGAR INTEGRANTE -> LIDER DE PROYECTO --}}
 
-                            <div class="form-group">
-                                <input type="text" id="cvu_tecnm" class="form-control" name="cvu_tecnm"
-                                    placeholder="cvu TecNM" pattern="[a-zA-Z0-9]{8}" onkeyup="letrasEspacio(event)"
-                                    autofocus>
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
 
-                            </div>
+    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+    <div class="container w-100">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-80">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
+
+                {{!-- Cabecera --}}
+                <div class="w-100">
+                    <h1> Crear nuevo integrante. </h1>
+                </div>
+
+                <label class="mb-5" style="color: red;"> * Campo obligatorio </label><br>
+
+                {{!-- Campos para anadir integrante --}}
+                <div class="d-flex justify-content-center">
+                    <form action="/integrantes/addColaborador" method="POST" class="w-100">
+
+                        {{!-- GRID para el formulario --}}
+                        <div class="container">
+
+                            {{!-- Fila del CVU --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="cvu_tecnm" class="m-2"> No. CVU TecNM </label>
+                                    <label style="color: red;"> * </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" id="cvu_tecnm" class="form-control col-sm-6" name="cvu_tecnm"
+                                        pattern="[a-zA-Z0-9]{8}" onkeyup="letrasEspacio(event)" autofocus>
+                                </div>
+                            </div><br>
 
                             <input type="hidden" name="id_proyecto" id="" value="{{id_proyecto}}">
 
-                            <div class="form-group">
+                            {{!-- Fila del nombre --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="nombre" class="m-2"> Nombre(s) </label>
+                                    <label style="color: red;"> * </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" class="form-control col-sm-8" id="nombre" name="nombre"
+                                        onkeyup="soloLetras(event)">
+                                </div>
+                            </div><br>
 
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre"
-                                    onkeyup="soloLetras(event)">
-                                <input type="text" class="form-control" name="apellido1" placeholder="apellido">
-                                <input type="text" class="form-control" name="apellido2" placeholder="apellido">
+                            {{!-- Fila de primer apellido --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="apellido1" class="m-2"> Primer apellido </label>
+                                    <label style="color: red;"> * </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" class="form-control col-sm-6" name="apellido1">
+                                </div>
+                            </div><br>
 
+                            {{!-- Fila de segundo apellido --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="apellido2" class="m-2"> Segundo apellido </label>
+                                    <label style="color: white;"> * </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" class="form-control col-sm-6" name="apellido2">
+                                </div>
+                            </div><br>
+
+                            {{!-- Fila de campus --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="plantel_adscripcion" class="m-2"> Campus </label>
+                                    <label style="color: red;"> * </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" class="form-control col-sm-12" name="plantel_adscripcion">
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="rol_proyecto" class="m-2"> Rol </label>
+                                    <label style="color: red;"> * </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <select name="rol_proyecto" class="form-control col-sm-6">
+                                        <option value="Colaborador" selected>Colaborador</option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="email" class="m-2"> Email </label>
+                                    <label style="color: red;"> * </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="email" class="form-control col-sm-10" name="email">
+                                </div>
+                            </div><br>
+
+                        </div>
+
+                        {{!-- Boton --}}
+                        <div class="m-5" align="center">
+                            <div class="form-group" align="center">
+                                <button class="btn btn-outline-primary col-sm-4 btn-block">
+                                    <i class="fas fa-user-plus"></i>&emsp;Crear integrante
+                                </button>
                             </div>
-
-                            <div class="form-group">
-
-                                <input type="text" class="form-control" name="plantel_adscripcion"
-                                    placeholder="Plantel de Adscricion">
-
-
-                            </div>
-
-                            <div class="form-group">
-                                <select name="rol_proyecto">
-                                    <option value="Colaborador" selected>Colaborador</option>
-                                    <option value="Capturista">Capturista</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-
-                                <input type="email" class="form-control" name="email" placeholder="Email">
-
-
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <button class="btn btn-success btn-block"> Agregar</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
 
 <script>
     var aux = "";
@@ -89,13 +170,6 @@
         }
     }
 
-
-
-
-
-
-
-
     var aux1 = "";
 
     function numeroLetras(event) {
@@ -125,11 +199,6 @@
         }
     }
 
-
-
-
-
-
     var aux3 = "";
     function numeros(event) {
         var a = document.getElementById("cvu_tecnm");
@@ -143,37 +212,27 @@
             }
         } else { aux3 = b; }
 
-
     }
 
-
-
-
-
     var aux4 = "";
-   
+
     function letrasEspacio(event) {
 
         var a = document.getElementById("cvu_tecnm");
         var b = a.value;
 
-      
+        if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 192 || event.keyCode == 32) {
+            a.value = b.toUpperCase();
+            aux4 = b.toUpperCase();
+        } else {
 
-
-            if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 192 || event.keyCode==32) {
-                a.value = b.toUpperCase();
-                aux4 = b.toUpperCase();
-            } else {
-
-                if (event.keyCode == 8) {
-                    a.value = b;
-                    aux4 = b
-                }
-                else { a.value = aux4; }
+            if (event.keyCode == 8) {
+                a.value = b;
+                aux4 = b
             }
+            else { a.value = aux4; }
+        }
 
-        
     }
-
 
 </script>

@@ -1,82 +1,75 @@
 {{!-- ADMINISTRADOR -> LISTA DE INTEGRANTES EN EL PROYECTO --}}
 
-{{!-- Media queries --}}
-<style>
-    @media (min-width: 768px) {
-        #contenedorprincipal {
-            width: 75% !important;
-        }
-    }
-
-    @media (max-width: 767px) {
-        #principal {
-            margin-left: 0px !important;
-        }
-    }
-</style>
-
-
-{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+{{!-- Este div ajusta el contenido para que no interfiera con la barra izquierda --}}
 <div class="main" id="principal">
 
-  {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+  {{!-- Este div permite ocupar el 100% de pantalla disponible --}}
   <div class="container w-100">
 
     {{!-- div centra horizontalmente el contenido --}}
-    <div class="d-flex justify-content-center vh-100">
+    <div class="d-flex justify-content-center vh-90">
 
       {{!-- div centra verticalmente el contenido --}}
-      <div class="my-auto w-30" align="center" id="contenedorprincipal">
+      <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
-    <table class="table-responsive-sm table-hover table-bordered table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Rol</th>
-          <th scope="col">No. CVU TecNM</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Plantel de Adscripcion</th>
-          <th scope="col">Eliminar del proyecto</th>
-          <th scope="col">Editar</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {{#each integrantes}}
-
-
-        <tr>
-          <th>{{rol_proyecto}}</th>
-          <th>{{cvu_tecnm}}</th>
-          <td>{{nombre}} {{apellido1}} {{apellido2}}</td>
-
-          <td>{{plantel_adscripcion}}</td>
-
-
-          <td><a href="/integrantes/proyecto/delete/{{cvu_tecnm}}/{{id_proyecto}}" class="btn btn-danger" id="prueba">
-              Eliminar</a></td>
-          <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-secondary">Edit</a></td>
-
-
-
-        </tr>
-        {{else}}
-        <div class="col-m4 mx-auto">
-          <div class="card card-body text-center">
-            <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
-            <a href="/integrantes/add"> AGREGAR NUEVO </a>
-          </div>
+        {{!-- Cabecera --}}
+        <div class="w-100 mb-5">
+          <h1> Lista de integrantes. </h1>
         </div>
-        {{/each}}
 
+        <table class="table-responsive-sm table-hover table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Rol</th>
+              <th scope="col">No. CVU TecNM</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Plantel de Adscripcion</th>
+              <th scope="col">Eliminar integrante</th>
+              <th scope="col">Editar integrante</th>
+            </tr>
+          </thead>
 
+          <tbody>
+            {{#each integrantes}}
 
+            <tr>
+              <th>{{rol_proyecto}}</th>
+              <th>{{cvu_tecnm}}</th>
+              <td>{{nombre}} {{apellido1}} {{apellido2}}</td>
+              <td>{{plantel_adscripcion}}</td>
+              <td><a href="/integrantes/proyecto/delete/{{cvu_tecnm}}/{{id_proyecto}}" class="btn btn-outline-danger"
+                  id="prueba"><i class="far fa-trash-alt"></i>&ensp;Eliminar </a></td>
+              <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-outline-warning"><i
+                    class="fas fa-pencil-alt"></i>&ensp;Editar</a></td>
 
-      </tbody>
-    </table>
+            </tr>
+            {{else}}
+            <div class="col-m4 mx-auto">
+              <div class="card card-body text-center">
+                <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
+                <a href="/integrantes/add"> AGREGAR NUEVO </a>
+              </div>
+            </div>
+            {{/each}}
 
+          </tbody>
+        </table>
 
-
-
+      </div>
+    </div>
   </div>
-</div>
-</div>
+
+  {{!-- Media queries --}}
+  <style>
+    @media (min-width: 768px) {
+      #contenedorprincipal {
+        width: 75% !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #principal {
+        margin-left: 0px !important;
+      }
+    }
+  </style>
