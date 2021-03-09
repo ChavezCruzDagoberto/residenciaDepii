@@ -1,77 +1,120 @@
-<div class="main" id="contenido">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-md-4 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/informe/cargar/{{id_informe}}" method="POST" enctype="multipart/form-data">
+{{!-- SUBIR PDF INFORMES -> lider de proyecto --}}
 
-                            
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
 
-                            {{#if resultado}}
-                            <input type="hidden" id="resultado" value="{{resultado.id_proyecto}}" >
-                            <label for="etiqueta">recuerde que la revision solo es una vez </label>
-                            <input type="hidden" id="revisiones" value="{{resultado.intentos}}" >
-                            <input type="hidden" id="inf" value="{{resultado.id_informe}}" >
-                            {{/if}}
-                            <div class="form-group">
-                                <label for="">Proyecto: {{proyectodisponible.titulo}}</label>
-                                <input  type="file"  id="archivo" name="archivo" accept=".pdf" max="1" min="1"  required>
+    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+    <div class="container w-100">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-80">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
+
+                <div class="w-100 mb-5">
+                    <h1> Subir informe </h1>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <form action="/informe/cargar/{{id_informe}}" method="POST" enctype="multipart/form-data">
+
+                        {{#if resultado}}
+                        <input type="hidden" id="resultado" value="{{resultado.id_proyecto}}">
+                        <label for="etiqueta"> Recuerde que la revision solo es una vez </label>
+                        <input type="hidden" id="revisiones" value="{{resultado.intentos}}">
+                        <input type="hidden" id="inf" value="{{resultado.id_informe}}">
+                        {{/if}}
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <h1>
+                                        <small class="text-muted"> Proyecto: {{proyectodisponible.titulo}}</small>
+                                    </h1>
+                                </div>
+                            </div><br><br>
+
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <form>
+                                        <div class="form-group">
+                                            <input type="file" id="archivo" name="archivo" accept=".pdf" max="1" min="1"
+                                                class="form-control-file" required>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><br><br>
+
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <div class="form-group">
+                                        <button type="submit" id="btnInforme"
+                                            class="btn btn-outline-success btn-block col-sm-6">
+                                            <i class="fas fa-upload"></i>&ensp;Subir archivo</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" id="btnInforme" class="btn btn-success btn-block"> Guardar</button>
-                            </div>
+                        </div><br><br>
 
-
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
+
+{{!-- Validaciones con JS --}}
 <script>
-    
-window.onload =load;
+    window.onload = load;
 
-function load(){
+    function load() {
 
-var resul= document.getElementById("resultado");
-//var intentos=resul.value;
-//console.log(intentos);
-if(resul ){
-var intentos=document.getElementById("revisiones").value;
-if(intentos<=1){
-  var r = confirm("Ya tiene un archivo agregado desea remplazarlo?\n En caso de ser asi revise su archivo porque solo se permite 1 revision");
-  if (r == true) {
-   // txt = "You pressed OK!";
+        var resul = document.getElementById("resultado");
+        //var intentos=resul.value;
+        //console.log(intentos);
+        if (resul) {
+            var intentos = document.getElementById("revisiones").value;
+            if (intentos <= 1) {
+                var r = confirm("Ya tiene un archivo agregado ¿Desea remplazarlo?\nEn caso de ser asi revise su archivo porque solo se permite 1 revision");
+                if (r == true) {
+                    // txt = "You pressed OK!";
 
-    
-  } else {
-    //txt = "You pressed Cancel!";
-    var x=document.getElementById("inf").value;
+                } else {
+                    //txt = "You pressed Cancel!";
+                    var x = document.getElementById("inf").value;
 
-    window.location.href = "/informe/verInforme/"+x+ '/' + resul.value;
-  }
-}else{
-    
-    //boton.setAttribute("disabled","true");
-    alert("ya  no puede cargar mas archivos");
-window.location.href = "/informe/mostrar/"+resul.value;
+                    window.location.href = "/informe/verInforme/" + x + '/' + resul.value;
+                }
+            } else {
 
+                //boton.setAttribute("disabled","true");
+                alert("ya  no puede cargar mas archivos");
+                window.location.href = "/informe/mostrar/" + resul.value;
 
-}
-  
-}else{
-console.log("no hay")
+            }
 
-}
+        } else {
+            console.log("no hay")
 
+        }
 
-}
-
-
-
+    }
 
 </script>

@@ -1,59 +1,76 @@
-<div class="main">
-  <div class="container-fluid mt-2">
+{{!-- LISTA DE INFORMES -> lider de proyecto. --}}
 
-    <div class="m-5" align="center">
-      <h1> Informes </h1>
-      <small class="text-muted">
-        Departamento de Estudios de Posgrado e Investigacion.
-      </small>
-    </div>
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
 
-    <table class="table table-sm table-bordered table-striped table-hover">
-      <thead>
-        <tr>
-          <th scope="col">No de Informe</th>
-          <th scope="col">fecha de inicio</th>
-          <th scope="col">fecha final</th>
+  {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+  <div class="container w-100">
 
-        </tr>
-      </thead>
+    {{!-- div centra horizontalmente el contenido --}}
+    <div class="d-flex justify-content-center vh-80">
 
-      <tbody>
-        
-        
-        {{#each consulta}}
-        <form action="/informe/edit/{{id_informe}}" method="POST">
-          <tr>
-            <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
-            <td><input type="text" value="{{fecha_inicio}}" name="fecha_inicio"></td>
-            <td><input type="text" value="{{fecha_fin}}" name="fecha_fin"></td>
+      {{!-- div centra verticalmente el contenido --}}
+      <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
-            <td>
-              <button class="btn btn-secondary">Actualizar Fecha</button>
-            </td>
-            <td><a href="/informe/verInforme/{{id_informe}}/{{id_proyecto}}" class="btn btn-danger"> ir al archivo</a></td> 
-           <!-- <td><a href="/informe/delete/{{id_informe}}" class="btn btn-danger"> Eliminar</a></td> !-->
-
-
-
-          </tr>
-          <input type="hidden" name="id_proyecto" id="" value="{{id_proyecto}}">
-        </form>
-        {{else}}
-        <div class="col-m4 mx-auto">
-          <div class="card card-body text-center">
-            <p>NO HAY NINGUN informe para este proyecto GUARDADO AUN </p>
-            <a href="/informe/add"> CREAR NUEVO</a>
-          </div>
+        <div class="w-100 mb-5">
+          <h1> Lista de informes </h1>
         </div>
-        {{/each}}
 
-      </tbody>
-    </table>
+        <table class="table-responsive-sm table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col"> No. Informe </th>
+              <th scope="col"> Fecha de inicio </th>
+              <th scope="col"> Fecha final </th>
+              <th scope="col"> Cambiar fechas </th>
+              <th scope="col"> Visualizar </th>
+            </tr>
+          </thead>
 
+          <tbody>
+            {{#each consulta}}
+            <form action="/informe/edit/{{id_informe}}" method="POST">
+              <tr>
+                <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
+                <td><input type="text" class="form-control" value="{{fecha_inicio}}" name="fecha_inicio"></td>
+                <td><input type="text" class="form-control" value="{{fecha_fin}}" name="fecha_fin"></td>
 
+                <td>
+                  <button class="btn btn-outline-success"><i class="fas fa-save"></i>&ensp; Guardar cambios</button>
+                </td>
+                <td><a href="/informe/verInforme/{{id_informe}}/{{id_proyecto}}" class="btn btn-outline-info"><i class="far fa-eye"></i>&ensp;Ver </a></td>
 
+              </tr>
+              <input type="hidden" name="id_proyecto" id="" value="{{id_proyecto}}">
+            </form>
+            {{else}}
+            <div class="col-m4 mx-auto">
+              <div class="card card-body text-center">
+                <p>NO HAY NINGUN informe para este proyecto GUARDADO AUN </p>
+                <a href="/informe/add"> CREAR NUEVO</a>
+              </div>
+            </div>
+            {{/each}}
 
+          </tbody>
+        </table>
+
+      </div>
+    </div>
   </div>
 </div>
-</div>
+
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>

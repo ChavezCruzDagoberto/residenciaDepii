@@ -1,52 +1,85 @@
-<div class="main" id="contenido">
-<div class="container p-4">
-    <div class="row">
+{{!-- LISTA DE ENTREGABLES --}}
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">cantidad</th>
-                    <th scope="col">Contribucion</th>
+{{!-- Este div ajusta el contenido para que no interfiera con la barra izquierda --}}
+<div class="main" id="principal">
 
-                </tr>
-            </thead>
+    {{!-- Este div permite ocupar el 100% de pantalla disponible --}}
+    <div class="container w-100">
 
-            <tbody>
-                {{#each consulta}}
-                <form action="/entregable/edit" method="POST">
-                    <tr>
-                        <th>{{nombre}}</th>
-                        <td><input type="text" value="{{cantidad}}" name="cantidad"></td>
-                        <td>{{contribucion}}</td>
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-90">
 
-                        <td>
-                            <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
-                            <input type="hidden" value="{{id_entregable}}" name="id_entregable">
-                            <button class="btn btn-secondary">Editar y guardar</button>
-                        </td>
-                        <td><a href="/entregable/delete/{{id_entregable}}/{{id_proyecto}}" class="btn btn-danger">
-                                Eliminar</a></td>
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
-
-
-                    </tr>
-                </form>
-                {{else}}
-                <div class="col-m4 mx-auto">
-                    <div class="card card-body text-center">
-                        <p>NO HAY NINGUN Entregable registrado para este proyecto GUARDADO AUN </p>
-                        <a href="/entregable/add/{{id_proyecto}}"> CREAR NUEVO</a>
-                    </div>
+                {{!-- Cabecera --}}
+                <div class="w-100 mb-5">
+                    <h1> Lista de entregables. </h1>
                 </div>
-                {{/each}}
 
-            </tbody>
-        </table>
+                <table class="table-responsive-sm table-hover table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">cantidad</th>
+                            <th scope="col">Contribucion</th>
+                            <th scope="col">Guardar cambios</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        {{#each consulta}}
+                        <form action="/entregable/edit" method="POST">
+                            <tr>
+                                <th>{{nombre}}</th>
+                                <td><input type="text" value="{{cantidad}}" name="cantidad" class="form-control"></td>
+                                <td>{{contribucion}}</td>
 
+                                <td>
+                                    <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
+                                    <input type="hidden" value="{{id_entregable}}" name="id_entregable">
+                                    <button class="btn btn-outline-success"><i class="fas fa-save">
+                                        </i>&ensp;Guardar </button>
+                                </td>
 
+                                <td><a href="/entregable/delete/{{id_entregable}}/{{id_proyecto}}"
+                                        class="btn btn-outline-danger">
+                                        <i class="far fa-trash-alt"></i>&ensp;Eliminar </a></td>
+                            </tr>
+                        </form>
 
+                        {{!-- En caso de no encontrar ningun entregable --}}
+                        {{else}}
+
+                        <div class="card bg-light mb-3" style="max-width: 50rem;">
+                            <div class="card-header" align="left"> ¡MENSAJE! </div>
+                            <div class="card-body">
+                                <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN ENTREGABLE. </p>
+                                <a href="/entregable/add/{{id_proyecto}}"> Crear nuevo. </a>
+                            </div>
+                        </div>
+
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-</div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
