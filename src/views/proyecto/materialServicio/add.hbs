@@ -97,11 +97,12 @@
 
 <div class="main" id="contenido">
   <div class="card-body">
+    <!--/materialServicio/add-->
     <form action="/materialServicio/add" method="POST">
       <div class="form-group">
         <label for="">Monto restante para justificar</label><br>
         {{#each restante}}
-            <label for="">clave: {{clave_partida}} monto_restante $</label>  <label for="" id="{{clave_partida}}" > {{monto_restante}}</label><br>
+            <label for="">clave: {{clave_partida}} monto_restante $</label>  <label for="restante" id="{{clave_partida}}" > {{monto_restante}}</label><br>
 
               {{/each}}
       </div>
@@ -152,7 +153,7 @@
       <div class="col-md-4 mx-auto">
         <div class="card">
           <div class="form-group">
-            <button id="botonenviar" class="btn btn-success btn-block" onclick="activar()"> Agregar</button>
+            <button id="botonenviar" class="btn btn-success btn-block"  onclick="activar()"> Agregar</button>
           </div>
         </div>
       </div>
@@ -222,6 +223,46 @@
         var texto = [a_s.options[a_s.selectedIndex].value, a_s.options[a_s.selectedIndex].text];
         options.push(texto);
         a_s.removeAttribute("disabled");
+        var cvd=document.getElementById("monto" + incremento);
+        cvd.removeAttribute("disabled");
+        var a_m = cvd.value;
+        var clave_subpartida=a_s.options[a_s.selectedIndex].value;
+
+        console.log("regresar",a_m,"clave",clave_subpartida);
+
+
+        for(h=0;h<principalc.options.length;h++){
+          if(principalc.options[h].text==clave_subpartida){
+            //clave de partida
+  var desc=principalc.options[h].value;
+//console.log("encontrado",desc);
+             var descontar=document.getElementById(""+desc+"");
+               var total=parseInt(descontar.innerHTML);
+
+               if(total==0){
+                for(k=0;k<a_s.length;k++){
+                  var temp=false;
+                  for(l=0;l<options.length;l++){
+                    if(a_s.options[k].value==options[l][0]){
+                      temp=true;
+                    }
+
+                  }
+                  if(temp==false){
+                    options.push([a_s.options[k].value, a_s.options[k].text]);
+                  }
+
+                }
+
+
+               }
+               total=total+parseInt(a_m);
+              descontar.innerHTML=total;
+               
+          }
+        }
+
+
 
       }
       if (ultimo == 1) {
@@ -259,10 +300,11 @@
 
 
 
-        z.innerHTML = "<td><input type=" + "number" +  " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
+        z.innerHTML = "<td><input type=" + "text" +  " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
 
         boton.removeAttribute("disabled");
         boton1.removeAttribute("disabled");
+        document.getElementById(can).setAttribute("onkeypress","validarNumeros(event)");
       }
 
       if (incremento > 1) {
@@ -273,11 +315,57 @@
 
         var cant_a = document.getElementById("monto" + (incremento - 1)).value;
         var des_a = document.getElementById("descripcion" + (incremento - 1)).value;
-        if (cant_a === "" || des_a==="") {
+        if (cant_a === "" || des_a.trim()==="") {
           incremento--;
           alert("Rellene los campos");
         } else {
 
+
+ var des = "descripcion" + incremento;
+          var id_e = "subpartida" + incremento;
+          var can = "monto" + incremento;
+
+          var idAnterior = "subpartida" + (incremento - 1);
+          var montant="monto"+(incremento-1);
+          var campo=document.getElementById(montant);
+          var inmonto=parseInt(campo.value);
+          console.log("descontar",inmonto);
+    selecAnterior = document.getElementById(idAnterior);
+  var clave=selecAnterior.options[selecAnterior.selectedIndex].value;
+for(h=0;h<principalc.options.length;h++){
+          if(principalc.options[h].text==clave){
+  var desc=principalc.options[h].value;
+//console.log("encontrado",desc);
+             var descontar=document.getElementById(""+desc+"");
+               
+               var total=parseInt(descontar.innerHTML);
+               console.log("total",total);
+               if(total>=inmonto && inmonto>0){
+                 total=total-inmonto;
+                if(total<=0){
+                  for(k=0;k<principalc.length;k++){
+                      if(principalc[k].value==desc){
+                        var borrar=principalc[k].text;
+                         removerSubpartidas(options,borrar);
+
+                      }
+
+                  }
+                //  removerSubpartidas(desc);
+                }
+
+
+
+               descontar.innerHTML=total;
+               }else{
+
+                 campo.value="";
+                 alert("no se puede pasar de $"+total+".00" + "para la partida "+ desc);
+                 incremento--;
+                 return;
+               }
+          }
+        }
 
 
 
@@ -288,44 +376,27 @@
           var y = x.insertCell(1);
           var z = x.insertCell(2);
 
-        var des = "descripcion" + incremento;
-          var id_e = "subpartida" + incremento;
-          var can = "monto" + incremento;
-
-          var idAnterior = "subpartida" + (incremento - 1);
-          var montant="monto"+(incremento-1);
-          var inmonto=document.getElementById(montant).value;
-   
+       
 
 
 
 
 
-          selecAnterior = document.getElementById(idAnterior);
+         
 
             
 
           var texto = [selecAnterior.options[selecAnterior.selectedIndex].value, selecAnterior.options[selecAnterior.selectedIndex].text];
         
-        var clave=selecAnterior.options[selecAnterior.selectedIndex].value;
+        
 
-       
-       
-        for(h=0;h<principalc.options.length;h++){
-          if(principalc.options[h].text==clave){
-            var desc=principalc.options[h].value;
-             var descontar=document.getElementById(des);
-               console.log(descontar);
-              console.log("encontrado",principalc.options[h].value);
+      
 
-          }
-        }
-
-     console.log("monto",inmonto,clave);
+     
 
           removeItemFromArr(options, texto);
           selecAnterior.setAttribute("disabled", "true");
-
+          campo.setAttribute("disabled", "true");
 
           var opciones = "";
           for (var i = 0; i < options.length; i++) {
@@ -339,8 +410,8 @@
 
 
 
-          z.innerHTML = "<td><input type=" + "number"  + " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
-
+          z.innerHTML = "<td> <label for="+ "pesos"+">$</label> <input type=" + "text"  + " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
+          document.getElementById(can).setAttribute("onkeypress","validarNumeros(event)");
 
         }
       }
@@ -351,13 +422,14 @@
     function agregar(id) {
 
       cargarEntregables();
-      //console.log(options);
-      //console.log(incremento);
-      if (incremento < inicio.length) {
-
+      console.log(options.length);
+      console.log(incremento);
+      if (incremento < inicio.length  ) {
+if(options.length>0){
         incremento++;
 
         añadirNuevo(id);
+}
       }
 
 
@@ -367,6 +439,41 @@
 
     function activar() {
       console.log(incremento);
+      
+
+var campo=document.getElementById("monto"+incremento);
+          var inmonto=parseInt(campo.value);
+          console.log("descontar",inmonto);
+    selec = document.getElementById("subpartida"+incremento);
+  var clave=selec.options[selec.selectedIndex].value;
+for(h=0;h<principalc.options.length;h++){
+          if(principalc.options[h].text==clave){
+  var desc=principalc.options[h].value;
+//console.log("encontrado",desc);
+             var descontar=document.getElementById(""+desc+"");
+               
+               var total=parseInt(descontar.innerHTML);
+               console.log("total",total);
+               if(total>=inmonto && inmonto>0){
+                 total=total-inmonto;
+               descontar.innerHTML=total;
+               }else{
+
+                 campo.value="";
+                 alert("no se puede pasar de $"+total+".00" + "para la partida "+ desc);
+                 
+                 return false;
+               }
+          }
+        }
+
+
+
+
+
+
+
+
       for (i = 1; i <= incremento; i++) {
         var a = document.getElementById("subpartida" + i);
         var b = document.getElementById("monto" + i);
@@ -383,9 +490,45 @@
 
     }
 
+
+
+function removerSubpartidas(arr, bo) {
+
+      var valor = -1;
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i][0] == bo) {
+
+          // console.log(i);
+          valor = i;
+          break;
+
+        }
+
+      }
+      if (valor !== -1) {
+        arr.splice(valor, 1);
+      }
+      //  console.log(arr);
+    }
+ 
+ 
+ function AgregardeNuevo(arr, clave_partida) {
+for(i=0;i<inicio.length;i++){
+  if(inicio.options[i].value==clave_partida){
+     options.push([inicio.options[i].value, inicio.options[i].text]);
+  }
+}
+      
+    }
+
+
+
+    function validarNumeros(event){
+      if(event.charCode<=57 && event.charCode>=48){}
+      else{event.preventDefault();}
+
+    }
   </script>
-  <!-- Bootstrap 4.0 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
