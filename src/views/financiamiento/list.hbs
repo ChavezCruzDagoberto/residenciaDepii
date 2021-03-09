@@ -1,26 +1,25 @@
 {{!-- LISTA DE FINANCIAMIENTOS --}}
 
 {{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
   {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
-  <div class="container-fluid">
+  <div class="container w-100">
 
     {{!-- div centra horizontalmente el contenido --}}
     <div class="d-flex justify-content-center vh-90">
 
       {{!-- div centra verticalmente el contenido --}}
-      <div class=" align-items-start w-100 mt-5" align="center">
+      <div class=" align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
 
         {{!-- Cabecera --}}
-        <div class="m-5" align="center">
+        <div class="w-100 mb-5">
           <h1> Lista de claves de financiamientos. </h1>
-
-        </div>
+        </div><br>
 
         {{!-- Comienza la tabla --}}
-        <table class="table table-sm table-bordered table-striped table-hover">
+        <table class="table-responsive-sm table-bordered table-striped table-hover">
 
           {{!-- Cabecera de la tabla --}}
           <thead>
@@ -69,3 +68,18 @@
     </div>
   </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>

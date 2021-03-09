@@ -1,16 +1,16 @@
 {{!-- CREAR CUENTAS A INTEGRANTES --}}
 
 {{!-- Div que permite la barra izquierda --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
     {{!-- div que permite ocupar el 100% de la pantalla --}}
-    <div class="container-fluid">
+    <div class="container w-100">
 
         {{!-- div centra horizontalmente el contenido --}}
         <div class="d-flex justify-content-center vh-90">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-25" align="center">
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
 
                 {{!-- Cabecera --}}
                 <div class="m-5" align="center">
@@ -31,15 +31,16 @@
                     <div class="col" align="center">
 
                         <div class="form-group">
-                            <select name="cvu_tecnm" class="form-control" id="cvu_tecnm" onchange="consultarCorreo()">
-                                <option value=""required>Seleccione un integrante </option>
+                            <select name="cvu_tecnm" class="form-control col-sm-7" id="cvu_tecnm"
+                                onchange="consultarCorreo()">
+                                <option value="" required>Seleccione un integrante </option>
                                 {{#each responsables }}
                                 <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}} </option>
                                 {{/each}}
                             </select>
 
                             <select hidden name="email" class="form-control" id="email">
-                                <option value="" > </option>
+                                <option value=""> </option>
                                 {{#each responsables }}
                                 <option value="{{cvu_tecnm}}">{{email}} </option>
                                 {{/each}}
@@ -47,46 +48,58 @@
                         </div>
 
                         <a href="integrantes/add"> Si el usuario no se encuentra registrado haga click aqui </a>
-                        <br>
+                        <br><br><br><br>
 
-                        <div class="mt-5" align="left">
-                            <div class="form-group">
-                                <label for="usernam"> Correo electronico </label>
-                                <input type="email" id="username1" name="username" class="form-control"  required>
+                        <div class="d-flex justify-content-center">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-6" align="right">
+                                        <label for="usernam"> Correo electronico </label>
+                                    </div>
+                                    <div class="col-sm-6" align="left">
+                                        <input type="email" id="username1" name="username" class="form-control col-sm-8"
+                                            required>
+                                    </div>
+                                </div><br>
+
+                                <div class="row">
+                                    <div class="col-sm-6" align="right">
+                                        <label for="password"> Contraseña generada automaticamente </label>
+                                    </div>
+                                    <div class="col-sm-6" align="left">
+                                        <input type="password" id="password" name="password"
+                                            class="form-control col-sm-8"
+                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                            onkeypress="verificar(event)" required>
+                                    </div>
+                                </div><br>
+
                             </div>
+                        </div><br><br>
 
-                            <div class="form-group">
-                                <label for="password"> Contraseña generada automaticamente  </label>
-                                <input type="password" id="password" name="password" class="form-control"
-                                    title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
-                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" onkeypress="verificar(event)"
-                                    required>
-                            </div>
-                            <br>
-
-                            <div align="center">
-                                <h3>
-                                    <small class="text-muted">
-                                        Seleccione un rol para el integrante.
-                                    </small>
-                                </h3>
-                            </div>
-
-                            <div class="form-group" align="center">
-                                <select name="rol_sistema" class="form-control">
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Responsable" Selected> Lider de proyecto</option>
-                                </select>
-                            </div>
-
-                            <br><br>
-
-                            <div class="form-group" align="center">
-                                <button class="btn btn-outline-primary btn-block col-sm-4"> <i
-                                        class="fas fa-user-alt"></i>&emsp;Registrar </button>
-                            </div>
-
+                        <div align="center">
+                            <h3>
+                                <small class="text-muted">
+                                    Seleccione un rol para el integrante.
+                                </small>
+                            </h3>
                         </div>
+
+                        <div class="form-group" align="center">
+                            <select name="rol_sistema" class="form-control col-sm-6">
+                                <option value="Administrador">Administrador</option>
+                                <option value="Responsable" Selected> Lider de proyecto</option>
+                            </select>
+                        </div>
+
+                        <br><br>
+
+                        <div class="form-group" align="center">
+                            <button class="btn btn-outline-primary btn-block col-sm-4"> <i
+                                    class="fas fa-user-alt"></i>&emsp;Registrar </button>
+                        </div>
+
                     </div>
                 </form>
 
@@ -94,6 +107,23 @@
         </div>
     </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
+
+{{!-- Validaciones con JS --}}
 <script>
     function verificar(event) {
 
@@ -124,28 +154,23 @@
         for (var i = 0; i < numero; i++) {
             numeroAleatorio = parseInt(Math.random() * abecedario.length);
             contraseña += abecedario[numeroAleatorio]
-            if (numeroAleatorio>=0 && numeroAleatorio<26){ minus=true;}
-            if (numeroAleatorio>=26 && numeroAleatorio<52){mayus=true;}
-            if (numeroAleatorio>=52 && numeroAleatorio<=62){num=true;}
+            if (numeroAleatorio >= 0 && numeroAleatorio < 26) { minus = true; }
+            if (numeroAleatorio >= 26 && numeroAleatorio < 52) { mayus = true; }
+            if (numeroAleatorio >= 52 && numeroAleatorio <= 62) { num = true; }
 
         }
-        if(minus &&mayus &&num){
+        if (minus && mayus && num) {
             a.value = contraseña;
 
-        }else{
+        } else {
             generarcontraseña();
         }
         console.log(contraseña);
 
-
-
-      
         // paso 3 - conseguir que cada caracter sea aleatorio.
 
         // paso 4 - tenemos x caracteres aleatorios
     }
-
-
 
     function consultarCorreo() {
         var a = document.getElementById("cvu_tecnm");
@@ -161,8 +186,6 @@
 
             console.log("no son iguales");
         }
-
-
 
     }
 

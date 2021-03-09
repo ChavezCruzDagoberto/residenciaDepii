@@ -1,43 +1,62 @@
 {{!-- FINANCIAMIENTO --}}
 
 {{!-- Div que permite la barra izquierda --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
     {{!-- div que permite ocupar el 100% de la pantalla --}}
-    <div class="container-fluid">
+    <div class="container w-100">
 
         {{!-- div centra horizontalmente el contenido --}}
         <div class="d-flex justify-content-center vh-80">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-75" align="center">
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
 
 
-                <div class="m-5" align="center">
+                <div class="w-100">
                     <h1> Agregar financiamiento. </h1>
-                </div>
+                </div><br><br>
 
                 <div class="d-flex justify-content-center w-100">
 
-                    <form action="/financiamiento/add" method="POST" class="w-50">
+                    <form action="/financiamiento/add" method="POST" class="w-100">
 
-                        <div class="form-inline justify-content-end">
-                            <label for="clave_financiamiento" class="m-2"> Clave del financiamiento </label>
-                            <input type="text" class="form-control" name="clave_financiamiento"
-                                onkeypress="verificar(event)" autofocus required>
-                        </div><br>
+                        {{!-- GRID --}}
+                        <div class="container">
 
-                        <div class="form-inline justify-content-end">
-                            <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
-                            <input class="form-control col-sm-3" type="date" name="vigencia_inicio" id="inicio"
-                                onchange="cambiofecha()" required />
-                        </div><br>
+                            {{!--primera fila --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="clave_financiamiento" class="m-2"> Clave del financiamiento </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" class="form-control col-sm-6" name="clave_financiamiento"
+                                        onkeypress="verificar(event)" autofocus required>
+                                </div>
+                            </div><br>
 
-                        <div class="form-inline justify-content-end">
-                            <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input class="form-control col-sm-6" type="date" name="vigencia_inicio" id="inicio"
+                                        onchange="cambiofecha()" required />
+                                </div>
+                            </div><br>
 
-                            <input class="form-control col-sm-3" type="text" name="vigencia_fin" id="fin" required />
-                        </div><br>
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input class="form-control col-sm-6" type="text" name="vigencia_fin" id="fin"
+                                        required />
+                                </div>
+                            </div><br>
+
+                        </div>
+
 
                         <select hidden id="clave_partida">
                             {{#each partidas}}
@@ -70,7 +89,8 @@
                                     <br><br>
 
                                     <!-- Div donde se añadiran los Selects -->
-                                    <div class="d-flex flex-column align-items-center w-100" id="productos"></div><br><br>
+                                    <div class="d-flex flex-column align-items-center w-100" id="productos"></div>
+                                    <br><br>
 
                                     <div class="form-group">
                                         <button id="botonenviar" class="btn btn-outline-primary btn-block col-sm-4"
@@ -89,7 +109,22 @@
     </div>
 </div>
 
-{{!-- Script --}}
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
+
+{{!-- Validaciones con JS --}}
 <script language="JavaScript">
     //Creacion de Variable incremental
     var incremento = 0;

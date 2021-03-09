@@ -1,5 +1,36 @@
+{{!-- MENSAJES -> alerta y success --}}
+
+{{!-- Media queries --}}
+<style>
+
+    @media (min-width: 576px) {
+        #sucessmessage {
+            width: 80% !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        #sucessmessage {
+            width: 50% !important;
+        }
+    }
+
+    @media (min-width: 576px) {
+        #alertmessage {
+            width: 80% !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        #alertmessage {
+            width: 50% !important;
+        }
+    }
+
+</style>
+
 {{#if success}}
-<div class="container-fluid justify-content-center pt-3 w-50" role="alert">
+<div class="container-fluid justify-content-center pt-3 w-100" role="alert" id="sucessmessage">
     <div class="mx-auto mb-1">
         <div class="alert alert-info alert-dismissible fade show ">
 
@@ -16,7 +47,7 @@
 
 {{#if message}}
 
-<div class="container-fluid justify-content-center pt-3 w-50" role="alert">
+<div class="container-fluid justify-content-center pt-3 w-50" role="alert" id="alertmessage">
     <div class="mx-auto">
         <div class="alert alert-danger alert-dismissible fade show ">
 

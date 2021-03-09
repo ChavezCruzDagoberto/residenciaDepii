@@ -1,32 +1,51 @@
 {{!-- INDEX. --}}
+<div class="container mt-sm-5 mt-5" align="center">
 
-{{!-- Container con el tamanio completo de la pantalla --}}
-<div class="container-fluid">
-
-  {{!-- Flex centrado horizontalmente. --}}
-  <div class="d-flex justify-content-center vh-90">
-
-    {{!-- div que permite centrar verticalmente. --}}
-    <div class="my-auto">
-
-      {{!-- Etiquetas. --}}
-      <div align="center">
-        <h1 style="color: #fc814a;">
-          Departamento de Estudios de Posgrado e Investigación.
-        </h1>
-      </div>
-
-      <div align="center">
-        <h1 style="color: black;"><small class="text-muted">
-            Plataforma de Gestión de Proyectos de Investigación.
-          </small></h1>
-      </div>
-
-      {{!-- Logotipo del ITO. --}}
-      <div class="mt-5" align="center">
-        <img src="images/logoito.png" height="300rem">
-      </div>
-
-    </div>
+  <div>
+    <h1 style="color: #fc814a;" id="lbldepi">
+      Departamento de Estudios de Posgrado e Investigación.
+    </h1>
   </div>
+
+  <div align="center">
+    <h1 style="color: black;" id="lblgestion"><small class="text-muted">
+        Plataforma de Gestión de Proyectos de Investigación.
+      </small></h1>
+  </div>
+
+  {{!-- Logotipo del ITO. --}}
+  <div class="mt-5" align="center">
+    <img src="images/logoito.png">
+  </div>
+
 </div>
+
+
+{{!-- Media queries --}}
+<style>
+  img {
+    height: 150px;
+  }
+
+  @media (min-width: 576px) {
+    img {
+      height: 300px;
+    }
+  }
+
+  h1 {
+    font-size: 2.0rem;
+  }
+
+  @media (min-width: 576px) {
+    #lbldepi {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (min-width: 576px) {
+    #lblgestion {
+      font-size: 2.5rem;
+    }
+  }
+</style>

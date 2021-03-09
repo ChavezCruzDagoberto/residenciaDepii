@@ -3,7 +3,7 @@ module.exports = {
     database: {
         host: 'localhost',
         user: 'root',
-        password: 'password',
+        password: 'silver',
         database: 'residenciap_depi',
 
     }

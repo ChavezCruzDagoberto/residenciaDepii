@@ -1,44 +1,60 @@
 {{!-- EDITAR FINANCIAMIENTO --}}
 
 {{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
     {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
-    <div class="container-fluid">
+    <div class="container w-100">
 
         {{!-- div centra horizontalmente el contenido --}}
         <div class="d-flex justify-content-center vh-80">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="my-auto w-30" align="center">
+            <div class="my-auto w-30" align="center" id="contenedorprincipal">
 
                 {{!-- Cabecera --}}
-                <div class="m-5" align="center">
+                <div class="w-100 mb-5">
                     <h1> Detalles del financiamiento. </h1>
-                </div>
+                </div><br><br>
 
                 <form action="/financiamiento/edit/{{financiamiento.clave_financiamiento}}" method="POST">
 
-                    <div class="form-inline justify-content-end">
-                        <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
-                        <input type="text" class="form-control col-sm-2" name="clave_financiamiento"
-                            value="{{financiamiento.clave_financiamiento}}" disabled>
-                    </div><br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input type="text" class="form-control col-sm-6" name="clave_financiamiento"
+                                    value="{{financiamiento.clave_financiamiento}}" disabled>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
 
-                    <div class="form-inline justify-content-end">
-                        <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
-                        <input class="form-control" type="date" value="{{financiamiento.vigencia_inicio }}"
-                            name="vigencia_inicio" min="2020-01-01" max="2020-12-31" step="1" required />
-                    </div><br>
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input class="form-control col-sm-6" type="date" value="{{financiamiento.vigencia_inicio }}"
+                                    name="vigencia_inicio" min="2020-01-01" max="2020-12-31" step="1" required />
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-sm-6" align="right">
+                                <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
 
-                    <div class="form-inline justify-content-end">
-                        <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
-                        <input class="form-control" type="date" value="{{financiamiento.vigencia_fin}}"
-                            name="vigencia_fin" min="2020-01-01" max="2020-12-31" step="1" required />
+                            </div>
+                            <div class="col-sm-6" align="left">
+                                <input class="form-control col-sm-6" type="date" value="{{financiamiento.vigencia_fin}}"
+                                    name="vigencia_fin" min="2020-01-01" max="2020-12-31" step="1" required />
+                            </div>
+                        </div><br>
                     </div><br><br>
 
+
                     <div class="form-group">
-                        <button class="btn btn-outline-primary btn-block col-sm-4"><i class="fas fa-edit"></i>&ensp;Guardar
+                        <button class="btn btn-outline-primary btn-block col-sm-4"><i
+                                class="fas fa-edit"></i>&ensp;Guardar
                             cambios</button>
                     </div>
 
@@ -48,3 +64,18 @@
         </div>
     </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>

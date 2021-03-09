@@ -1,7 +1,22 @@
 {{!-- LISTA DE CUENTAS. --}}
 
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>
+
 {{!-- Div que permite la barra izquierda --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
   {{!-- div que permite ocupar el 100% de la pantalla --}}
   <div class="container-fluid">
@@ -10,22 +25,22 @@
     <div class="d-flex justify-content-center vh-90">
 
       {{!-- div centra verticalmente el contenido --}}
-      <div class="align-items-start w-100 mt-5" align="center">
+      <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
         {{!-- Cabecera --}}
-        <div class="m-5" align="center">
+        <div class="w-100 mb-5">
           <h1> Lista de cuentas. </h1>
         </div>
 
         {{!-- Comienza la tabla --}}
-        <table class="table table-sm table-bordered table-striped table-hover">
+        <table class="table-responsive-sm table-hover table-bordered table-striped">
 
           {{!-- Cabecera de la tabla --}}
           <thead>
             <tr>
               <th scope="col">Usuario</th>
               <th scope="col">Cvu_tecNM</th>
-              <th scope="col">Contraseña</th>
+              {{!-- <th scope="col">Contraseña</th> --}}
               <th scope="col">Estado</th>
               <th scope="col">Suspender/Activar</th>
               <th scope="col">Eliminar</th>
@@ -39,7 +54,7 @@
             <tr>
               <th>{{username}}</th>
               <td>{{cvu_tecnm}}</td>
-              <td>{{password}}</td>
+              {{!-- <td>{{password}}</td> --}}
               <td>{{estado}}</td>
               <td align="center"> <a href="/cambiarestado/{{cvu_tecnm}}" class="btn btn-sm btn-outline-secondary"><i
                     class="fas fa-times-circle"></i>&ensp;Suspender/activar</a></td>
@@ -61,7 +76,7 @@
             <div class="col-m4 mx-auto">
               <div class="card card-body text-center">
                 <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
-                <a href="/integrantes/add"> AGREGAR NUEVO </a>
+                <a href="/integrantes/add"> Agregar nuevo </a>
               </div>
             </div>
             {{/each}}

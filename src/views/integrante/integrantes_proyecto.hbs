@@ -1,18 +1,34 @@
 {{!-- ADMINISTRADOR -> LISTA DE INTEGRANTES EN EL PROYECTO --}}
 
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
+
+
 {{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
-<div class="main" id="contenido">
+<div class="main" id="principal">
 
   {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
-  <div class="container-fluid">
+  <div class="container w-100">
 
     {{!-- div centra horizontalmente el contenido --}}
     <div class="d-flex justify-content-center vh-100">
 
       {{!-- div centra verticalmente el contenido --}}
-      <div class="my-auto w-30" align="center">
+      <div class="my-auto w-30" align="center" id="contenedorprincipal">
 
-    <table class="table">
+    <table class="table-responsive-sm table-hover table-bordered table-striped">
       <thead>
         <tr>
           <th scope="col">Rol</th>
