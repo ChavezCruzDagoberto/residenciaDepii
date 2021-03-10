@@ -1,536 +1,424 @@
-<!--<div class="main" id="contenido">
-  <div class="card-body">
-    <form action="/materialServicio/add" method="POST">
+{{!-- AGREGAR MATERIALES Y SERVICIOS -> LIDER DE PROYECTO --}}
 
+{{!-- Este div ajusta el contenido para que no interfiera con la barra izquierda --}}
+<div class="main" id="principal">
 
-      <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
-      <table id="elementos" class="table">
-        <thead>
-          <tr>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Subpartida</th>
-            <th scope="col">Monto</th>
-          </tr>
-        </thead>
-        <tr>
+  {{!-- Este div permite ocupar el 100% de pantalla disponible --}}
+  <div class="container w-100">
 
+    {{!-- div centra horizontalmente el contenido --}}
+    <div class="d-flex justify-content-center vh-90">
 
-          <td><input type="text" class="form-control" name="descripcion" required></td>
+      {{!-- div centra verticalmente el contenido --}}
+      <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
-          <td>
-
-            <select name="clave_subpartida" required id="clave_subpartida">
-              {{#each subpartidas}}
-              <option value="{{clave_subpartida}}">{{descripcion}}</option>
-              {{/each}}
-            </select>
-          </td>
-          <td><input type="number" class="form-control" name="monto" required></td>
-
-        </tr>
-
-      </table>
-
-      <p>
-        <input type="button" onclick="insRow('elementos')" value="agregar nuevo">
-        <td><input type="button" value="Eliminar Ultimo" onclick="deleteRow('elementos')"></td>
-      </p>
-
-
-
-
-      <div class="col-md-4 mx-auto">
-        <div class="card">
-          <div class="form-group">
-            <button class="btn btn-success btn-block"> Agregar</button>
-          </div>
+        {{!-- Cabecera --}}
+        <div class="w-100 mb-5">
+          <h1> Agregar materiales y servicios. </h1>
         </div>
-      </div>
-    </form>
-  </div>
-</div>
 
+        <div align="center">
+          <h3>
+            <small class="text-muted">
+              Monto restante para justificar.
+            </small>
+          </h3>
+        </div>
 
+        <!--/materialServicio/add-->
+        <div class="d-flex justify-content-center">
 
+          <form action="/materialServicio/add" method="POST">
 
-<script>
-  function deleteRow(id) {
-    document.getE
-    var ultimo = document.getElementById("elementos").rows.length - 1;
-    if (ultimo > 1) {
-      document.getElementById(id).deleteRow(ultimo);
-    }
-  }
-
-  function borrar(valor) {
-
-    var sel = document.getElementById(valor);
-
-    sel.remove(sel.selectedIndex);
-    console.log(sel.length);
-
-  }
-  function insRow(id) {
-
-    var filas = document.getElementById("elementos").rows.length;
-
-    // var inserta="entregable"filas;
-    //var anterior="entregable"+(filas-1);
-    //console.log(anteriro);
-    //borrar(anterior);
-
-    var x = document.getElementById(id).insertRow(filas);
-    var y = x.insertCell(0);
-    var z = x.insertCell(1);
-    var a = x.insertCell(2);
-
-
-    y.innerHTML = '<td><input type="text"  class="form-control" name="descripcion" required></td>';
-    z.innerHTML = '<td><select name="clave_subpartida" required id="clave_subpartida">{{#each subpartidas}}<option value="{{clave_subpartida}}">{{descripcion}}</option>{{/each}}</select></td>';
-    a.innerHTML = '<td><input type="number"  class="form-control" name="monto" required></td>';
-  }
-</script>
-!-->
-
-
-
-
-<div class="main" id="contenido">
-  <div class="card-body">
-    <!--/materialServicio/add-->
-    <form action="/materialServicio/add" method="POST">
-      <div class="form-group">
-        <label for="">Monto restante para justificar</label><br>
-        {{#each restante}}
-            <label for="">clave: {{clave_partida}} monto_restante $</label>  <label for="restante" id="{{clave_partida}}" > {{monto_restante}}</label><br>
-
+            <div class="form-group">
+              {{#each restante}}
+              <label for=""> Clave: {{clave_partida}} Monto restante $</label> <label style="color: red;" for="restante"
+                id="{{clave_partida}}"> {{monto_restante}}</label><br>
               {{/each}}
-      </div>
+            </div><br><br>
 
-
-
-
-      <select hidden   id="claves">
+            <select hidden id="claves">
               {{#each subpartidas}}
               <option value="{{clave_partida}}">{{clave_subpartida}}</option>
               {{/each}}
             </select>
 
-
-
-      <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
-      <select hidden   id="subpartidas">
+            <input type="hidden" name="id_proyecto" value="{{id_proyecto}}">
+            <select hidden id="subpartidas">
               {{#each subpartidas}}
               <option value="{{clave_subpartida}}">{{descripcion}}</option>
               {{/each}}
             </select>
-      <table id="elementos" class="table">
-        <thead>
-          <tr>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Subpartida</th>
-            <th scope="col">Monto</th>
-          </tr>
-        </thead>
-      
 
-      </table>
+            <div class="form-group">
 
-      <div class="form-group">
-        <label for="state_id" class="control-label">Añadir M y S</label>
-        <!-- Boton Agregar -->
-        <input class="btn btn-secondary btn-sm" type="button" title="Agregar Producto" Value="+"
-          onclick="agregar('elementos')">
-        <!-- Boton Borrar -->
-        <input id="eliminar" class="btn btn-secondary btn-sm" type="button" title="Borrar Producto" Value="-" disabled
-          onclick="borrar('elementos')">
-        <br>
-        <br>
-      </div>
+              <div align="center">
+                <h3>
+                  <small class="text-muted">
+                    Materiales y Servicios
+                  </small>
+                </h3>
+              </div>
 
+              {{!-- <label for="state_id" class="control-label"></label><br> --}}
 
+              <!-- Boton Agregar -->
+              <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto" Value="+"
+                onclick="agregar('elementos')">
+              <!-- Boton Borrar -->
+              <input id="eliminar" class="btn btn-outline-danger btn-sm" type="button" title="Borrar Producto" Value="-"
+                disabled onclick="borrar('elementos')"><br><br>
 
-      <div class="col-md-4 mx-auto">
-        <div class="card">
-          <div class="form-group">
-            <button id="botonenviar" class="btn btn-success btn-block"  onclick="activar()"> Agregar</button>
-          </div>
+            </div>
+
+            <table id="elementos" class="table-responsive-sm table-hover table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Subpartida</th>
+                  <th scope="col">Monto</th>
+                </tr>
+              </thead>
+            </table><br><br><br>
+
+            <div class="form-group">
+              <button id="botonenviar" class="btn btn-outline-primary btn-block col-sm-6" onclick="activar()"><i
+                  class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
+            </div>
+
+          </form>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
 
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>
 
-  <script>
+{{!-- Validaciones con JS --}}
 
-    var options = [
+<script>
 
-    ];
-    var boton = document.getElementById("botonenviar");
-    var boton1 = document.getElementById("eliminar");
-    var inicio = document.getElementById('subpartidas');
-     var principalc = document.getElementById('claves');
+  var options = [
 
-    var incremento = 0;
-    var validacion = true;
+  ];
+  var boton = document.getElementById("botonenviar");
+  var boton1 = document.getElementById("eliminar");
+  var inicio = document.getElementById('subpartidas');
+  var principalc = document.getElementById('claves');
 
+  var incremento = 0;
+  var validacion = true;
 
-    function cargarEntregables() {
-      if (incremento == 0 && options.length==0) {
-        for (i = 0; i < inicio.length; i++) {
-          options.push([inicio.options[i].value, inicio.options[i].text]);
-        }
-
+  function cargarEntregables() {
+    if (incremento == 0 && options.length == 0) {
+      for (i = 0; i < inicio.length; i++) {
+        options.push([inicio.options[i].value, inicio.options[i].text]);
       }
-
 
     }
 
-    function removeItemFromArr(arr, item) {
-      var valor = -1;
-      for (i = 0; i < arr.length; i++) {
-        if (arr[i][0] == item[0] && arr[i][1] == item[1]) {
+  }
 
-          // console.log(i);
-          valor = i;
-          break;
+  function removeItemFromArr(arr, item) {
+    var valor = -1;
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i][0] == item[0] && arr[i][1] == item[1]) {
 
-        }
+        // console.log(i);
+        valor = i;
+        break;
 
       }
-      if (valor !== -1) {
-        arr.splice(valor, 1);
-      }
-      //  console.log(arr);
+
     }
+    if (valor !== -1) {
+      arr.splice(valor, 1);
+    }
+    //  console.log(arr);
+  }
 
-    function borrar(id) {
+  function borrar(id) {
 
-      console.log("antes de borrar", options.length);
-      var ultimo = document.getElementById("elementos").rows.length - 1;
+    console.log("antes de borrar", options.length);
+    var ultimo = document.getElementById("elementos").rows.length - 1;
 
-      if (ultimo > 1) {
+    if (ultimo > 1) {
 
+      incremento--;
+      document.getElementById(id).deleteRow(ultimo);
+      var a_s = document.getElementById("subpartida" + incremento);
+      var texto = [a_s.options[a_s.selectedIndex].value, a_s.options[a_s.selectedIndex].text];
+      options.push(texto);
+      a_s.removeAttribute("disabled");
+      var cvd = document.getElementById("monto" + incremento);
+      cvd.removeAttribute("disabled");
+      var a_m = cvd.value;
+      var clave_subpartida = a_s.options[a_s.selectedIndex].value;
 
+      console.log("regresar", a_m, "clave", clave_subpartida);
 
+      for (h = 0; h < principalc.options.length; h++) {
+        if (principalc.options[h].text == clave_subpartida) {
+          //clave de partida
+          var desc = principalc.options[h].value;
+          //console.log("encontrado",desc);
+          var descontar = document.getElementById("" + desc + "");
+          var total = parseInt(descontar.innerHTML);
 
-
-        incremento--;
-        document.getElementById(id).deleteRow(ultimo);
-        var a_s = document.getElementById("subpartida" + incremento);
-        var texto = [a_s.options[a_s.selectedIndex].value, a_s.options[a_s.selectedIndex].text];
-        options.push(texto);
-        a_s.removeAttribute("disabled");
-        var cvd=document.getElementById("monto" + incremento);
-        cvd.removeAttribute("disabled");
-        var a_m = cvd.value;
-        var clave_subpartida=a_s.options[a_s.selectedIndex].value;
-
-        console.log("regresar",a_m,"clave",clave_subpartida);
-
-
-        for(h=0;h<principalc.options.length;h++){
-          if(principalc.options[h].text==clave_subpartida){
-            //clave de partida
-  var desc=principalc.options[h].value;
-//console.log("encontrado",desc);
-             var descontar=document.getElementById(""+desc+"");
-               var total=parseInt(descontar.innerHTML);
-
-               if(total==0){
-                for(k=0;k<a_s.length;k++){
-                  var temp=false;
-                  for(l=0;l<options.length;l++){
-                    if(a_s.options[k].value==options[l][0]){
-                      temp=true;
-                    }
-
-                  }
-                  if(temp==false){
-                    options.push([a_s.options[k].value, a_s.options[k].text]);
-                  }
-
+          if (total == 0) {
+            for (k = 0; k < a_s.length; k++) {
+              var temp = false;
+              for (l = 0; l < options.length; l++) {
+                if (a_s.options[k].value == options[l][0]) {
+                  temp = true;
                 }
 
+              }
+              if (temp == false) {
+                options.push([a_s.options[k].value, a_s.options[k].text]);
+              }
 
-               }
-               total=total+parseInt(a_m);
-              descontar.innerHTML=total;
-               
+            }
+
           }
+          total = total + parseInt(a_m);
+          descontar.innerHTML = total;
+
         }
-
-
-
       }
-      if (ultimo == 1) {
-        incremento--;
-        document.getElementById(id).deleteRow(ultimo);
-        boton.setAttribute("disabled", "true");
-        boton1.setAttribute("disabled", "true");
-
-      }
-      console.log("despues de borrar", options.length);
 
     }
+    if (ultimo == 1) {
+      incremento--;
+      document.getElementById(id).deleteRow(ultimo);
+      boton.setAttribute("disabled", "true");
+      boton1.setAttribute("disabled", "true");
 
-    function añadirNuevo(id) {
-      console.log("antes de añadir", options.length);
-      if (incremento == 1) {
+    }
+    console.log("despues de borrar", options.length);
 
-        var filas = document.getElementById("elementos").rows.length;
-        var x = document.getElementById(id).insertRow(filas);
-        var w= x.insertCell(0);
-        var y = x.insertCell(1);
-        var z = x.insertCell(2);
+  }
+
+  function añadirNuevo(id) {
+    console.log("antes de añadir", options.length);
+    if (incremento == 1) {
+
+      var filas = document.getElementById("elementos").rows.length;
+      var x = document.getElementById(id).insertRow(filas);
+      var w = x.insertCell(0);
+      var y = x.insertCell(1);
+      var z = x.insertCell(2);
+      var des = "descripcion" + incremento;
+      var id_e = "subpartida" + incremento;
+      var can = "monto" + incremento;
+
+      var opciones = "";
+      for (var i = 0; i < options.length; i++) {
+        //console.log(options[i][1],i);
+        opciones += "<option value=" + options[i][0] + ">" + options[i][1] + "</option>";
+      }
+      w.innerHTML = "<td><input type=" + "text " + " class=" + "form-control" + " name=" + " descripcion " + "id=" + des + "  required></td>";
+
+      y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_subpartida " + "id=" + id_e + " required>" + opciones + "</select></td>";
+
+      z.innerHTML = "<td><input type=" + "text" + " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
+
+      boton.removeAttribute("disabled");
+      boton1.removeAttribute("disabled");
+      document.getElementById(can).setAttribute("onkeypress", "validarNumeros(event)");
+    }
+
+    if (incremento > 1) {
+
+      //validar anterior tenga datos
+
+      var cant_a = document.getElementById("monto" + (incremento - 1)).value;
+      var des_a = document.getElementById("descripcion" + (incremento - 1)).value;
+      if (cant_a === "" || des_a.trim() === "") {
+        incremento--;
+        alert("Rellene los campos");
+      } else {
+
         var des = "descripcion" + incremento;
         var id_e = "subpartida" + incremento;
         var can = "monto" + incremento;
 
-        var opciones = "";
-        for (var i = 0; i < options.length; i++) {
-          //console.log(options[i][1],i);
-          opciones += "<option value=" + options[i][0] + ">"+ options[i][1] + "</option>";
-        }
-        w.innerHTML = "<td><input type=" + "text " +  " class=" + "form-control" + " name=" + " descripcion "  +   "id=" + des +  "  required></td>";
+        var idAnterior = "subpartida" + (incremento - 1);
+        var montant = "monto" + (incremento - 1);
+        var campo = document.getElementById(montant);
+        var inmonto = parseInt(campo.value);
+        console.log("descontar", inmonto);
+        selecAnterior = document.getElementById(idAnterior);
+        var clave = selecAnterior.options[selecAnterior.selectedIndex].value;
+        for (h = 0; h < principalc.options.length; h++) {
+          if (principalc.options[h].text == clave) {
+            var desc = principalc.options[h].value;
+            //console.log("encontrado",desc);
+            var descontar = document.getElementById("" + desc + "");
 
-        y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_subpartida " + "id=" + id_e + " required>" + opciones + "</select></td>";
-
-
-
-        z.innerHTML = "<td><input type=" + "text" +  " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
-
-        boton.removeAttribute("disabled");
-        boton1.removeAttribute("disabled");
-        document.getElementById(can).setAttribute("onkeypress","validarNumeros(event)");
-      }
-
-      if (incremento > 1) {
-
-
-        //validar anterior tenga datos
-
-
-        var cant_a = document.getElementById("monto" + (incremento - 1)).value;
-        var des_a = document.getElementById("descripcion" + (incremento - 1)).value;
-        if (cant_a === "" || des_a.trim()==="") {
-          incremento--;
-          alert("Rellene los campos");
-        } else {
-
-
- var des = "descripcion" + incremento;
-          var id_e = "subpartida" + incremento;
-          var can = "monto" + incremento;
-
-          var idAnterior = "subpartida" + (incremento - 1);
-          var montant="monto"+(incremento-1);
-          var campo=document.getElementById(montant);
-          var inmonto=parseInt(campo.value);
-          console.log("descontar",inmonto);
-    selecAnterior = document.getElementById(idAnterior);
-  var clave=selecAnterior.options[selecAnterior.selectedIndex].value;
-for(h=0;h<principalc.options.length;h++){
-          if(principalc.options[h].text==clave){
-  var desc=principalc.options[h].value;
-//console.log("encontrado",desc);
-             var descontar=document.getElementById(""+desc+"");
-               
-               var total=parseInt(descontar.innerHTML);
-               console.log("total",total);
-               if(total>=inmonto && inmonto>0){
-                 total=total-inmonto;
-                if(total<=0){
-                  for(k=0;k<principalc.length;k++){
-                      if(principalc[k].value==desc){
-                        var borrar=principalc[k].text;
-                         removerSubpartidas(options,borrar);
-
-                      }
+            var total = parseInt(descontar.innerHTML);
+            console.log("total", total);
+            if (total >= inmonto && inmonto > 0) {
+              total = total - inmonto;
+              if (total <= 0) {
+                for (k = 0; k < principalc.length; k++) {
+                  if (principalc[k].value == desc) {
+                    var borrar = principalc[k].text;
+                    removerSubpartidas(options, borrar);
 
                   }
-                //  removerSubpartidas(desc);
+
                 }
+                //  removerSubpartidas(desc);
+              }
 
+              descontar.innerHTML = total;
+            } else {
 
-
-               descontar.innerHTML=total;
-               }else{
-
-                 campo.value="";
-                 alert("no se puede pasar de $"+total+".00" + "para la partida "+ desc);
-                 incremento--;
-                 return;
-               }
+              campo.value = "";
+              alert("no se puede pasar de $" + total + ".00" + "para la partida " + desc);
+              incremento--;
+              return;
+            }
           }
         }
 
+        var filas = document.getElementById("elementos").rows.length;
+        var x = document.getElementById(id).insertRow(filas);
+        var w = x.insertCell(0);
+        var y = x.insertCell(1);
+        var z = x.insertCell(2);
 
+        var texto = [selecAnterior.options[selecAnterior.selectedIndex].value, selecAnterior.options[selecAnterior.selectedIndex].text];
 
+        removeItemFromArr(options, texto);
+        selecAnterior.setAttribute("disabled", "true");
+        campo.setAttribute("disabled", "true");
 
-          var filas = document.getElementById("elementos").rows.length;
-          var x = document.getElementById(id).insertRow(filas);
-          var w= x.insertCell(0);
-          var y = x.insertCell(1);
-          var z = x.insertCell(2);
-
-       
-
-
-
-
-
-         
-
-            
-
-          var texto = [selecAnterior.options[selecAnterior.selectedIndex].value, selecAnterior.options[selecAnterior.selectedIndex].text];
-        
-        
-
-      
-
-     
-
-          removeItemFromArr(options, texto);
-          selecAnterior.setAttribute("disabled", "true");
-          campo.setAttribute("disabled", "true");
-
-          var opciones = "";
-          for (var i = 0; i < options.length; i++) {
-            // console.log(options[i][1],i);
-            opciones += "<option value=" + options[i][0] + ">" + options[i][1] + "</option>";
-          }
-          w.innerHTML = "<td><input type=" + "text " +  " class=" + "form-control" + " name=" + " descripcion "  +   "id=" + des + "  required></td>";
-
-
-          y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_subpartida " + " id=" + id_e + " required>" + opciones + "</select></td>";
-
-
-
-          z.innerHTML = "<td> <label for="+ "pesos"+">$</label> <input type=" + "text"  + " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
-          document.getElementById(can).setAttribute("onkeypress","validarNumeros(event)");
-
+        var opciones = "";
+        for (var i = 0; i < options.length; i++) {
+          // console.log(options[i][1],i);
+          opciones += "<option value=" + options[i][0] + ">" + options[i][1] + "</option>";
         }
+        w.innerHTML = "<td><input type=" + "text " + " class=" + "form-control" + " name=" + " descripcion " + "id=" + des + "  required></td>";
+
+        y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_subpartida " + " id=" + id_e + " required>" + opciones + "</select></td>";
+
+        z.innerHTML = "<td> <label for=" + "pesos" + ">$</label> <input type=" + "text" + " class=" + "form-control" + " name=" + " monto " + "id= " + can + "  required></td>";
+        document.getElementById(can).setAttribute("onkeypress", "validarNumeros(event)");
+
       }
-      console.log("despues de añadir",options.length);
     }
+    console.log("despues de añadir", options.length);
+  }
 
+  function agregar(id) {
 
-    function agregar(id) {
-
-      cargarEntregables();
-      console.log(options.length);
-      console.log(incremento);
-      if (incremento < inicio.length  ) {
-if(options.length>0){
+    cargarEntregables();
+    console.log(options.length);
+    console.log(incremento);
+    if (incremento < inicio.length) {
+      if (options.length > 0) {
         incremento++;
 
         añadirNuevo(id);
-}
       }
-
-
     }
 
-
-
-    function activar() {
-      console.log(incremento);
-      
-
-var campo=document.getElementById("monto"+incremento);
-          var inmonto=parseInt(campo.value);
-          console.log("descontar",inmonto);
-    selec = document.getElementById("subpartida"+incremento);
-  var clave=selec.options[selec.selectedIndex].value;
-for(h=0;h<principalc.options.length;h++){
-          if(principalc.options[h].text==clave){
-  var desc=principalc.options[h].value;
-//console.log("encontrado",desc);
-             var descontar=document.getElementById(""+desc+"");
-               
-               var total=parseInt(descontar.innerHTML);
-               console.log("total",total);
-               if(total>=inmonto && inmonto>0){
-                 total=total-inmonto;
-               descontar.innerHTML=total;
-               }else{
-
-                 campo.value="";
-                 alert("no se puede pasar de $"+total+".00" + "para la partida "+ desc);
-                 
-                 return false;
-               }
-          }
-        }
-
-
-
-
-
-
-
-
-      for (i = 1; i <= incremento; i++) {
-        var a = document.getElementById("subpartida" + i);
-        var b = document.getElementById("monto" + i);
-        var c = document.getElementById("descripcion" + i);
-        
-
-        a.removeAttribute("disabled");
-        b.removeAttribute("disabled");
-        c.removeAttribute("disabled");
-
-
-      }
-
-
-    }
-
-
-
-function removerSubpartidas(arr, bo) {
-
-      var valor = -1;
-      for (i = 0; i < arr.length; i++) {
-        if (arr[i][0] == bo) {
-
-          // console.log(i);
-          valor = i;
-          break;
-
-        }
-
-      }
-      if (valor !== -1) {
-        arr.splice(valor, 1);
-      }
-      //  console.log(arr);
-    }
- 
- 
- function AgregardeNuevo(arr, clave_partida) {
-for(i=0;i<inicio.length;i++){
-  if(inicio.options[i].value==clave_partida){
-     options.push([inicio.options[i].value, inicio.options[i].text]);
   }
-}
-      
+
+  function activar() {
+    console.log(incremento);
+
+    var campo = document.getElementById("monto" + incremento);
+    var inmonto = parseInt(campo.value);
+    console.log("descontar", inmonto);
+    selec = document.getElementById("subpartida" + incremento);
+    var clave = selec.options[selec.selectedIndex].value;
+    for (h = 0; h < principalc.options.length; h++) {
+      if (principalc.options[h].text == clave) {
+        var desc = principalc.options[h].value;
+        //console.log("encontrado",desc);
+        var descontar = document.getElementById("" + desc + "");
+
+        var total = parseInt(descontar.innerHTML);
+        console.log("total", total);
+        if (total >= inmonto && inmonto > 0) {
+          total = total - inmonto;
+          descontar.innerHTML = total;
+        } else {
+
+          campo.value = "";
+          alert("no se puede pasar de $" + total + ".00" + "para la partida " + desc);
+
+          return false;
+        }
+      }
     }
 
+    for (i = 1; i <= incremento; i++) {
+      var a = document.getElementById("subpartida" + i);
+      var b = document.getElementById("monto" + i);
+      var c = document.getElementById("descripcion" + i);
 
-
-    function validarNumeros(event){
-      if(event.charCode<=57 && event.charCode>=48){}
-      else{event.preventDefault();}
+      a.removeAttribute("disabled");
+      b.removeAttribute("disabled");
+      c.removeAttribute("disabled");
 
     }
-  </script>
-  <footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </footer>
+
+  }
+
+  function removerSubpartidas(arr, bo) {
+
+    var valor = -1;
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i][0] == bo) {
+
+        // console.log(i);
+        valor = i;
+        break;
+
+      }
+
+    }
+    if (valor !== -1) {
+      arr.splice(valor, 1);
+    }
+    //  console.log(arr);
+  }
+
+  function AgregardeNuevo(arr, clave_partida) {
+    for (i = 0; i < inicio.length; i++) {
+      if (inicio.options[i].value == clave_partida) {
+        options.push([inicio.options[i].value, inicio.options[i].text]);
+      }
+    }
+
+  }
+
+  function validarNumeros(event) {
+    if (event.charCode <= 57 && event.charCode >= 48) { }
+    else { event.preventDefault(); }
+
+  }
+</script>
+<footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</footer>
 </div>
