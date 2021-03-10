@@ -18,7 +18,7 @@ router.get('/integrantes', async (req, res) => {
 router.get('/proyectos', async (req, res) => {
 
     const proyectos = await conexion.query(
-        'select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
+        'select id_proyecto, cvu_tecnm,nombre,plantel_adscripcion,titulo,fecha_dictamen,clave_financiamiento,rol_proyecto from proyecto natural join proyecto_participante natural join participante'
       );
      
       console.log(proyectos);
@@ -43,12 +43,13 @@ function formatearFechas(proyecto) {
       let fecha_dictamen = g.format('YYYY');
       const a = {
         id_proyecto: proyecto[p].id_proyecto,
-        titulo: proyecto[p].titulo,
-        modalidad: proyecto[p].modalidad,
+        cvu_tecnm: proyecto[p].cvu_tecnm,
+        nombre: proyecto[p].nombre,
+        plantel_adscripcion: proyecto[p].plantel_adscripcion,
+        rol_proyecto:proyecto[p].rol_proyecto,
+        titulo:proyecto[p].titulo,
         año:fecha_dictamen,
         clave_financiamiento: proyecto[p].clave_financiamiento,
-        nombre: proyecto[p].nombre,
-        
   
       };
       editado.push(a);

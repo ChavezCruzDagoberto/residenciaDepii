@@ -211,6 +211,7 @@
 
       }
     }
+    document.getElementById(can).setAttribute("onkeypress","validarNumeros(event)");
     console.log("despues de añadir", options.length);
   }
 
@@ -238,6 +239,13 @@
       b.removeAttribute("disabled");
 
     }
+
+  }
+
+
+   function validarNumeros(event) {
+    if (event.charCode <= 57 && event.charCode >= 48) { }
+    else { event.preventDefault(); }
 
   }
 

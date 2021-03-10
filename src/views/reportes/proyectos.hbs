@@ -26,22 +26,27 @@
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>Nombre del proyecto</th>
-                      <th>Modalidad</th>
+                      <th>Cvu TecNM</th>
+                      <th>Nombre</th>
+                      <th>Plantel</th>
+                      <th>Rol</th>
+                      <th>Titulo</th>
                       <th>Año</th>
-                      <th>Financiamiento</th>
-                      <th>Responsable</th>
+                      <th>Clave</th>
+
                     </tr>
                   </thead>
                   <tbody>
 
                     {{#each proyectos}}
                     <tr>
-                      <th>{{titulo}}</th>
-                      <td>{{modalidad}}</td>
+                      <th>{{cvu_tecnm}}</th>
+                      <td>{{nombre}}</td>
+                      <td>{{plantel_adscripcion}}</td>
+                      <td>{{rol_proyecto}}</td>
+                      <td>{{titulo}}</td>
                       <td>{{año}}</td>
                       <td>{{clave_financiamiento}}</td>
-                      <td>{{nombre}}</td>
 
 
                     </tr>
