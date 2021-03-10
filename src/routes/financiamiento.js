@@ -21,7 +21,7 @@ router.get('/add', esAdministrador,async (req, res) => {
 //agrega el financiamiento junto con las partidas que le corresponen al financiamiento
 //las partidas existentes son extraidos de detalle_partida
 router.post('/add', esAdministrador,  [
-    check('clave_financiamiento').notEmpty().isAlphanumeric().toUpperCase(),
+    check('clave_financiamiento').notEmpty().toUpperCase(),
     check('clave_partida').notEmpty().withMessage('no se acepta vacio'),
     check('monto_aprobado').notEmpty().withMessage('no se acepta vacio'),
     check('vigencia_fin').notEmpty().withMessage("formato de fecha"),

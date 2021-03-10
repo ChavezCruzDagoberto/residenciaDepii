@@ -381,9 +381,30 @@ async (req, res) => {
 
   const usuario = req.user.rol_sistema;
  
+var estado="";
+  switch (proyecto[0].estado) {
+    case 1:
+      estado="Proyecto recien creado";
+      break;
+      case 2:
+        estado="Proyecto con el protocolo añadido ";
+      break;
+      case 3:
+        estado="se Añadio informe";
+      break;
+      case 4:
+        estado="Se subio el informe final ";
+      break;
+      case 5:
+        estado="Proyecto terminado";
+      break;
+  
+    default:
+      break;
+  }
 console.log(req.app.locals);
 
-    res.render('layouts/proyecto_responsable', { proyecto: proyecto[0] });
+    res.render('layouts/proyecto_responsable', { proyecto: proyecto[0],estado:estado });
   //res.render('proyecto/seguimiento');
     
   

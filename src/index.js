@@ -82,6 +82,7 @@ app.use('/informe', require('./routes/informe'));
 app.use('/entregable', require('./routes/entregable'));
 app.use('/materialServicio', require('./routes/materialServicio'));
 app.use('/protocolo', require('./routes/protocolo'));
+app.use('/reporte', require('./routes/reportes'));
 //app.use('/login',require('./routes/'));
 //app.use('/ajax',require('./routes/ajax'));
 
