@@ -9,7 +9,7 @@ const { check, validationResult } = require('express-validator');
 
 //agregar un Responsable
 
-router.get('/add', esAdministrador, (req, res) => {
+router.get('/add', (req, res) => {
 
 
     //res.send('Form');
@@ -20,7 +20,7 @@ router.get('/add', esAdministrador, (req, res) => {
 
 //insertar a la base un integrante nuevo
 
-router.post('/add', esAdministrador,
+router.post('/add',
     [//validacion de los datos que entran del formulario
         check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().isLength({ max: 10 }).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
         check('nombre').notEmpty().toUpperCase().isLength({ max: 50 }).withMessage('solo Letras'),

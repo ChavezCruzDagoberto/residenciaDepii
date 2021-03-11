@@ -4,7 +4,7 @@
 <div class="main" id="principal">
 
   {{!-- div que permite ocupar el 100% de la pantalla --}}
-  <div class="container w-100">
+  <div class="container-fluid">
 
     {{!-- div centra horizontalmente el contenido --}}
     <div class="d-flex justify-content-center vh-90">
@@ -18,7 +18,8 @@
         </div>
 
         {{!-- Comienza la tabla --}}
-        <table class="table-responsive-sm table-hover table-bordered table-striped">
+        <div class="table-responsive-sm">
+        <table class="table table-hover table-bordered table-striped">
 
           {{!-- Cabecera de la tabla --}}
           <thead>
@@ -37,7 +38,7 @@
             {{#each users}}
 
             <tr>
-              <th>{{username}}</th>
+              <th style="background-color: lightgray;">{{username}}</th>
               <td>{{cvu_tecnm}}</td>
               {{!-- <td>{{password}}</td> --}}
               <td>{{estado}}</td>
@@ -68,7 +69,7 @@
 
           </tbody>
         </table>
-
+</div>
       </div>
     </div>
   </div>

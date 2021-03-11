@@ -4,7 +4,7 @@
 <div class="main" id="principal">
 
   {{!-- Este div permite ocupar el 100% de pantalla disponible --}}
-  <div class="container w-100">
+  <div class="container-fluid">
 
     {{!-- div centra horizontalmente el contenido --}}
     <div class="d-flex justify-content-center vh-90">
@@ -18,55 +18,56 @@
         </div>
 
         {{!-- Comienza la tabla --}}
-        <table class="table-responsive-sm table-hover table-bordered table-striped">
+        <div class="table-responsive-sm">
+          <table class="table table-hover table-bordered table-striped pb-5" cellspacing="0" width="100%">
 
-          {{!-- Cabecera de la tabla. --}}
-          <thead>
-            <tr>
-              <th scope="col">CVU TecNM</th>
-              <th scope="col">Nombre(s)</th>
-              <th scope="col">Primer apellido</th>
-              <th scope="col">Segundo apellido</th>
-              <th scope="col">Plantel de Adscripcion</th>
-              <th scope="col">Email</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Eliminar</th>
-            </tr>
-          </thead>
+            {{!-- Cabecera de la tabla. --}}
+            <thead>
+              <tr>
+                <th scope="col">CVU TecNM</th>
+                <th scope="col">Nombre(s)</th>
+                <th scope="col">Primer apellido</th>
+                <th scope="col">Segundo apellido</th>
+                <th scope="col">Plantel de Adscripcion</th>
+                <th scope="col">Email</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+              </tr>
+            </thead>
 
-          {{!-- Cuerpo de la tabla. --}}
-          <tbody>
-            {{#each integrantes}}
+            {{!-- Cuerpo de la tabla. --}}
+            <tbody>
+              {{#each integrantes}}
 
-            <tr>
-              <th>{{cvu_tecnm}}</th>
-              <td>{{nombre}}</td>
-              <td>{{apellido1}}</td>
-              <td>{{apellido2}}</td>
-              <td>{{plantel_adscripcion}}</td>
-              <td>{{email}}</td>
-              <td align="center"><a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-sm btn-outline-warning">
-                  <i class="fas fa-user-edit"></i>&ensp;Editar</a></td>
-              <td align="center"><a href="/integrantes/delete/{{cvu_tecnm}}" class="btn btn-sm btn-outline-danger"
-                  id="prueba">
-                  <i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
-            </tr>
+              <tr>
+                <th style="background-color: lightgray;">{{cvu_tecnm}}</th>
+                <td>{{nombre}}</td>
+                <td>{{apellido1}}</td>
+                <td>{{apellido2}}</td>
+                <td>{{plantel_adscripcion}}</td>
+                <td>{{email}}</td>
+                <td align="center"><a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-sm btn-outline-warning">
+                    <i class="fas fa-user-edit"></i>&ensp;Editar</a></td>
+                <td align="center"><a href="/integrantes/delete/{{cvu_tecnm}}" class="btn btn-sm btn-outline-danger"
+                    id="prueba">
+                    <i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
+              </tr>
 
-            {{!-- En caso de que no existan participantes --}}
-            {{else}}
+              {{!-- En caso de que no existan participantes --}}
+              {{else}}
 
-            <div class="card bg-light mb-3" style="max-width: 50rem;">
-              <div class="card-header" align="left"> ¡MENSAJE! </div>
-              <div class="card-body">
-                <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN INTEGRANTE. </p>
-                <a href="/integrantes/add"> Crear nuevo integrante. </a>
+              <div class="card bg-light mb-3" style="max-width: 50rem;">
+                <div class="card-header" align="left"> ¡MENSAJE! </div>
+                <div class="card-body">
+                  <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN INTEGRANTE. </p>
+                  <a href="/integrantes/add"> Crear nuevo integrante. </a>
+                </div>
               </div>
-            </div>
 
-            {{/each}}
-          </tbody>
-        </table>
-
+              {{/each}}
+            </tbody>
+          </table><br><br>
+        </div>
       </div>
     </div>
   </div>
@@ -74,15 +75,15 @@
 
 {{!-- Media queries --}}
 <style>
-    @media (min-width: 768px) {
-        #contenedorprincipal {
-            width: 75% !important;
-        }
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
     }
+  }
 
-    @media (max-width: 767px) {
-        #principal {
-            margin-left: 0px !important;
-        }
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
     }
+  }
 </style>

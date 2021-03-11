@@ -18,7 +18,7 @@ const intentos1=rateLimit({
     message:"se estan recibiendo muchos intentos de esta IP reintente en 10 min"
 });
 
-router.get('/singup',esAdministrador, async (req, res) => {
+router.get('/singup', async (req, res) => {
 
     const responsables = await conexion.query('SELECT O.cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email FROM participante AS O LEFT JOIN users AS P ON O.cvu_tecnm = P.cvu_tecnm WHERE P.cvu_tecnm IS NULL ');
    console.log(responsables);
@@ -36,7 +36,7 @@ router.get('/addcapturista', async (req, res) => {
 
 });
 
-router.post('/singup', esAdministrador,
+router.post('/singup',
 [//validacion de los datos que entran del formulario
     check('cvu_tecnm').notEmpty().isAlphanumeric().toUpperCase().isLength({ max: 10 }).withMessage('Solo Alphanumerico con maximo de 10 caracteres'),
     check('password').notEmpty().isLength({ min:6,max: 20 }).withMessage('tamaño minimo de 6 a 50 caracteres maximo'),

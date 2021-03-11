@@ -5,10 +5,11 @@ header{
 }
 
 /*estilos para la tabla*/
-table th {
-    background-color: #337ab7 !important;
-    color: white;
+table thead {
+    background-color: #343a40 !important;
+    color: whitesmoke;
 }
+
 table>tbody>tr>td {
     vertical-align: middle !important;
 }

@@ -1,20 +1,19 @@
 <div class="main" id="principal">
 
-    <header>
-          <h1 class="text-center text-light">Reporte</h1>
-          <h2 class="text-center text-light"> <span class="badge badge-warning">Integrantes</span></h2>
-        </header>
-
   {{!-- Este div permite ocupar el 100% de pantalla disponible --}}
-  <div class="container w-100">
+  <div class="container-fluid">
 
     {{!-- div centra horizontalmente el contenido --}}
-    <div class="d-flex justify-content-center vh-90">
+    <div class="d-flex justify-content-center vh-80">
 
       {{!-- div centra verticalmente el contenido --}}
-      <div class="align-items-start w-100 mt-5"  id="contenedorprincipal">
+      <div class="align-items-start w-100 mt-5" id="contenedorprincipal">
 
-      
+        {{!-- Cabecera --}}
+        <div class="w-100 mb-5" align="center">
+          <h1> Busqueda por integrantes. </h1>
+        </div>
+
         <div style="height:50px"></div>
 
         <!--Ejemplo tabla con DataTables-->
@@ -22,31 +21,29 @@
           <div class=" row mx-auto">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  
                   <thead>
                     <tr>
-                      <th>Cvu_TecNM</th>
-                      <th>Nombre</th>
-                      <th>apellido1</th>
-                      <th>apellido2</th>
-                      <th>Plantel</th>
+                      <th>Clave CVU</th>
+                      <th>Nombre(s)</th>
+                      <th>Primer apellido</th>
+                      <th>Segundo apellido</th>
+                      <th>Campus</th>
                       <th>Email</th>
-
                     </tr>
                   </thead>
+                  
                   <tbody>
-
+                    
                     {{#each integrantes}}
                     <tr>
-                      <td>{{cvu_tecnm}}</td>
+                      <td style="background-color: lightgray;">{{cvu_tecnm}}</td>
                       <th>{{nombre}}</th>
                       <td>{{apellido1}}</td>
                       <td>{{apellido2}}</td>
                       <td>{{plantel_adscripcion}}</td>
                       <td>{{email}}</td>
-
-
-
                     </tr>
                     {{/each}}
 
@@ -60,3 +57,18 @@
     </div>
   </div>
 </div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>

@@ -19,51 +19,52 @@
         </div><br>
 
         {{!-- Comienza la tabla --}}
-        <table class="table-responsive-sm table-bordered table-striped table-hover">
+        <div class="table-responsive-sm">
+          <table class="table table-bordered table-striped table-hover">
 
-          {{!-- Cabecera de la tabla --}}
-          <thead>
-            <tr>
-              <th scope="col">Clave de financiamiento</th>
-              <th scope="col">fecha de inicio</th>
-              <th scope="col">fecha de expiracion </th>
-              <th scope="col">Editar</th>
-              <th scope="col">Eliminar</th>
-              <th scope="col">Montos</th>
-            </tr>
-          </thead>
+            {{!-- Cabecera de la tabla --}}
+            <thead>
+              <tr>
+                <th scope="col">Clave de financiamiento</th>
+                <th scope="col">Fecha de inicio</th>
+                <th scope="col">Fecha de expiracion </th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+                <th scope="col">Montos</th>
+              </tr>
+            </thead>
 
-          {{!-- Cuerpo de la tabla --}}
-          <tbody>
-            {{#each financiamiento}}
+            {{!-- Cuerpo de la tabla --}}
+            <tbody>
+              {{#each financiamiento}}
 
-            <tr>
-              <th>{{clave_financiamiento}}</th>
-              <td>{{vigencia_inicio}}</td>
-              <td>{{vigencia_fin}}</td>
-              <td align="center"> <a href="/financiamiento/edit/{{clave_financiamiento}}"
-                  class="btn btn-sm btn-outline-warning"><i class="far fa-edit"></i>&ensp;Editar</a></td>
-              <td align="center"> <a href="/financiamiento/delete/{{clave_financiamiento}}"
-                  class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
-              <td align="center"> <a href="/financiamiento/partidas/{{clave_financiamiento}}"
-                  class="btn btn-sm btn-outline-success"><i class="fas fa-info"></i>&ensp;Partidas</a></td>
-            </tr>
+              <tr>
+                <th style="background-color: lightgray;">{{clave_financiamiento}}</th>
+                <td>{{vigencia_inicio}}</td>
+                <td>{{vigencia_fin}}</td>
+                <td align="center"> <a href="/financiamiento/edit/{{clave_financiamiento}}"
+                    class="btn btn-sm btn-outline-warning"><i class="far fa-edit"></i>&ensp;Editar</a></td>
+                <td align="center"> <a href="/financiamiento/delete/{{clave_financiamiento}}"
+                    class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
+                <td align="center"> <a href="/financiamiento/partidas/{{clave_financiamiento}}"
+                    class="btn btn-sm btn-outline-success"><i class="fas fa-info"></i>&ensp;Partidas</a></td>
+              </tr>
 
-            {{!-- En caso de que no se encuentre algun financiamiento --}}
-            {{else}}
+              {{!-- En caso de que no se encuentre algun financiamiento --}}
+              {{else}}
 
-            <div class="card bg-light mb-3" style="max-width: 50rem;">
-              <div class="card-header" align="left"> ¡MENSAJE! </div>
-              <div class="card-body">
-                <p class="card-text"> NO SE ENCUENTRA REGISTRADA NINGUNA CLAVE DE FINANCIAMIENTO. </p>
-                <a href="/financiamiento/add"> Crear nueva clave de financiamiento. </a>
+              <div class="card bg-light mb-3" style="max-width: 50rem;">
+                <div class="card-header" align="left"> ¡MENSAJE! </div>
+                <div class="card-body">
+                  <p class="card-text"> NO SE ENCUENTRA REGISTRADA NINGUNA CLAVE DE FINANCIAMIENTO. </p>
+                  <a href="/financiamiento/add"> Crear nueva clave de financiamiento. </a>
+                </div>
               </div>
-            </div>
 
-            {{/each}}
-          </tbody>
-        </table>
-
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
