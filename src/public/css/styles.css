@@ -6,40 +6,30 @@
 
 }
 *{box-sizing: border-box;}
-body{
-    background-color: #ffffff;
-    font-family: "Mulish",sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
-    margin: 0;
 
-}
 h1{
     color: #212121;
     margin-bottom: 90px;
 
 }
-.fa-html5{
+.fas.fa-folder-plus{
 font-size: 1.8rem;
 color: #ff5773;
 }
-.fa-css3-alt{
+.fas.fa-file-upload{
     font-size: 1.8rem;
     color: #264de4;
     }
-.fa-js{
+.fas.fa-tasks{
 font-size: 1.6rem;
 color: #f7e018;
 
 }
-.fa-react{
+.fas.fa-list-ul{
     font-size: 1.8rem;
     color: #61dbfb;
     }
-.container{
+.containerx{
     text-align: center;
 
 }
@@ -74,7 +64,7 @@ color: #f7e018;
         left: 0;
         transform: translateY(-50%);
         height: 4px;
-        width: 25%;
+        width: 0;
         z-index: -1;
         transition: 0.4s ease;
 
@@ -95,26 +85,4 @@ color: #f7e018;
 .circle.active{
     border-color: var(--line-border-fill);
 
-}
-.btn{
-    background-color: var(--line-border-fill);
-    color: #ffff;
-    border-radius: 6px;
-    border: 0;
-    cursor: pointer;
-    font-family: inherit;
-    padding: 8px 30px;
-    margin: 5px;
-    font-size: 14px;
-}
-.btn:focus{
-    outline: 0;
-
-}
-.btn:active{
-    transform: scale(0.97);
-}
-.btn:disabled{
-    background-color: var(--line-border-empty);
-    cursor: not-allowed;
 }

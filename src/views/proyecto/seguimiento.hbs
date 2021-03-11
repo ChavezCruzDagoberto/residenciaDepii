@@ -1,36 +1,64 @@
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
-   
-    <title>Document</title>
-</head>
-
-<body>
-  <div class="main">
-        <div class="container">
+<div class="main">
+    
+        <div class="row">
+            <div class="mx-auto">
+                <input type="text" name="avance" id="avance" onchange="actualiza()">
+    <div class="container">
         <h1>seguimiento</h1>
         <div class="progress-container">
             <div class="progress" id="progress">
-                <div class="circle active"><i class="fab fa-html5"></i></div>
-                <div class="circle active"><i class="fab fa-css3-alt"></i></div>
-                <div class="circle active"><i class="fab fa-js"></i></div>
-                <div class="circle active"><i class="fab fa-react"></i></div>
+
             </div>
 
-            <button class="btn" id="prev" disabled>prev</button>
-            <button class="btn" id="next" >Next</button>
+            <div class="circle active"><i class="fas fa-folder-plus"></i></div>
+            <div class="circle "><i class="fas fa-file-upload"></i></div>
+            <div class="circle "><i class="fas fa-tasks"></i></div>
+            <div class="circle "><i class="fas fa-list-ul"></i></div>
+
+
+        </div>
+       
+
+    </div>
+
+            </div>
         </div>
     </div>
-  </div>
+</div>
+
+    
 
 
-    <script src="app.js"></script>
-</body>
 
-</html>
+
+<script>
+    const progress = document.getElementById("progress");
+    const circles = document.querySelectorAll(".circle");
+
+
+    function actualiza() {
+        let currentActive = parseInt(document.getElementById("avance").value);
+        console.log("valor",currentActive);
+        if(currentActive>4){
+            currentActive=4;
+        }else if(currentActive<0){
+            currentActive=-1;
+        }
+        console.log("final",currentActive);
+        circles.forEach((circle, idx) => {
+
+            if (idx < currentActive) {
+                circle.classList.add("active");
+            } else {
+                circle.classList.remove("active");
+            }
+        });
+        const actives = document.querySelectorAll(".active");
+       // console.log(actives.length, circles.length);
+       if(currentActive>0){
+        progress.style.width = ((currentActive - 1) / (circles.length - 1)) * 100 + "%";
+       }else{progress.style.width=0+"%"}
+        
+    }
+</script>

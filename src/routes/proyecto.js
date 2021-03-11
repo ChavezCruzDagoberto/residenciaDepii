@@ -378,30 +378,9 @@ async (req, res) => {
 
   const proyecto = await conexion.query('SELECT * FROM  proyecto  WHERE id_proyecto=?', [id_proyecto]);
   req.app.locals.proyectodisponible=proyecto[0];
-
+var estado=proyecto[0].estado;
   const usuario = req.user.rol_sistema;
- 
-var estado="";
-  switch (proyecto[0].estado) {
-    case 1:
-      estado="Proyecto recien creado";
-      break;
-      case 2:
-        estado="Proyecto con el protocolo añadido ";
-      break;
-      case 3:
-        estado="se Añadio informe";
-      break;
-      case 4:
-        estado="Se subio el informe final ";
-      break;
-      case 5:
-        estado="Proyecto terminado";
-      break;
-  
-    default:
-      break;
-  }
+
 console.log(req.app.locals);
 
     res.render('layouts/proyecto_responsable', { proyecto: proyecto[0],estado:estado });
@@ -454,5 +433,12 @@ function formatearFechas(proyecto) {
 
 }
 
+
+
+router.get('/x', async (req, res) => {
+
+  res.render('proyecto/seguimiento');
+ 
+});
 
 module.exports = router;

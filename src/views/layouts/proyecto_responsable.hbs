@@ -1,23 +1,69 @@
-
 <div class="main">
     <div class="container-fluid mt-2">
         <div class="row">
             <div class="mx-auto">
 
                 <div class="m-5" align="center">
-                  <br>
-                      <h2 >Area de trabajo del proyecto:</h2>
-                    <h4> {{proyecto.titulo}} </h4>
-                    
+
+                    <h2> {{proyecto.titulo}} </h2>
+                    <h3>Avance</h3>
+                    <br>
+                    <br>
+                    <div class="containerx">
+
+                        <div class="progress-container">
+                            <div class="progress" id="progress">
+
+                            </div>
+
+                            <div class="circle active"><i class="fas fa-folder-plus"></i></div>
+                            <div class="circle "><i class="fas fa-file-upload"></i></div>
+                            <div class="circle "><i class="fas fa-tasks"></i></div>
+                            <div class="circle "><i class="fas fa-list-ul"></i></div>
+
+
+                        </div>
+
+
+                    </div>
                 </div>
-                
-                <div class="m-5" align="center">
-                  <br>
-                      <h2 >Estado</h2>
-                    <h4> {{estado}} </h4>
-                    
-                </div>
+                <input type="hidden" name="avance" id="avance" value="{{estado}}">
+
             </div>
         </div>
     </div>
 </div>
+
+
+
+<script>
+    window.onload = actualiza;
+    const progress = document.getElementById("progress");
+    const circles = document.querySelectorAll(".circle");
+
+
+    function actualiza() {
+        let currentActive = parseInt(document.getElementById("avance").value);
+        console.log("valor", currentActive);
+        if (currentActive > 4) {
+            currentActive = 4;
+        } else if (currentActive < 0) {
+            currentActive = -1;
+        }
+        console.log("final", currentActive);
+        circles.forEach((circle, idx) => {
+
+            if (idx < currentActive) {
+                circle.classList.add("active");
+            } else {
+                circle.classList.remove("active");
+            }
+        });
+        const actives = document.querySelectorAll(".active");
+        // console.log(actives.length, circles.length);
+        if (currentActive > 0) {
+            progress.style.width = ((currentActive - 1) / (circles.length - 1)) * 100 + "%";
+        } else { progress.style.width = 0 + "%" }
+
+    }
+</script>
