@@ -1,34 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 
 :root{
---line-border-fill:#9c27b0;
+--line-border-fill:#2cab00;
 --line-border-empty:#bdbdbd;
+--line-border-atrasado:#ff5c2a;
+--line-border-terminado:#003af7;
+--line-border-negro:#020613;
 
 }
 *{box-sizing: border-box;}
 
-h1{
-    color: #212121;
-    margin-bottom: 90px;
 
-}
-.fas.fa-folder-plus{
+.fas.fa-folder-open{
 font-size: 1.8rem;
-color: #ff5773;
+color: var(--line-border-negro);
 }
-.fas.fa-file-upload{
+.far.fa-file-alt{
     font-size: 1.8rem;
-    color: #264de4;
+    color: var(--line-border-negro);;
     }
-.fas.fa-tasks{
+.fas.fa-list-ul{
 font-size: 1.6rem;
-color: #f7e018;
+color: var(--line-border-negro);;
 
 }
-.fas.fa-list-ul{
+.fas.fa-check{
     font-size: 1.8rem;
-    color: #61dbfb;
+    color: var(--line-border-negro);;
     }
+    .far.fa-check-circle{
+        font-size: 2.5rem;
+        color: var(--line-border-negro);;
+        }
+.far.fa-flag{
+        font-size: 1.8rem;
+        color:var(--line-border-negro);;
+        }
 .containerx{
     text-align: center;
 
@@ -39,7 +46,7 @@ color: #f7e018;
     position: relative;
     margin-bottom: 30px;
     max-width: 100%;
-    width: 350px;
+    width: 700px;
 
     }
     .progress-container::before{
@@ -57,8 +64,6 @@ color: #f7e018;
 
     }
     .progress{
-
-        background-color: var(--line-border-fill);
         position: absolute;
         top: 50%;
         left: 0;
@@ -85,4 +90,21 @@ color: #f7e018;
 .circle.active{
     border-color: var(--line-border-fill);
 
+}
+.circle.atrasado{
+    border-color: var(--line-border-atrasado);
+
+}
+.circle.terminado{
+    border-color: var(--line-border-terminado);
+
+}
+.progress.active{
+    background-color: var(--line-border-fill);
+}
+.progress.atrasado{
+    background-color: var(--line-border-atrasado);
+}
+.progress.terminado{
+    background-color: var(--line-border-terminado);
 }

@@ -13,9 +13,16 @@ router.get('/p/:id_proyecto', estaLogueado, async (req, res) => {
 router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
 
   const { id_proyecto } = req.params;
+  const validaprotocolo = await conexion.query('select * from protocolo where id_proyecto=?', [id_proyecto]);
+  if (validaprotocolo.length > 0) {
   const validacion = await conexion.query('select entregable.id_entregable,nombre,contribucion from entregable left join (select * from proyecto_entregable where id_proyecto=?)as a on entregable.id_entregable =a.id_entregable where a.id_entregable is null ', [id_proyecto]);
   res.render('proyecto/entregable/add', { entregables: validacion, id_proyecto });
   console.log(validacion);
+  }else{
+    
+    req.flash('message','Primero debe subir su protocolo');
+    res.redirect('/protocolo/add/' + id_proyecto);
+  }
 });
 
 

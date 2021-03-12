@@ -23,10 +23,10 @@ router.get('/add', esLider, async (req, res) => {
   const cvu_tecnm = req.user.cvu_tecnm;
   console.log(req.user);
   const valida = await conexion.query('select * from proyecto_participante where cvu_tecnm=?', [cvu_tecnm]);
- 
+
 
   res.render('proyecto/add');
- 
+
 });
 
 
@@ -44,16 +44,16 @@ router.post('/add', esLider, async (req, res) => {
     const validacion = await conexion.query('select * from proyecto WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     const validacion1 = await conexion.query('select * from financiamiento WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     //const validaconvocatoria = await conexion.query('select * from proyecto WHERE  id_convocatoria=?', [req.body.id_convocatoria]);
-    console.log(validacion.length,validacion1.length);
+    console.log(validacion.length, validacion1.length);
     //console.log(validaconvocatoria.length);
-  if (validacion.length == 0  && validacion1.length>0) {
+    if (validacion.length == 0 && validacion1.length > 0) {
       const cvu_tecnm = req.user.cvu_tecnm;
-      const fecha_sometido = req.body.fecha_sometido ;
-      const fecha_dictamen = req.body.fecha_dictamen ;
+      const fecha_sometido = req.body.fecha_sometido;
+      const fecha_dictamen = req.body.fecha_dictamen;
 
       const { titulo, modalidad } = req.body;
       var creado = moment().format('YYYY-MM-DD');
-      
+
       const newProyecto = {
         titulo,
         modalidad,
@@ -78,37 +78,37 @@ router.post('/add', esLider, async (req, res) => {
 
 
       //agregar informes dinamicamente
-      var fecha_inicio=moment(validacion1[0].vigencia_inicio);
-     // console.log("inicio",fecha_inicio);
-      var i=0;
-      var a=fecha_inicio;
-  var informes=[];
-  var sem_an=[];
-      while(i<4){
-         if(i<3){
-          var c= a.add(3,'month').format('YYYY-MM-DD');
+      var fecha_inicio = moment(validacion1[0].vigencia_inicio);
+      // console.log("inicio",fecha_inicio);
+      var i = 0;
+      var a = fecha_inicio;
+      var informes = [];
+      var sem_an = [];
+      while (i < 4) {
+        if (i < 3) {
+          var c = a.add(3, 'month').format('YYYY-MM-DD');
           informes.push(c);
-           var x=moment(informes[i]);
-            sem_an.push(x.subtract(1,'week').format('YYYY-MM-DD'));
-       
-         }else{
-          var c= a.add(4,'month').format('YYYY-MM-DD');
-          informes.push(c);
-           var x=moment(informes[i]);
-           sem_an.push(x.subtract(1,'month').format('YYYY-MM-DD'));
+          var x = moment(informes[i]);
+          sem_an.push(x.subtract(1, 'week').format('YYYY-MM-DD'));
 
-         }
+        } else {
+          var c = a.add(4, 'month').format('YYYY-MM-DD');
+          informes.push(c);
+          var x = moment(informes[i]);
+          sem_an.push(x.subtract(1, 'month').format('YYYY-MM-DD'));
+
+        }
         // console.log((i+1),sem_an[i],informes[i],p[0].id_proyecto);
-         const newInforme = {
-           no_informe:(i+1),
-           fecha_inicio:sem_an[i],
-           fecha_fin:informes[i],
+        const newInforme = {
+          no_informe: (i + 1),
+          fecha_inicio: sem_an[i],
+          fecha_fin: informes[i],
           id_proyecto: p[0].id_proyecto,
 
         };
         await conexion.query('INSERT INTO informe set ?', [newInforme]);
-  
-      i++;
+
+        i++;
       }
       ///////////////////////////////////////
       req.flash('success', 'proyecto agreado correctamente');
@@ -214,10 +214,10 @@ router.post('/add', esLider, async (req, res) => {
 
 //listar de la base de datos
 router.get('/', estaLogueado, async (req, res) => {
-  
-req.app.locals.proyectodisponible=null;
-  
-   
+
+  req.app.locals.proyectodisponible = null;
+
+
 
   //console.log(req.user);
   if (req.user.rol_sistema == 'Administrador') {
@@ -227,23 +227,23 @@ req.app.locals.proyectodisponible=null;
     const cvu_tecnm = req.user.cvu_tecnm;
     const proyectos = await conexion.query('select * from  (select * from  proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado>=1 and estado<4 ', [cvu_tecnm]);
 
-    console.log('p',proyectos.length);
-if(proyectos.length>0){
-    var fecha1 = moment() ;
-  var fecha2 = moment(proyectos[0].creado);
-   var temporal=fecha1.diff(fecha2, 'days');
-   if(temporal<10){
-    req.flash('message',"tiene "+(10- temporal)+ " dias para editar su proyecto Actual");
-   }else{
-    req.flash('message',"ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
-   }
-  
-    const final = formatearFechas(proyectos);
-    res.render('proyecto/list', { proyectos: final ,message:req.flash('message')});
-}else{
-  res.render('proyecto/list');
-}
-    
+    console.log('p', proyectos.length);
+    if (proyectos.length > 0) {
+      var fecha1 = moment();
+      var fecha2 = moment(proyectos[0].creado);
+      var temporal = fecha1.diff(fecha2, 'days');
+      if (temporal < 10) {
+        req.flash('message', "tiene " + (10 - temporal) + " dias para editar su proyecto Actual");
+      } else {
+        req.flash('message', "ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
+      }
+
+      const final = formatearFechas(proyectos);
+      res.render('proyecto/list', { proyectos: final, message: req.flash('message') });
+    } else {
+      res.render('proyecto/list');
+    }
+
   }
 });
 
@@ -253,10 +253,11 @@ if(proyectos.length>0){
 //listar de la base de datos para modo Administrador
 router.get('/listartodo', esAdministrador, estaLogueado, async (req, res) => {
   const cvu_tecnm = req.user.cvu_tecnm;
-    const proyectos = await conexion.query(
+  const proyectos = await conexion.query(
     'select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
   );
   const final = formatearFechas(proyectos);
+  console.log(final);
   res.render('proyecto/list', { proyectos: final });
 });
 
@@ -286,42 +287,42 @@ router.get('/delete/:id_proyecto', esAdministrador, async (req, res) => {
 
 
 router.get('/edit/:id_proyecto', esLider, async (req, res) => {
-try {
-  
-  const { id_proyecto } = req.params;
+  try {
 
-  const nuevo = await conexion.query('SELECT * FROM  proyecto  WHERE id_proyecto=?', [id_proyecto]);
-  
- 
- 
+    const { id_proyecto } = req.params;
 
-if(nuevo.length>0){
-  //const convocatoria   = await conexion.query(  'select a.id_convocatoria,a.nombre_convocatoria from convocatoria as a left join proyecto as b on a.id_convocatoria=b.id_convocatoria where b.id_convocatoria is null');
-  //const con_actual=await conexion.query('select * from convocatoria where id_convocatoria= ?',[nuevo[0].id_convocatoria]);
+    const nuevo = await conexion.query('SELECT * FROM  proyecto  WHERE id_proyecto=?', [id_proyecto]);
 
-  //convocatoria.push(con_actual[0]);
 
-  var fecha1 = moment() ;
-  var fecha2 = moment(nuevo[0].creado);
-   var temporal=fecha1.diff(fecha2, 'days');
-   if(temporal<10){
-    req.flash('message',"Recuerde que solo le quedan "+(10-temporal) +" dias para editar ");
 
-    res.render('proyecto/edit', { proyecto: nuevo[0],message:req.flash('message')});
-   }else{
-    req.flash('message',"ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
+
+    if (nuevo.length > 0) {
+      //const convocatoria   = await conexion.query(  'select a.id_convocatoria,a.nombre_convocatoria from convocatoria as a left join proyecto as b on a.id_convocatoria=b.id_convocatoria where b.id_convocatoria is null');
+      //const con_actual=await conexion.query('select * from convocatoria where id_convocatoria= ?',[nuevo[0].id_convocatoria]);
+
+      //convocatoria.push(con_actual[0]);
+
+      var fecha1 = moment();
+      var fecha2 = moment(nuevo[0].creado);
+      var temporal = fecha1.diff(fecha2, 'days');
+      if (temporal < 10) {
+        req.flash('message', "Recuerde que solo le quedan " + (10 - temporal) + " dias para editar ");
+
+        res.render('proyecto/edit', { proyecto: nuevo[0], message: req.flash('message') });
+      } else {
+        req.flash('message', "ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
+        res.redirect('/proyecto');
+      }
+    }
+
+
+  } catch (error) {
+
+    req.flash('message', 'Algo ha salido mal intente de nuevo')
     res.redirect('/proyecto');
-   }
-}
+  }
 
-  
-} catch (error) {
-  
-  req.flash('message','Algo ha salido mal intente de nuevo')
-  res.redirect('/proyecto');
-}
-  
-  
+
 });
 
 
@@ -330,22 +331,22 @@ if(nuevo.length>0){
 
 router.post('/edit/:id_proyecto', esLider, async (req, res) => {
   try {
-  const { id_proyecto } = req.params;
-  estado = 1;
+    const { id_proyecto } = req.params;
+    estado = 1;
 
-  const { titulo, modalidad, fecha_sometido, fecha_dictamen,  clave_financiamiento } = req.body;
+    const { titulo, modalidad, fecha_sometido, fecha_dictamen, clave_financiamiento } = req.body;
 
-  const newProyecto = {
-    titulo,
-    modalidad,
-    fecha_sometido ,
-    fecha_dictamen,
-    clave_financiamiento,
-    estado
+    const newProyecto = {
+      titulo,
+      modalidad,
+      fecha_sometido,
+      fecha_dictamen,
+      clave_financiamiento,
+      estado
 
-  };
+    };
 
-  
+
     await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [newProyecto, id_proyecto]);
 
 
@@ -369,36 +370,122 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
 
 
 
-router.get('/detalle/:id_proyecto', estaLogueado, 
-async (req, res) => {
+/*
+  Avance
+  1: proyecto creado
+  2:se cargo protocolo 1 mes despues de crear financiamiento
+  3:la lista de gastos posibles  2 meses despues
+  4: se cargo primer informe
+  5:se cargo 2 informe
+  6:se cargo 3 informe
+  7: se cargo informe final
+  8: se autorizo final del proyecto a tiempo
+  9: cancelacion del proyecto 
+  */
 
-  const { id_proyecto } = req.params;
+/**
+Estados
+1:Todo en tiempo y activo
+2: activo pero atrasado
+3: terminado 
 
- 
+ */
 
-  const proyecto = await conexion.query('SELECT * FROM  proyecto  WHERE id_proyecto=?', [id_proyecto]);
-  req.app.locals.proyectodisponible=proyecto[0];
-var estado=proyecto[0].estado;
-  const usuario = req.user.rol_sistema;
 
-console.log(req.app.locals);
 
-    res.render('layouts/proyecto_responsable', { proyecto: proyecto[0],estado:estado });
-  //res.render('proyecto/seguimiento');
-    
-  
-  //res.send("recibido");
+router.get('/detalle/:id_proyecto', estaLogueado,
+  async (req, res) => {
+
+    const { id_proyecto } = req.params;
+
+
+
+    const proyecto = await conexion.query('SELECT * FROM  proyecto natural join financiamiento  WHERE id_proyecto=?', [id_proyecto]);
+    req.app.locals.proyectodisponible = proyecto[0];
+
+    const usuario = req.user.rol_sistema;
+
+    const protocolo = await conexion.query('SELECT * FROM  protocolo   WHERE id_proyecto=?', [id_proyecto]);
+    const mys = await conexion.query('SELECT * FROM  material_servicio   WHERE id_proyecto=?', [id_proyecto]);
+    const inf = await conexion.query('select id_proyecto,id_informe,id_proyecto,no_informe,fecha_fin,fecha_fin from informe natural join archivo_informes where id_proyecto=? order by no_informe asc', [id_proyecto]);
+    const fechas_inf = await conexion.query('select * from informe where id_proyecto=? order by no_informe asc', [id_proyecto]);
+
+
+    var avance = proyecto[0].estado;
+    var estado = 1;
+
+    let fechaActual = moment();
+    let fechaInicio = moment(proyecto[0].vigencia_inicio);
+
+    switch (avance) {
+      case 1:
+
+        if (fechaActual.diff(fechaInicio, 'month') > 0)
+          estado = 2;
+
+        break;
+
+      case 2: //protocolo
+        if (fechaActual.diff(fechaInicio, 'month') > 1)
+          estado = 2;
+
+
+        break;
+      case 3://material y servicio
+      
+        let inf1_f = moment(fechas_inf[0].fecha_fin);
+        if (fechaActual.isAfter(inf1_f)) estado = 2;
+
+
+        break;
+      case 4:
+        let inf2_f = moment(fechas_inf[1].fecha_fin);
+        if (fechaActual.isAfter(inf2_f)) estado = 2;
+        break;
+      case 5:
+        let inf3_f = moment(fechas_inf[2].fecha_fin);
+        if (fechaActual.isAfter(inf3_f)) estado = 2;
+
+        break;
+      case 6:
+        let inff_f = moment(fechas_inf[3].fecha_fin);
+        if (fechaActual.isAfter(inff_f)) estado = 2;
+
+        break;
+      case 7:
+
+        estado = 1;
+
+        break;
+      case 8:
+        estado = 3;
+        break;
+      case 9:
+        estado = 2;
+        break;
+      default:
+        break;
+    }
+
+
+    console.log(proyecto, protocolo, mys, inf, fechaActual, fechaInicio);
+
+    res.render('layouts/proyecto_responsable', { proyecto: proyecto[0], avance: avance, estado: estado });
+    //res.render('proyecto/seguimiento');
+
+
+    //res.send("recibido");
   });
 
 
 
 
-  router.get('/regresar', esLider, async (req, res) => {
-   req.app.locals.proyectodisponible=null;
+router.get('/regresar', esLider, async (req, res) => {
+  req.app.locals.proyectodisponible = null;
 
-    res.redirect('/' );
-   
-  });
+  res.redirect('/');
+
+});
 
 
 
@@ -423,7 +510,8 @@ function formatearFechas(proyecto) {
       fecha_dictamen,
       clave_financiamiento: proyecto[p].clave_financiamiento,
       nombre: proyecto[p].nombre,
-      nombre_convocatoria: proyecto[p].nombre_convocatoria
+      estado:proyecto[p].estado
+      
 
     };
     editado.push(a);
@@ -435,10 +523,26 @@ function formatearFechas(proyecto) {
 
 
 
+
+router.get('/terminar/:id_proyecto', async (req, res) => {
+  const {id_proyecto}= req.params;
+  const buscar= await conexion.query('select * from proyecto where id_proyecto=?',[id_proyecto]);
+  let estado= buscar[0].estado;
+if(estado==7||estado==8){
+  await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{estado:8},id_proyecto]);
+}else{
+  await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{estado:9},id_proyecto]);
+}
+res.redirect('/proyecto/detalle/'+id_proyecto);
+
+});
+
+
 router.get('/x', async (req, res) => {
 
+
   res.render('proyecto/seguimiento');
- 
+
 });
 
 module.exports = router;

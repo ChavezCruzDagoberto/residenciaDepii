@@ -7,93 +7,112 @@ const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth')
 router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
 
   const { id_proyecto } = req.params;
-//obtiene clave de financiamiento
-  const financia= await conexion.query('select clave_financiamiento from proyecto natural join financiamiento where id_proyecto=?',[id_proyecto]);
-  var clave_financiamiento=financia[0].clave_financiamiento;
-//
+  const validaprotocolo = await conexion.query('select * from protocolo where id_proyecto=?', [id_proyecto]);
+  if (validaprotocolo.length > 0) {
+    //obtiene clave de financiamiento
+    const financia = await conexion.query('select clave_financiamiento from proyecto natural join financiamiento where id_proyecto=?', [id_proyecto]);
+    var clave_financiamiento = financia[0].clave_financiamiento;
+    //
 
 
-//antes de enviar realiza calculo
-const solicitados= await conexion.query('select b.clave_partida,a.clave_subpartida,a.monto_solicitado  from material_servicio as a natural join detalle_partida as b where a.id_proyecto=?',[id_proyecto]);
-//console.log(solicitados);
-const montos=await conexion.query('select distinct(c.clave_partida),d.monto_aprobado from detalle_partida as c natural join financiamiento_partida as d where clave_financiamiento=?',[clave_financiamiento]);
-console.log(montos,solicitados);
-var dinero_restate=[];
-for(var i=0;i<montos.length;i++){
-  var restante=montos[i].monto_aprobado;
-for(var j =0;j<solicitados.length;j++){
-  if(montos[i].clave_partida==solicitados[j].clave_partida){
-    restante=restante-solicitados[j].monto_solicitado;
+    //antes de enviar realiza calculo
+    const solicitados = await conexion.query('select b.clave_partida,a.clave_subpartida,a.monto_solicitado  from material_servicio as a natural join detalle_partida as b where a.id_proyecto=?', [id_proyecto]);
+    //console.log(solicitados);
+    const montos = await conexion.query('select distinct(c.clave_partida),d.monto_aprobado from detalle_partida as c natural join financiamiento_partida as d where clave_financiamiento=?', [clave_financiamiento]);
+    console.log(montos, solicitados);
+    var dinero_restate = [];
+    for (var i = 0; i < montos.length; i++) {
+      var restante = montos[i].monto_aprobado;
+      for (var j = 0; j < solicitados.length; j++) {
+        if (montos[i].clave_partida == solicitados[j].clave_partida) {
+          restante = restante - solicitados[j].monto_solicitado;
+        }
+      }
+      const aux = {
+        clave_partida: montos[i].clave_partida,
+        monto_restante: restante
+      }
+      dinero_restate.push(aux);
+
+    }
+
+
+    console.log(dinero_restate);
+
+
+
+
+    //obtiene la lista seleccionable de la partida tal correspondiente a x proyecto
+    const validacion = await conexion.query('select b.clave_partida,b.clave_subpartida,b.descripcion from (select * from  financiamiento_partida natural join detalle_partida where clave_financiamiento=?)as b left join (select * from material_servicio where id_proyecto = ?)as a  on a.clave_subpartida = b.clave_subpartida where a.clave_subpartida is null', [clave_financiamiento, id_proyecto]);
+    var subpartidas = [];
+    for (var i = 0; i < dinero_restate.length; i++) {
+      for (var j = 0; j < validacion.length; j++) {
+        if (validacion[j].clave_partida == dinero_restate[i].clave_partida && dinero_restate[i].monto_restante > 0) {
+          subpartidas.push(validacion[j]);
+        }
+      }
+
+      console.log(subpartidas);
+    }
+
+
+    res.render('proyecto/materialServicio/add', { subpartidas: subpartidas, id_proyecto, restante: dinero_restate });
+  }else{
+
+    req.flash('message','Primero debe subir su protocolo');
+    res.redirect('/protocolo/add/' + id_proyecto);
   }
-}
-const aux={
-  clave_partida:montos[i].clave_partida,
-  monto_restante:restante
-}
-dinero_restate.push(aux);
-
-}
 
 
-console.log(dinero_restate);
-
-
-
-
-  //obtiene la lista seleccionable de la partida tal correspondiente a x proyecto
-  const validacion = await conexion.query('select b.clave_partida,b.clave_subpartida,b.descripcion from (select * from  financiamiento_partida natural join detalle_partida where clave_financiamiento=?)as b left join (select * from material_servicio where id_proyecto = ?)as a  on a.clave_subpartida = b.clave_subpartida where a.clave_subpartida is null', [clave_financiamiento,id_proyecto]);
- var subpartidas=[];
-  for(var i=0;i<dinero_restate.length;i++){
-for(var j =0;j<validacion.length;j++){
-  if(validacion[j].clave_partida==dinero_restate[i].clave_partida && dinero_restate[i].monto_restante>0){
-subpartidas.push(validacion[j]);
-  }
-}
-
-console.log(subpartidas);
- }
-
-
-  res.render('proyecto/materialServicio/add',{subpartidas:subpartidas,id_proyecto,restante:dinero_restate});
 });
 
 
 
 router.post('/add', estaLogueado, async (req, res) => {
   console.log(req.body);
-  
-  const { descripcion, clave_subpartida, monto,id_proyecto } = req.body;
-  if(Array.isArray(descripcion)){
+
+  const { descripcion, clave_subpartida, monto, id_proyecto } = req.body;
+  const mysv = await conexion.query('select * from material_servicio where id_proyecto=?', [id_proyecto]);
+  if (Array.isArray(descripcion)) {
     for (const p in monto) {
       const newMyS = {
-        descripcionms:descripcion[p],
+        descripcionms: descripcion[p],
         id_proyecto,
-        clave_subpartida:clave_subpartida[p],
-        monto_solicitado:monto[p]
-      
+        clave_subpartida: clave_subpartida[p],
+        monto_solicitado: monto[p]
+
       }
       console.log(newMyS);
+      if (mysv.length == 0) {
+        await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{ estado: 3 }, id_proyecto]);
+      }
       await conexion.query('INSERT INTO material_servicio set ?', [newMyS]);
+
+
     }
 
-  }else{
+  } else {
 
     const newMySa = {
-      descripcionms:descripcion,
+      descripcionms: descripcion,
       id_proyecto,
-      clave_subpartida:clave_subpartida,
-      monto_solicitado:monto
-    
+      clave_subpartida: clave_subpartida,
+      monto_solicitado: monto
+
     }
     console.log(newMySa);
+    if (mysv.length == 0) {
+      await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{ estado: 3 }, id_proyecto]);
+    }
     await conexion.query('INSERT INTO material_servicio set ?', [newMySa]);
 
+
   }
-  
-  
+
+
   req.flash('success', 'Materiales y Servicios  agregados correctamente');
   res.redirect("/materialServicio/proyecto/" + id_proyecto);
-  
+
 });
 
 
@@ -136,7 +155,7 @@ contador--;
 router.get('/proyecto/:id_proyecto', estaLogueado, async (req, res) => {
   const { id_proyecto } = req.params;
   const consulta = await conexion.query('select * from material_servicio inner join detalle_partida on material_servicio.clave_subpartida=detalle_partida.clave_subpartida  where id_proyecto  =? ', [id_proyecto]);
-console.log(consulta);
+  console.log(consulta);
   res.render('proyecto/materialServicio/listarporproyecto', { consulta, id_proyecto });
 });
 
@@ -145,7 +164,7 @@ console.log(consulta);
 router.post('/edit', async (req, res) => {
   //console.log(req.body);
 
-  const { id_proyecto, monto_solicitado, id_material_servicio ,descripcionms,clave_subpartida} = req.body;
+  const { id_proyecto, monto_solicitado, id_material_servicio, descripcionms, clave_subpartida } = req.body;
   const updateMyS = {
     id_material_servicio,
     descripcionms,
@@ -154,7 +173,7 @@ router.post('/edit', async (req, res) => {
     monto_solicitado
   };
   console.log(updateMyS);
-  
+
   await conexion.query('UPDATE   material_servicio  set ? WHERE id_proyecto= ? and id_material_servicio=? ', [updateMyS, id_proyecto, id_material_servicio]);
 
 

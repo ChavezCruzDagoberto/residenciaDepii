@@ -1,33 +1,39 @@
-
 <div class="main">
-    
-        <div class="row">
-            <div class="mx-auto">
-                <input type="text" name="avance" id="avance" onchange="actualiza()">
-    <div class="container">
-        <h1>seguimiento</h1>
-        <div class="progress-container">
-            <div class="progress" id="progress">
+
+<br><br>
+    <div class="row">
+        <div class="mx-auto">
+            <input type="text" name="estado" id="estado" >
+            <input type="text" name="avance" id="avance" onchange="actualiza()">
+            
+            <div class="container">
+                <h1>seguimiento</h1>
+                <div class="progress-container">
+                    <div class="progress" id="progress">
+
+                    </div>
+
+                    <div class="circle active"><i class="fas fa-folder-plus"></i></div>
+                    <div class="circle "><i class="fas fa-file-upload"></i></div>
+                    <div class="circle "><i class="fas fa-tasks"></i></div>
+                    <div class="circle "><i class="fas fa-list-ul"></i></div>
+                     <div class="circle active"><i class="fas fa-folder-plus"></i></div>
+                    <div class="circle "><i class="fas fa-file-upload"></i></div>
+                    <div class="circle "><i class="fas fa-tasks"></i></div>
+                    <div class="circle "><i class="fas fa-list-ul"></i></div>
+
+
+                </div>
+
 
             </div>
 
-            <div class="circle active"><i class="fas fa-folder-plus"></i></div>
-            <div class="circle "><i class="fas fa-file-upload"></i></div>
-            <div class="circle "><i class="fas fa-tasks"></i></div>
-            <div class="circle "><i class="fas fa-list-ul"></i></div>
-
-
-        </div>
-       
-
-    </div>
-
-            </div>
         </div>
     </div>
 </div>
 
-    
+
+
 
 
 
@@ -38,27 +44,46 @@
 
 
     function actualiza() {
+        let status = parseInt(document.getElementById("estado").value);
         let currentActive = parseInt(document.getElementById("avance").value);
-        console.log("valor",currentActive);
-        if(currentActive>4){
-            currentActive=4;
-        }else if(currentActive<0){
-            currentActive=-1;
+        console.log("valor", currentActive);
+        if (currentActive > 8) {
+            currentActive = 8;
+        } else if (currentActive < 0) {
+            currentActive = -1;
         }
-        console.log("final",currentActive);
+        console.log("final", currentActive);
         circles.forEach((circle, idx) => {
 
             if (idx < currentActive) {
-                circle.classList.add("active");
+
+                if(status==1){circle.classList.add("active");}
+                if(status==2){circle.classList.add("atrasado");}
+                if(status==3){circle.classList.add("terminado");}
+                
+                
+                
             } else {
                 circle.classList.remove("active");
+               circle.classList.remove("atrasado");
+              circle.classList.remove("terminado");
+                
+              
             }
         });
-        const actives = document.querySelectorAll(".active");
-       // console.log(actives.length, circles.length);
-       if(currentActive>0){
-        progress.style.width = ((currentActive - 1) / (circles.length - 1)) * 100 + "%";
-       }else{progress.style.width=0+"%"}
-        
+        //const actives = document.querySelectorAll(".active");
+        // console.log(actives.length, circles.length);
+        if (currentActive > 0) {
+           if(status==1){ progress.classList.add("active");}
+           if(status==2){ progress.classList.add("atrasado");}
+           if(status==3){ progress.classList.add("terminado");}
+            progress.style.width = ((currentActive - 1) / (circles.length - 1)) * 100 + "%";
+        } else { progress.style.width = 0 + "%" }
+
     }
+function restablecer(){
+
+
+    
+}
 </script>
