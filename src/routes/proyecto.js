@@ -225,7 +225,7 @@ router.get('/', estaLogueado, async (req, res) => {
   } else {
 
     const cvu_tecnm = req.user.cvu_tecnm;
-    const proyectos = await conexion.query('select * from  (select * from  proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado>=1 and estado<4 ', [cvu_tecnm]);
+    const proyectos = await conexion.query('select * from  (select * from  proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado>=1 and estado<8 ', [cvu_tecnm]);
 
     console.log('p', proyectos.length);
     if (proyectos.length > 0) {
