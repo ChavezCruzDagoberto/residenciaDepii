@@ -57,7 +57,9 @@
                             <div class="card-header" align="left"> ¡MENSAJE! </div>
                             <div class="card-body">
                                 <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN ENTREGABLE. </p>
+                                {{#if lider}}
                                 <a href="/entregable/add/{{id_proyecto}}"> Crear nuevo. </a>
+                                {{/if}}
                             </div>
                         </div>
 

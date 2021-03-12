@@ -44,12 +44,14 @@
 
             </tr>
             {{else}}
+            {{#if lider}}
             <div class="col-m4 mx-auto">
               <div class="card card-body text-center">
                 <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
                 <a href="/integrantes/add"> AGREGAR NUEVO </a>
               </div>
             </div>
+            {{/if}}
             {{/each}}
 
           </tbody>

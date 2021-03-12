@@ -55,7 +55,7 @@
 
               {{!-- En caso de que no existan participantes --}}
               {{else}}
-
+              {{#if admin}}
               <div class="card bg-light mb-3" style="max-width: 50rem;">
                 <div class="card-header" align="left"> ¡MENSAJE! </div>
                 <div class="card-body">
@@ -63,7 +63,7 @@
                   <a href="/integrantes/add"> Crear nuevo integrante. </a>
                 </div>
               </div>
-
+{{/if}}
               {{/each}}
             </tbody>
           </table><br><br>
