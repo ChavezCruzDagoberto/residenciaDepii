@@ -1,21 +1,27 @@
-<div class="main">
-    <div class="container-fluid mt-2">
-        <div class="row">
-            <div class="mx-auto">
+<div class="main" id="principal">
+
+    {{!-- Este div permite ocupar el 100% de pantalla disponible --}}
+    <div class="container-fluid">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-80">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="align-items-start w-100 mt-5" id="contenedorprincipal">
+
+                {{!-- Cabecera --}}
+                <div class="w-100 mb-5" align="center">
+                    <h1 class="mb-5"> Avance del proyecto. </h1>
+                    <h4 style="color: gray;">Proyecto actual:</h4>
+                    <h2 style="color: gray;" class="mb-5"> {{proyecto.titulo}} </h2><br><br>              
+                    <h3 class="mb-5" style="color:navy;"> Linea de avance del proyecto </h3>
+                </div>
 
                 <div class="m-5" align="center">
-
-                    <h2> {{proyecto.titulo}} </h2>
-                    <h3>Avance</h3>
-                    <br>
-                    <br>
-                    <div class="containerx">
-
+                    <div class="d-flex justify-content-center">
                         <div class="progress-container">
-                            <div class="progress" id="progress">
 
-                            </div>
-
+                            <div class="progress" id="progress"></div>
                             <div class="circle active"><i class="fas fa-folder-open"></i></div>
                             <div class="circle "><i class="far fa-file-alt"></i></div>
                             <div class="circle "><i class="fas fa-list-ul"></i> </div>
@@ -25,22 +31,21 @@
                             <div class="circle "><i class="far fa-check-circle"></i></div>
                             <div class="circle "><i class="far fa-flag"></i></div>
 
-
                         </div>
-
-
                     </div>
                 </div>
+
                 <input type="hidden" name="avance" id="avance" value="{{avance}}">
                 <input type="hidden" name="estado" id="estado" value="{{estado}}">
                 <input type="hidden" name="id_proyecto" id="id_proyecto" value="{{proyecto.id_proyecto}}">
 
+                {{!-- En caso de ser administrador mostrarboton de terminar --}}
                 {{#if admin}}
-
                 <div class="m-5" align="center" id="terminar">
-                    <td align="center"><a href="#"
-                            class="btn btn-sm btn-outline-success" onclick="ver(event)"><i
-                                class="fas fa-info"></i>&ensp;Terminar Proyecto</a></td>
+                    <td align="center">
+                        <a href="#" class="btn btn-sm btn-outline-success" onclick="ver(event)">
+                            <i class="fas fa-info"></i>&ensp;Terminar Proyecto</a>
+                    </td>
                 </div>
                 {{/if}}
 
@@ -49,17 +54,27 @@
     </div>
 </div>
 
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
 
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
 
 <script>
     window.onload = actualiza;
     const progress = document.getElementById("progress");
     const circles = document.querySelectorAll(".circle");
 
-
     function actualiza() {
-
-
 
         let status = parseInt(document.getElementById("estado").value);
         let currentActive = parseInt(document.getElementById("avance").value);
@@ -83,13 +98,10 @@
                 if (status == 2) { circle.classList.add("atrasado"); }
                 if (status == 3) { circle.classList.add("terminado"); }
 
-
-
             } else {
                 circle.classList.remove("active");
                 circle.classList.remove("atrasado");
                 circle.classList.remove("terminado");
-
 
             }
         });
@@ -110,22 +122,20 @@
             var r = confirm("  ¿desea marcar como terminado  el proyecto?");
             if (r == true) {
                 // txt = "You pressed OK!";
-                
-                window.location.href = "/proyecto/terminar/"+ id_proyecto;
 
-            } 
+                window.location.href = "/proyecto/terminar/" + id_proyecto;
 
-
+            }
 
         } else {
 
- var r = confirm( " Este proyecto aun no esta terminado.\n ¿Desea marcarlo como cancelado?");
+            var r = confirm(" Este proyecto aun no esta terminado.\n ¿Desea marcarlo como cancelado?");
             if (r == true) {
                 // txt = "You pressed OK!";
-                
-                window.location.href = "/proyecto/terminar/"+ id_proyecto;
 
-            } 
+                window.location.href = "/proyecto/terminar/" + id_proyecto;
+
+            }
         }
 
     }
