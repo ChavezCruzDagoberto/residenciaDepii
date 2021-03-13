@@ -263,6 +263,7 @@ router.get('/listartodo', esAdministrador, estaLogueado, async (req, res) => {
 
 
 
+
 //ELIMINAR
 router.get('/delete/:id_proyecto', esAdministrador, async (req, res) => {
 
@@ -478,6 +479,119 @@ router.get('/detalle/:id_proyecto', estaLogueado,
   });
 
 
+
+  router.get('/listartodo1', esAdministrador, estaLogueado, async (req, res) => {
+    const cvu_tecnm = req.user.cvu_tecnm;
+    const proyectos = await conexion.query(
+      'select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
+    );
+    
+    
+  
+    for(i=0;i<proyectos.length;i++){
+      
+      let avanceActual=proyectos[i].estado;
+      let estadoActual=1;
+      let fechaActual = moment();
+      let fechaInicio = moment(proyectos[i].vigencia_inicio);
+  
+
+      let id_proyecto=proyectos[i].id_proyecto;
+      let fechas_inf = await conexion.query('select * from informe where id_proyecto=? order by no_informe asc', [id_proyecto]);
+
+
+      switch (avanceActual) {
+        case 1:
+  
+          if (fechaActual.diff(fechaInicio, 'month') > 0)
+            estadoActual = 2;
+  
+          break;
+  
+        case 2: //protocolo
+          if (fechaActual.diff(fechaInicio, 'month') > 1)
+            estadoActual = 2;
+  
+  
+          break;
+        case 3://material y servicio
+        
+          let inf1_f = moment(fechas_inf[0].fecha_fin);
+          if (fechaActual.isAfter(inf1_f)) estadoActual = 2;
+  
+  
+          break;
+        case 4:
+          let inf2_f = moment(fechas_inf[1].fecha_fin);
+          if (fechaActual.isAfter(inf2_f)) estadoActual = 2;
+          break;
+        case 5:
+          let inf3_f = moment(fechas_inf[2].fecha_fin);
+          if (fechaActual.isAfter(inf3_f)) estadoActual = 2;
+  
+          break;
+        case 6:
+          let inff_f = moment(fechas_inf[3].fecha_fin);
+          if (fechaActual.isAfter(inff_f)) estadoActual = 2;
+  
+          break;
+        case 7:
+  
+          estadoActual = 1;
+  
+          break;
+        case 8:
+          estadoActual = 3;
+          break;
+        case 9:
+          estadoActual = 4;
+          break;
+        default:
+          break;
+      }
+
+      proyectos[i].tiempo=estadoActual;
+  
+  
+    }
+   var final=formatearFechas1(proyectos);
+    res.render('proyecto/listStatus', { proyectos: final });
+  });
+
+
+  function formatearFechas1(proyecto) {
+    const formato = 'YYYY-MM-DD ';
+    const formato1 = 'LLL';
+    let editado = [];
+    for (const p in proyecto) {
+      let f = moment(proyecto[p].fecha_sometido);
+      let g = moment(proyecto[p].fecha_dictamen);
+  
+      //let fecha_inicio=f.format('LLL');
+      //let fecha_fin=g.format('LLL');
+      let fecha_sometido = f.format(formato1);
+      let fecha_dictamen = g.format(formato1);
+      const a = {
+        id_proyecto: proyecto[p].id_proyecto,
+        titulo: proyecto[p].titulo,
+        modalidad: proyecto[p].modalidad,
+        fecha_sometido,
+        fecha_dictamen,
+        clave_financiamiento: proyecto[p].clave_financiamiento,
+        nombre: proyecto[p].nombre,
+        avance:proyecto[p].estado,
+        estado:proyecto[p].tiempo,
+
+        
+  
+      };
+      editado.push(a);
+  
+    }
+    return editado;
+  
+  }
+  
 
 
 router.get('/regresar', esLider, async (req, res) => {
