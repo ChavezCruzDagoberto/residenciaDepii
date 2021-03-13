@@ -17,26 +17,31 @@
                     <h1> Lista de entregables. </h1>
                 </div>
 
-                <table class="table-responsive-sm table-hover table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">cantidad</th>
-                            <th scope="col">Contribucion</th>
-                           <!-- <th scope="col">Guardar cambios</th> -->
-                            <!--<th scope="col">Eliminar</th>-->
-                        </tr>
-                    </thead>
+                <div class="container">
+                    <div class=" row mx-auto">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover" cellspacing="0"
+                                    width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Contribucion</th>
+                                            <!-- <th scope="col">Guardar cambios</th> -->
+                                            <!--<th scope="col">Eliminar</th>-->
+                                        </tr>
+                                    </thead>
 
-                    <tbody>
-                        {{#each consulta}}
-                        <form action="/entregable/edit" method="POST">
-                            <tr>
-                                <th>{{nombre}}</th>
-                                <!--<td><input type="text" value="{{cantidad}}" name="cantidad" class="form-control"></td>-->
-                                <td>{{cantidad}}</td>
-                                <td>{{contribucion}}</td>
-        <!--
+                                    <tbody>
+                                        {{#each consulta}}
+                                        <form action="/entregable/edit" method="POST">
+                                            <tr>
+                                                <th>{{nombre}}</th>
+                                                <!--<td><input type="text" value="{{cantidad}}" name="cantidad" class="form-control"></td>-->
+                                                <td>{{cantidad}}</td>
+                                                <td>{{contribucion}}</td>
+                                                <!--
                                 <td>
                                     <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
                                     <input type="hidden" value="{{id_entregable}}" name="id_entregable">
@@ -47,26 +52,30 @@
                                 <td><a href="/entregable/delete/{{id_entregable}}/{{id_proyecto}}"
                                         class="btn btn-outline-danger">
                                         <i class="far fa-trash-alt"></i>&ensp;Eliminar </a></td>-->
-                            </tr>
-                        </form>
+                                            </tr>
+                                        </form>
 
-                        {{!-- En caso de no encontrar ningun entregable --}}
-                        {{else}}
+                                        {{!-- En caso de no encontrar ningun entregable --}}
+                                        {{else}}
 
-                        <div class="card bg-light mb-3" style="max-width: 50rem;">
-                            <div class="card-header" align="left"> ¡MENSAJE! </div>
-                            <div class="card-body">
-                                <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN ENTREGABLE. </p>
-                                {{#if lider}}
-                                <a href="/entregable/add/{{id_proyecto}}"> Crear nuevo. </a>
-                                {{/if}}
+                                        <div class="card bg-light mb-3" style="max-width: 50rem;">
+                                            <div class="card-header" align="left"> ¡MENSAJE! </div>
+                                            <div class="card-body">
+                                                <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN ENTREGABLE. </p>
+                                                {{#if lider}}
+                                                <a href="/entregable/add/{{id_proyecto}}"> Crear nuevo. </a>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+
+                                        {{/each}}
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                        {{/each}}
-
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

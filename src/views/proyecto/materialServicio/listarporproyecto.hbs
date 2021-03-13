@@ -17,58 +17,75 @@
                     <h1> Lista de materiales y servicios. </h1>
                 </div>
 
-                <table class="table-responsive-sm table-hover table-bordered table-striped">
+                <div class="container">
+                    <div class=" row mx-auto">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover" cellspacing="0"
+                                    width="100%">
 
-                    <thead>
-                        <tr>
-                            <th scope="col">Material / Servicio</th>
-                            <th scope="col">Clave subpartida</th>
-                            <th scope="col">Monto</th>
-                        </tr>
-                    </thead>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Material / Servicio</th>
+                                            <th scope="col">Clave subpartida</th>
+                                            <th scope="col">Monto</th>
+                                            <th scope="col">Cambios</th>
+                                            <th scope="col">Eliminar</th>
+                                        </tr>
+                                    </thead>
 
-                    <tbody>
-                        {{#each consulta}}
-                        <form action="/materialServicio/edit" method="POST">
-                            <tr>
-                                <th>{{descripcionms}}</th>
-                                <td>{{clave_subpartida}}</td>
-                                <td><input type="text" value="{{monto_solicitado}}" name="monto_solicitado"></td>
+                                    <tbody>
+                                        {{#each consulta}}
+                                        <form action="/materialServicio/edit" method="POST">
+                                            <tr>
+                                                <th>{{descripcionms}}</th>
+                                                <td>{{clave_subpartida}}</td>
+                                                <td><input type="text" value="{{monto_solicitado}}"
+                                                        name="monto_solicitado"></td>
 
-                                <td>
-                                    <input type="hidden" value="{{clave_subpartida}}" name="clave_subpartida">
-                                    <input type="hidden" value="{{descripcionms}}" name="descripcionms">
-                                    <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
-                                    <input type="hidden" value="{{id_material_servicio}}" name="id_material_servicio">
-                                    <button class="btn btn-outline-success"><i class="fas fa-save"></i>&ensp;Guardar
-                                        cambios</button>
-                                </td>
+                                                <td>
+                                                    <input type="hidden" value="{{clave_subpartida}}"
+                                                        name="clave_subpartida">
+                                                    <input type="hidden" value="{{descripcionms}}" name="descripcionms">
+                                                    <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
+                                                    <input type="hidden" value="{{id_material_servicio}}"
+                                                        name="id_material_servicio">
+                                                    <button class="btn btn-outline-success"><i
+                                                            class="fas fa-save"></i>&ensp;Guardar
+                                                        cambios</button>
+                                                </td>
 
-                                <td>
-                                    <a href="/materialServicio/delete/{{id_material_servicio}}/{{id_proyecto}}"
-                                        class="btn btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a>
-                                </td>
+                                                <td>
+                                                    <a href="/materialServicio/delete/{{id_material_servicio}}/{{id_proyecto}}"
+                                                        class="btn btn-outline-danger"><i
+                                                            class="fas fa-trash"></i>&ensp;Eliminar</a>
+                                                </td>
 
-                            </tr>
-                        </form>
+                                            </tr>
+                                        </form>
 
-                        {{!-- En caso de que no haya nada registrado --}}
-                        {{else}}
+                                        {{!-- En caso de que no haya nada registrado --}}
+                                        {{else}}
 
-                        <div class="card bg-light mb-3" style="max-width: 50rem;">
-                            <div class="card-header" align="left"> ¡MENSAJE! </div>
-                            <div class="card-body">
-                                <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN MATERIAL Y SERVICIO. </p>
-                                {{#if lider}}
-                                <a href="/materialServicio/add/{{id_proyecto}}"> Crear nuevo. </a>
-                                {{/if}}
+                                        <div class="card bg-light mb-3" style="max-width: 50rem;">
+                                            <div class="card-header" align="left"> ¡MENSAJE! </div>
+                                            <div class="card-body">
+                                                <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN MATERIAL Y
+                                                    SERVICIO. </p>
+                                                {{#if lider}}
+                                                <a href="/materialServicio/add/{{id_proyecto}}"> Crear nuevo. </a>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+
+                                        {{/each}}
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                        {{/each}}
-
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -16,47 +16,57 @@
           <h1> Lista de informes </h1>
         </div>
 
-        <table class="table-responsive-sm table-bordered table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col"> No. Informe </th>
-              <th scope="col"> Fecha de inicio </th>
-              <th scope="col"> Fecha final </th>
-              <th scope="col"> Cambiar fechas </th>
-              <th scope="col"> Visualizar </th>
-            </tr>
-          </thead>
+        <div class="container">
+          <div class=" row mx-auto">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th scope="col"> No. Informe </th>
+                      <th scope="col"> Fecha de inicio </th>
+                      <th scope="col"> Fecha final </th>
+                      <th scope="col"> Cambiar fechas </th>
+                      <th scope="col"> Visualizar </th>
+                    </tr>
+                  </thead>
 
-          <tbody>
-            {{#each consulta}}
-            <form action="/informe/edit/{{id_informe}}" method="POST">
-              <tr>
-                <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
-                <td><input type="text" class="form-control" value="{{fecha_inicio}}" name="fecha_inicio"></td>
-                <td><input type="text" class="form-control" value="{{fecha_fin}}" name="fecha_fin"></td>
+                  <tbody>
+                    {{#each consulta}}
+                    <form action="/informe/edit/{{id_informe}}" method="POST">
+                      <tr>
+                        <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
+                        <td><input type="text" class="" value="{{fecha_inicio}}" name="fecha_inicio"></td>
+                        <td><input type="text" class="" value="{{fecha_fin}}" name="fecha_fin"></td>
 
-                <td>
-                  <button class="btn btn-outline-success"><i class="fas fa-save"></i>&ensp; Guardar cambios</button>
-                </td>
-                <td><a href="/informe/verInforme/{{id_informe}}/{{id_proyecto}}" class="btn btn-outline-info"><i class="far fa-eye"></i>&ensp;Ver </a></td>
+                        <td>
+                          <button class="btn btn-outline-success"><i class="fas fa-save"></i>&ensp; Guardar
+                            cambios</button>
+                        </td>
+                        <td><a href="/informe/verInforme/{{id_informe}}/{{id_proyecto}}" class="btn btn-outline-info"><i
+                              class="far fa-eye"></i>&ensp;Ver </a></td>
 
-              </tr>
-              <input type="hidden" name="id_proyecto" id="" value="{{id_proyecto}}">
-            </form>
-            {{else}}
-            <div class="col-m4 mx-auto">
-              <div class="card card-body text-center">
-                <p>NO HAY NINGUN informe para este proyecto GUARDADO AUN </p>
-                {{#if lider}}
-                <a href="/informe/add"> CREAR NUEVO</a>
-                {{/if}}
+                      </tr>
+                      <input type="hidden" name="id_proyecto" id="" value="{{id_proyecto}}">
+                    </form>
+                    {{else}}
+                    <div class="col-m4 mx-auto">
+                      <div class="card card-body text-center">
+                        <p>NO HAY NINGUN informe para este proyecto GUARDADO AUN </p>
+                        {{#if lider}}
+                        <a href="/informe/add"> CREAR NUEVO</a>
+                        {{/if}}
+                      </div>
+                    </div>
+                    {{/each}}
+
+                  </tbody>
+                </table>
+
               </div>
             </div>
-            {{/each}}
-
-          </tbody>
-        </table>
-
+          </div>
+        </div>
       </div>
     </div>
   </div>

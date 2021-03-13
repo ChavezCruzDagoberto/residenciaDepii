@@ -16,64 +16,72 @@
           <h1> Ver informe </h1>
         </div>
 
-        <table class="table-responsive-sm table-bordered table-striped table-hover">
+        <div class="container">
+          <div class=" row mx-auto">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
 
-          <thead>
-            <tr>
-              <th scope="col"> Direccion del archivo </th>
-              <th scope="col"> Archivo </th>
+                  <thead>
+                    <tr>
+                      <th scope="col"> Direccion del archivo </th>
+                      <th scope="col"> Archivo </th>
 
-              {{#if admin}}
-              <th scope="col"> Anotar </th>
-              {{/if}}
+                      {{#if admin}}
+                      <th scope="col"> Anotar </th>
+                      {{/if}}
 
-            </tr>
-          </thead>
+                    </tr>
+                  </thead>
 
-          <tbody>
-            {{#if informe}}
-            <input type="hidden" name="observaciones" id="observaciones" value="{{informe.anotaciones}}">
+                  <tbody>
+                    {{#if informe}}
+                    <input type="hidden" name="observaciones" id="observaciones" value="{{informe.anotaciones}}">
 
-            <tr>
-              <th>{{informe.url_archivo}}</th>
-              <input type="hidden" name="id_proyecto" value="{{informe.id_proyecto}}">
-              <td><a href="/informe/leerInforme/{{informe.id_proyecto}}/{{informe.id_informe}}"
-                  class="btn btn-outline-success" target="blank"><i class="far fa-eye"></i> Ver </a></td>
+                    <tr>
+                      <th>{{informe.url_archivo}}</th>
+                      <input type="hidden" name="id_proyecto" value="{{informe.id_proyecto}}">
+                      <td><a href="/informe/leerInforme/{{informe.id_proyecto}}/{{informe.id_informe}}"
+                          class="btn btn-outline-success" target="blank"><i class="far fa-eye"></i> Ver </a></td>
 
-              {{#if admin}}
-              <td><a href="/informe/observaciones/{{informe.id_proyecto}}/{{informe.id_informe}}" id="anotar"
-                  class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i>&ensp;Anotar </a></td>
-              {{/if}}
+                      {{#if admin}}
+                      <td><a href="/informe/observaciones/{{informe.id_proyecto}}/{{informe.id_informe}}" id="anotar"
+                          class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i>&ensp;Anotar </a></td>
+                      {{/if}}
 
-            </tr>
+                    </tr>
 
-            {{!-- En caso de no encontrar informe --}}
-            {{else}}
+                    {{!-- En caso de no encontrar informe --}}
+                    {{else}}
 
-            <div class="card bg-light mb-3" style="max-width: 50rem;">
-              <div class="card-header" align="left"> ¡MENSAJE! </div>
-              <div class="card-body">
-                <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN INFORME. </p>
-                <a href="/informe/add"> Crear nuevo. </a>
+                    <div class="card bg-light mb-3" style="max-width: 50rem;">
+                      <div class="card-header" align="left"> ¡MENSAJE! </div>
+                      <div class="card-body">
+                        <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN INFORME. </p>
+                        <a href="/informe/add"> Crear nuevo. </a>
+                      </div>
+                    </div>
+
+                    <div class="col-m4 mx-auto">
+                      <div class="card card-body text-center">
+                        <p>NO TIENE AGREGADO SU INFORME AUN </p>
+                        <a href="/protocolo/add/{{id_proyecto}}"> CREAR NUEVO</a>
+                      </div>
+                    </div>
+
+                    {{/if}}
+
+                  </tbody>
+                </table><br><br><br>
+
+                <div class="d-flex justify-content-center">
+                  <div class="form-group" id="obs"></div>
+                </div>
+
               </div>
             </div>
-
-            <div class="col-m4 mx-auto">
-              <div class="card card-body text-center">
-                <p>NO TIENE AGREGADO SU INFORME AUN </p>
-                <a href="/protocolo/add/{{id_proyecto}}"> CREAR NUEVO</a>
-              </div>
-            </div>
-
-            {{/if}}
-
-          </tbody>
-        </table><br><br><br>
-
-        <div class="d-flex justify-content-center">
-          <div class="form-group" id="obs"></div>
+          </div>
         </div>
-
       </div>
     </div>
   </div>

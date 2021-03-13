@@ -16,54 +16,63 @@
           <h1> Ver protocolo </h1>
         </div>
 
-        <table class="table-responsive-sm table-bordered table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Nombre del Archivo</th>
-              <th scope="col">URL</th>
+        <div class="container">
+          <div class=" row mx-auto">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre del Archivo</th>
+                      <th scope="col">URL</th>
 
-              {{#if admin}}
-              <th scope="col">Anotaciones</th>
-              {{/if}}
-            </tr>
-          </thead>
+                      {{#if admin}}
+                      <th scope="col">Anotaciones</th>
+                      {{/if}}
+                    </tr>
+                  </thead>
 
-          <tbody>
-            {{#if protocolo}}
-            <tr>
-              <th>{{protocolo.nombre_archivo}}</th>
-              <input type="hidden" name="id_proyecto" value="{{protocolo.id_proyecto}}">
-              <input type="hidden" name="observaciones" id="observaciones" value="{{protocolo.anotaciones}}">
-              <td><a href="/protocolo/leer/{{protocolo.id_proyecto}}" class="btn btn-outline-success" target="blank"><i
-                    class="far fa-eye"></i>&ensp;Ver</a>
-              </td>
+                  <tbody>
+                    {{#if protocolo}}
+                    <tr>
+                      <th>{{protocolo.nombre_archivo}}</th>
+                      <input type="hidden" name="id_proyecto" value="{{protocolo.id_proyecto}}">
+                      <input type="hidden" name="observaciones" id="observaciones" value="{{protocolo.anotaciones}}">
+                      <td><a href="/protocolo/leer/{{protocolo.id_proyecto}}" class="btn btn-outline-success"
+                          target="blank"><i class="far fa-eye"></i>&ensp;Ver</a>
+                      </td>
 
-              {{#if admin}}
-              <td><a href="/protocolo/observaciones/{{id_proyecto}}" class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i>&ensp;Realizar observaciones</a>
-              </td>
-              {{/if}}
-            </tr>
+                      {{#if admin}}
+                      <td><a href="/protocolo/observaciones/{{id_proyecto}}" class="btn btn-outline-warning"><i
+                            class="fas fa-pencil-alt"></i>&ensp;Realizar observaciones</a>
+                      </td>
+                      {{/if}}
+                    </tr>
 
-            {{!-- En caso de no encontrar ningun protocolo --}}
-            {{else}}
-            <div class="card bg-light mb-3" style="max-width: 50rem;">
-              <div class="card-header" align="left"> ¡MENSAJE! </div>
-              <div class="card-body">
-                <p class="card-text"> NO SE ENCUENTRA REGISTRADO EL PROTOCOLO. </p>
-                {{#if lider}}
-                <a href="/protocolo/add/{{id_proyecto}}"> Crear nuevo. </a>
-                {{/if}}
+                    {{!-- En caso de no encontrar ningun protocolo --}}
+                    {{else}}
+                    <div class="card bg-light mb-3" style="max-width: 50rem;">
+                      <div class="card-header" align="left"> ¡MENSAJE! </div>
+                      <div class="card-body">
+                        <p class="card-text"> NO SE ENCUENTRA REGISTRADO EL PROTOCOLO. </p>
+                        {{#if lider}}
+                        <a href="/protocolo/add/{{id_proyecto}}"> Crear nuevo. </a>
+                        {{/if}}
+                      </div>
+                    </div>
+                    {{/if}}
+
+                  </tbody>
+                </table><br><br><br>
+
+                <div class="form-group" id="entrada">
+
+                </div>
+
               </div>
             </div>
-            {{/if}}
-
-          </tbody>
-        </table><br><br><br>
-
-        <div class="form-group" id="entrada">
-
+          </div>
         </div>
-
       </div>
     </div>
   </div>

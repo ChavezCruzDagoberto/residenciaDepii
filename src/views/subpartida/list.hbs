@@ -18,51 +18,59 @@
         </div>
 
         {{!-- Comienza la tabla --}}
-        <table class="table-responsive-sm table-bordered table-striped table-hover">
+        <div class="container">
+          <div class=" row mx-auto">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
 
-          {{!-- Cabecera de la tabla --}}
-          <thead>
-            <tr>
-              <th scope="col">Clave de la Partida</th>
-              <th scope="col">Subclave</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Eliminar subpartida</th>
-            </tr>
-          </thead>
+                  {{!-- Cabecera de la tabla --}}
+                  <thead>
+                    <tr>
+                      <th scope="col">Clave de la Partida</th>
+                      <th scope="col">Subclave</th>
+                      <th scope="col">Descripcion</th>
+                      <th scope="col">Editar</th>
+                      <th scope="col">Eliminar subpartida</th>
+                    </tr>
+                  </thead>
 
-          {{!-- Cuerpo de la tbala --}}
-          <tbody>
-            {{#each subpartidas}}
+                  {{!-- Cuerpo de la tbala --}}
+                  <tbody>
+                    {{#each subpartidas}}
 
-            <form action="/subpartida/edit/{{clave_subpartida}}" method="POST">
+                    <form action="/subpartida/edit/{{clave_subpartida}}" method="POST">
 
-              <tr>
-                <input type="hidden" name="clave_partida" value="{{clave_partida}}">
-                <th style="background-color: lightgray;">{{clave_partida}}</th>
-                <td>{{clave_subpartida}}</td>
-                <td><input type="text" value="{{descripcion}}" name="descripcion" class="form-control"></td>
-                <td align="center"><button class="btn btn-sm btn-outline-success"><i
-                      class="fas fa-save"></i>&ensp;Guardar cambios</button></td>
-                <td align="center"><a href="/subpartida/delete/{{clave_subpartida}}"
-                    class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
-              </tr>
+                      <tr>
+                        <input type="hidden" name="clave_partida" value="{{clave_partida}}">
+                        <th style="background-color: lightgray;">{{clave_partida}}</th>
+                        <td>{{clave_subpartida}}</td>
+                        <td><input type="text" value="{{descripcion}}" name="descripcion" class=""></td>
+                        <td align="center"><button class="btn btn-sm btn-outline-success"><i
+                              class="fas fa-save"></i>&ensp;Guardar cambios</button></td>
+                        <td align="center"><a href="/subpartida/delete/{{clave_subpartida}}"
+                            class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i>&ensp;Eliminar</a></td>
+                      </tr>
 
-            </form>
+                    </form>
 
-            {{!-- En caso de no encontrar subpartidas --}}
-            {{else}}
-            <div class="col-m4 mx-auto">
-              <div class="card card-body text-center">
-                <p>NO HAY NINGUNA SUBPARTIDA GUARDADO AUN </p>
-                <a href="/subpartida/add"> CREAR NUEVO</a>
+                    {{!-- En caso de no encontrar subpartidas --}}
+                    {{else}}
+                    <div class="col-m4 mx-auto">
+                      <div class="card card-body text-center">
+                        <p>NO HAY NINGUNA SUBPARTIDA GUARDADO AUN </p>
+                        <a href="/subpartida/add"> CREAR NUEVO</a>
+                      </div>
+                    </div>
+                    {{/each}}
+
+                  </tbody>
+                </table>
+
               </div>
             </div>
-            {{/each}}
-
-          </tbody>
-        </table>
-
+          </div>
+        </div>
       </div>
     </div>
   </div>

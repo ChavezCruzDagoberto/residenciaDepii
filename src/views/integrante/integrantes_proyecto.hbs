@@ -17,61 +17,71 @@
           <h1> Lista de integrantes. </h1>
         </div>
 
-        <table class="table-responsive-sm table-hover table-bordered table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Rol</th>
-              <th scope="col">No. CVU TecNM</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Plantel de Adscripcion</th>
-              <th scope="col">Eliminar integrante</th>
-              <th scope="col">Editar integrante</th>
-            </tr>
-          </thead>
+        <div class="container">
+          <div class=" row mx-auto">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th scope="col">Rol</th>
+                      <th scope="col">No. CVU TecNM</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Plantel de Adscripcion</th>
+                      <th scope="col">Eliminar integrante</th>
+                      <th scope="col">Editar integrante</th>
+                    </tr>
+                  </thead>
 
-          <tbody>
-            {{#each integrantes}}
+                  <tbody>
+                    {{#each integrantes}}
 
-            <tr>
-              <th>{{rol_proyecto}}</th>
-              <th>{{cvu_tecnm}}</th>
-              <td>{{nombre}} {{apellido1}} {{apellido2}}</td>
-              <td>{{plantel_adscripcion}}</td>
-              <td><a href="/integrantes/proyecto/delete/{{cvu_tecnm}}/{{id_proyecto}}" class="btn btn-outline-danger"
-                  id="prueba"><i class="far fa-trash-alt"></i>&ensp;Eliminar </a></td>
-              <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-outline-warning"><i
-                    class="fas fa-pencil-alt"></i>&ensp;Editar</a></td>
+                    <tr>
+                      <th>{{rol_proyecto}}</th>
+                      <th>{{cvu_tecnm}}</th>
+                      <td>{{nombre}} {{apellido1}} {{apellido2}}</td>
+                      <td>{{plantel_adscripcion}}</td>
+                      <td><a href="/integrantes/proyecto/delete/{{cvu_tecnm}}/{{id_proyecto}}"
+                          class="btn btn-outline-danger" id="prueba"><i class="far fa-trash-alt"></i>&ensp;Eliminar </a>
+                      </td>
+                      <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-outline-warning"><i
+                            class="fas fa-pencil-alt"></i>&ensp;Editar</a></td>
 
-            </tr>
-            {{else}}
-            {{#if lider}}
-            <div class="col-m4 mx-auto">
-              <div class="card card-body text-center">
-                <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
-                <a href="/integrantes/add"> AGREGAR NUEVO </a>
+                    </tr>
+                    {{else}}
+                    {{#if lider}}
+                    <div class="col-m4 mx-auto">
+                      <div class="card card-body text-center">
+                        <p>NO HAY NINGUN PARTICIPANTE GUARDADO AUN </p>
+                        <a href="/integrantes/add"> AGREGAR NUEVO </a>
+                      </div>
+                    </div>
+                    {{/if}}
+                    {{/each}}
+
+                  </tbody>
+                </table>
+
               </div>
             </div>
-            {{/if}}
-            {{/each}}
-
-          </tbody>
-        </table>
-
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-  {{!-- Media queries --}}
-  <style>
-    @media (min-width: 768px) {
-      #contenedorprincipal {
-        width: 75% !important;
-      }
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
     }
+  }
 
-    @media (max-width: 767px) {
-      #principal {
-        margin-left: 0px !important;
-      }
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
     }
-  </style>
+  }
+</style>
