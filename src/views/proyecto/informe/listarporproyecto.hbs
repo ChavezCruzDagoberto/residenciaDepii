@@ -20,13 +20,13 @@
           <div class=" row mx-auto">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                <table class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th scope="col"> No. Informe </th>
                       <th scope="col"> Fecha de inicio </th>
                       <th scope="col"> Fecha final </th>
-                      <th scope="col"> Cambiar fechas </th>
+                      <th scope="col"> Cambiar </th>
                       <th scope="col"> Visualizar </th>
                     </tr>
                   </thead>
@@ -40,10 +40,10 @@
                         <td><input type="text" class="" value="{{fecha_fin}}" name="fecha_fin"></td>
 
                         <td>
-                          <button class="btn btn-outline-success"><i class="fas fa-save"></i>&ensp; Guardar
+                          <button class="btn btn-outline-success btn-sm"><i class="fas fa-save"></i>&ensp; Guardar
                             cambios</button>
                         </td>
-                        <td><a href="/informe/verInforme/{{id_informe}}/{{id_proyecto}}" class="btn btn-outline-info"><i
+                        <td><a href="/informe/verInforme/{{id_informe}}/{{id_proyecto}}" class="btn btn-outline-info btn-sm"><i
                               class="far fa-eye"></i>&ensp;Ver </a></td>
 
                       </tr>

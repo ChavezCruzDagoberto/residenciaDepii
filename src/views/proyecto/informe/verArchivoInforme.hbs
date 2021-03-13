@@ -20,7 +20,7 @@
           <div class=" row mx-auto">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                <table class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
 
                   <thead>
                     <tr>
@@ -42,11 +42,11 @@
                       <th>{{informe.url_archivo}}</th>
                       <input type="hidden" name="id_proyecto" value="{{informe.id_proyecto}}">
                       <td><a href="/informe/leerInforme/{{informe.id_proyecto}}/{{informe.id_informe}}"
-                          class="btn btn-outline-success" target="blank"><i class="far fa-eye"></i> Ver </a></td>
+                          class="btn btn-outline-success btn-sm" target="blank"><i class="far fa-eye"></i> Ver </a></td>
 
                       {{#if admin}}
                       <td><a href="/informe/observaciones/{{informe.id_proyecto}}/{{informe.id_informe}}" id="anotar"
-                          class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i>&ensp;Anotar </a></td>
+                          class="btn btn-outline-warning btn-sm"><i class="fas fa-pencil-alt"></i>&ensp;Anotar </a></td>
                       {{/if}}
 
                     </tr>
