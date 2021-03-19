@@ -22,14 +22,15 @@
                         <div class="progress-container">
 
                             <div class="progress" id="progress"></div>
-                            <div class="circle active"><i class="fas fa-folder-open"></i></div>
-                            <div class="circle "><i class="far fa-file-alt"></i></div>
-                            <div class="circle "><i class="fas fa-list-ul"></i> </div>
-                            <div class="circle "><i class="far fa-check-circle"></i></div>
-                            <div class="circle "><i class="far fa-check-circle"></i></div>
-                            <div class="circle "><i class="far fa-check-circle"></i></div>
-                            <div class="circle "><i class="far fa-check-circle"></i></div>
-                            <div class="circle "><i class="far fa-flag"></i></div>
+                            
+                            <div class="circle active" title="Proyecto creado.Click para visualizarlo" ><a href="/proyecto"><i class="fas fa-folder-open"></i></a></div>
+                            <div class="circle " title="Cargar protocolo"><a href="/protocolo/{{proyectodisponible.id_proyecto}}"><i class="far fa-file-alt"></i></a></div>
+                            <div class="circle " title="Cargar Material y Servicio. Cargar Entregables"><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}"><i class="fas fa-list-ul"></i> </a></div>
+                            <div class="circle " title="Cargar PDF informe 1"><a href=""><i class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Cargar PDF informe 2"><a href=""><i class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Cargar PDF informe 3"><a href=""><i class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Cargar PDF informe 4"><a href=""><i class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Proyecto Terminado"><i class="far fa-flag"></i></div>
 
                         </div>
                     </div>
@@ -137,6 +138,11 @@
 
             }
         }
+
+    }
+
+    function mensaje1(){
+
 
     }
 </script>

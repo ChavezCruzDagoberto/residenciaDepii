@@ -51,12 +51,11 @@ router.post('/add', esLider, async (req, res) => {
       const fecha_sometido = req.body.fecha_sometido;
       const fecha_dictamen = req.body.fecha_dictamen;
 
-      const { titulo, modalidad } = req.body;
+      const { titulo } = req.body;
       var creado = moment().format('YYYY-MM-DD');
 
       const newProyecto = {
         titulo,
-        modalidad,
         fecha_sometido,
         fecha_dictamen,
         clave_financiamiento,
@@ -335,11 +334,10 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
     const { id_proyecto } = req.params;
     estado = 1;
 
-    const { titulo, modalidad, fecha_sometido, fecha_dictamen, clave_financiamiento } = req.body;
+    const { titulo,  fecha_sometido, fecha_dictamen, clave_financiamiento } = req.body;
 
     const newProyecto = {
       titulo,
-      modalidad,
       fecha_sometido,
       fecha_dictamen,
       clave_financiamiento,

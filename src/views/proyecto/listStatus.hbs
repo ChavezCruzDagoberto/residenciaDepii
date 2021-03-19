@@ -37,13 +37,13 @@
                   <thead>
                     <tr>
                       <th scope="col">Nombre del proyecto</th>
-                      <th scope="col">Modalidad</th>
+                      <th scope="col" hidden>Modalidad</th>
                       <th scope="col">Fecha sometido</th>
                       <th scope="col">Fecha dictamen </th>
                       <th scope="col">Financiamiento</th>
                       <th scope="col">Responsable</th>
                       <th scope="col" hidden>Estado</th>
-                      <th scope="col" hidden>Detalle</th>
+                      <th scope="col" >Detalle</th>
                       
                     </tr>
                   </thead>
@@ -53,7 +53,7 @@
                     {{#each proyectos}}
                     <tr>
                       <th>{{titulo}}</th>
-                      <td>{{modalidad}}</td>
+                      <td hidden>{{modalidad}}</td>
                       <td>{{fecha_sometido}}</td>
                       <td>{{fecha_dictamen}}</td>
                       <td>{{clave_financiamiento}}</td>

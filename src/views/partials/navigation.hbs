@@ -388,6 +388,9 @@
 
       {{!-- Si es administrador y entro a los detalles de su proyecto --}}
       {{#if proyectodisponible}}
+       <li data-toggle="collapse" data-target="#productsz" class="collapsed active">
+        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-book"></i>&ensp;Dashboard <span class="arrow"></span></a>
+      </li>
 
       {{!-- Protocolo --}}
       <li data-toggle="collapse" data-target="#service" class="collapsed active">
