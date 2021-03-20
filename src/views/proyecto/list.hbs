@@ -23,7 +23,7 @@
             <div class="col-lg-12">
               <div class="table-responsive">
                 <table class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
-
+                    {{#if proyectos}}
                   {{!-- Cabecera de la tabla --}}
                   <thead>
                     <tr>
@@ -38,7 +38,7 @@
                       <th scope="col">Detalles</th>
                     </tr>
                   </thead>
-
+                  {{/if}}
                   {{!-- Cuerpo de la tabla --}}
                   <tbody>
                     {{#each proyectos}}

@@ -16,6 +16,7 @@
         <div class="w-100 mb-5">
           <h1> Lista de proyectos. </h1>
         </div>
+        {{#if proyectos}}
         <h6>Status:</h6>
          <div class="">
   <button id="general" onclick="filtrar(event)" type="button" class="btn btn-default">Todos</button>
@@ -24,7 +25,7 @@
   <button id="terminado" onclick="filtrar(event)" type="button" class="btn btn-primary">Terminado</button>
   <button id="cancelado" onclick="filtrar(event)" type="button" class="btn btn-danger">Cancelado</button>
 </div>
-
+{{/if}}
         {{!-- Comienza la tabla --}}
         <div class="container">
                
@@ -32,7 +33,7 @@
             <div class="col-lg-12">
               <div class="table-responsive">
                 <table id="table" class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
-
+                    {{#if proyectos}}
                   {{!-- Cabecera de la tabla --}}
                   <thead>
                     <tr>
@@ -47,6 +48,7 @@
                       
                     </tr>
                   </thead>
+                  {{/if}}
 
                   {{!-- Cuerpo de la tabla --}}
                   <tbody>
