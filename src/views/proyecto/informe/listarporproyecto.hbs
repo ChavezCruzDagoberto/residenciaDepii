@@ -13,7 +13,7 @@
       <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
 
         <div class="w-100 mb-5">
-          <h1> Lista de informes </h1>
+          <h1> Lista de informes  </h1>
         </div>
 
         <div class="container">
@@ -36,8 +36,8 @@
                     <form action="/informe/edit/{{id_informe}}" method="POST">
                       <tr>
                         <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
-                        <td><input type="text" class="" value="{{fecha_inicio}}" name="fecha_inicio"></td>
-                        <td><input type="text" class="" value="{{fecha_fin}}" name="fecha_fin"></td>
+                        <td><input type="text" class="" value="{{fecha_inicio}}" name="fecha_inicio" readonly></td>
+                        <td><input type="date" class="" value="{{fecha_fin}}" min="{{fecha_fin}}" name="fecha_fin" required></td>
 
                         <td>
                           <button class="btn btn-outline-success btn-sm"><i class="fas fa-save"></i>&ensp; Guardar
