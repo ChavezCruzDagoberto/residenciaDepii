@@ -18,7 +18,7 @@ router.get('/add', async (req, res) => {
 router.get('/add/:clave_financiamiento', async (req, res) => {
   const { clave_financiamiento } = req.params;
   const partidas = await conexion.query('select a.clave_partida from (select distinct clave_partida from detalle_partida)as a left join(select clave_partida from financiamiento_partida where clave_financiamiento = ? )as b on a.clave_partida=b.clave_partida where b.clave_partida is null', [clave_financiamiento]);
-  console.log('partidas', partidas.length);
+ // console.log('partidas', partidas.length);
   if (partidas.length > 0) {
     res.render('partida/add_financiamiento', { partidas: partidas, clave: clave_financiamiento })
   } else {
@@ -31,7 +31,7 @@ router.get('/add/:clave_financiamiento', async (req, res) => {
 
 router.post('/add/a', async (req, res) => {
   const { clave_financiamiento, clave_partida, monto_aprobado } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
 
   if (clave_partida != null && monto_aprobado != null) {
     if (Array.isArray(clave_partida) && Array.isArray(monto_aprobado)) {
@@ -126,7 +126,7 @@ router.get('/', esAdministrador, async (req, res) => {
 
   const partidas = await conexion.query('SELECT * FROM  financiamiento_partida ');
 
-  console.log(partidas);
+  //console.log(partidas);
   res.render('partida/list', { partidas });
 });
 
@@ -156,7 +156,7 @@ router.post('/edit/:clave_financiamiento/:clave_partida',
 
   ], esAdministrador, async (req, res) => {
     const errores = validationResult(req);
-    console.log(errores.array());
+    //console.log(errores.array());
     if (errores.array().length > 0) {
 
       return res.status(400).json({ errores: errores.array() });

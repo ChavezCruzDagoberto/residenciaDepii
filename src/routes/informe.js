@@ -52,7 +52,7 @@ const upload = multer({ storage });
 
 router.get('/add', estaLogueado, async (req, res) => {
   let cvu_tecnm = req.user.cvu_tecnm;
-  console.log(cvu_tecnm);
+  //console.log(cvu_tecnm);
   let proyecto;
   //if(req.user.rol_sistema="Administrador"){}else{}
 
@@ -62,7 +62,7 @@ router.get('/add', estaLogueado, async (req, res) => {
 
 
 
-  console.log(proyecto);
+  //console.log(proyecto);
   if (proyecto.length > 0) {
     var no_informe = await conexion.query('select * from informe where id_proyecto=?', [proyecto[0].id_proyecto]);
     if (no_informe.length > 0) {
@@ -82,7 +82,7 @@ router.get('/add', estaLogueado, async (req, res) => {
 router.post('/add', estaLogueado, async (req, res) => {
 
 
-  console.log(req.body);
+  //console.log(req.body);
 
 
   const { id_proyecto, no_informe, fecha_inicio, fecha_fin } = req.body;
@@ -139,7 +139,7 @@ router.post('/add', estaLogueado, async (req, res) => {
 router.get('/', estaLogueado, async (req, res) => {
   var admin = req.user.rol_sistema;
   var proyecto;
-  console.log(admin);
+ // console.log(admin);
   var cvu_tecnm = req.user.cvu_tecnm;
   if (admin == "Administrador") {
 
@@ -150,7 +150,7 @@ router.get('/', estaLogueado, async (req, res) => {
 
   }
 
-  console.log(proyecto);
+  //console.log(proyecto);
   res.render('proyecto/informe/list', { proyecto });
 
 
@@ -161,24 +161,24 @@ router.get('/', estaLogueado, async (req, res) => {
 
 router.post('/listarinforme', estaLogueado, async (req, res) => {
   let { id_proyecto } = req.body;
-  console.log(id_proyecto);
+  //console.log(id_proyecto);
   let consulta = await conexion.query('select * from informe where ID_PROYECTO=?', [id_proyecto]);
 
 
   res.render('proyecto/informe/listarporproyecto', { consulta, id_proyecto: id_proyecto });
 
 
-  console.log(consulta);
+ // console.log(consulta);
 
 });
 
 
 router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
   let { id_proyecto } = req.params;
-  console.log(id_proyecto);
+ // console.log(id_proyecto);
   let consulta = await conexion.query('select * from informe where ID_PROYECTO=?', [id_proyecto]);
 
-  console.log(consulta);
+  //console.log(consulta);
 
   let ids_informes = [];
   let editado = [];
@@ -201,12 +201,12 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
     editado.push(a);
 
   }
-  console.log(ids_informes);
+  //console.log(ids_informes);
 
   let archivos = [];
   for (const aux in ids_informes) {
     var temporal = await conexion.query('select * from archivo_informes where id_informe=? and id_proyecto=?', [ids_informes[aux], id_proyecto]);
-    console.log(temporal);
+   // console.log(temporal);
   }
 
   if (req.user.rol_sistema == "Administrador") {
@@ -243,7 +243,7 @@ router.get('/delete/:id_informe', async (req, res) => {
 router.post('/edit/:id_informe', async (req, res) => {
 
   const { id_informe } = req.params;
-  console.log(req.params, req.body);
+ // console.log(req.params, req.body);
 
 
   const { no_informe, fecha_inicio, fecha_fin, id_proyecto } = req.body;
@@ -364,7 +364,7 @@ router.post('/cargar/:id_informe', upload.single('archivo'), async (req, res) =>
       var existe_base = await conexion.query('select * from archivo_informes where id_informe=? and id_proyecto=?', [id_informe, id_proyecto]);
       if (existe_base.length > 0) {
 
-        console.log(existe_base);
+        //console.log(existe_base);
         if (existe_base[0].revisiones < 2) {
 
           var int = (existe_base[0].intentos) + 1;
@@ -438,7 +438,7 @@ router.get('/verInforme/:id_informe/:id_proyecto', async (req, res) => {
 
 
   const resultado = await conexion.query('select * from archivo_informes where id_informe=? and  id_proyecto= ?', [id_informe, id_proyecto]);
-  console.log(resultado[0]);
+ // console.log(resultado[0]);
   res.render('proyecto/informe/verArchivoInforme', { informe: resultado[0], id_proyecto });
   //res.send('enviado')
 });
@@ -449,12 +449,12 @@ router.get('/leerInforme/:id_proyecto/:id_informe', async (req, res) => {
 
 
   const resultado = await conexion.query('select url_archivo from archivo_informes where id_proyecto= ? and id_informe=?', [id_proyecto, id_informe]);
-  console.log(resultado);
+  //console.log(resultado);
 
   if (resultado.length >= 1) {
     var url = urlCorrecto(resultado[0].url_archivo);
     url = './' + url;
-    console.log(url);
+    //console.log(url);
 
     //var archivo=fs.readFileSync(url,'UTF-8');
 
@@ -485,14 +485,14 @@ router.get('/observaciones/:id_proyecto/:id_informe', async (req, res) => {
   var validacion = await conexion.query('select * from archivo_informes where id_proyecto=? and id_informe=?', [id_proyecto, id_informe]);
 
   res.render('proyecto/informe/observacionesInforme', { id_proyecto, id_informe, validacion: validacion[0] });
-  console.log("validacion", validacion);
+  //console.log("validacion", validacion);
 
 });
 
 
 router.post('/observaciones/:id_proyecto/:id_informe', async (req, res) => {
 
-  console.log("post", req.body, req.params);
+ // console.log("post", req.body, req.params);
 
 
   const { anotaciones } = req.body;

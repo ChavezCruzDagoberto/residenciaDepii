@@ -41,7 +41,7 @@ passport.use('local.signin', new LocalStrategy({
         const validPassword = await helpers.comparePaswsorwd(password, user.password);
         if (validPassword) {
             
-            console.log("usuario",user);
+            //console.log("usuario",user);
             if(user.rol_sistema=='Responsable'){ req.app.locals.lider=user.rol_sistema;}
             if(user.rol_sistema=='Administrador'){req.app.locals.admin=user.rol_sistema;}
             done(null, user, req.flash('success', 'Bienvenido  ' + user.username));
@@ -74,7 +74,7 @@ passport.use('local.signup', new LocalStrategy({
     const valida = await conexion.query('select * from users WHERE CVU_TECNM=?', [cvu_tecnm]);
     const validacion1 = await conexion.query('select * from users WHERE username=?', [username]);
     //const validacion2 = await conexion.query('select * from users WHERE password=?', [password]);
-    console.log(validacion1.length);
+    //console.log(validacion1.length);
     if (valida.length > 0) {
         return done(null, false, req.flash('message', '  usuario ya tiene cuenta'));
     }
@@ -90,7 +90,7 @@ passport.use('local.signup', new LocalStrategy({
 
 
             const { rol_sistema } = req.body;
-            console.log(rol_sistema);
+            //console.log(rol_sistema);
             var estado = 1;
             const newUser = {
                 username,

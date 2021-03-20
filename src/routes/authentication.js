@@ -21,7 +21,7 @@ const intentos1=rateLimit({
 router.get('/singup', async (req, res) => {
 
     const responsables = await conexion.query('SELECT O.cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email FROM participante AS O LEFT JOIN users AS P ON O.cvu_tecnm = P.cvu_tecnm WHERE P.cvu_tecnm IS NULL ');
-   console.log(responsables);
+   //console.log(responsables);
     if (responsables.length > 0) { res.render('auth/singup', { responsables }); }
     else {
         req.flash('message', 'Todos  tienen cuenta agregue un nuevo participante');
@@ -45,7 +45,7 @@ router.post('/singup',
 
 ,(req,res,next)=>{
     const errores = validationResult(req);
-    console.log(errores.array());
+   // console.log(errores.array());
     if (errores.array().length > 0) {
 
         return res.status(400).json({ errores: errores.array() });

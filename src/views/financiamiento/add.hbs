@@ -210,9 +210,9 @@
         var combo = document.getElementById("select" + (incremento - 1));
         var texto = combo.options[combo.selectedIndex].value;
         combo.removeAttribute("disabled");
-        console.log(texto);
+        //console.log(texto);
         options.push(texto);
-        console.log(options);
+        //console.log(options);
         incremento = incremento - 1;
         bloque = document.getElementById('productos');
         bloque.removeChild(bloque.lastChild);
@@ -257,16 +257,14 @@
 
     function cambiofecha() {
         var inicial = document.getElementById("inicio");
-        console.log(inicial);
+        //console.log(inicial);
         var finicial = inicial.value;
         var start = new Date(finicial);
         start.setFullYear(start.getFullYear() + 1);
         var startf = start.toISOString().slice(0, 10).replace(/-/g, "/");
-        for (i = 0; i < startf; i++) {
-            console.log(startf[i]);
-        }
+        
         var final = startf.substring(8, 10) + "/" + startf.substring(5, 7) + "/" + startf.substring(0, 4);
-        console.log(final);
+        //console.log(final);
         document.getElementById("fin").value = final;
     }
 

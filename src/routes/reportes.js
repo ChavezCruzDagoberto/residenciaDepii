@@ -21,9 +21,9 @@ router.get('/proyectos', async (req, res) => {
         'select id_proyecto, cvu_tecnm,nombre,plantel_adscripcion,titulo,fecha_dictamen,clave_financiamiento,rol_proyecto from proyecto natural join proyecto_participante natural join participante'
       );
      
-      console.log(proyectos);
+      //console.log(proyectos);
       const final = formatearFechas(proyectos);
-      console.log(final);
+      //console.log(final);
     res.render('reportes/proyectos',{proyectos:final});
 
 });

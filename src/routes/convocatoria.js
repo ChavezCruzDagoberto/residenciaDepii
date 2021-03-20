@@ -12,7 +12,7 @@ const { check, validationResult } = require('express-validator');
 moment.locale('es');
 
 router.get('/add', esAdministrador, (req, res) => {
-    console.log(req.user);
+    //console.log(req.user);
     res.render('convocatoria/add');
 
 });
@@ -26,7 +26,7 @@ router.post('/add', esAdministrador, [
 ],
     async (req, res) => {
         const errores = validationResult(req);
-        console.log(errores.array());
+       // console.log(errores.array());
         if (errores.array().length > 0) {
 
             return res.status(400).json({ errores: errores.array() });
@@ -72,7 +72,7 @@ router.get('/',estaLogueado, async (req, res) => {
         con_editado.push(a);
 
     }
-    console.log(con_editado)
+    //console.log(con_editado)
     //convocatorias=con_editado;
     res.render('convocatoria/list', { convocatorias: con_editado });
 });
@@ -84,7 +84,7 @@ router.get('/delete/:id_convocatoria', esAdministrador, async (req, res) => {
 
     const { id_convocatoria } = req.params;
     await conexion.query('DELETE FROM  convocatoria  WHERE ID_CONVOCATORIA=?', [id_convocatoria]);
-    console.log(req.params.id_convocatoria);
+    //console.log(req.params.id_convocatoria);
     req.flash('success', id_convocatoria + ' eliminado  correctamente');
     res.redirect("/convocatoria");
 
@@ -100,7 +100,7 @@ router.get('/edit/:id_convocatoria', esAdministrador, async (req, res) => {
     const { id_convocatoria } = req.params;
 
     const nuevo = await conexion.query('SELECT * FROM  convocatoria  WHERE ID_CONVOCATORIA=?', [id_convocatoria]);
-    console.log(nuevo[0]);
+    //console.log(nuevo[0]);
 
 
     const fecha = moment(nuevo[0].fecha_cierre);
@@ -127,7 +127,7 @@ router.post('/edit/:id_convocatoria', esAdministrador,
     ], async (req, res) => {
 
         const errores = validationResult(req);
-        console.log(errores.array());
+        //console.log(errores.array());
         if (errores.array().length > 0) {
 
             return res.status(400).json({ errores: errores.array() });

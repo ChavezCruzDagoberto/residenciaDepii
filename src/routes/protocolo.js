@@ -57,7 +57,7 @@ router.get('/add/:id_proyecto', async (req, res) => {
 
         nombre = nombre[0].titulo;
 
-        console.log(resultado);
+        //console.log(resultado);
         res.render('proyecto/protocolo/subirprotocolo', { id_proyecto:id_proyecto ,resultado:resultado[0]});
     }
     else {
@@ -70,7 +70,7 @@ router.get('/add/:id_proyecto', async (req, res) => {
 //insertar a la base un link
 router.post('/add/:id_proyecto',upload.single('archivo'),async (req, res) => {
 
-    console.log( "hola",upload);
+   // console.log( "hola",upload);
 
 
     const { id_proyecto } = req.params;
@@ -132,7 +132,7 @@ router.get('/:id_proyecto', async (req, res) => {
 
 
     const resultado = await conexion.query('select * from protocolo where id_proyecto= ?', [id_proyecto]);
-    console.log(resultado[0]);
+   // console.log(resultado[0]);
     res.render('proyecto/protocolo/verProtocolo', { protocolo: resultado[0] ,id_proyecto});
     //res.send('enviado')
 });
@@ -140,14 +140,14 @@ router.get('/:id_proyecto', async (req, res) => {
 
 router.get('/leer/:id_proyecto', async (req, res) => {
     const { id_proyecto } = req.params;
-    console.log(id_proyecto);
+    //console.log(id_proyecto);
 
     const resultado = await conexion.query('select url_archivo from protocolo where id_proyecto= ?', [id_proyecto]);
-    console.log(resultado.length);
+    //console.log(resultado.length);
     if (resultado.length >= 1) {
         var url = urlCorrecto(resultado[0].url_archivo);
         url = './' + url;
-        console.log(url);
+       // console.log(url);
 
         //var archivo=fs.readFileSync(url,'UTF-8');
 
@@ -179,14 +179,14 @@ router.get('/observaciones/:id_proyecto',async(req,res)=>{
     var validacion=await conexion.query('select * from protocolo where id_proyecto=?',[id_proyecto]);
     
     res.render('proyecto/protocolo/observaciones',{id_proyecto,validacion:validacion[0]});
-console.log(validacion);
+//console.log(validacion);
 
 });
 
 
 router.post('/observaciones/:id_proyecto',async(req,res)=>{
 
-console.log("post",req.body,req.params);
+//console.log("post",req.body,req.params);
 
 
 const {anotaciones}=req.body;

@@ -21,7 +21,7 @@ router.get('/add', esLider, async (req, res) => {
 });*/
 router.get('/add', esLider, async (req, res) => {
   const cvu_tecnm = req.user.cvu_tecnm;
-  console.log(req.user);
+ // console.log(req.user);
   const valida = await conexion.query('select * from proyecto_participante where cvu_tecnm=?', [cvu_tecnm]);
 
 
@@ -44,7 +44,7 @@ router.post('/add', esLider, async (req, res) => {
     const validacion = await conexion.query('select * from proyecto WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     const validacion1 = await conexion.query('select * from financiamiento WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     //const validaconvocatoria = await conexion.query('select * from proyecto WHERE  id_convocatoria=?', [req.body.id_convocatoria]);
-    console.log(validacion.length, validacion1.length);
+    //console.log(validacion.length, validacion1.length);
     //console.log(validaconvocatoria.length);
     if (validacion.length == 0 && validacion1.length > 0) {
       const cvu_tecnm = req.user.cvu_tecnm;
@@ -226,7 +226,7 @@ router.get('/', estaLogueado, async (req, res) => {
     const cvu_tecnm = req.user.cvu_tecnm;
     const proyectos = await conexion.query('select * from  (select * from  proyecto natural join proyecto_participante natural join participante)as a  where cvu_tecnm=? and rol_proyecto="Responsable" and estado>=1 and estado<8 ', [cvu_tecnm]);
 
-    console.log('p', proyectos.length);
+    //console.log('p', proyectos.length);
     if (proyectos.length > 0) {
       var fecha1 = moment();
       var fecha2 = moment(proyectos[0].creado);
@@ -256,7 +256,7 @@ router.get('/listartodo', esAdministrador, estaLogueado, async (req, res) => {
     'select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
   );
   const final = formatearFechas(proyectos);
-  console.log(final);
+  //console.log(final);
   res.render('proyecto/list', { proyectos: final });
 });
 
@@ -355,7 +355,7 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
 
 
   } catch (error) {
-    console.log(req.user.rol_sistema);
+    //console.log(req.user.rol_sistema);
     if (error) {
       req.flash('message', ' Algo ha salido mal');
       res.redirect('/proyecto');
@@ -467,7 +467,7 @@ router.get('/detalle/:id_proyecto', estaLogueado,
     }
 
 
-    console.log(proyecto, protocolo, mys, inf, fechaActual, fechaInicio);
+    //console.log(proyecto, protocolo, mys, inf, fechaActual, fechaInicio);
 
     res.render('layouts/proyecto_responsable', { proyecto: proyecto[0], avance: avance, estado: estado });
     //res.render('proyecto/seguimiento');

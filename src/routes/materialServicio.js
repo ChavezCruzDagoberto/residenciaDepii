@@ -19,7 +19,7 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
     const solicitados = await conexion.query('select b.clave_partida,a.clave_subpartida,a.monto_solicitado  from material_servicio as a natural join detalle_partida as b where a.id_proyecto=?', [id_proyecto]);
     //console.log(solicitados);
     const montos = await conexion.query('select distinct(c.clave_partida),d.monto_aprobado from detalle_partida as c natural join financiamiento_partida as d where clave_financiamiento=?', [clave_financiamiento]);
-    console.log(montos, solicitados);
+    //console.log(montos, solicitados);
     var dinero_restate = [];
     for (var i = 0; i < montos.length; i++) {
       var restante = montos[i].monto_aprobado;
@@ -37,7 +37,7 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
     }
 
 
-    console.log(dinero_restate);
+   // console.log(dinero_restate);
 
 
 
@@ -52,7 +52,7 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
         }
       }
 
-      console.log(subpartidas);
+     // console.log(subpartidas);
     }
 
 
@@ -69,7 +69,7 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
 
 
 router.post('/add', estaLogueado, async (req, res) => {
-  console.log(req.body);
+ // console.log(req.body);
 
   const { descripcion, clave_subpartida, monto, id_proyecto } = req.body;
   const mysv = await conexion.query('select * from material_servicio where id_proyecto=?', [id_proyecto]);
@@ -82,7 +82,7 @@ router.post('/add', estaLogueado, async (req, res) => {
         monto_solicitado: monto[p]
 
       }
-      console.log(newMyS);
+    //  console.log(newMyS);
       if (mysv.length == 0) {
         await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{ estado: 3 }, id_proyecto]);
       }
@@ -100,7 +100,7 @@ router.post('/add', estaLogueado, async (req, res) => {
       monto_solicitado: monto
 
     }
-    console.log(newMySa);
+   // console.log(newMySa);
     if (mysv.length == 0) {
       await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{ estado: 3 }, id_proyecto]);
     }
@@ -155,12 +155,12 @@ contador--;
 router.get('/proyecto/:id_proyecto', estaLogueado, async (req, res) => {
   const { id_proyecto } = req.params;
   const consulta = await conexion.query('select * from material_servicio inner join detalle_partida on material_servicio.clave_subpartida=detalle_partida.clave_subpartida  where id_proyecto  =? ', [id_proyecto]);
-  console.log(consulta);
+  //console.log(consulta);
   let total=0;
   for(const i in consulta){
 total=total+consulta[i].monto_solicitado;
   }
-  console.log(consulta,total);
+  //console.log(consulta,total);
   res.render('proyecto/materialServicio/listarporproyecto', { consulta, id_proyecto ,total:total});
 });
 
@@ -177,7 +177,7 @@ router.post('/edit', async (req, res) => {
     clave_subpartida,
     monto_solicitado
   };
-  console.log(updateMyS);
+ // console.log(updateMyS);
 
   await conexion.query('UPDATE   material_servicio  set ? WHERE id_proyecto= ? and id_material_servicio=? ', [updateMyS, id_proyecto, id_material_servicio]);
 

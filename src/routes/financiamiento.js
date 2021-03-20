@@ -13,7 +13,7 @@ router.get('/add', esAdministrador,async (req, res) => {
 
 
     var consulta = await conexion.query('select distinct clave_partida from detalle_partida');
-    console.log(consulta);
+    //console.log(consulta);
     res.render('financiamiento/add1', {partidas:consulta});
 });
 
@@ -30,13 +30,13 @@ router.post('/add', esAdministrador ,[
     check('vigencia_inicio').notEmpty().isDate().withMessage("formato de fecha"),
 ],async (req, res) => {
     const errores = validationResult(req);
-        console.log(errores.array());
+        //console.log(errores.array());
         if (errores.array().length > 0) {
 
             return res.status(400).json({ errores: errores.array() });
 
         } else {
-    console.log(req.body);
+    //console.log(req.body);
     
     const { clave_financiamiento, vigencia_inicio, vigencia_fin ,clave_partida,monto_aprobado} = req.body;
     var final= vigencia_fin.substring(6,10)+"-"+vigencia_fin.substring(3,5)+"-"+vigencia_fin.substring(0,2);
@@ -169,11 +169,11 @@ router.get('/edit/:clave_financiamiento', esAdministrador, async (req, res) => {
     if(validacion.length<=0){
     const nuevo = await conexion.query('SELECT * FROM  financiamiento  WHERE CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     
-    console.log(nuevo[0]);
+    //console.log(nuevo[0]);
     var f_i=moment(nuevo[0].vigencia_inicio).format('YYYY-MM-DD');
     var f_f=moment(nuevo[0].vigencia_fin).format('YYYY-MM-DD');
 
-    console.log(f_i,f_f);
+   // console.log(f_i,f_f);
 const aux={
     clave_financiamiento:nuevo[0].clave_financiamiento,
     vigencia_inicio:f_i,

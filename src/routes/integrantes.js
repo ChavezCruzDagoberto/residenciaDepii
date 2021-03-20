@@ -30,7 +30,7 @@ router.post('/add',
     ]
     , async (req, res) => {
         const errores = validationResult(req);
-        console.log(errores.array());
+       // console.log(errores.array());
         if (errores.array().length > 0) {
 
             return res.status(400).json({ errores: errores.array() });
@@ -43,7 +43,7 @@ router.post('/add',
             const validacion = await pool.query('select * from participante where cvu_tecnm=?', [cvu_tecnm]);
             const validacion1 = await pool.query('select * from participante where email=?', [email]);
 
-            console.log(validacion, validacion1);
+           // console.log(validacion, validacion1);
             if (validacion.length > 0) {
                 req.flash('message', ' No se pudo registar ya existe el usuario verifique los datos en caso de ser necesario editelo');
 
@@ -110,7 +110,7 @@ router.post('/addColaborador',
     ],
     async (req, res) => {
         const errores = validationResult(req);
-        console.log(errores.array());
+        //console.log(errores.array());
         if (errores.array().length > 0) {
 
             return res.status(400).json({ errores: errores.array() });
@@ -228,7 +228,7 @@ router.get('/delete/:cvu_tecnm', async (req, res) => {
 
 
             await pool.query('DELETE FROM  participante  WHERE CVU_TECNM=?', [cvu_tecnm]);
-            console.log(req.params.cvu_tecnm);
+           // console.log(req.params.cvu_tecnm);
             req.flash('success', cvu_tecnm + ' eliminado  correctamente');
             res.redirect("/integrantes");
         } catch (error) {
@@ -253,7 +253,7 @@ router.get('/desactivar/:cvu_tecnm', esAdministrador, async (req, res) => {
 
 
     await pool.query('UPDATE participante SET estado=0 WHERE CVU_TECNM=?', [cvu_tecnm]);
-    console.log(req.params.cvu_tecnm);
+   // console.log(req.params.cvu_tecnm);
     req.flash('success', cvu_tecnm + ' eliminado  correctamente');
     res.redirect("/integrantes/inactivos");
 
@@ -270,7 +270,7 @@ router.get('/edit/:cvu_tecnm', async (req, res) => {
     const { cvu_tecnm } = req.params;
 
     const nuevo = await pool.query('SELECT * FROM  participante  WHERE CVU_TECNM=?', [cvu_tecnm]);
-    console.log(nuevo[0]);
+    //console.log(nuevo[0]);
     // res.redirect("/links");
     //res.send("recibido");
     //ruta de la vista//+ la lista de datos a pasar
@@ -289,7 +289,7 @@ router.post('/edit/:cvu_tecnm',
     , async (req, res) => {
 
         const errores = validationResult(req);
-        console.log(errores.array().length);
+       // console.log(errores.array().length);
         if (errores.array().length > 0) {
 
             return res.status(400).json({ errores: errores.array() });
@@ -324,7 +324,7 @@ router.post('/edit/:cvu_tecnm',
                     };
 
                     await pool.query('UPDATE   participante  set ? WHERE CVU_TECNM= ? ', [newIntegrante, cvu_tecnm]);
-                    console.log(cvu_tecnm);
+                   // console.log(cvu_tecnm);
 
                     req.flash('success', 'cambios guardados para ' + cvu_tecnm1);
                     res.redirect('/integrantes');
