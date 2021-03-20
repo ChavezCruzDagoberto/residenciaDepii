@@ -20,7 +20,8 @@
           <div class=" row mx-auto">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                <table id="tabla" class="table-sm table-bordered table-striped table-hover" cellspacing="0"
+                  width="100%">
                   <thead>
                     <tr>
                       <th scope="col"> No. Informe </th>
@@ -37,7 +38,7 @@
                       <th>{{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
                       <td>{{fecha_inicio}}</td>
                       <td>{{fecha_fin}}</td>
-                      <td><a href="/informe/cargar/{{id_informe}}" class="btn btn-outline-info btn-sm"><i
+                      <td style="visibility:hidden"><a href="/informe/cargar/{{id_informe}}" class="btn btn-outline-info btn-sm"><i
                             class="fas fa-upload"></i>&ensp;Subir PDF </a></td>
                       <td><a href="/informe/verInforme/{{id_informe}}/{{id_proyecto}}"
                           class="btn btn-outline-success btn-sm"><i class="far fa-eye"></i>&ensp;Ver </a>
@@ -86,3 +87,54 @@
     }
   }
 </style>
+
+<script>
+  
+  window.onload = cargar;
+
+  function cargar() {
+
+    let tabla = document.getElementById("tabla").tBodies[0];
+
+
+    // var table = document.getElementById("table").tBodies[0];
+var current= moment();
+    var r = 0;
+    while (row = tabla.rows[r++]) {
+var fecha_inicio=row.children[1].innerText;
+var fecha_fin=row.children[2].innerText;
+var fechai= moment(fecha_inicio);
+var fechaf= moment(fecha_fin);
+console.log(current.format('YYYY-MM-DD'),fechai.format('YYYY-MM-DD'),fechaf.format('YYYY-MM-DD'));
+
+
+if(current>=fechai && current<=fechaf){
+   
+
+}else{
+if(current<fechai){
+  var dato=fechai.diff(current, 'days');
+   row.children[3].innerHTML="faltan "+ dato +" dias para activarse";
+   row.children[3].style.visibility='visible';
+}
+if(current>fechaf){
+  
+    var dato=current.diff(fechaf, 'days');
+   row.children[3].innerHTML="ya paso "+ dato +" dias de su fecha de informe";
+}
+
+
+
+}
+row.children[3].style.visibility='visible';
+
+    }
+    
+
+  }
+
+
+</script>
+
+
+<script src="http://momentjs.com/downloads/moment.min.js"></script>
