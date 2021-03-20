@@ -376,6 +376,11 @@
 
       {{!-- Si el usuario es lider --}}
       {{#if lider}}
+       {{#if proyectodisponible}}
+       <li data-toggle="collapse" data-target="#productsz" class="collapsed active">
+        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-book"></i>&ensp;Dashboard </a>
+      </li>
+      {{else}}
 
       {{!-- Proyecto --}}
       <li data-toggle="collapse" data-target="#productsx" class="collapsed active">
@@ -383,13 +388,14 @@
       </li>
       <ul class="sub-menu collapse" id="productsx">
         <li><a href="/proyecto/add">Agregar</a></li>
-        <li><a href="/proyecto">Listar</a></li>
+        <li><a href="/proyecto">Ver Proyecto</a></li>
       </ul>
+      {{/if}}
 
       {{!-- Si es administrador y entro a los detalles de su proyecto --}}
       {{#if proyectodisponible}}
        <li data-toggle="collapse" data-target="#productsz" class="collapsed active">
-        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-book"></i>&ensp;Dashboard <span class="arrow"></span></a>
+        <a href="/proyecto"><i class="fas fa-book"></i>&ensp;Regresar </a>
       </li>
 
       {{!-- Protocolo --}}

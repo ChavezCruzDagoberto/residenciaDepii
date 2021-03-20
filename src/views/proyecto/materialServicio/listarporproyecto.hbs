@@ -20,7 +20,9 @@
                 <div class="container">
                     <div class=" row mx-auto">
                         <div class="col-lg-12">
+                            <h2>Total:{{total}}</h2>
                             <div class="table-responsive">
+
                                 <table class="table-sm table-bordered table-striped table-hover" cellspacing="0"
                                     width="100%">
 
@@ -29,8 +31,9 @@
                                             <th scope="col">Material / Servicio</th>
                                             <th scope="col">Clave subpartida</th>
                                             <th scope="col">Monto</th>
+                                            <!--
                                             <th scope="col">Cambios</th>
-                                            <th scope="col">Eliminar</th>
+                                            <th scope="col">Eliminar</th>-->
                                         </tr>
                                     </thead>
 
@@ -40,6 +43,8 @@
                                             <tr>
                                                 <th>{{descripcionms}}</th>
                                                 <td>{{clave_subpartida}}</td>
+                                                <td>{{monto_solicitado}}</td>
+                                                <!--
                                                 <td><input type="text" value="{{monto_solicitado}}"
                                                         name="monto_solicitado"></td>
 
@@ -50,6 +55,7 @@
                                                     <input type="hidden" value="{{id_proyecto}}" name="id_proyecto">
                                                     <input type="hidden" value="{{id_material_servicio}}"
                                                         name="id_material_servicio">
+
                                                     <button class="btn btn-outline-success btn-sm"><i
                                                             class="fas fa-save"></i>&ensp;Guardar
                                                         cambios</button>
@@ -60,7 +66,7 @@
                                                         class="btn btn-outline-danger btn-sm"><i
                                                             class="fas fa-trash"></i>&ensp;Eliminar</a>
                                                 </td>
-
+-->
                                             </tr>
                                         </form>
 

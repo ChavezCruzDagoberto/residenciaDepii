@@ -156,7 +156,12 @@ router.get('/proyecto/:id_proyecto', estaLogueado, async (req, res) => {
   const { id_proyecto } = req.params;
   const consulta = await conexion.query('select * from material_servicio inner join detalle_partida on material_servicio.clave_subpartida=detalle_partida.clave_subpartida  where id_proyecto  =? ', [id_proyecto]);
   console.log(consulta);
-  res.render('proyecto/materialServicio/listarporproyecto', { consulta, id_proyecto });
+  let total=0;
+  for(const i in consulta){
+total=total+consulta[i].monto_solicitado;
+  }
+  console.log(consulta,total);
+  res.render('proyecto/materialServicio/listarporproyecto', { consulta, id_proyecto ,total:total});
 });
 
 

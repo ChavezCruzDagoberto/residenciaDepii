@@ -1,9 +1,9 @@
-{{!-- AGREGAR PARTIDA DESDE LOS MONTOS DE FINANCIAMIENTO DE PARTIDAS --}}
+{{!-- FINANCIAMIENTO --}}
 
-{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+{{!-- Div que permite la barra izquierda --}}
 <div class="main" id="principal">
 
-    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+    {{!-- div que permite ocupar el 100% de la pantalla --}}
     <div class="container w-100">
 
         {{!-- div centra horizontalmente el contenido --}}
@@ -12,22 +12,58 @@
             {{!-- div centra verticalmente el contenido --}}
             <div class="my-auto w-100" align="center" id="contenedorprincipal">
 
-                {{!-- Cabecera --}}
-                <div class="w-100 mb-5">
-                    <h1> Agregar partidas al financiamiento. </h1>
-                </div>
+
+                <div class="w-100">
+                    <h1> Agregar financiamiento. </h1>
+                </div><br><br>
 
                 <div class="d-flex justify-content-center w-100">
-                    
-                    <form action="/partida/add/a" method="POST" class="w-100">
 
-                        <input type="hidden" name="clave_financiamiento" value="{{clave}}">
-                       
+                    <form action="/financiamiento/add" method="POST" class="w-100">
 
-                        <div align="center">
-                            <div class="justify-content-center">
+                        {{!-- GRID --}}
+                        <div class="container">
 
+                            {{!--primera fila --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="clave_financiamiento" class="m-2"> Clave del financiamiento </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" id="clave_financiamiento" class="form-control col-sm-6"
+                                        name="clave_financiamiento"
+                                        title="clave de financiamiento  con formato de 9 caracteres ej. 4738.58-P"
+                                        placeholder="0000.00-X" pattern="[A-Z0-9.-]{9}"
+                                        onkeypress="verificarClave(event)" autofocus required>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <label for="" class="message">¡ Elija bien la fecha de inicio recuerde que rige al proyecto a crear por el Responsable !</label>
                                 
+                                <br>
+                                <div class="col-sm-6" align="right">
+                                    <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input class="form-control col-sm-6" type="date" name="vigencia_inicio" id="inicio"
+                                        min="2020-01-01" onchange="cambiofecha()" required />
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label class="m-2" for="vigencia_fin"> Fecha de expiracion </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input class="form-control col-sm-6" type="text" name="vigencia_fin" id="fin"
+                                        readonly />
+                                </div>
+                            </div><br>
+
+                        </div>
+
+
                         <select hidden  id="partidas">
                             {{#each partidas}}
                             <option value="{{clave_partida}}">{{clave_partida}}</option>
@@ -65,29 +101,30 @@
                                 <i class="fas fa-plus"></i>&ensp;Agregar</button>
                         </div>
 
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
+
+        </form>
     </div>
 </div>
 
+
 {{!-- Media queries --}}
 <style>
-  @media (min-width: 768px) {
-    #contenedorprincipal {
-      width: 75% !important;
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
     }
-  }
 
-  @media (max-width: 767px) {
-    #principal {
-      margin-left: 0px !important;
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
     }
-  }
 </style>
+
 <script>
     function verificarClave(event) {
 

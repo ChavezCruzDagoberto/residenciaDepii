@@ -14,13 +14,15 @@ router.get('/add', esAdministrador,async (req, res) => {
 
     var consulta = await conexion.query('select distinct clave_partida from detalle_partida');
     console.log(consulta);
-    res.render('financiamiento/add', {partidas:consulta});
+    res.render('financiamiento/add1', {partidas:consulta});
 });
+
+
 
 
 //agrega el financiamiento junto con las partidas que le corresponen al financiamiento
 //las partidas existentes son extraidos de detalle_partida
-router.post('/add', esAdministrador,  [
+router.post('/add', esAdministrador ,[
     check('clave_financiamiento').notEmpty().toUpperCase(),
     check('clave_partida').notEmpty().withMessage('no se acepta vacio'),
     check('monto_aprobado').notEmpty().withMessage('no se acepta vacio'),
@@ -35,6 +37,7 @@ router.post('/add', esAdministrador,  [
 
         } else {
     console.log(req.body);
+    
     const { clave_financiamiento, vigencia_inicio, vigencia_fin ,clave_partida,monto_aprobado} = req.body;
     var final= vigencia_fin.substring(6,10)+"-"+vigencia_fin.substring(3,5)+"-"+vigencia_fin.substring(0,2);
     //console.log(final);
@@ -94,6 +97,7 @@ router.post('/add', esAdministrador,  [
     res.redirect("/financiamiento");
     }
         }
+        
 });
 
 
