@@ -3,7 +3,6 @@ const router = express.Router();
 const conexion = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 
-
 router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
 
   const { id_proyecto } = req.params;
@@ -13,7 +12,6 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
     const financia = await conexion.query('select clave_financiamiento from proyecto natural join financiamiento where id_proyecto=?', [id_proyecto]);
     var clave_financiamiento = financia[0].clave_financiamiento;
     //
-
 
     //antes de enviar realiza calculo
     const solicitados = await conexion.query('select b.clave_partida,a.clave_subpartida,a.monto_solicitado  from material_servicio as a natural join detalle_partida as b where a.id_proyecto=?', [id_proyecto]);
@@ -36,11 +34,7 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
 
     }
 
-
    // console.log(dinero_restate);
-
-
-
 
     //obtiene la lista seleccionable de la partida tal correspondiente a x proyecto
     const validacion = await conexion.query('select b.clave_partida,b.clave_subpartida,b.descripcion from (select * from  financiamiento_partida natural join detalle_partida where clave_financiamiento=?)as b left join (select * from material_servicio where id_proyecto = ?)as a  on a.clave_subpartida = b.clave_subpartida where a.clave_subpartida is null', [clave_financiamiento, id_proyecto]);
@@ -55,7 +49,6 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
      // console.log(subpartidas);
     }
 
-
     res.render('proyecto/materialServicio/add', { subpartidas: subpartidas, id_proyecto, restante: dinero_restate });
   }else{
 
@@ -63,10 +56,7 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
     res.redirect('/protocolo/add/' + id_proyecto);
   }
 
-
 });
-
-
 
 router.post('/add', estaLogueado, async (req, res) => {
  // console.log(req.body);
@@ -88,7 +78,6 @@ router.post('/add', estaLogueado, async (req, res) => {
       }
       await conexion.query('INSERT INTO material_servicio set ?', [newMyS]);
 
-
     }
 
   } else {
@@ -106,19 +95,12 @@ router.post('/add', estaLogueado, async (req, res) => {
     }
     await conexion.query('INSERT INTO material_servicio set ?', [newMySa]);
 
-
   }
-
 
   req.flash('success', 'Materiales y servicios agregados correctamente');
   res.redirect("/materialServicio/proyecto/" + id_proyecto);
 
 });
-
-
-
-
-
 
 /*
 
@@ -144,7 +126,6 @@ resultado=resultado-agregados[i].monto_solicitado;
   claves.set(financia[contador].clave_partida,resultado);
   //console.log(financia[contador].clave_partida, ":", resultado);  
 
-
 contador--;
   }
   console.log("claves",claves);
@@ -164,8 +145,6 @@ total=total+consulta[i].monto_solicitado;
   res.render('proyecto/materialServicio/listarporproyecto', { consulta, id_proyecto ,total:total});
 });
 
-
-
 router.post('/edit', async (req, res) => {
   //console.log(req.body);
 
@@ -181,13 +160,10 @@ router.post('/edit', async (req, res) => {
 
   await conexion.query('UPDATE   material_servicio  set ? WHERE id_proyecto= ? and id_material_servicio=? ', [updateMyS, id_proyecto, id_material_servicio]);
 
-
   req.flash('success', 'Cambios guardados satisfactoriamente');
   res.redirect('/materialServicio/proyecto/' + id_proyecto);
 
 });
-
-
 
 //ELIMINAR
 router.get('/delete/:id_material_servicio/:id_proyecto', async (req, res) => {
@@ -197,9 +173,5 @@ router.get('/delete/:id_material_servicio/:id_proyecto', async (req, res) => {
   res.redirect('/materialServicio/proyecto/' + id_proyecto);
 
 });
-
-
-
-
 
 module.exports = router;

@@ -3,8 +3,6 @@ const router = express.Router();
 const conexion = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 
-
-
 router.get('/p/:id_proyecto', estaLogueado, async (req, res) => {
 
   res.render('proyecto/entregable/p');
@@ -25,10 +23,7 @@ router.get('/add/:id_proyecto', estaLogueado, async (req, res) => {
   }
 });
 
-
-
 router.post('/add', estaLogueado, async (req, res) => {
-
 
   //console.log(req.body);
   
@@ -48,9 +43,6 @@ router.post('/add', estaLogueado, async (req, res) => {
   
 });
 
-
-
-
 //listar de la base de datos
 router.get('/proyecto/:id_proyecto', estaLogueado, async (req, res) => {
   const { id_proyecto } = req.params;
@@ -58,8 +50,6 @@ router.get('/proyecto/:id_proyecto', estaLogueado, async (req, res) => {
 
   res.render('proyecto/entregable/listarporproyecto', { consulta, id_proyecto });
 });
-
-
 
 router.post('/edit', async (req, res) => {
 
@@ -71,13 +61,10 @@ router.post('/edit', async (req, res) => {
   };
   await conexion.query('UPDATE   proyecto_entregable  set ? WHERE id_proyecto= ? and id_entregable=? ', [updateEntregable, id_proyecto, id_entregable]);
 
-
   req.flash('success', 'Cambios guardados satisfactoriamente');
   res.redirect('/entregable/proyecto/' + id_proyecto);
 
 });
-
-
 
 //ELIMINAR
 router.get('/delete/:id_entregable/:id_proyecto', async (req, res) => {
@@ -87,9 +74,5 @@ router.get('/delete/:id_entregable/:id_proyecto', async (req, res) => {
   res.redirect('/entregable/proyecto/' + id_proyecto);
 
 });
-
-
-
-
 
 module.exports = router;

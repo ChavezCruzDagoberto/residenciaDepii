@@ -5,17 +5,11 @@ const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth')
 
 router.get('/add', esAdministrador, async (req, res) => {
 
-
-
   res.render('subpartida/add');
 
 });
 
-
-
 router.post('/add', esAdministrador, async (req, res) => {
-
-
 
   const { clave_partida } = req.body;
   const { clave_subpartida } = req.body;
@@ -33,9 +27,7 @@ router.post('/add', esAdministrador, async (req, res) => {
         //insertar
         await conexion.query('INSERT INTO detalle_partida set ?', [newSubpartida]);
 
-
       }
-
 
     } else {
 
@@ -47,7 +39,6 @@ router.post('/add', esAdministrador, async (req, res) => {
       await conexion.query('INSERT INTO detalle_partida set ?', [newSubpartida1]);
 
     }
-
 
     req.flash('success', 'Agreado correctamente');
 
@@ -63,8 +54,6 @@ router.post('/add', esAdministrador, async (req, res) => {
 
 });
 
-
-
 //listar todas
 router.get('/', estaLogueado, async (req, res) => {
 
@@ -75,10 +64,8 @@ router.get('/', estaLogueado, async (req, res) => {
 
 });
 
-
 //eliminar
 router.get('/delete/:clave_subpartida', esAdministrador, async (req, res) => {
-
 
   const { clave_subpartida } = req.params;
   await conexion.query('DELETE FROM  detalle_partida  WHERE  CLAVE_SUBPARTIDA=?', [clave_subpartida]);
@@ -88,13 +75,8 @@ router.get('/delete/:clave_subpartida', esAdministrador, async (req, res) => {
 
 });
 
-
-
-
-
 //editar
 router.post('/edit/:clave_subpartida', esAdministrador, async (req, res) => {
-
 
   const { clave_subpartida } = req.params;
   const { clave_partida } = req.body;
@@ -115,6 +97,5 @@ router.post('/edit/:clave_subpartida', esAdministrador, async (req, res) => {
   req.flash('success', 'Cambios guardados para ');
   res.redirect('/subpartida');
 });
-
 
 module.exports = router;

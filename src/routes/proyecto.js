@@ -3,7 +3,6 @@ const router = express.Router();
 const conexion = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador, esLider } = require('../lib/auth');
 
-
 const moment = require('moment');
 
 moment.locale('es');
@@ -15,7 +14,6 @@ router.get('/add', esLider, async (req, res) => {
   const valida = await conexion.query('select * from proyecto_participante where cvu_tecnm=?', [cvu_tecnm]);
   const convocatorias = await conexion.query(  'select a.id_convocatoria,a.nombre_convocatoria from convocatoria as a left join proyecto as b on a.id_convocatoria=b.id_convocatoria where b.id_convocatoria is null');
  
-
   res.render('proyecto/add', { convocatorias });
  
 });*/
@@ -24,15 +22,11 @@ router.get('/add', esLider, async (req, res) => {
  // console.log(req.user);
   const valida = await conexion.query('select * from proyecto_participante where cvu_tecnm=?', [cvu_tecnm]);
 
-
   res.render('proyecto/add');
 
 });
 
-
-
 router.post('/add', esLider, async (req, res) => {
-
 
   //validar si ese usuario tiene un proyecto activo
   const activo = await conexion.query('select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado!=0', [req.user.cvu_tecnm]);
@@ -63,7 +57,6 @@ router.post('/add', esLider, async (req, res) => {
         creado
       };
 
-
       await conexion.query('INSERT INTO proyecto set ?', [newProyecto]);
 
       const p = await conexion.query('select * from proyecto where titulo=?', [titulo]);
@@ -74,7 +67,6 @@ router.post('/add', esLider, async (req, res) => {
         rol_proyecto: 'Responsable'
       };
       await conexion.query('INSERT INTO proyecto_participante set ?', [newProyecto_participante]);
-
 
       //agregar informes dinamicamente
       var fecha_inicio = moment(validacion1[0].vigencia_inicio);
@@ -126,21 +118,10 @@ router.post('/add', esLider, async (req, res) => {
     res.redirect("/proyecto/add");
   }
 
-
 });
-
-
-
-
-
-
-
-
-
 
 /*
 router.post('/add', esLider, async (req, res) => {
-
 
   //validar si ese usuario tiene un proyecto activo
   const activo = await conexion.query('select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado!=0', [req.user.cvu_tecnm]);
@@ -172,7 +153,6 @@ router.post('/add', esLider, async (req, res) => {
         creado
       };
 
-
       await conexion.query('INSERT INTO proyecto set ?', [newProyecto]);
 
       const p = await conexion.query('select * from proyecto where titulo=?', [titulo]);
@@ -200,23 +180,13 @@ router.post('/add', esLider, async (req, res) => {
     res.redirect("/proyecto/add");
   }
 
-
 });
 */
-
-
-
-
-
-
-
 
 //listar de la base de datos
 router.get('/', estaLogueado, async (req, res) => {
 
   req.app.locals.proyectodisponible = null;
-
-
 
   //console.log(req.user);
   if (req.user.rol_sistema == 'Administrador') {
@@ -246,9 +216,6 @@ router.get('/', estaLogueado, async (req, res) => {
   }
 });
 
-
-
-
 //listar de la base de datos para modo Administrador
 router.get('/listartodo', esAdministrador, estaLogueado, async (req, res) => {
   const cvu_tecnm = req.user.cvu_tecnm;
@@ -260,9 +227,6 @@ router.get('/listartodo', esAdministrador, estaLogueado, async (req, res) => {
   res.render('proyecto/list', { proyectos: final });
 });
 
-
-
-
 //ELIMINAR
 router.get('/delete/:id_proyecto', esAdministrador, async (req, res) => {
 
@@ -272,8 +236,6 @@ router.get('/delete/:id_proyecto', esAdministrador, async (req, res) => {
     req.flash('success', id_proyecto + 'Eliminado  correctamente');
     res.redirect("/proyecto");
 
-
-
   } catch (error) {
     req.flash('message', ' El proyecto no puede ser eliminado ya que tiene datos asociados');
     res.redirect("/proyecto");
@@ -281,20 +243,12 @@ router.get('/delete/:id_proyecto', esAdministrador, async (req, res) => {
 
 });
 
-
-
-
-
-
 router.get('/edit/:id_proyecto', esLider, async (req, res) => {
   try {
 
     const { id_proyecto } = req.params;
 
     const nuevo = await conexion.query('SELECT * FROM  proyecto  WHERE id_proyecto=?', [id_proyecto]);
-
-
-
 
     if (nuevo.length > 0) {
       //const convocatoria   = await conexion.query(  'select a.id_convocatoria,a.nombre_convocatoria from convocatoria as a left join proyecto as b on a.id_convocatoria=b.id_convocatoria where b.id_convocatoria is null');
@@ -315,19 +269,13 @@ router.get('/edit/:id_proyecto', esLider, async (req, res) => {
       }
     }
 
-
   } catch (error) {
 
     req.flash('message', 'Algo ha salido mal intente de nuevo')
     res.redirect('/proyecto');
   }
 
-
 });
-
-
-
-
 
 router.post('/edit/:id_proyecto', esLider, async (req, res) => {
   try {
@@ -345,14 +293,10 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
 
     };
 
-
     await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [newProyecto, id_proyecto]);
-
 
     req.flash('success', 'Cambios guardados para ' + titulo);
     res.redirect('/proyecto');
-
-
 
   } catch (error) {
     //console.log(req.user.rol_sistema);
@@ -363,11 +307,7 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
 
   }
 
-
 });
-
-
-
 
 /*
   Avance
@@ -390,14 +330,10 @@ Estados
 
  */
 
-
-
 router.get('/detalle/:id_proyecto', estaLogueado,
   async (req, res) => {
 
     const { id_proyecto } = req.params;
-
-
 
     const proyecto = await conexion.query('SELECT * FROM  proyecto natural join financiamiento  WHERE id_proyecto=?', [id_proyecto]);
     req.app.locals.proyectodisponible = proyecto[0];
@@ -408,7 +344,6 @@ router.get('/detalle/:id_proyecto', estaLogueado,
     const mys = await conexion.query('SELECT * FROM  material_servicio   WHERE id_proyecto=?', [id_proyecto]);
     const inf = await conexion.query('select id_proyecto,id_informe,id_proyecto,no_informe,fecha_fin,fecha_fin from informe natural join archivo_informes where id_proyecto=? order by no_informe asc', [id_proyecto]);
     const fechas_inf = await conexion.query('select * from informe where id_proyecto=? order by no_informe asc', [id_proyecto]);
-
 
     var avance = proyecto[0].estado;
     var estado = 1;
@@ -428,13 +363,11 @@ router.get('/detalle/:id_proyecto', estaLogueado,
         if (fechaActual.diff(fechaInicio, 'month') > 1)
           estado = 2;
 
-
         break;
       case 3://material y servicio
       
         let inf1_f = moment(fechas_inf[0].fecha_fin);
         if (fechaActual.isAfter(inf1_f)) estado = 2;
-
 
         break;
       case 4:
@@ -466,17 +399,13 @@ router.get('/detalle/:id_proyecto', estaLogueado,
         break;
     }
 
-
     //console.log(proyecto, protocolo, mys, inf, fechaActual, fechaInicio);
 
     res.render('layouts/proyecto_responsable', { proyecto: proyecto[0], avance: avance, estado: estado });
     //res.render('proyecto/seguimiento');
 
-
     //res.send("recibido");
   });
-
-
 
   router.get('/listartodo1', esAdministrador, estaLogueado, async (req, res) => {
     const cvu_tecnm = req.user.cvu_tecnm;
@@ -484,8 +413,6 @@ router.get('/detalle/:id_proyecto', estaLogueado,
       'select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
     );
     
-    
-  
     for(i=0;i<proyectos.length;i++){
       
       let avanceActual=proyectos[i].estado;
@@ -493,10 +420,8 @@ router.get('/detalle/:id_proyecto', estaLogueado,
       let fechaActual = moment();
       let fechaInicio = moment(proyectos[i].vigencia_inicio);
   
-
       let id_proyecto=proyectos[i].id_proyecto;
       let fechas_inf = await conexion.query('select * from informe where id_proyecto=? order by no_informe asc', [id_proyecto]);
-
 
       switch (avanceActual) {
         case 1:
@@ -510,13 +435,11 @@ router.get('/detalle/:id_proyecto', estaLogueado,
           if (fechaActual.diff(fechaInicio, 'month') > 1)
             estadoActual = 2;
   
-  
           break;
         case 3://material y servicio
         
           let inf1_f = moment(fechas_inf[0].fecha_fin);
           if (fechaActual.isAfter(inf1_f)) estadoActual = 2;
-  
   
           break;
         case 4:
@@ -550,12 +473,10 @@ router.get('/detalle/:id_proyecto', estaLogueado,
 
       proyectos[i].tiempo=estadoActual;
   
-  
     }
    var final=formatearFechas1(proyectos);
     res.render('proyecto/listStatus', { proyectos: final });
   });
-
 
   function formatearFechas1(proyecto) {
     const formato = 'YYYY-MM-DD ';
@@ -580,8 +501,6 @@ router.get('/detalle/:id_proyecto', estaLogueado,
         avance:proyecto[p].estado,
         estado:proyecto[p].tiempo,
 
-        
-  
       };
       editado.push(a);
   
@@ -590,17 +509,12 @@ router.get('/detalle/:id_proyecto', estaLogueado,
   
   }
   
-
-
 router.get('/regresar', esLider, async (req, res) => {
   req.app.locals.proyectodisponible = null;
 
   res.redirect('/');
 
 });
-
-
-
 
 function formatearFechas(proyecto) {
   const formato = 'YYYY-MM-DD ';
@@ -624,7 +538,6 @@ function formatearFechas(proyecto) {
       nombre: proyecto[p].nombre,
       estado:proyecto[p].estado
       
-
     };
     editado.push(a);
 
@@ -632,9 +545,6 @@ function formatearFechas(proyecto) {
   return editado;
 
 }
-
-
-
 
 router.get('/terminar/:id_proyecto', async (req, res) => {
   const {id_proyecto}= req.params;
@@ -649,9 +559,7 @@ res.redirect('/proyecto/detalle/'+id_proyecto);
 
 });
 
-
 router.get('/x', async (req, res) => {
-
 
   res.render('proyecto/seguimiento');
 
