@@ -30,8 +30,10 @@
                                     <label for="clave_financiamiento" class="m-2"> Clave del financiamiento </label>
                                 </div>
                                 <div class="col-sm-6" align="left">
-                                    <input type="text" id="clave_financiamiento" class="form-control col-sm-6" name="clave_financiamiento" title="clave de financiamiento  con formato de 9 caracteres ej. 4738.58-P"
-                                      placeholder="0000.00-X"  pattern="[A-Z0-9.-]{9}" onkeypress="verificarClave(event)" autofocus required>
+                                    <input type="text" id="clave_financiamiento" class="form-control col-sm-6"
+                                        name="clave_financiamiento"
+                                        title="clave de financiamiento con formato de 9 caracteres ej. 4738.58-P"
+                                        pattern="[A-Z0-9.-]{9}" onkeypress="verificarClave(event)" autofocus required>
                                 </div>
                             </div><br>
 
@@ -40,8 +42,8 @@
                                     <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
                                 </div>
                                 <div class="col-sm-6" align="left">
-                                    <input class="form-control col-sm-6" type="date" name="vigencia_inicio" id="inicio" min="2020-01-01"
-                                        onchange="cambiofecha()" required />
+                                    <input class="form-control col-sm-6" type="date" name="vigencia_inicio" id="inicio"
+                                        min="2020-01-01" onchange="cambiofecha()" required />
                                 </div>
                             </div><br>
 
@@ -192,13 +194,13 @@
             bloque.appendChild(elemento);
 
             elemento = document.createElement('input');
-            elemento.setAttribute("type","text");
+            elemento.setAttribute("type", "text");
             elemento.setAttribute("class", "form-control col-sm-5 mb-5");
             elemento.setAttribute("name", "monto_aprobado");
             elemento.setAttribute("placeholder", "monto aprobado");
             elemento.setAttribute("pattern", "[0-9]+");
             elemento.setAttribute("required", "true");
-            elemento.setAttribute("onkeypress","validarNumeros(event)");
+            elemento.setAttribute("onkeypress", "validarNumeros(event)");
             //elemento.removeAttribute("disabled");
             elemento.id = 'text' + incremento;
             bloque.appendChild(elemento);
@@ -240,14 +242,14 @@
     }
 
 
-     function verificarClave(event) {
-         
+    function verificarClave(event) {
+
         var a = document.getElementById("clave_financiamiento");
         var b = a.value;
         if (b.length < 9) {
             if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) ||
-             (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209)||
-             (event.charCode==45) ||(event.charCode==46)) {
+                (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) ||
+                (event.charCode == 45) || (event.charCode == 46)) {
                 a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();
 
             }
@@ -262,16 +264,16 @@
         var start = new Date(finicial);
         start.setFullYear(start.getFullYear() + 1);
         var startf = start.toISOString().slice(0, 10).replace(/-/g, "/");
-        
+
         var final = startf.substring(8, 10) + "/" + startf.substring(5, 7) + "/" + startf.substring(0, 4);
         //console.log(final);
         document.getElementById("fin").value = final;
     }
 
 
- function validarNumeros(event){
-      if(event.charCode<=57 && event.charCode>=48){}
-      else{event.preventDefault();}
+    function validarNumeros(event) {
+        if (event.charCode <= 57 && event.charCode >= 48) { }
+        else { event.preventDefault(); }
 
     }
 </script>

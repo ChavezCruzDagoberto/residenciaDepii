@@ -14,7 +14,7 @@
 
         {{!-- Cabecera --}}
         <div class="w-100 mb-5">
-          <h1> Glosario de subpartidas. </h1>
+          <h1> Glosario de Subpartidas. </h1>
         </div>
 
         {{!-- Comienza la tabla --}}
@@ -45,7 +45,7 @@
                         <input type="hidden" name="clave_partida" value="{{clave_partida}}">
                         <th style="background-color: lightgray;">{{clave_partida}}</th>
                         <td>{{clave_subpartida}}</td>
-                        <td><input type="text" value="{{descripcion}}" name="descripcion" class=""></td>
+                        <td><input type="text" value="{{descripcion}}" name="descripcion" class="col-sm-12"></td>
                         <td align="center"><button class="btn btn-sm btn-outline-success"><i
                               class="fas fa-save"></i>&ensp;Guardar cambios</button></td>
                         <td align="center"><a href="/subpartida/delete/{{clave_subpartida}}"
@@ -55,7 +55,7 @@
                     </form>
 
                     {{!-- En caso de no encontrar subpartidas --}}
-                    {{else}}
+                    {{else}} 
                     <div class="col-m4 mx-auto">
                       <div class="card card-body text-center">
                         <p>NO HAY NINGUNA SUBPARTIDA GUARDADO AUN </p>
@@ -65,7 +65,7 @@
                     {{/each}}
 
                   </tbody>
-                </table>
+                </table><br><br>
 
               </div>
             </div>

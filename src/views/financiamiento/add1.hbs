@@ -35,9 +35,8 @@
                                 <div class="col-sm-6" align="left">
                                     <input type="text" id="clave_financiamiento" class="form-control col-sm-6"
                                         name="clave_financiamiento"
-                                        title="clave de financiamiento  con formato de 9 caracteres ej. 4738.58-P"
-                                        placeholder="0000.00-X" pattern="[A-Z0-9.-]{9}"
-                                        onkeypress="verificarClave(event)" autofocus required>
+                                        title="Clave con 9 caracteres Ej. 4738.58-P"
+                                        pattern="[A-Z0-9.-]{9}" onkeypress="verificarClave(event)" autofocus required>
                                 </div>
                             </div><br>
 
@@ -75,16 +74,16 @@
 
 
                         <div class="form-group">
-                            <label for="state_id" class="control-label"> Añadir Partidas Aprobadas</label><br>
+                            <label for="state_id" class="control-label"> Añadir Partidas Aprobadas</label><br><br>
 
                             <!-- Boton Agregar -->
                             <label for="">Agregar</label>
-                            <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto"
-                                Value="+" onclick="agregar('elementos')">
+                            <input class="btn btn-outline-success btn-sm" type="button" title="Agregar"
+                                Value="+" onclick="agregar('elementos')">&ensp;
                             <!-- Boton Borrar -->
                             <label for="">Borrar</label>
                             <input id="eliminar" class="btn btn-outline-danger btn-sm" type="button"
-                                title="Borrar Producto" Value="-" disabled onclick="borrar('elementos')">
+                                title="Borrar" Value="-" disabled onclick="borrar('elementos')">
                             <br>
                             <br>
                         </div>
@@ -93,7 +92,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col"> Partida </th>
-                                    <th scope="col"> Monto MNX/0 </th>
+                                    <th scope="col"> Monto MXN </th>
                                 </tr>
                             </thead>
                         </table><br><br><br><br>
@@ -240,7 +239,7 @@
                 opciones += "<option value=" + options[i][0] + ">" + options[i][1] + "</option>";
             }
 
-            y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_partida " + "id=" + id_e + " required>" + opciones + "</select></td>";
+            y.innerHTML = "<td><select " + "class=" + "form-control mb-3 " + "  name=" + " clave_partida " + "id=" + id_e + " required>" + opciones + "</select></td>";
 
             z.innerHTML = "<td><input type=" + "text" + " class=" + "form-control" + " name=" + " monto_aprobado " + "id= " + can + "  required></td>";
 

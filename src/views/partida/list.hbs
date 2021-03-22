@@ -14,7 +14,7 @@
 
         {{!-- Cabecera --}}
         <div class="w-100 mb-5">
-          <h1> Montos del financiamiento. </h1>
+          <h1> Montos del Financiamiento. </h1>
         </div>
 
         {{!-- Comienza la tabla --}}
@@ -23,11 +23,11 @@
           {{!-- Cabecera de la tabla --}}
           <thead>
             <tr>
-              <th scope="col">Clave de Financiamiento</th>
-              <th scope="col">Clave de la partida</th>
-              <th scope="col">Monto aprobado</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Borrar</th>
+              <th scope="col">Clave de financiamiento&ensp;</th>
+              <th scope="col">Clave de partida&ensp;</th>
+              <th scope="col">Monto aprobado&ensp;</th>
+              <th scope="col">Editar&ensp;</th>
+              <th scope="col">Borrar&ensp;</th>
             </tr>
           </thead>
 
@@ -38,7 +38,7 @@
             <form action="/partida/edit/{{clave_financiamiento}}/{{clave_partida}}" method="POST">
 
               <tr>
-                <th>{{clave_financiamiento}}</th>
+                <th style="background-color: lightgray;">{{clave_financiamiento}}</th>
                 <td>{{clave_partida}}</td>
                 <td><input type="text" value={{monto_aprobado}} pattern="[0-9]+" name="monto_aprobado" required></td>
                 <td align="center"><button class="btn btn-sm btn-outline-success"><i
@@ -70,7 +70,7 @@
 
         <div align="center">
           {{#if partidas}}
-          <a href="/partida/add/{{financiamiento}}" class="btn btn-outline-primary"><i
+          <a href="/partida/add/{{financiamiento}}" class="btn btn-secondary"><i
               class="fas fa-plus"></i>&ensp;Agregar
             partidas</a>
           {{/if}}
