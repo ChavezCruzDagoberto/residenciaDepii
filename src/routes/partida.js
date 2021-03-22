@@ -5,13 +5,11 @@ const { esAdministrador } = require('../lib/auth');
 //validacion con expressValidator
 const { check, validationResult } = require('express-validator');
 
-
 router.get('/add', async (req, res) => {
 
   const financiamientos = await conexion.query('select * from financiamiento');
   const partidas = await conexion.query('select * from detalle_partida');
   res.render('partida/add', { financiamientos, partidas })
-
 
 });
 
@@ -22,12 +20,11 @@ router.get('/add/:clave_financiamiento', async (req, res) => {
   if (partidas.length > 0) {
     res.render('partida/add_financiamiento', { partidas: partidas, clave: clave_financiamiento })
   } else {
-    req.flash('message', 'ha agregado las partidas existentes');
+    req.flash('message', 'Ha agregado las partidas existentes');
     res.redirect('/financiamiento/partidas/' + clave_financiamiento);
   }
 
 });
-
 
 router.post('/add/a', async (req, res) => {
   const { clave_financiamiento, clave_partida, monto_aprobado } = req.body;
@@ -36,7 +33,6 @@ router.post('/add/a', async (req, res) => {
   if (clave_partida != null && monto_aprobado != null) {
     if (Array.isArray(clave_partida) && Array.isArray(monto_aprobado)) {
 
-
       for (const p in clave_partida) {
         const newPartida = {
           clave_financiamiento,
@@ -44,11 +40,9 @@ router.post('/add/a', async (req, res) => {
 
           monto_aprobado: monto_aprobado[p],
 
-
         }
         //insertar
         await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida]);
-
 
       }
 
@@ -63,25 +57,19 @@ router.post('/add/a', async (req, res) => {
 
     }
 
-
-
   }
 
-  req.flash('success', 'agreado correctamente');
+  req.flash('success', 'Agreado correctamente');
 
   res.redirect("/financiamiento/partidas/" + clave_financiamiento);
-
-
 
 });
 
 router.post('/add', async (req, res) => {
 
-
   const { clave_financiamiento } = req.body;
   const { clave_partida } = req.body;
   const { monto_aprobado } = req.body;
-
 
   if (Array.isArray(clave_partida) && Array.isArray(monto_aprobado)) {
     for (const p in clave_partida) {
@@ -91,14 +79,11 @@ router.post('/add', async (req, res) => {
 
         monto_aprobado: monto_aprobado[p],
 
-
       }
       //insertar
       await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida]);
 
-
     }
-
 
   } else {
 
@@ -111,15 +96,12 @@ router.post('/add', async (req, res) => {
 
   }
 
-
-  req.flash('success', 'agreado correctamente');
+  req.flash('success', 'Agreado correctamente');
 
   //res.render("integrante/add");
   res.redirect("/partida");
 
 });
-
-
 
 //listar todas
 router.get('/', esAdministrador, async (req, res) => {
@@ -130,7 +112,6 @@ router.get('/', esAdministrador, async (req, res) => {
   res.render('partida/list', { partidas });
 });
 
-
 //eliminar
 router.get('/delete/:clave_financiamiento/:clave_partida', esAdministrador, async (req, res) => {
 
@@ -138,14 +119,10 @@ router.get('/delete/:clave_financiamiento/:clave_partida', esAdministrador, asyn
   const { clave_partida } = req.params;
   await conexion.query('DELETE FROM  financiamiento_partida  WHERE CLAVE_FINANCIAMIENTO=? && CLAVE_PARTIDA=?', [clave_financiamiento, clave_partida]);
   //console.log(req.params.id_convocatoria);
-  req.flash('success', ' eliminado  correctamente');
+  req.flash('success', 'Eliminado  correctamente');
   res.redirect("/financiamiento/partidas/" + clave_financiamiento);
 
 });
-
-
-
-
 
 //editar
 router.post('/edit/:clave_financiamiento/:clave_partida',
@@ -178,11 +155,10 @@ router.post('/edit/:clave_financiamiento/:clave_partida',
 
       await conexion.query('UPDATE   financiamiento_partida  set ? WHERE CLAVE_FINANCIAMIENTO= ?  && CLAVE_PARTIDA=?', [newPartida, clave_financiamiento, clave_partida]);
       //console.log(newFinanciamiento);
-      req.flash('success', 'cambios guardados para ');
+      req.flash('success', 'Cambios guardados para ');
       res.redirect('/financiamiento/partidas/' + clave_financiamiento);
 
     }
   });
-
 
 module.exports = router;

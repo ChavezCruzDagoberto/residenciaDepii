@@ -49,12 +49,12 @@ router.post('/add', esAdministrador, async (req, res) => {
     }
 
 
-    req.flash('success', 'agreado correctamente');
+    req.flash('success', 'Agreado correctamente');
 
     //res.render("subpartida/add");
     res.redirect("/subpartida");
   } catch (e) {
-    req.flash('success', 'ya existe esa subpartida');
+    req.flash('success', 'Ya existe esa subpartida');
 
     //res.render("subpartida/add");
     res.redirect("/subpartida/add");
@@ -83,7 +83,7 @@ router.get('/delete/:clave_subpartida', esAdministrador, async (req, res) => {
   const { clave_subpartida } = req.params;
   await conexion.query('DELETE FROM  detalle_partida  WHERE  CLAVE_SUBPARTIDA=?', [clave_subpartida]);
   //console.log(req.params.id_convocatoria);
-  req.flash('success', ' eliminado  correctamente');
+  req.flash('success', ' Eliminado  correctamente');
   res.redirect("/subpartida");
 
 });
@@ -112,7 +112,7 @@ router.post('/edit/:clave_subpartida', esAdministrador, async (req, res) => {
 
   await conexion.query('UPDATE   detalle_partida  set ? WHERE CLAVE_SUBPARTIDA=?', [newSubpartida, clave_subpartida]);
   //console.log(newFinanciamiento);
-  req.flash('success', 'cambios guardados para ');
+  req.flash('success', 'Cambios guardados para ');
   res.redirect('/subpartida');
 });
 

@@ -14,8 +14,11 @@
 
 
                 <div class="w-100">
-                    <h1> Agregar financiamiento. </h1>
-                </div><br><br>
+                    <h1> Agregar Financiamiento. </h1>
+                    <label for="" class="message" style="color: red;"> <strong>¡Elija bien la fecha de inicio!</strong>
+                        Recuerde que esta asociada al inicio del proyecto</label>
+                </div><br><br><br>
+
 
                 <div class="d-flex justify-content-center w-100">
 
@@ -39,8 +42,8 @@
                             </div><br>
 
                             <div class="row">
-                                <label for="" class="message">¡ Elija bien la fecha de inicio recuerde que rige al proyecto a crear por el Responsable !</label>
-                                
+
+
                                 <br>
                                 <div class="col-sm-6" align="right">
                                     <label class="m-2" for="vigencia_inicio"> Fecha de inicio </label>
@@ -61,10 +64,10 @@
                                 </div>
                             </div><br>
 
-                        </div>
+                        </div><br><br>
 
 
-                        <select hidden  id="partidas">
+                        <select hidden id="partidas">
                             {{#each partidas}}
                             <option value="{{clave_partida}}">{{clave_partida}}</option>
                             {{/each}}
@@ -148,7 +151,7 @@
         start.setFullYear(start.getFullYear() + 1);
         var startf = start.toISOString().slice(0, 10).replace(/-/g, "/");
         for (i = 0; i < startf; i++) {
-           // console.log(startf[i]);
+            // console.log(startf[i]);
         }
         var final = startf.substring(8, 10) + "/" + startf.substring(5, 7) + "/" + startf.substring(0, 4);
         //console.log(final);
@@ -220,7 +223,7 @@
     }
 
     function añadirNuevo(id) {
-       // console.log("antes de añadir", options.length);
+        // console.log("antes de añadir", options.length);
         if (incremento == 1) {
 
             var filas = document.getElementById("elementos").rows.length;
@@ -279,7 +282,7 @@
 
                 y.innerHTML = "<td> <select  " + "class=" + "custom-select custom-select-sm-1 mb-3 " + "  name=" + " clave_partida " + "id=" + id_e + " required>" + opciones + "</select></td>";
 
-                z.innerHTML = "<td><input type=" + "text"  + " class=" + "form-control" + " name=" + " monto_aprobado " + "id= " + can + "  required></td>";
+                z.innerHTML = "<td><input type=" + "text" + " class=" + "form-control" + " name=" + " monto_aprobado " + "id= " + can + "  required></td>";
 
             }
         }
@@ -302,7 +305,7 @@
     }
 
     function activar() {
-       // console.log(incremento);
+        // console.log(incremento);
         for (i = 1; i <= incremento; i++) {
             var a = document.getElementById("partida" + i);
             var b = document.getElementById("monto_aprobado" + i);

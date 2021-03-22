@@ -110,19 +110,19 @@ router.post('/add', esLider, async (req, res) => {
         i++;
       }
       ///////////////////////////////////////
-      req.flash('success', 'proyecto agreado correctamente');
+      req.flash('success', 'Proyecto agreado correctamente');
 
       res.redirect("/proyecto");
 
     } else {
-      req.flash('message', ' no pudo ser creado el proyecto verfique la clave  financiamiento');
+      req.flash('message', 'No pudo ser creado el proyecto verfique la clave  financiamiento');
       //console.log('no existe registro');
       res.redirect("/proyecto/add");
     }
   }
   else {
 
-    req.flash('message', ' tiene un proyecto activo no puede tener control de 2 proyectos a la vez');
+    req.flash('message', 'Tiene un proyecto activo no puede tener control de 2 proyectos a la vez');
     res.redirect("/proyecto/add");
   }
 
@@ -232,9 +232,9 @@ router.get('/', estaLogueado, async (req, res) => {
       var fecha2 = moment(proyectos[0].creado);
       var temporal = fecha1.diff(fecha2, 'days');
       if (temporal < 10) {
-        req.flash('message', "tiene " + (10 - temporal) + " dias para editar su proyecto Actual");
+        req.flash('message', "Tiene " + (10 - temporal) + " dias para editar su proyecto Actual");
       } else {
-        req.flash('message', "ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
+        req.flash('message', "Ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
       }
 
       const final = formatearFechas(proyectos);
@@ -269,13 +269,13 @@ router.get('/delete/:id_proyecto', esAdministrador, async (req, res) => {
   try {
     const { id_proyecto } = req.params;
     await conexion.query('DELETE FROM  proyecto  WHERE ID_PROYECTO=?', [id_proyecto]);
-    req.flash('success', id_proyecto + ' eliminado  correctamente');
+    req.flash('success', id_proyecto + 'Eliminado  correctamente');
     res.redirect("/proyecto");
 
 
 
   } catch (error) {
-    req.flash('message', ' el proyecto no puede ser eliminado ya que tiene datos asociados');
+    req.flash('message', ' El proyecto no puede ser eliminado ya que tiene datos asociados');
     res.redirect("/proyecto");
   }
 
@@ -310,7 +310,7 @@ router.get('/edit/:id_proyecto', esLider, async (req, res) => {
 
         res.render('proyecto/edit', { proyecto: nuevo[0], message: req.flash('message') });
       } else {
-        req.flash('message', "ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
+        req.flash('message', "Ya no puede realizar cambios en su proyecto agoto los dias dara modificar");
         res.redirect('/proyecto');
       }
     }
@@ -349,7 +349,7 @@ router.post('/edit/:id_proyecto', esLider, async (req, res) => {
     await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [newProyecto, id_proyecto]);
 
 
-    req.flash('success', 'cambios guardados para ' + titulo);
+    req.flash('success', 'Cambios guardados para ' + titulo);
     res.redirect('/proyecto');
 
 

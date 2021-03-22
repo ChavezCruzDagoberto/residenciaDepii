@@ -24,7 +24,7 @@ router.get('/singup', async (req, res) => {
    //console.log(responsables);
     if (responsables.length > 0) { res.render('auth/singup', { responsables }); }
     else {
-        req.flash('message', 'Todos  tienen cuenta agregue un nuevo participante');
+        req.flash('message', 'Todos tienen cuenta agregue un nuevo participante');
 
         res.redirect('integrantes/add');
     }
@@ -148,10 +148,10 @@ router.get('/deleteuser/:cvu_tecnm',esAdministrador, async (req, res) => {
     if(cvu_tecnm!=req.user.cvu_tecnm){
 
     await conexion.query('DELETE FROM  users  WHERE CVU_TECNM=?', [cvu_tecnm]);
-    req.flash('success', cvu_tecnm + ' Eliminado  correctamente');
+    req.flash('success', cvu_tecnm + 'Eliminado  correctamente');
     res.redirect("/cuentas");
     }else{
-        req.flash('message', ' No puede autoeliminarse esta activo');
+        req.flash('message', 'No puede autoeliminarse esta activo');
     res.redirect("/cuentas");
     }
 
@@ -169,10 +169,10 @@ router.get('/cambiarestado/:cvu_tecnm',esAdministrador, async (req, res) => {
         await conexion.query('UPDATE users SET estado = 1 WHERE cvu_tecnm=?' ,[ cvu_tecnm]);
 
     }
-    req.flash('success', ' Se modificó el estado de '+cvu_tecnm);
+    req.flash('success', 'Se modificó el estado de '+cvu_tecnm);
     res.redirect("/cuentas");
     }else{
-        req.flash('message', ' No esta permitido para este usuario ya que no podra accesar despues');
+        req.flash('message', 'No esta permitido para este usuario ya que no podra accesar despues');
     res.redirect("/cuentas");
     }
 

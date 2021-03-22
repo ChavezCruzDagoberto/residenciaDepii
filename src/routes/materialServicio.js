@@ -110,7 +110,7 @@ router.post('/add', estaLogueado, async (req, res) => {
   }
 
 
-  req.flash('success', 'Materiales y Servicios  agregados correctamente');
+  req.flash('success', 'Materiales y servicios agregados correctamente');
   res.redirect("/materialServicio/proyecto/" + id_proyecto);
 
 });
@@ -182,7 +182,7 @@ router.post('/edit', async (req, res) => {
   await conexion.query('UPDATE   material_servicio  set ? WHERE id_proyecto= ? and id_material_servicio=? ', [updateMyS, id_proyecto, id_material_servicio]);
 
 
-  req.flash('success', 'cambios guardados satisfactoriamente');
+  req.flash('success', 'Cambios guardados satisfactoriamente');
   res.redirect('/materialServicio/proyecto/' + id_proyecto);
 
 });
@@ -193,7 +193,7 @@ router.post('/edit', async (req, res) => {
 router.get('/delete/:id_material_servicio/:id_proyecto', async (req, res) => {
   const { id_material_servicio, id_proyecto } = req.params;
   await conexion.query('DELETE FROM  material_servicio  WHERE id_proyecto= ? and id_material_servicio=? ', [id_proyecto, id_material_servicio]);
-  req.flash('success', ' eliminado  correctamente');
+  req.flash('success', 'Eliminado  correctamente');
   res.redirect('/materialServicio/proyecto/' + id_proyecto);
 
 });

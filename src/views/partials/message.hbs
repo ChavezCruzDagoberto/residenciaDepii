@@ -32,9 +32,9 @@
 {{#if success}}
 <div class="container-fluid justify-content-center pt-3 w-100" role="alert" id="sucessmessage">
     <div class="mx-auto mb-1">
-        <div class="alert alert-info alert-dismissible fade show ">
+        <div class="alert alert-success alert-dismissible fade show ">
 
-            {{success}}
+            <strong>{{success}}</strong>
             <button type="button " class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -49,7 +49,7 @@
 
 <div class="container-fluid justify-content-center pt-3 w-50" role="alert" id="alertmessage">
     <div class="mx-auto">
-        <div class="alert alert-danger alert-dismissible fade show ">
+        <div class="alert alert-warning alert-dismissible fade show ">
 
             {{message}}
             <button type="button " class="close" data-dismiss="alert" aria-label="Close">

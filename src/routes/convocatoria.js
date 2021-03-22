@@ -17,8 +17,6 @@ router.get('/add', esAdministrador, (req, res) => {
 
 });
 
-
-
 router.post('/add', esAdministrador, [
     check('nombre_convocatoria').notEmpty().isString().toUpperCase(),
     check('anio').notEmpty().isNumeric().withMessage("dato de un año "),
@@ -41,18 +39,13 @@ router.post('/add', esAdministrador, [
                 fecha_cierre
             };
 
-
             await conexion.query('INSERT INTO convocatoria set ?', [newConvocatoria]);
             // res.send('recibido');
-            req.flash('success', 'agreado correctamente');
-
+            req.flash('success', 'Agreado correctamente');
 
             res.redirect("/convocatoria");
         }
     });
-
-
-
 
 //listar de la base de datos
 router.get('/',estaLogueado, async (req, res) => {
@@ -77,23 +70,16 @@ router.get('/',estaLogueado, async (req, res) => {
     res.render('convocatoria/list', { convocatorias: con_editado });
 });
 
-
-
 //ELIMINAR
 router.get('/delete/:id_convocatoria', esAdministrador, async (req, res) => {
 
     const { id_convocatoria } = req.params;
     await conexion.query('DELETE FROM  convocatoria  WHERE ID_CONVOCATORIA=?', [id_convocatoria]);
     //console.log(req.params.id_convocatoria);
-    req.flash('success', id_convocatoria + ' eliminado  correctamente');
+    req.flash('success', id_convocatoria + 'Eliminado  correctamente');
     res.redirect("/convocatoria");
 
 });
-
-
-
-
-
 
 router.get('/edit/:id_convocatoria', esAdministrador, async (req, res) => {
 
@@ -101,7 +87,6 @@ router.get('/edit/:id_convocatoria', esAdministrador, async (req, res) => {
 
     const nuevo = await conexion.query('SELECT * FROM  convocatoria  WHERE ID_CONVOCATORIA=?', [id_convocatoria]);
     //console.log(nuevo[0]);
-
 
     const fecha = moment(nuevo[0].fecha_cierre);
     var fecha_cierre = fecha.format('YYYY-MM-DD  HH:mm:ss');
@@ -117,7 +102,6 @@ router.get('/edit/:id_convocatoria', esAdministrador, async (req, res) => {
     res.render('convocatoria/edit', { convocatoria: editado });
     //res.send("recibido");
 });
-
 
 router.post('/edit/:id_convocatoria', esAdministrador,
     [
@@ -146,13 +130,10 @@ router.post('/edit/:id_convocatoria', esAdministrador,
             await conexion.query('UPDATE   convocatoria  set ? WHERE ID_CONVOCATORIA= ? ', [newConvocatoria, id_convocatoria]);
             // console.log(cvu_tecnm);
 
-            req.flash('success', 'cambios guardados para ' + id_convocatoria);
+            req.flash('success', 'Cambios guardados para ' + id_convocatoria);
             res.redirect('/convocatoria');
         }
     });
-
-
-
 
 function findsubstr(str) {
 

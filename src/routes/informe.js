@@ -3,20 +3,15 @@ const router = express.Router();
 const conexion = require('../database');
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 
-
-
 const moment = require('moment');
 
 moment.locale('es');
-
 
 const path = require('path');
 const multer = require('multer');
 let nombre = '';
 
 const fs = require("fs");
-
-
 
 const storage = multer.diskStorage({
 
@@ -37,18 +32,12 @@ const storage = multer.diskStorage({
 
       // const valida=
 
-
       cb(null, nombre + path.extname(file.originalname))
     }
   }
 });
 
-
-
-
 const upload = multer({ storage });
-
-
 
 router.get('/add', estaLogueado, async (req, res) => {
   let cvu_tecnm = req.user.cvu_tecnm;
@@ -60,37 +49,25 @@ router.get('/add', estaLogueado, async (req, res) => {
 
   proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM= ? and ESTADO>=1   ', [cvu_tecnm]);
 
-
-
   //console.log(proyecto);
   if (proyecto.length > 0) {
     var no_informe = await conexion.query('select * from informe where id_proyecto=?', [proyecto[0].id_proyecto]);
     if (no_informe.length > 0) {
-      req.flash("message", 'ya tiene informes agregados');
+      req.flash("message", 'Ya tiene informes agregados');
       res.redirect('/informe/mostrar/' + proyecto[0].id_proyecto);
     } else {
-      req.flash("message", 'solo 1 vez puede agregar sus fechas de informe');
+      req.flash("message", 'Solo 1 vez puede agregar sus fechas de informe');
       res.render('proyecto/informe/add', { proyecto, message: req.flash("message") });
     }
   } else { res.send('usted no tiene ningun proyecto activo'); }
 
-
 });
-
-
 
 router.post('/add', estaLogueado, async (req, res) => {
 
-
   //console.log(req.body);
 
-
   const { id_proyecto, no_informe, fecha_inicio, fecha_fin } = req.body;
-
-
-
-
-
 
   if (Array.isArray(no_informe) && Array.isArray(fecha_inicio)) {
     for (const p in no_informe) {
@@ -104,9 +81,7 @@ router.post('/add', estaLogueado, async (req, res) => {
       //insertar
       await conexion.query('INSERT INTO informe set ?', [newInforme]);
 
-
     }
-
 
   } else {
 
@@ -120,20 +95,12 @@ router.post('/add', estaLogueado, async (req, res) => {
 
   }
 
-
-  req.flash('success', 'agreado correctamente');
+  req.flash('success', 'Agreado correctamente');
 
   //res.render("subpartida/add");
   res.redirect("/informe/mostrar/" + id_proyecto);
 
-
-
-
-
 });
-
-
-
 
 //listar de la base de datos
 router.get('/', estaLogueado, async (req, res) => {
@@ -147,31 +114,23 @@ router.get('/', estaLogueado, async (req, res) => {
   } else {
     proyecto = await conexion.query('SELECT * FROM proyecto natural join proyecto_participante where CVU_TECNM=? and ESTADO=1 ', [cvu_tecnm]);
 
-
   }
 
   //console.log(proyecto);
   res.render('proyecto/informe/list', { proyecto });
 
-
 });
-
-
-
 
 router.post('/listarinforme', estaLogueado, async (req, res) => {
   let { id_proyecto } = req.body;
   //console.log(id_proyecto);
   let consulta = await conexion.query('select * from informe where ID_PROYECTO=?', [id_proyecto]);
 
-
   res.render('proyecto/informe/listarporproyecto', { consulta, id_proyecto: id_proyecto });
-
 
  // console.log(consulta);
 
 });
-
 
 router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
   let { id_proyecto } = req.params;
@@ -219,12 +178,6 @@ router.get('/mostrar/:id_proyecto', estaLogueado, async (req, res) => {
 
 });
 
-
-
-
-
-
-
 //ELIMINAR
 router.get('/delete/:id_informe', async (req, res) => {
 
@@ -233,18 +186,15 @@ router.get('/delete/:id_informe', async (req, res) => {
   valor = await conexion.query('select * from informe where id_informe= ?', [id_informe]);
   await conexion.query('DELETE FROM  informe  WHERE ID_INFORME=?', [id_informe]);
   //console.log(req.params.id_convocatoria);
-  req.flash('success', id_informe + ' eliminado  correctamente');
+  req.flash('success', id_informe + 'Eliminado  correctamente');
   res.redirect("/informe/mostrar/" + valor[0].id_proyecto);
 
 });
-
-
 
 router.post('/edit/:id_informe', async (req, res) => {
 
   const { id_informe } = req.params;
  // console.log(req.params, req.body);
-
 
   const { no_informe, fecha_inicio, fecha_fin, id_proyecto } = req.body;
 
@@ -257,14 +207,10 @@ router.post('/edit/:id_informe', async (req, res) => {
   await conexion.query('UPDATE   informe  set ? WHERE id_informe = ? ', [newInforme, id_informe]);
   // console.log(cvu_tecnm);
 
-  req.flash('success', 'cambios guardados ');
+  req.flash('success', 'Cambios guardados ');
   res.redirect('/informe/mostrar/' + id_proyecto);
 
 });
-
-
-
-
 
 router.get('/cargar/:id_informe', async (req, res) => {
 
@@ -298,7 +244,7 @@ router.get('/cargar/:id_informe', async (req, res) => {
           res.render('proyecto/informe/cargarArchivoInformes', { id_informe: id_informe, resultado: verenArchivos[0] });
 
         } else {
-          req.flash('message', " Suba su protocolo y sus entregables");
+          req.flash('message', "Suba su protocolo y sus entregables");
           res.redirect('/informe/mostrar/' + id_pro);
 
         }
@@ -309,7 +255,7 @@ router.get('/cargar/:id_informe', async (req, res) => {
           res.render('proyecto/informe/cargarArchivoInformes', { id_informe: id_informe, resultado: verenArchivos[0] });
 
         } else {
-          req.flash('message', " Suba su informe anterior");
+          req.flash('message', "Suba su informe anterior");
           res.redirect('/informe/mostrar/' + id_pro);
         }
 
@@ -319,7 +265,7 @@ router.get('/cargar/:id_informe', async (req, res) => {
           res.render('proyecto/informe/cargarArchivoInformes', { id_informe: id_informe, resultado: verenArchivos[0] });
 
         } else {
-          req.flash('message', " Suba su informe anterior");
+          req.flash('message', "Suba su informe anterior");
           res.redirect('/informe/mostrar/' + id_pro);
 
         }
@@ -331,25 +277,21 @@ router.get('/cargar/:id_informe', async (req, res) => {
 
         } else {
 
-          req.flash('message', " Suba su informe anterior");
+          req.flash('message', "Suba su informe anterior");
           res.redirect('/informe/mostrar/' + id_pro);
         }
 
         break;
 
-
       default:
         break;
     }
-
 
   } catch (error) {
 
   }
 
-
 });
-
 
 router.post('/cargar/:id_informe', upload.single('archivo'), async (req, res) => {
 
@@ -377,11 +319,11 @@ router.post('/cargar/:id_informe', upload.single('archivo'), async (req, res) =>
           };
 
           await conexion.query('UPDATE   archivo_informes  set ? WHERE id_informe=? and  id_proyecto= ? ', [newInforme1, id_informe, id_proyecto]);
-          req.flash("success", "correcto");
+          req.flash("success", "Correcto");
           res.redirect('/informe/verInforme/' + id_informe + '/' + id_proyecto);
 
         } else {
-          req.flash('message', "ya no es permitido");
+          req.flash('message', "Ya no es permitido");
           res.redirect('/informe/mostrar/' + id_proyecto);
         }
       } else {
@@ -419,23 +361,18 @@ router.post('/cargar/:id_informe', upload.single('archivo'), async (req, res) =>
 
       }
 
-
     }
 
   } catch (error) {
 
   }
 
-
   //console.log("sijajaj");
 
 });
 
-
-
 router.get('/verInforme/:id_informe/:id_proyecto', async (req, res) => {
   const { id_informe, id_proyecto } = req.params;
-
 
   const resultado = await conexion.query('select * from archivo_informes where id_informe=? and  id_proyecto= ?', [id_informe, id_proyecto]);
  // console.log(resultado[0]);
@@ -443,10 +380,8 @@ router.get('/verInforme/:id_informe/:id_proyecto', async (req, res) => {
   //res.send('enviado')
 });
 
-
 router.get('/leerInforme/:id_proyecto/:id_informe', async (req, res) => {
   const { id_proyecto, id_informe } = req.params;
-
 
   const resultado = await conexion.query('select url_archivo from archivo_informes where id_proyecto= ? and id_informe=?', [id_proyecto, id_informe]);
   //console.log(resultado);
@@ -464,13 +399,10 @@ router.get('/leerInforme/:id_proyecto/:id_informe', async (req, res) => {
     res.contentType("application/pdf");
     res.send(data);
 
-
   } else { res.send('no hay'); }
 
   //res.render('proyecto/protocolo/lectura');
 });
-
-
 
 function urlCorrecto(ubicacion) {
 
@@ -478,7 +410,6 @@ function urlCorrecto(ubicacion) {
   //console.log(ubicacion.replace(String.fromCharCode(c),"/"));
   return ubicacion.replace(String.fromCharCode(c), "/");
 }
-
 
 router.get('/observaciones/:id_proyecto/:id_informe', async (req, res) => {
   var { id_proyecto, id_informe } = req.params;
@@ -489,11 +420,9 @@ router.get('/observaciones/:id_proyecto/:id_informe', async (req, res) => {
 
 });
 
-
 router.post('/observaciones/:id_proyecto/:id_informe', async (req, res) => {
 
  // console.log("post", req.body, req.params);
-
 
   const { anotaciones } = req.body;
   const { id_proyecto, id_informe } = req.params;
@@ -513,7 +442,5 @@ router.post('/observaciones/:id_proyecto/:id_informe', async (req, res) => {
   }
 
 });
-
-
 
 module.exports = router;

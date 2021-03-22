@@ -10,9 +10,6 @@ const { createSecretKey } = require('crypto');
 const { body } = require('express-validator');
 let nombre = '';
 
-
-
-
 const storage = multer.diskStorage({
 
     destination: (req, file, cb) => {
@@ -32,22 +29,14 @@ const storage = multer.diskStorage({
 
            // const valida=
            
-
             cb(null, nombre + '_protocolo' + path.extname(file.originalname))
         }
     }
 });
 
-
-
-
 const upload = multer({ storage });
 
-
-
-
 router.get('/add/:id_proyecto', async (req, res) => {
-    
     
     const { id_proyecto } = req.params;
     const resultado = await conexion.query('select * from protocolo where id_proyecto= ?', [id_proyecto])
@@ -61,17 +50,15 @@ router.get('/add/:id_proyecto', async (req, res) => {
         res.render('proyecto/protocolo/subirprotocolo', { id_proyecto:id_proyecto ,resultado:resultado[0]});
     }
     else {
-        req.flash('message', "no hay");
+        req.flash('message', "No hay protocolo");
         res.redirect('/');
     }
 });
-
 
 //insertar a la base un link
 router.post('/add/:id_proyecto',upload.single('archivo'),async (req, res) => {
 
    // console.log( "hola",upload);
-
 
     const { id_proyecto } = req.params;
     const { filename, path, } = req.file;
@@ -93,19 +80,16 @@ router.post('/add/:id_proyecto',upload.single('archivo'),async (req, res) => {
 
                     await conexion.query('UPDATE   protocolo  set ? WHERE id_proyecto= ? ', [newProtocolo1,id_proyecto]);
                     //await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{estado:2},id_proyecto]);
-                    req.flash("success","correcto");
+                    req.flash("success","Correcto");
                     res.redirect('/protocolo/' + id_proyecto);
 
                 }else{
-                    req.flash('message',"ya no es permitido");
+                    req.flash('message',"Ya no es permitido");
                     res.redirect('/protocolo/add/' + id_proyecto);
                 }
 
             }else{
     //console.log(req.file,req.params,req.body);
-
-    
-    
 
     const newProtocolo = {
         nombre_archivo: filename,
@@ -121,22 +105,16 @@ router.post('/add/:id_proyecto',upload.single('archivo'),async (req, res) => {
     res.redirect('/protocolo/' + id_proyecto);
     }
 
-    
-    
 });
-
-
 
 router.get('/:id_proyecto', async (req, res) => {
     const { id_proyecto } = req.params;
-
 
     const resultado = await conexion.query('select * from protocolo where id_proyecto= ?', [id_proyecto]);
    // console.log(resultado[0]);
     res.render('proyecto/protocolo/verProtocolo', { protocolo: resultado[0] ,id_proyecto});
     //res.send('enviado')
 });
-
 
 router.get('/leer/:id_proyecto', async (req, res) => {
     const { id_proyecto } = req.params;
@@ -157,14 +135,11 @@ router.get('/leer/:id_proyecto', async (req, res) => {
         res.contentType("application/pdf");
         res.send(data);
 
-
     } else { res.send('no hay'); }
 
     //res.render('proyecto/protocolo/lectura');
 
 });
-
-
 
 function urlCorrecto(ubicacion) {
 
@@ -172,7 +147,6 @@ function urlCorrecto(ubicacion) {
     //console.log(ubicacion.replace(String.fromCharCode(c),"/"));
     return ubicacion.replace(String.fromCharCode(c), "/");
 }
-
 
 router.get('/observaciones/:id_proyecto',async(req,res)=>{
     var {id_proyecto}=req.params;
@@ -183,11 +157,9 @@ router.get('/observaciones/:id_proyecto',async(req,res)=>{
 
 });
 
-
 router.post('/observaciones/:id_proyecto',async(req,res)=>{
 
 //console.log("post",req.body,req.params);
-
 
 const {anotaciones}=req.body;
 const {id_proyecto}=req.params;

@@ -43,7 +43,7 @@ router.post('/add', estaLogueado, async (req, res) => {
     console.log(newProyecto_entregable);
     await conexion.query('INSERT INTO proyecto_entregable set ?', [newProyecto_entregable]);
   }
-  req.flash('success', 'entregables agregados correctamente');
+  req.flash('success', 'Entregables agregados correctamente');
   res.redirect("/entregable/proyecto/" + id_proyecto);
   
 });
@@ -72,7 +72,7 @@ router.post('/edit', async (req, res) => {
   await conexion.query('UPDATE   proyecto_entregable  set ? WHERE id_proyecto= ? and id_entregable=? ', [updateEntregable, id_proyecto, id_entregable]);
 
 
-  req.flash('success', 'cambios guardados satisfactoriamente');
+  req.flash('success', 'Cambios guardados satisfactoriamente');
   res.redirect('/entregable/proyecto/' + id_proyecto);
 
 });
@@ -83,7 +83,7 @@ router.post('/edit', async (req, res) => {
 router.get('/delete/:id_entregable/:id_proyecto', async (req, res) => {
   const { id_entregable, id_proyecto } = req.params;
   await conexion.query('DELETE FROM  proyecto_entregable  WHERE id_proyecto= ? and id_entregable=? ', [id_proyecto, id_entregable]);
-  req.flash('success', ' eliminado  correctamente');
+  req.flash('success', 'Eliminado  correctamente');
   res.redirect('/entregable/proyecto/' + id_proyecto);
 
 });

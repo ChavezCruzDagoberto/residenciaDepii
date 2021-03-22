@@ -14,7 +14,7 @@
 
                 {{!-- Cabecera --}}
                 <div class="m-5" align="center">
-                    <h1> Crear cuenta a integrante. </h1>
+                    <h1> Crear Cuenta a Integrante. </h1>
                 </div>
 
                 <div align="center" class="mt-5">
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <select name="cvu_tecnm" class="form-control col-sm-7" id="cvu_tecnm"
                                 onchange="consultarCorreo()">
-                                <option value="" required>Seleccione un integrante </option>
+                                <option hidden selected> Seleccione un integrante </option>
                                 {{#each responsables }}
                                 <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}} </option>
                                 {{/each}}
@@ -47,7 +47,8 @@
                             </select>
                         </div>
 
-                        <a href="integrantes/add" style="color: #f26419;"> Si el usuario no se encuentra registrado haga click aqui </a>
+                        <a href="integrantes/add" style="color: #f26419;"> Si el usuario no se encuentra registrado haga
+                            click aqui </a>
                         <br><br><br><br>
 
                         <div class="d-flex justify-content-center">
@@ -87,9 +88,10 @@
                         </div>
 
                         <div class="form-group" align="center">
-                            <select name="rol_sistema" class="form-control col-sm-6">
+                            <select name="rol_sistema" class="form-control col-sm-6" placehol>
+                                <option hidden selected> Seleccione una opcion </option>
                                 <option value="Administrador">Administrador</option>
-                                <option value="Responsable" Selected> Lider de proyecto</option>
+                                <option value="Responsable"> Lider de proyecto</option>
                             </select>
                         </div>
 
@@ -184,7 +186,7 @@
             c.value = b[indice].text;
         } else {
 
-           // console.log("no son iguales");
+            // console.log("no son iguales");
         }
 
     }

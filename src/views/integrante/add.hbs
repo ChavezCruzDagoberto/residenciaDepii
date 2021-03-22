@@ -14,7 +14,7 @@
 
                 {{!-- Cabecera --}}
                 <div class="w-100">
-                    <h1> Crear Nuevo Integrante. </h1>
+                    <h1> Crear Nuevo Participante. </h1>
                 </div>
 
                 <label class="mb-5" style="color: red;"> * Campo obligatorio </label><br>
@@ -86,23 +86,6 @@
                                 </div>
                             </div><br>
 
-                            {{!-- Fila de campus 
-                            <div class="row">
-                                <div class="col-sm-6" align="right">
-                                    <label for="plantel_adscripcion" class="m-2"> Campus </label>
-                                    <label style="color: red;"> * </label>
-                                </div>
-                                <div class="col-sm-6" align="left">
-                                    <div class="row">
-                                        <input type="text" id="adscripcion" name="plantel_adscripcion"
-                                            title="solo letras min de 3 a max 40 caracteres.Preferible ej. TECNM CAMPUS OAXACA"
-                                            onkeypress="validarAdscripcion(event)" class="form-control col-sm-12"
-                                            pattern="[A-Z ]{3,40}" required>
-                                    </div>
-                                </div>
-                            </div><br>
-                            --}}
-                            
                             {{!-- Fila de campus --}}
                             <div class="row">
                                 <div class="col-sm-6" align="right">
@@ -111,14 +94,14 @@
                                 </div>
                                 <div class="col-sm-6" align="left">
                                     <div class="row">
-                                        <select class="form-control col-sm-10" name="plantel_adscripcion" id="tecs" onclick="cargarTecs()">
-                                            <option value="">Elija una opcion</option>
+                                        <select class="form-control col-sm-10" name="plantel_adscripcion" id="tecs"
+                                            onclick="cargarTecs()">
+                                            <option selected hidden>Elija una opcion</option>
 
                                         </select>
                                     </div>
                                 </div>
                             </div><br>
-
 
                             {{!-- Fila de Email --}}
                             <div class="row">
@@ -169,7 +152,6 @@
         }
     }
 </style>
-
 
 {{!-- Validaciones con JS --}}
 <script>
@@ -273,18 +255,15 @@
 
     }
 
-
-
-    
     function cargarTecs() {
-      let select = document.getElementById("tecs");
-      select.remove(0);
-      for (var i = 0; i<tecs.length; i++){
-    var opt = document.createElement('option');
-    opt.value = tecs[i];
-    opt.innerHTML = tecs[i];
-    select.appendChild(opt);
-}
+        let select = document.getElementById("tecs");
+
+        for (var i = 0; i < tecs.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = tecs[i];
+            opt.innerHTML = tecs[i];
+            select.appendChild(opt);
+        }
     }
 
     const tecs = [
@@ -341,6 +320,5 @@
         "Tecnológico de Estudios Superiores de San Felipe del Progreso",
         "Tecnológico de Estudios Superiores de Valle de Bravo",
         "Tecnológico de Estudios Superiores de Villa Guerrero"];
-
 
 </script>

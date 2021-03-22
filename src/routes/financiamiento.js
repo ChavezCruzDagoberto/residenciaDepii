@@ -6,19 +6,14 @@ const conexion = require('../database');
 //validacion con expressValidator
 const { check, validationResult } = require('express-validator');
 
-
 const { estaLogueado, noEstaLogueado, esAdministrador } = require('../lib/auth');
 
 router.get('/add', esAdministrador,async (req, res) => {
-
 
     var consulta = await conexion.query('select distinct clave_partida from detalle_partida');
     //console.log(consulta);
     res.render('financiamiento/add1', {partidas:consulta});
 });
-
-
-
 
 //agrega el financiamiento junto con las partidas que le corresponen al financiamiento
 //las partidas existentes son extraidos de detalle_partida
@@ -43,7 +38,7 @@ router.post('/add', esAdministrador ,[
     //console.log(final);
     const validacion=await conexion.query('select * from financiamiento where clave_financiamiento= ?',[clave_financiamiento]);
     if(validacion.length>0){
-        req.flash('message','ya existe un financiamiento con esa clave intente con una nueva');
+        req.flash('message','Ya existe un financiamiento con esa clave intente con una nueva');
         res.redirect('/financiamiento/add');
     }else{
     
@@ -53,14 +48,12 @@ router.post('/add', esAdministrador ,[
         vigencia_fin:final
     };
    
-    
     await conexion.query('INSERT INTO financiamiento set ?', [newFinanciamiento]);
 
     if(clave_partida!=null && monto_aprobado!=null)
     {
         if (Array.isArray(clave_partida) && Array.isArray(monto_aprobado)) {
        
-
             for (const p in clave_partida) {
                 const newPartida = {
                   clave_financiamiento,
@@ -68,11 +61,9 @@ router.post('/add', esAdministrador ,[
           
                   monto_aprobado: monto_aprobado[p],
           
-          
                 }   
                 //insertar
                 await conexion.query('INSERT INTO financiamiento_partida set ?', [newPartida]);
-          
           
               }
     
@@ -87,19 +78,15 @@ router.post('/add', esAdministrador ,[
           
         }
 
-
-
     }
 
-
-    req.flash('success', 'agreado correctamente');
+    req.flash('success', 'Agreado correctamente');
 
     res.redirect("/financiamiento");
     }
         }
         
 });
-
 
 //listar un financiamiento especifico con sus partidas correspondientes
 
@@ -110,13 +97,10 @@ res.render('partida/list',{partidas:fin_partidas,financiamiento:clave_financiami
 console.log(fin_partidas);
 });
 
-
-
 //listar de la base de datos
 router.get('/', esAdministrador, async (req, res) => {
 
     const financiamiento = await conexion.query('SELECT * FROM  financiamiento ');
-
 
     let financiamiento_editado = [];
     let actual = moment();
@@ -138,28 +122,21 @@ router.get('/', esAdministrador, async (req, res) => {
     res.render('financiamiento/list', { financiamiento: financiamiento_editado });
 });
 
-
-
 //ELIMINAR
 router.get('/delete/:clave_financiamiento', esAdministrador, async (req, res) => {
     const { clave_financiamiento } = req.params;   
     try {
 
-            
-        
-    
     await conexion.query('DELETE FROM  financiamiento  WHERE CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
     //console.log(req.params.id_convocatoria);
-    req.flash('success', clave_financiamiento + ' eliminado  correctamente');
+    req.flash('success', clave_financiamiento + 'Eliminado  correctamente');
     res.redirect("/financiamiento");
 } catch (error) {
         
-    req.flash('message', clave_financiamiento + ' esta asociado a un proyecto no se puede eliminar');
+    req.flash('message', clave_financiamiento + 'Esta asociado a un proyecto no se puede eliminar');
     res.redirect("/financiamiento");
 }
 });
-
-
 
 router.get('/edit/:clave_financiamiento', esAdministrador, async (req, res) => {
 
@@ -180,17 +157,14 @@ const aux={
     vigencia_fin:f_f
 }
 
-
-
     res.render('financiamiento/edit', { financiamiento: aux });
     }else{
-        req.flash('message', 'ya no se puede realizar modificaciones ya tiene asignado un proyecto' );
+        req.flash('message', 'Ya no se pueden realizar modificaciones, ya tiene asignado un proyecto' );
     res.redirect('/financiamiento');
         
     }
     //res.send("recibido");
 });
-
 
 router.post('/edit/:clave_financiamiento', esAdministrador, async (req, res) => {
 
@@ -204,12 +178,9 @@ router.post('/edit/:clave_financiamiento', esAdministrador, async (req, res) => 
 
     await conexion.query('UPDATE   financiamiento  set ? WHERE CLAVE_FINANCIAMIENTO= ? ', [newFinanciamiento, clave_financiamiento]);
     //console.log(newFinanciamiento);
-    req.flash('success', 'cambios guardados para ' + clave_financiamiento);
+    req.flash('success', 'Cambios guardados para ' + clave_financiamiento);
     res.redirect('/financiamiento');
 });
-
-
-
 
 function findsubstr(str) {
 
