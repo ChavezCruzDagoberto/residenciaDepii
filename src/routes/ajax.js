@@ -10,7 +10,6 @@ const products = [{
     name: 'product 2'
 }];
 
-
 //rutas URL
 
 router.get('/product', (req, res) => {
@@ -48,12 +47,8 @@ router.put('/products/:id', (req, res) => {
 
 });
 
-
-
-
 router.delete('/products/:id', (req, res) => {
     const { id } = req.params;
-
 
     products.forEach((product, i) => {
         if (product.id == id) {
