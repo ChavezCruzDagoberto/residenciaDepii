@@ -23,17 +23,14 @@
 
                         <input type="hidden" name="clave_financiamiento" value="{{clave}}">
                        
-
                         <div align="center">
                             <div class="justify-content-center">
 
-                                
                         <select hidden  id="partidas">
                             {{#each partidas}}
                             <option value="{{clave_partida}}">{{clave_partida}}</option>
                             {{/each}}
                         </select>
-
 
                         <div class="form-group">
                             <label for="state_id" class="control-label"> Añadir partidas aprobadas</label><br><br>
@@ -276,7 +273,6 @@
         }
 
     }
-
 
     function validarNumeros(event) {
         if (event.charCode <= 57 && event.charCode >= 48) { }

@@ -261,16 +261,8 @@
       {{!-- Si es administrador y entra a los detalles de un proyecto --}}
       {{#if proyectodisponible}}
 
-      {{!-- Proyecto --}}
-      <li data-toggle="collapse" data-target="#productsx" class="collapsed active">
-        <a href="#"><i class="fas fa-book"></i>&ensp;Proyecto <span class="arrow"></span></a>
-      </li>
-      <ul class="sub-menu collapse" id="productsx">
-        <li><a href="/proyecto">Regresar</a></li>
-      </ul>
-
       {{!-- Protocolo --}}
-      <li data-toggle="collapse" data-target="#service" class="collapsed active">
+      <li data-toggle="collapse" data-target="#service" class="collapsed active" style="background-color:#f26419;">
         <a href="#"><i class="fas fa-file-powerpoint"></i>&ensp;Protocolo <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="service">
@@ -278,7 +270,7 @@
       </ul>
 
       {{!-- Informes --}}
-      <li data-toggle="collapse" data-target="#products" class="collapsed active">
+      <li data-toggle="collapse" data-target="#products" class="collapsed active" style="background-color:#f26419;">
         <a href="#"><i class="fas fa-file-pdf"></i>&ensp;Informes <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="products">
@@ -286,7 +278,7 @@
       </ul>
 
       {{!-- Colaboradores --}}
-      <li data-toggle="collapse" data-target="#new" class="collapsed active">
+      <li data-toggle="collapse" data-target="#new" class="collapsed active" style="background-color:#f26419;">
         <a href="#"><i class="fas fa-user-friends"></i>&ensp;Colaboradores <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="new">
@@ -295,19 +287,27 @@
       </ul>
 
       {{!-- Entregables --}}
-      <li data-toggle="collapse" data-target="#new1" class="collapsed active">
+      <li data-toggle="collapse" data-target="#new1" class="collapsed active" style="background-color:#f26419;">
         <a href="#"><i class="fas fa-copy"></i>&ensp;Entregables <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="new1">
         <li><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">Mostrar entregables</a></li>
       </ul>
 
-      {{!-- Materiales y servicios --}}
-      <li data-toggle="collapse" data-target="#new2" class="collapsed active">
-        <a href="#"><i class="fas fa-dollar-sign"></i>&ensp;Materiales/Servicios<span class="arrow"></span></a>
+      {{!-- Gastos --}}
+      <li data-toggle="collapse" data-target="#new2" class="collapsed active" style="background-color:#f26419;">
+        <a href="#"><i class="fas fa-dollar-sign"></i>&ensp;Gastos<span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="new2">
         <li><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}">Mostrar</a></li>
+      </ul>
+
+      {{!-- Proyecto --}}
+      <li data-toggle="collapse" data-target="#productsx" class="collapsed active">
+        <a href="#"><i class="fas fa-arrow-left"></i>&ensp;Proyectos <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="productsx">
+        <li><a href="/proyecto">Regresar</a></li>
       </ul>
 
   
@@ -362,14 +362,14 @@
 
       {{!-- Proyecto --}}
       <li data-toggle="collapse" data-target="#products5" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-book"></i>&ensp;Proyectos <span class="arrow"></span></a>
+        <a href="/proyecto/listartodo1"><i class="fas fa-book"></i>&ensp;Proyectos</a>
       </li>
-      <ul class="sub-menu collapse" id="products5">
+      {{!-- <ul class="sub-menu collapse" id="products5">
         <li><a href="/proyecto">Listar</a></li>
       </ul>
       <ul class="sub-menu collapse" id="products5">
         <li><a href="/proyecto/listartodo1">Listar Todo</a></li>
-      </ul>
+      </ul> --}}
 
       {{/if}}
 
