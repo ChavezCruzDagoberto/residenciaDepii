@@ -25,11 +25,11 @@
                   <thead>
                     <tr>
                       <th scope="col">Rol</th>
-                      <th scope="col">No. CVU TecNM</th>
+                      <th scope="col">Clave CVU TecNM</th>
                       <th scope="col">Nombre</th>
                       <th scope="col">Plantel de Adscripcion</th>
-                      <th scope="col">Eliminar integrante</th>
-                      <th scope="col">Editar integrante</th>
+                      <th scope="col">Editar</th>
+                      <th scope="col">Eliminar</th>
                     </tr>
                   </thead>
 
@@ -37,15 +37,15 @@
                     {{#each integrantes}}
 
                     <tr>
-                      <th>{{rol_proyecto}}</th>
+                      <th style="background-color: lightgray;">{{rol_proyecto}}</th>
                       <th>{{cvu_tecnm}}</th>
                       <td>{{nombre}} {{apellido1}} {{apellido2}}</td>
                       <td>{{plantel_adscripcion}}</td>
+                      <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-outline-primary btn-sm"><i
+                            class="fas fa-pencil-alt"></i>&ensp;Editar</a></td>
                       <td><a href="/integrantes/proyecto/delete/{{cvu_tecnm}}/{{id_proyecto}}"
                           class="btn btn-outline-danger btn-sm" id="prueba"><i class="far fa-trash-alt"></i>&ensp;Eliminar </a>
                       </td>
-                      <td> <a href="/integrantes/edit/{{cvu_tecnm}}" class="btn btn-outline-warning btn-sm"><i
-                            class="fas fa-pencil-alt"></i>&ensp;Editar</a></td>
 
                     </tr>
                     {{else}}

@@ -92,8 +92,8 @@
                                 </div>
                                 <div class="col-sm-6" align="left">
                                     <div class="row">
-                                        <select class="form-control col-sm-10" name="plantel_adscripcion" id="tecs" onclick="cargarTecs()">
-                                            <option value="">Elija una opcion</option>
+                                        <select class="form-control col-sm-10 ml-3" name="plantel_adscripcion" id="tecs" onclick="cargarTecs()">
+                                            <option selected hidden>Elija una opcion</option>
 
                                         </select>
                                     </div>
@@ -127,7 +127,7 @@
                         {{!-- Boton --}}
                         <div class="m-5" align="center">
                             <div class="form-group" align="center">
-                                <button class="btn btn-outline-primary col-sm-4 btn-block">
+                                <button class="btn btn-outline-secondary col-sm-4 btn-block">
                                     <i class="fas fa-user-plus"></i>&emsp;Crear integrante
                                 </button>
                             </div>
@@ -261,7 +261,6 @@
 
     function cargarTecs() {
       let select = document.getElementById("tecs");
-      select.remove(0);
       for (var i = 0; i<tecs.length; i++){
     var opt = document.createElement('option');
     opt.value = tecs[i];

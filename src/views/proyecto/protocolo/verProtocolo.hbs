@@ -24,7 +24,7 @@
                   <thead>
                     <tr>
                       <th scope="col">Nombre del Archivo</th>
-                      <th scope="col">URL</th>
+                      <th scope="col">Previsualizar</th>
 
                       {{#if admin}}
                       <th scope="col">Anotaciones</th>
@@ -35,11 +35,11 @@
                   <tbody>
                     {{#if protocolo}}
                     <tr>
-                      <th>{{protocolo.nombre_archivo}}</th>
+                      <th style="background-color: lightgray;">{{protocolo.nombre_archivo}}</th>
                       <input type="hidden" name="id_proyecto" value="{{protocolo.id_proyecto}}">
                       <input type="hidden" name="observaciones" id="observaciones" value="{{protocolo.anotaciones}}">
                       <td><a href="/protocolo/leer/{{protocolo.id_proyecto}}" class="btn btn-outline-success btn-sm" target="_blank"><i
-                            class="far fa-eye"></i>&ensp;Ver</a>
+                            class="far fa-eye"></i>&ensp;Previsualizar</a>
                       </td>
 
                       {{#if admin}}

@@ -33,7 +33,7 @@
             <div class="form-group">
               {{#each restante}}
               <label for=""> Clave: {{clave_partida}} Monto restante $</label> <label style="color: red;" for="restante"
-                id="{{clave_partida}}"> {{monto_restante}}</label><br>
+                id="{{clave_partida}}"> {{monto_restante}} MXN</label><br>
               {{/each}}
             </div><br><br>
 
@@ -58,15 +58,17 @@
                     Materiales y Servicios
                   </small>
                 </h3>
-              </div>
+              </div><br>
 
               {{!-- <label for="state_id" class="control-label"></label><br> --}}
 
               <!-- Boton Agregar -->
-              <input class="btn btn-outline-success btn-sm" type="button" title="Agregar Producto" Value="+"
-                onclick="agregar('elementos')">
+              <label for="">Agregar</label>
+              <input class="btn btn-outline-success btn-sm" type="button" title="Agregar" Value="+"
+                onclick="agregar('elementos')">&ensp;
               <!-- Boton Borrar -->
-              <input id="eliminar" class="btn btn-outline-danger btn-sm" type="button" title="Borrar Producto" Value="-"
+              <label for="">Eliminar</label>
+              <input id="eliminar" class="btn btn-outline-danger btn-sm" type="button" title="Borrar" Value="-"
                 disabled onclick="borrar('elementos')"><br><br>
 
             </div>
@@ -76,7 +78,7 @@
                 <tr>
                   <th scope="col">Descripcion</th>
                   <th scope="col">Subpartida</th>
-                  <th scope="col">Monto</th>
+                  <th scope="col">Monto $ MXN</th>
                 </tr>
               </thead>
             </table><br><br><br>

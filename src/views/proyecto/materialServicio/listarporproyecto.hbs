@@ -20,7 +20,7 @@
                 <div class="container">
                     <div class=" row mx-auto">
                         <div class="col-lg-12">
-                            <h2>Total: ${{total}}.00 MNX/0</h2>
+                            <h2>Total: ${{total}}.00 MNX/0</h2><br>
                             <div class="table-responsive">
 
                                 <table class="table-sm table-bordered table-striped table-hover" cellspacing="0"
@@ -30,7 +30,7 @@
                                         <tr>
                                             <th scope="col">Material / Servicio</th>
                                             <th scope="col">Clave subpartida</th>
-                                            <th scope="col">Monto</th>
+                                            <th scope="col">Monto $ MXN</th>
                                             <!--
                                             <th scope="col">Cambios</th>
                                             <th scope="col">Eliminar</th>-->
@@ -41,9 +41,9 @@
                                         {{#each consulta}}
                                         <form action="/materialServicio/edit" method="POST">
                                             <tr>
-                                                <th>{{descripcionms}}</th>
+                                                <th style="background-color: lightgray;">{{descripcionms}}</th>
                                                 <td>{{clave_subpartida}}</td>
-                                                <td>$ {{monto_solicitado}}.00 MNX/0</td>
+                                                <td>$ {{monto_solicitado}}.00 MXN</td>
                                                 <!--
                                                 <td><input type="text" value="{{monto_solicitado}}"
                                                         name="monto_solicitado"></td>
