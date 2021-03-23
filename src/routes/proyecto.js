@@ -564,7 +564,7 @@ router.get("/regresar", esLider, async (req, res) => {
 
 function formatearFechas(proyecto) {
   const formato = "YYYY-MM-DD ";
-  const formato1 = "LLL";
+  const formato1 = "dddd DD [de] MMMM YYYY";
   let editado = [];
   for (const p in proyecto) {
     let f = moment(proyecto[p].fecha_sometido);
