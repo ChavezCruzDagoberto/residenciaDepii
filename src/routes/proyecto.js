@@ -206,7 +206,7 @@ router.get("/", estaLogueado, async (req, res) => {
 
   //console.log(req.user);
   if (req.user.rol_sistema == "Administrador") {
-    res.redirect("proyecto/listartodo");
+    res.redirect("proyecto/listartodo1");
   } else {
     const cvu_tecnm = req.user.cvu_tecnm;
     const proyectos = await conexion.query(

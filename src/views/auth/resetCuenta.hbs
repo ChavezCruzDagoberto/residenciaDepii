@@ -15,17 +15,34 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="password" name="password" class="form-control" placeholder="contraseña" required>
+                            
+                         <input type="password"  name="password"
+                                            class="form-control"
+                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                            onkeypress="verificar(event)" placeholder="contraseña" required>    
                         </div>
+
+                        
 
 
                         <div class="form-group">
-                            <input type="password" name="password_now" class="form-control" id="pas1"
-                                placeholder="contraseña nueva" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
+                            
+                        
+                        <input type="password"  name="password_now" id="pas1" 
+                                            class="form-control"
+                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                            onkeypress="verificar(event)" placeholder="contraseña nueva" required> 
                         </div>
 
                         <div class="form-group">
-                            <input type="password" name="confirm" class="form-control" id="pas2" placeholder="Confirmar" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
+                           
+                        <input type="password"  name="confirm" id="pas2"
+                                            class="form-control"
+                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                            onkeypress="verificar(event)" placeholder="Confirmar" required> 
                         </div>
 
 
@@ -42,6 +59,16 @@
 </div>
 
 <script>
+
+    function verificar(event) {
+
+        var x = event.charCode;
+        if (x == 32) {
+            event.preventDefault();
+
+        }
+    }
+
 		function enviar(){
 			var clave1=document.getElementById("pas1").value;
            var  clave2=document.getElementById("pas2").value;
