@@ -7,14 +7,14 @@
         <div class="d-flex justify-content-center vh-80">
 
             {{!-- div centra verticalmente el contenido --}}
-            <div class="align-items-start w-100 mt-5" id="contenedorprincipal">
+            <div class="align-items-center w-100 mt-5" id="contenedorprincipal">
 
                 {{!-- Cabecera --}}
                 <div class="w-100 mb-5" align="center">
                     <h1 class="mb-5"> Avance del Proyecto. </h1>
                     <h4 style="color: gray;">Proyecto actual:</h4>
-                    <h2 style="color: gray;" class="mb-5"> {{proyecto.titulo}} </h2><br><br>              
-                    <h3 class="mb-5" style="color:navy;"> Linea de avance del proyecto </h3>
+                    <h2 style="color: gray;" class="mb-5"> {{proyecto.titulo}} </h2><br><br><br>
+                    <h3 class="mb-5" style="color:navy;"> Avance del proyecto </h3>
                 </div>
 
                 <div class="m-5" align="center">
@@ -22,15 +22,28 @@
                         <div class="progress-container">
 
                             <div class="progress" id="progress"></div>
-                            
-                            <div class="circle active" title="Proyecto creado.Click para visualizarlo" ><a href="/proyecto"><i class="fas fa-folder-open"></i></a></div>
-                            <div class="circle " title="Cargar protocolo"><a href="/protocolo/{{proyectodisponible.id_proyecto}}"><i class="far fa-file-alt"></i></a></div>
-                            <div class="circle " title="Cargar Material y Servicio. Cargar Entregables"><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}"><i class="fas fa-list-ul"></i> </a></div>
-                            <div class="circle " title="Cargar PDF informe 1"><a href=""><i class="far fa-check-circle"></i></a></div>
-                            <div class="circle " title="Cargar PDF informe 2"><a href=""><i class="far fa-check-circle"></i></a></div>
-                            <div class="circle " title="Cargar PDF informe 3"><a href=""><i class="far fa-check-circle"></i></a></div>
-                            <div class="circle " title="Cargar PDF informe 4"><a href=""><i class="far fa-check-circle"></i></a></div>
-                            <div class="circle " title="Proyecto Terminado"><i class="far fa-flag"></i></div>
+
+                            <div class="circle active" title="Proyecto creado"><a href="/proyecto"><i
+                                        class="fas fa-folder-open"></i></a></div>
+                            <div class="circle " title="Protocolo"><a
+                                    href="/protocolo/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-file-alt"></i></a></div>
+                            <div class="circle " title="Gastos, entregables y colaboradores"><a
+                                    href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}"><i
+                                        class="fas fa-list-ul"></i> </a></div>
+                            <div class="circle " title="Informe 1"><a
+                                    href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Informe 2"><a
+                                    href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Informe 3"><a
+                                    href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Informe 4"><a
+                                    href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Proyecto terminado"><i class="far fa-flag"></i></div>
 
                         </div>
                     </div>
@@ -141,7 +154,7 @@
 
     }
 
-    function mensaje1(){
+    function mensaje1() {
 
 
     }

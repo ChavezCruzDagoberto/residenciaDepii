@@ -52,8 +52,7 @@
 
         {{!-- Materiales y servicios --}}
         <li data-toggle="collapse" data-target="#new2" class="collapsed active d-sm-none">
-          <a href="#" class="nav-link"><i class="fas fa-dollar-sign"></i>&ensp;Gastos<span
-              class="arrow"></span></a>
+          <a href="#" class="nav-link"><i class="fas fa-dollar-sign"></i>&ensp;Gastos<span class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse d-sm-none" id="new2" style="list-style-type: none;">
           <li><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}" class="nav-link">Mostrar</a>
@@ -149,20 +148,14 @@
         {{!-- Si el usuario es lider --}}
         {{#if lider}}
 
-        {{!-- Proyecto --}}
-        <li data-toggle="collapse" data-target="#productsx" class="collapsed active d-sm-none">
-          <a href="#" class="nav-link"><i class="fas fa-book"></i>&ensp;Proyecto <span class="arrow"></span></a>
-        </li>
-
-        <ul class="sub-menu collapse d-sm-none" id="productsx" style="list-style-type: none;">
-          <li><a href="/proyecto/add" class="nav-link">Agregar</a></li>
-          <li><a href="/proyecto" class="nav-link">Listar</a></li>
-        </ul>
-
+        
 
         {{!-- Si es administrador y entro a los detalles de su proyecto --}}
         {{#if proyectodisponible}}
 
+        <li data-toggle="collapse" data-target="#productsz" class="collapsed active d-sm-none">
+          <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}" class="nav-link"><i class="fas fa-chart-line"></i>&ensp;Avance</a>
+        </li>
 
         {{!-- Protocolo --}}
         <li data-toggle="collapse" data-target="#service" class="collapsed active d-sm-none">
@@ -212,7 +205,7 @@
 
         {{!-- Materiales y servicios --}}
         <li data-toggle="collapse" data-target="#new2" class="collapsed active d-sm-none">
-          <a href="#" class="nav-link"><i class="fas fa-dollar-sign"></i>&ensp;Materiales y servicios
+          <a href="#" class="nav-link"><i class="fas fa-dollar-sign"></i>&ensp;Gastos
             <span class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse active d-sm-none" id="new2" style="list-style-type: none;">
@@ -222,6 +215,19 @@
           </li>
         </ul>
         {{/if}}
+
+        {{else}}
+
+        {{!-- Proyecto --}}
+        <li data-toggle="collapse" data-target="#productsx" class="collapsed active d-sm-none">
+          <a href="#" class="nav-link"><i class="fas fa-book"></i>&ensp;Proyecto <span class="arrow"></span></a>
+        </li>
+
+        <ul class="sub-menu collapse d-sm-none" id="productsx" style="list-style-type: none;">
+          <li><a href="/proyecto/add" class="nav-link">Agregar</a></li>
+          <li><a href="/proyecto" class="nav-link">Ver proyectos</a></li>
+        </ul>
+
 
         {{/if}}
 
@@ -385,8 +391,9 @@
       {{#if lider}}
 
       {{#if proyectodisponible}}
-      <li data-toggle="collapse" data-target="#productsz" class="collapsed active"style="background-color:#f26419;">
-        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-chart-line"></i>&ensp;Avance </a>
+      <li data-toggle="collapse" data-target="#productsz" class="collapsed active" style="background-color:#f26419;">
+        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-chart-line"></i>&ensp;Avance
+        </a>
       </li>
       {{else}}
 
