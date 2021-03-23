@@ -1,0 +1,159 @@
+{{!-- LISTA DE PROYECTOS --}}
+
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
+
+  {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+  <div class="container w-100">
+
+    {{!-- div centra horizontalmente el contenido --}}
+    <div class="d-flex justify-content-center vh-90">
+
+      {{!-- div centra verticalmente el contenido --}}
+      <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
+
+        {{!-- Cabecera --}}
+        <div class="w-100 mb-5">
+          <h1> Lista de Proyectos. </h1>
+        </div>
+
+        {{#if proyectos}}
+        <h4>Filtro por estado:</h4>
+
+        <div class="d-flex">
+          <div class="border w-100 p-2 rounded" style="background-color: lightgray;">
+
+            <button id="general" onclick="filtrar(event)" type="button" class="btn btn-dark">Todos</button>&ensp;&ensp;
+            <button id="enTiempo" onclick="filtrar(event)" type="button" class="btn btn-success">En Tiempo</button>&ensp;&ensp;
+            <button id="atrasado" onclick="filtrar(event)" type="button" class="btn btn-warning">Atrasado</button>&ensp;&ensp;
+            <button id="terminado" onclick="filtrar(event)" type="button" class="btn btn-primary">Terminado</button>&ensp;&ensp;
+            <button id="cancelado" onclick="filtrar(event)" type="button" class="btn btn-danger">Cancelado</button>&ensp;&ensp;
+
+          </div>
+        </div>
+
+        <br><br><br>
+        {{/if}}
+        {{!-- Comienza la tabla --}}
+        <div class="container">
+
+          <div class=" row mx-auto">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table id="table" class="table-sm table-bordered table-striped table-hover" cellspacing="0"
+                  width="100%">
+                  {{#if proyectos}}
+                  {{!-- Cabecera de la tabla --}}
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre del proyecto</th>
+                     
+                      <th scope="col">Financiamiento</th>
+                      <th scope="col">Responsable</th>
+                      <th scope="col" >Año</th>
+                      <th scope="col">Archivo</th>
+
+                    </tr>
+                  </thead>
+                  {{/if}}
+
+                  {{!-- Cuerpo de la tabla --}}
+                  <tbody>
+                    {{#each proyectos}}
+                    <tr>
+                      <th>{{titulo}}</th>
+                      <td>{{clave_financiamiento}}</td>
+                      <td>{{responsable}}</td>
+                      <td >{{anio}}</td>
+                      <td align="center"><a href="/proyecto/detalle/{{clave_financiamiento}}"
+                          class="btn btn-sm btn-outline-success"><i class="fas fa-info"></i>&ensp;Ver Archivo</a></td>
+
+                    </tr>
+
+                    {{!-- En caso de no encontrar proyectos creados --}}
+                    {{else}}
+                    <div class="card bg-light mb-3" style="max-width: 50rem;">
+                      <div class="card-header" align="left"> ¡MENSAJE! </div>
+                      <div class="card-body">
+                        <p class="card-text"> NO SE ENCUENTRA REGISTRADO NINGUN PROYECTO. </p>
+                        {{#if lider}}
+                        <a href="/proyecto/add"> Crear nuevo proyecto. </a>
+                        {{/if}}
+                      </div>
+                    </div>
+                    {{/each}}
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>
+<script>
+  function filtrar(event) {
+    //console.log(event.target.id);
+    var boton = event.target.id;
+
+
+    switch (boton) {
+      case "enTiempo":
+        buscar(1);
+        break;
+      case "atrasado":
+        buscar(2);
+        break;
+      case "terminado":
+        buscar(3);
+        break;
+      case "cancelado":
+        buscar(4);
+        break;
+      case "general":
+        buscar(5);
+        break;
+
+      default:
+
+        break;
+    }
+  }
+
+  function buscar(x) {
+    var table = document.getElementById("table").tBodies[0];
+
+    var r = 0;
+    while (row = table.rows[r++]) {
+      if (x != 5) {
+        if (row.children[6].innerText == x)
+          row.style.display = null;
+        else
+          row.style.display = 'none';
+      } else {
+
+        row.style.display = null;
+      }
+
+    }
+
+  }
+</script>

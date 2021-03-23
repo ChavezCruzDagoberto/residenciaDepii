@@ -1,0 +1,106 @@
+{{!-- LIDER DE PROYECTO -> AGREGAR PROYECTO --}}
+
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
+
+    {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+    <div class="container w-100">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-90">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
+
+                <div class="w-100 mb-5">
+                    <h1> Agregar Proyecto Historico </h1>
+                </div><br><br>
+
+                <form action="/proyecto/historico/add" method="POST" class="w-100" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div class="col-sm-6" align="right">
+                            <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
+                        </div>
+                        <div class="col-sm-6" align="left">
+                            <input type="text" class="form-control col-sm-4" name="clave_financiamiento" required>
+                        </div>
+                    </div><br>
+
+                    <div class="row">
+                        <div class="col-sm-6" align="right">
+                            <label for="titulo" class="m-2"> Nombre del proyecto </label>
+                        </div>
+                        <div class="col-sm-6" align="left">
+                            <input type="text" class="form-control col-sm-10" name="titulo" required>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-sm-6" align="right">
+                            <label for="titulo" class="m-2"> Responsable</label>
+                        </div>
+                        <div class="col-sm-6" align="left">
+                            <input type="text" class="form-control col-sm-10" name="responsable" required>
+                        </div>
+                    </div><br>
+
+
+                    <div class="row">
+                        <div class="col-sm-6" align="right">
+                            <label for="titulo" class="m-2"> Año</label>
+                        </div>
+                        <div class="col-sm-6" align="left">
+                            <select name="anio" id="ano">
+                                <option hidden selected> Seleccione el año </option>
+                            </select>
+
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-sm-12" align="left">
+
+                            <div class="form-group">
+                                <input type="file" id="archivo" title="solo se pueden cargar 1 PDF" name="archivo"
+                                    accept=".pdf" max="1" min="1" class="form-control-file" required>
+                            </div>
+
+                        </div>
+                    </div><br><br>
+
+
+
+
+
+                    <div class="form-group">
+                        <button class="btn btn-secondary btn-block col-sm-4 mt-5">
+                            <i class="fas fa-plus"></i>&ensp;Agregar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+</style>
+<script>
+    function ComboAno() {
+        var n = (new Date()).getFullYear()
+        var select = document.getElementById("ano");
+        for (var i = n; i >= 1900; i--)select.options.add(new Option(i, i));
+    };
+    window.onload = ComboAno;
+</script>

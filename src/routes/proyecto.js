@@ -11,6 +11,37 @@ const {
 const moment = require("moment");
 
 moment.locale("es");
+
+
+
+const path = require("path");
+const multer = require("multer");
+
+
+const fs = require("fs");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./historico");
+  },
+  filename: (req, file, cb) => {
+    if (file.mimetype !== "application/pdf") {
+      //return cb(null,false );
+
+      cb(new Error("solo pdfs son permitidos"));
+      //return cb(null,)
+    } else {
+      // const valida=
+        console.log(req.body);
+        var nombre= req.body.titulo+req.body.anio;
+      cb(null, nombre + path.extname(file.originalname));
+    }
+  },
+});
+
+const upload = multer({ storage });
+
+
 /*
 
 router.get('/add', esLider, async (req, res) => {
@@ -137,68 +168,7 @@ router.post("/add", esLider, async (req, res) => {
   }
 });
 
-/*
-router.post('/add', esLider, async (req, res) => {
 
-  //validar si ese usuario tiene un proyecto activo
-  const activo = await conexion.query('select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado!=0', [req.user.cvu_tecnm]);
-  if (activo.length == 0) {
-
-    const clave_financiamiento = req.body.clave_financiamiento;
-    //estados del proyecto o=terminado, 1=creado,2=en tiempo,3=atrasado,4=cancelado
-    let estado = 1;
-    const validacion = await conexion.query('select * from proyecto WHERE  CLAVE_FINANCIAMIENTO=?', [clave_financiamiento]);
-    //const validaconvocatoria = await conexion.query('select * from proyecto WHERE  id_convocatoria=?', [req.body.id_convocatoria]);
-    console.log(validacion.length);
-    //console.log(validaconvocatoria.length);
-  if (validacion.length == 0 ) {
-      const cvu_tecnm = req.user.cvu_tecnm;
-      const fecha_sometido = req.body.fecha_sometido ;
-      const fecha_dictamen = req.body.fecha_dictamen ;
-
-      const { titulo, modalidad, id_convocatoria } = req.body;
-      var creado = moment().format('YYYY-MM-DD');
-      
-      const newProyecto = {
-        titulo,
-        modalidad,
-        fecha_sometido,
-        fecha_dictamen,
-        clave_financiamiento,
-        id_convocatoria,
-        estado,
-        creado
-      };
-
-      await conexion.query('INSERT INTO proyecto set ?', [newProyecto]);
-
-      const p = await conexion.query('select * from proyecto where titulo=?', [titulo]);
-
-      const newProyecto_participante = {
-        id_proyecto: p[0].id_proyecto,
-        cvu_tecnm,
-        rol_proyecto: 'Responsable'
-      };
-      await conexion.query('INSERT INTO proyecto_participante set ?', [newProyecto_participante]);
-
-      req.flash('success', 'proyecto agreado correctamente');
-
-      res.redirect("/proyecto");
-
-    } else {
-      req.flash('message', ' no pudo ser creado el proyecto verfique la clave  financiamiento');
-      //console.log('no existe registro');
-      res.redirect("/proyecto/add");
-    }
-  }
-  else {
-
-    req.flash('message', ' tiene un proyecto activo no puede tener control de 2 proyectos a la vez');
-    res.redirect("/proyecto/add");
-  }
-
-});
-*/
 
 //listar de la base de datos
 router.get("/", estaLogueado, async (req, res) => {
@@ -614,4 +584,32 @@ router.get("/x", async (req, res) => {
   res.render("proyecto/seguimiento");
 });
 
+
+router.get("/historico/add", async (req, res) => {
+  res.render("proyecto/historicoadd");
+});
+
+
+router.post("/historico/add",upload.single("archivo"), async (req, res) => {
+console.log(req.body,req.file);
+const {clave_financiamiento,titulo,responsable,anio}=req.body;
+const {path}= req.file;
+
+
+const newhistorico={
+  clave_financiamiento,
+  titulo,
+  responsable,
+  anio,
+  url_archivo:path
+};
+await conexion.query("INSERT INTO historico set ?", [newhistorico]);
+   res.redirect("/proyecto/listarHistorico");
+}
+      
+);
+router.get("/listarHistorico", async (req, res) => {
+  const proyectos=await conexion.query('select * from historico');
+  res.render("proyecto/listarHistorico",{proyectos});
+});
 module.exports = router;
