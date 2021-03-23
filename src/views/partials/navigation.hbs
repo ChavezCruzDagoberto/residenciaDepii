@@ -148,13 +148,14 @@
         {{!-- Si el usuario es lider --}}
         {{#if lider}}
 
-        
+
 
         {{!-- Si es administrador y entro a los detalles de su proyecto --}}
         {{#if proyectodisponible}}
 
         <li data-toggle="collapse" data-target="#productsz" class="collapsed active d-sm-none">
-          <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}" class="nav-link"><i class="fas fa-chart-line"></i>&ensp;Avance</a>
+          <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}" class="nav-link"><i
+              class="fas fa-chart-line"></i>&ensp;Avance</a>
         </li>
 
         {{!-- Protocolo --}}
@@ -272,6 +273,11 @@
       {{!-- Si es administrador y entra a los detalles de un proyecto --}}
       {{#if proyectodisponible}}
 
+      <li data-toggle="collapse" data-target="#productsz" class="collapsed active" style="background-color:#f26419;">
+        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-chart-line"></i>&ensp;Avance
+        </a>
+      </li>
+
       {{!-- Protocolo --}}
       <li data-toggle="collapse" data-target="#service" class="collapsed active" style="background-color:#f26419;">
         <a href="#"><i class="fas fa-file-powerpoint"></i>&ensp;Protocolo <span class="arrow"></span></a>
@@ -382,6 +388,11 @@
         <li><a href="/proyecto/listartodo1">Listar Todo</a></li>
       </ul> --}}
 
+      {{!-- Cuenta -> Contrasenia --}}
+      <li data-toggle="collapse" data-target="#products7" class="collapsed active">
+        <a href="/reset"><i class="fas fa-cog"></i>&ensp;Cuenta</a>
+      </li>
+
       {{/if}}
 
       {{/if}}
@@ -405,6 +416,11 @@
         <li><a href="/proyecto/add">Agregar</a></li>
         <li><a href="/proyecto">Ver Proyecto</a></li>
       </ul>
+
+      {{!-- Cuenta -> Contrasenia --}}
+      <li data-toggle="collapse" data-target="#products7" class="collapsed active">
+        <a href="/reset"><i class="fas fa-cog"></i>&ensp;Cuenta</a>
+      </li>
       {{/if}}
 
       {{!-- Si es administrador y entro a los detalles de su proyecto --}}
