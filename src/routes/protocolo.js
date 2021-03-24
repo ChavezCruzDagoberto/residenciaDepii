@@ -61,7 +61,7 @@ router.post("/add/:id_proyecto", upload.single("archivo"), async (req, res) => {
 
   const { id_proyecto } = req.params;
   const { filename, path } = req.file;
-
+  const admins= await conexion.query('select * from users where rol_sistema="Administrador"');
   const verifica = await conexion.query(
     "select * from protocolo where id_proyecto=?",
     [id_proyecto]
@@ -82,6 +82,16 @@ router.post("/add/:id_proyecto", upload.single("archivo"), async (req, res) => {
         newProtocolo1,
         id_proyecto,
       ]);
+
+
+      for(z=0;z<admins.length;z++){
+        let noti={
+          destinatario:admins[z].cvu_tecnm,
+          mensaje:"se cargo el protocolo corregido  de "+req.user.cvu_tecnm ,
+          leido:0
+        };
+        await conexion.query("INSERT INTO notificaciones set ?", [noti]);
+      }
       //await conexion.query('UPDATE   proyecto  set ? WHERE id_proyecto= ? ', [{estado:2},id_proyecto]);
       req.flash("success", "Correcto");
       res.redirect("/protocolo/" + id_proyecto);
@@ -106,6 +116,16 @@ router.post("/add/:id_proyecto", upload.single("archivo"), async (req, res) => {
       { estado: 2 },
       id_proyecto,
     ]);
+
+    
+    for(z=0;z<admins.length;z++){
+      let noti={
+        destinatario:admins[z].cvu_tecnm,
+        mensaje:"Se cargo al sistema el protocolo de "+req.user.cvu_tecnm +", Reviselo",
+        leido:0
+      };
+      await conexion.query("INSERT INTO notificaciones set ?", [noti]);
+    }
     res.redirect("/protocolo/" + id_proyecto);
   }
 });
@@ -193,7 +213,14 @@ router.post("/observaciones/:id_proyecto", async (req, res) => {
       aux,
       id_proyecto,
     ]);
+    const resp= await conexion.query('select * from proyecto_participante where id_proyecto=? and rol_proyecto="Responsable"',[id_proyecto]);
 
+    let noti={
+      destinatario:resp[0].cvu_tecnm,
+      mensaje:"El coordinador realizo anotaciones a su proyecto. Reviselo",
+      leido:0
+    };
+    await conexion.query("INSERT INTO notificaciones set ?", [noti]);
     res.redirect("/protocolo/" + id_proyecto);
   }
 });

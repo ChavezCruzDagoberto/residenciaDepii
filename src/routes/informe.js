@@ -321,6 +321,7 @@ router.post(
     const { id_informe } = req.params;
     const { filename, path } = req.file;
     try {
+      const admins= await conexion.query('select * from users where rol_sistema="Administrador"');
       var consulta = await conexion.query(
         "select * from informe where id_informe=?",
         [id_informe]
@@ -349,6 +350,14 @@ router.post(
               "UPDATE   archivo_informes  set ? WHERE id_informe=? and  id_proyecto= ? ",
               [newInforme1, id_informe, id_proyecto]
             );
+            for(z=0;z<admins.length;z++){
+              let noti={
+                destinatario:admins[z].cvu_tecnm,
+                mensaje:"se cargo el informe "+numerodeInforme+" corregido  de "+req.user.cvu_tecnm ,
+                leido:0
+              };
+              await conexion.query("INSERT INTO notificaciones set ?", [noti]);
+            }
             req.flash("success", "Correcto");
             res.redirect(
               "/informe/verInforme/" + id_informe + "/" + id_proyecto
@@ -370,7 +379,14 @@ router.post(
           await conexion.query("INSERT INTO archivo_informes set ?", [
             newInforme,
           ]);
-
+          for(z=0;z<admins.length;z++){
+            let noti={
+              destinatario:admins[z].cvu_tecnm,
+              mensaje:"Se cargo al sistema el informe "+numerodeInforme+" de "+req.user.cvu_tecnm +", Reviselo",
+              leido:0
+            };
+            await conexion.query("INSERT INTO notificaciones set ?", [noti]);
+          }
           let estado_mandar = 3;
           switch (numerodeInforme) {
             case 1:
@@ -486,6 +502,17 @@ router.post("/observaciones/:id_proyecto/:id_informe", async (req, res) => {
       "UPDATE   archivo_informes  set ? WHERE id_proyecto=? and id_informe=?",
       [aux, id_proyecto, id_informe]
     );
+
+
+    const resp= await conexion.query('select * from proyecto_participante where id_proyecto=? and rol_proyecto="Responsable"',[id_proyecto]);
+
+    let noti={
+      destinatario:resp[0].cvu_tecnm,
+      mensaje:"El coordinador realizo anotaciones a su informe actual. Reviselo",
+      leido:0
+    };
+    await conexion.query("INSERT INTO notificaciones set ?", [noti]);
+
 
     res.redirect("/informe/verInforme/" + id_informe + "/" + id_proyecto);
   }

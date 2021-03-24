@@ -122,6 +122,17 @@ router.post("/add", estaLogueado, async (req, res) => {
     await conexion.query("INSERT INTO material_servicio set ?", [newMySa]);
   }
 
+
+  const admins= await conexion.query('select * from users where rol_sistema="Administrador"');
+      for(z=0;z<admins.length;z++){
+        let noti={
+          destinatario:admins[z].cvu_tecnm,
+          mensaje:"Se creo la lista de materiales y servicios del proyecto de "+req.user.cvu_tecnm,
+          leido:0
+        };
+        await conexion.query("INSERT INTO notificaciones set ?", [noti]);
+      }
+
   req.flash("success", "Materiales y servicios agregados correctamente");
   res.redirect("/materialServicio/proyecto/" + id_proyecto);
 });

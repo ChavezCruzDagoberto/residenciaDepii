@@ -147,7 +147,7 @@ router.post("/add", esLider, async (req, res) => {
 
         let notix={
           destinatario:req.user.cvu_tecnm,
-          mensaje:"la fecha del informe "+(i+1)+ "es del" +sem_an[i] +"al "+informes[i],
+          mensaje:"la fecha del informe "+(i+1)+ " es del " +sem_an[i] +" al " +informes[i],
           leido:0
         };
         await conexion.query("INSERT INTO notificaciones set ?", [notix]);
