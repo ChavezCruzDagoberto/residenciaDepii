@@ -24,10 +24,14 @@
           <div class="border w-100 p-2 rounded" style="background-color: lightgray;">
 
             <button id="general" onclick="filtrar(event)" type="button" class="btn btn-dark">Todos</button>&ensp;&ensp;
-            <button id="enTiempo" onclick="filtrar(event)" type="button" class="btn btn-success">En Tiempo</button>&ensp;&ensp;
-            <button id="atrasado" onclick="filtrar(event)" type="button" class="btn btn-warning">Atrasado</button>&ensp;&ensp;
-            <button id="terminado" onclick="filtrar(event)" type="button" class="btn btn-primary">Terminado</button>&ensp;&ensp;
-            <button id="cancelado" onclick="filtrar(event)" type="button" class="btn btn-danger">Cancelado</button>&ensp;&ensp;
+            <button id="enTiempo" onclick="filtrar(event)" type="button" class="btn btn-success">En
+              Tiempo</button>&ensp;&ensp;
+            <button id="atrasado" onclick="filtrar(event)" type="button"
+              class="btn btn-warning">Atrasado</button>&ensp;&ensp;
+            <button id="terminado" onclick="filtrar(event)" type="button"
+              class="btn btn-primary">Terminado</button>&ensp;&ensp;
+            <button id="cancelado" onclick="filtrar(event)" type="button"
+              class="btn btn-danger">Cancelado</button>&ensp;&ensp;
 
           </div>
         </div>
@@ -63,15 +67,15 @@
                   <tbody>
                     {{#each proyectos}}
                     <tr>
-                      <th>{{titulo}}</th>
+                      <th style="color: black;" >{{titulo}}</th>
                       <td hidden>{{modalidad}}</td>
-                      <td>{{fecha_sometido}}</td>
-                      <td>{{fecha_dictamen}}</td>
-                      <td>{{clave_financiamiento}}</td>
-                      <td>{{nombre}}</td>
+                      <td style="color: black;" >{{fecha_sometido}}</td>
+                      <td style="color: black;" >{{fecha_dictamen}}</td>
+                      <td style="color: black;" >{{clave_financiamiento}}</td>
+                      <td style="color: black;" >{{nombre}}</td>
                       <td hidden>{{estado}}</td>
-                      <td align="center"><a href="/proyecto/detalle/{{id_proyecto}}"
-                          class="btn btn-sm btn-outline-secondary"><i class="fas fa-info"></i>&ensp;Detalles</a></td>
+                      <td align="center" style="color: black;" ><a href="/proyecto/detalle/{{id_proyecto}}"
+                          class="btn btn-sm btn-light"><i class="fas fa-info"></i>&ensp;Detalles</a></td>
 
                     </tr>
 
@@ -154,7 +158,7 @@
         else
           row.style.display = 'none';
       } else {
-        
+
         row.style.display = null;
       }
 
@@ -162,39 +166,42 @@
 
   }
 
-  window.onload= colorear;
-  function colorear (){
+  window.onload = colorear;
+  function colorear() {
     console.log("entro antes de");
-var table = document.getElementById("table").tBodies[0];
+    var table = document.getElementById("table").tBodies[0];
 
     var r = 0;
     while (row = table.rows[r++]) {
-      var valor=parseInt(row.children[6].innerText);
-console.log("entro antes de  " + valor);
+      var valor = parseInt(row.children[6].innerText);
+      console.log("entro antes de  " + valor);
 
 
-switch (valor) {
-  case 1:
-  
-  row.style.background = "#28a745";
-    
-    break;
-    case 2:
-  
-    row.style.background = "#ffc107";
-    break;
-    case 3:
-    
-    row.style.background = "#007bff";
-    break;
-    case 4:
-    row.style.background = "#dc3545";
-    break;
- 
-  default:
-    
-    break;
-}
+      switch (valor) {
+        
+        // Verde.
+        case 1:
+          row.style.background = "#72b01d";
+          break;
+
+        // Amarillo.
+        case 2:
+          row.style.background = "#FFB400"; //FFB400
+          break;
+
+        // Azul
+        case 3:
+          row.style.background = "#63adf2";
+          break;
+
+        //Rojo
+        case 4:
+          row.style.background = "#ff3c38";
+          break;
+
+        default:
+          break;
+      }
     }
 
 
