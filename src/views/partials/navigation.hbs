@@ -232,9 +232,18 @@
 
         {{/if}}
 
+          <li class="nav-item dropdown" >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-bell"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="notify">
+         
+        </div>
+      </li>
 
         {{!-- Boton de salir para ADMINISTRADOR y LIDER --}}
         {{!-- Salir --}}
+
         <input type="hidden" id="username" value="{{user.username}}">
         <li class="nav-item">
           <a href="#" class="nav-link" id="salir" onclick="confirmar()"><i class="fas fa-sign-out-alt"></i>&ensp;Salir
@@ -515,6 +524,16 @@
     } else {
       //txt = "You pressed Cancel!";
 
+    }
+  }
+  window.onload=not;
+  function not(){
+    let notif=document.getElementById("notify");
+    for(i=0;i<4;i++){
+        var newhref= document.createElement("a");
+        newhref.setAttribute("class","dropdown-item");
+        newhref.innerHTML="hola tu fecha de informe "+i;
+        notif.appendChild(newhref);
     }
   }
 </script>

@@ -67,7 +67,7 @@ router.get("/add", esLider, async (req, res) => {
 router.post("/add", esLider, async (req, res) => {
   //validar si ese usuario tiene un proyecto activo
   const activo = await conexion.query(
-    'select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado!=0',
+    'select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado<8',
     [req.user.cvu_tecnm]
   );
   if (activo.length == 0) {
