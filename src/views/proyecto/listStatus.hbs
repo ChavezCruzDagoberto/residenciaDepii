@@ -71,7 +71,7 @@
                       <td>{{nombre}}</td>
                       <td hidden>{{estado}}</td>
                       <td align="center"><a href="/proyecto/detalle/{{id_proyecto}}"
-                          class="btn btn-sm btn-outline-success"><i class="fas fa-info"></i>&ensp;Detalles</a></td>
+                          class="btn btn-sm btn-outline-secondary"><i class="fas fa-info"></i>&ensp;Detalles</a></td>
 
                     </tr>
 
@@ -154,11 +154,49 @@
         else
           row.style.display = 'none';
       } else {
-
+        
         row.style.display = null;
       }
 
     }
+
+  }
+
+  window.onload= colorear;
+  function colorear (){
+    console.log("entro antes de");
+var table = document.getElementById("table").tBodies[0];
+
+    var r = 0;
+    while (row = table.rows[r++]) {
+      var valor=parseInt(row.children[6].innerText);
+console.log("entro antes de  " + valor);
+
+
+switch (valor) {
+  case 1:
+  
+  row.style.background = "#28a745";
+    
+    break;
+    case 2:
+  
+    row.style.background = "#ffc107";
+    break;
+    case 3:
+    
+    row.style.background = "#007bff";
+    break;
+    case 4:
+    row.style.background = "#dc3545";
+    break;
+ 
+  default:
+    
+    break;
+}
+    }
+
 
   }
 </script>
