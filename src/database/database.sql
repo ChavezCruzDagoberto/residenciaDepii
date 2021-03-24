@@ -206,8 +206,6 @@ ADD intentos int(1) not null;
 
 alter table archivo_informes
 add intentos int(1) not null;
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-
 
 create table historico(
  clave_financiamiento varchar(10) not null primary key,
