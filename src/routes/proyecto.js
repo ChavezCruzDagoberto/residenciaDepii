@@ -434,7 +434,7 @@ router.get("/detalle/:id_proyecto", estaLogueado, async (req, res) => {
 router.get("/listartodo1", esAdministrador, estaLogueado, async (req, res) => {
   const cvu_tecnm = req.user.cvu_tecnm;
   const proyectos = await conexion.query(
-    'select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable"'
+    'select * from (select * from (select * from  proyecto natural join proyecto_participante natural join participante)as a  where rol_proyecto="Responsable")as b natural join financiamiento'
   );
 
   for (i = 0; i < proyectos.length; i++) {
@@ -448,6 +448,7 @@ router.get("/listartodo1", esAdministrador, estaLogueado, async (req, res) => {
       "select * from informe where id_proyecto=? order by no_informe asc",
       [id_proyecto]
     );
+
 
     switch (avanceActual) {
       case 1:
