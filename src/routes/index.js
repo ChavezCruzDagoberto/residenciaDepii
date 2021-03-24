@@ -11,10 +11,11 @@ router.get("/", (req, res) => {
 });
 
 
-cron.schedule(" 2 * * * * *", async function (){
-const  notificaciones= await conexion.query('select * from historico');
+cron.schedule(" 5 * * * * *", async function (){
+let  notificaciones= await conexion.query('select * from historico');
+
 console.log(notificaciones);
 
-})
+});
 
 module.exports = router;

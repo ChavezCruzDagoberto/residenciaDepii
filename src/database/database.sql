@@ -55,7 +55,6 @@ describe users;
 create table proyecto(
 id_proyecto int(10) not null primary key auto_increment,
 titulo varchar(500) not null,
-modalidad varchar(200) not null,
 fecha_sometido timestamp not null,
 fecha_dictamen timestamp not null,
 clave_financiamiento varchar(10) unique, 
@@ -207,3 +206,13 @@ ADD intentos int(1) not null;
 
 alter table archivo_informes
 add intentos int(1) not null;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+
+create table historico(
+ clave_financiamiento varchar(10) not null primary key,
+  titulo varchar(500) not null,
+  responsable varchar(200) not null,
+  anio int(4) not null,
+  url_archivo varchar(700) not null
+  );
