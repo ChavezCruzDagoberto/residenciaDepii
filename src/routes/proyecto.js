@@ -584,7 +584,7 @@ router.get("/x", async (req, res) => {
   res.render("proyecto/seguimiento");
 });
 
-
+//datos historicos para el sistema
 router.get("/historico/add", async (req, res) => {
   res.render("proyecto/historicoadd");
 });
@@ -593,6 +593,14 @@ router.get("/historico/add", async (req, res) => {
 router.post("/historico/add",upload.single("archivo"), async (req, res) => {
 console.log(req.body,req.file);
 const {clave_financiamiento,titulo,responsable,anio}=req.body;
+try {
+  
+
+const valida= await conexion.query('select * from historico where clave_financiamiento=?',[clave_financiamiento]);
+if(valida.length>0){
+  req.flash("message","Ya existe un proyecto con la misma clave de financiamiento");
+  res.redirect('/proyecto/historico/add');
+}else{
 const {path}= req.file;
 
 
@@ -606,10 +614,51 @@ const newhistorico={
 await conexion.query("INSERT INTO historico set ?", [newhistorico]);
    res.redirect("/proyecto/listarHistorico");
 }
+} catch (error) {
+  req.flash("message","Lo sentimos algo ha salido mal intente de nuevo");
+ res.redirect('/proyecto/historico/add'); 
+}
+}
       
 );
 router.get("/listarHistorico", async (req, res) => {
   const proyectos=await conexion.query('select * from historico');
-  res.render("proyecto/listarHistorico",{proyectos});
+  res.render("proyecto/historico",{proyectos});
 });
+
+
+
+router.get("/historico/:clave_financiamiento", async (req, res) => {
+  const { clave_financiamiento } = req.params;
+  console.log(clave_financiamiento);
+
+  const resultado = await conexion.query(
+    "select url_archivo from historico where clave_financiamiento= ?",
+    [clave_financiamiento]
+  );
+  //console.log(resultado.length);
+  if (resultado.length >= 1) {
+    var url = urlCorrecto(resultado[0].url_archivo);
+    url = "./" + url;
+    // console.log(url);
+
+    //var archivo=fs.readFileSync(url,'UTF-8');
+
+    //console.log(archivo.length);
+
+    var data = fs.readFileSync(url);
+    res.contentType("application/pdf");
+    res.send(data);
+  } else {
+    res.send("no hay");
+  }
+
+  //res.render('proyecto/protocolo/lectura');
+});
+
+function urlCorrecto(ubicacion) {
+  const c = 92;
+  //console.log(ubicacion.replace(String.fromCharCode(c),"/"));
+  return ubicacion.replace(String.fromCharCode(c), "/");
+}
 module.exports = router;

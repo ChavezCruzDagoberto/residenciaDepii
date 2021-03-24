@@ -23,7 +23,7 @@
                             <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
                         </div>
                         <div class="col-sm-6" align="left">
-                            <input type="text" class="form-control col-sm-4" name="clave_financiamiento" required>
+                            <input type="text" class="form-control col-sm-4" placeholder="XXXX.XX-X" id="clave_financiamiento" onkeypress="verificarClave(event)" name="clave_financiamiento" required>
                         </div>
                     </div><br>
 
@@ -32,7 +32,7 @@
                             <label for="titulo" class="m-2"> Nombre del proyecto </label>
                         </div>
                         <div class="col-sm-6" align="left">
-                            <input type="text" class="form-control col-sm-10" name="titulo" required>
+                            <input type="text" id="titulo" placeholder="Titulo" class="form-control col-sm-10" name="titulo" onkeypress="validarTitulo(event)" required>
                         </div>
                     </div><br>
                     <div class="row">
@@ -40,7 +40,7 @@
                             <label for="titulo" class="m-2"> Responsable</label>
                         </div>
                         <div class="col-sm-6" align="left">
-                            <input type="text" class="form-control col-sm-10" name="responsable" required>
+                            <input type="text" id="responsable" placeholder="Nombre Completo" onkeypress="validarResponsable(event)" class="form-control col-sm-10" name="responsable" required>
                         </div>
                     </div><br>
 
@@ -72,7 +72,7 @@
 
 
                     <div class="form-group">
-                        <button class="btn btn-secondary btn-block col-sm-4 mt-5">
+                        <button class="btn btn-secondary btn-block col-sm-4 mt-5" onclick="confirmar()">
                             <i class="fas fa-plus"></i>&ensp;Agregar</button>
                     </div>
                 </form>
@@ -100,7 +100,77 @@
     function ComboAno() {
         var n = (new Date()).getFullYear()
         var select = document.getElementById("ano");
-        for (var i = n; i >= 1900; i--)select.options.add(new Option(i, i));
+        for (var i = 2019; i >= 1990; i--)select.options.add(new Option(i, i));
     };
     window.onload = ComboAno;
+
+
+
+    function confirmar(){
+
+    var r = confirm(us + "  \n ¿sus Datos son correctos para agregar?");
+    if (r != true) {
+    
+
+    } 
+
+
+    }
+     function verificarClave(event) {
+
+        var a = document.getElementById("clave_financiamiento");
+        var b = a.value;
+        if (b.length < 9) {
+            if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) ||
+                (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) ||
+                (event.charCode == 45) || (event.charCode == 46)) {
+                a.value = (b + String.fromCharCode(event.charCode)).toUpperCase();
+
+            }
+        }
+        event.preventDefault();
+    }
+
+
+    function validarTitulo(event) {
+        var a = document.getElementById("titulo");
+        var b = a.value;
+    
+        //console.log(c);
+       
+            if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) ||(event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 32)) {
+                 a.value = (b + String.fromCharCode(event.charCode)); 
+
+            }
+        
+        event.preventDefault();
+
+    }
+
+
+     function validarResponsable(event) {
+        var a = document.getElementById("responsable");
+        var b = a.value;
+        var c = contarEspacios(b);
+        //console.log(c);
+        if (b.length < 70) {
+            if ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 32)) {
+                if (c >= 4 && event.charCode == 32) {
+                    event.preventDefault();
+                } else { a.value = (b + String.fromCharCode(event.charCode)).toUpperCase(); }
+
+            }
+        }
+        event.preventDefault();
+
+    }
+    function contarEspacios(valor) {
+        var contador = 0;
+        for (i = 0; i < valor.length; i++) {
+            if (valor[i] == " ") contador++;
+
+        }
+        return contador;
+
+    }
 </script>
