@@ -1,13 +1,83 @@
-<div class="container p-4">
-    <div class="row">
-        <div class="con-md-4 mx-auto">
-            <div class="csrd text-center">
-                <div class="card-header">
-                    <h3>Cambiar Datos</h3>
-                </div>
-                <div class="card-body">
-                    <form name="form1" action="/resetPassword" method="POST" onsubmit="return enviar()">
+{{!-- CAMBIO DE CONTRASENIAS --}}
 
+{{!-- Div que permite la barra izquierda --}}
+<div class="main" id="principal">
+
+    {{!-- div que permite ocupar el 100% de la pantalla --}}
+    <div class="container w-100">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-90">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="my-auto w-100" align="center" id="contenedorprincipal">
+
+                {{!-- Cabecera --}}
+                <div class="w-100 mb-5">
+                    <h1> Cambiar Contraseña. </h1>
+                </div>
+
+                {{!-- Campos para el cambio de contrasenia --}}
+                <div class="d-flex justify-content-center">
+                    <form name="form1" action="/resetPassword" method="POST" onsubmit="return enviar()" class="w-100">
+
+                        {{!-- GRID para el formulario --}}
+                        <div class="container">
+
+                            {{!-- Fila de correo electronico --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="username" class="m-2"> Correo electronico </label>
+                                </div>
+
+                                <div class="col-sm-6" align="left">
+                                    <input type="text " value="{{user.username}}" name="username"
+                                        placeholder="nombre usuario" class="form-control col-sm-8" readonly required>
+                                </div>
+                            </div><br>
+
+                            {{!-- Fila de contrasenia actual --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="password" class="m-2"> Contraseña actual </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="password" name="password" class="form-control col-sm-6"
+                                        title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                        onkeypress="verificar(event)" required>
+                                </div>
+                            </div><br>
+
+                            {{!-- Fila para contrasenia nueva --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="password_now" class="m-2"> Nueva contraseña </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="password" name="password_now" id="pas1" class="form-control col-sm-6"
+                                        title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                        onkeypress="verificar(event)" required>
+                                </div>
+                            </div><br>
+
+                            {{!-- Fila para confirmar contrasenia --}}
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="confirm" class="m-2"> Confirme la contraseña </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="password" name="confirm" id="pas2" class="form-control col-sm-6"
+                                        title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                        onkeypress="verificar(event)" required>
+                                </div>
+                            </div><br>
+                        </div>
+
+
+{{!-- Disenio que no es mio --}}
                         <div class="form-group">
                             <input type="text " value="{{user.username}}" name="username" placeholder="nombre usuario"
                                 class="form-control" readonly required>
@@ -15,72 +85,85 @@
                         </div>
 
                         <div class="form-group">
-                            
-                         <input type="password"  name="password"
-                                            class="form-control"
-                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
-                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-                                            onkeypress="verificar(event)" placeholder="contraseña" required>    
-                        </div>
 
-                        
-
-
-                        <div class="form-group">
-                            
-                        
-                        <input type="password"  name="password_now" id="pas1" 
-                                            class="form-control"
-                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
-                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-                                            onkeypress="verificar(event)" placeholder="contraseña nueva" required> 
+                            <input type="password" name="password" class="form-control"
+                                title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" onkeypress="verificar(event)"
+                                placeholder="contraseña" required>
                         </div>
 
                         <div class="form-group">
-                           
-                        <input type="password"  name="confirm" id="pas2"
-                                            class="form-control"
-                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
-                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-                                            onkeypress="verificar(event)" placeholder="Confirmar" required> 
+
+                            <input type="password" name="password_now" id="pas1" class="form-control"
+                                title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" onkeypress="verificar(event)"
+                                placeholder="contraseña nueva" required>
                         </div>
-
-
 
                         <div class="form-group">
-                            <button class="btn btn-success btn-block" >Cambiar</button>
+
+                            <input type="password" name="confirm" id="pas2" class="form-control"
+                                title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" onkeypress="verificar(event)"
+                                placeholder="Confirmar" required>
                         </div>
+
+
+                        {{!-- Boton --}}
+                        <div class="m-5" align="center">
+                            <div class="form-group" align="center">
+                                <button class="btn btn-secondary col-sm-4 btn-block">
+                                    <i class="fas fa-key"></i>&emsp;Cambiar contraseña
+                                </button>
+                            </div>
+                        </div>
+
                     </form>
 
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-
-    function verificar(event) {
-
-        var x = event.charCode;
-        if (x == 32) {
-            event.preventDefault();
-
+    {{!-- Media queries --}}
+    <style>
+        @media (min-width: 768px) {
+            #contenedorprincipal {
+                width: 75% !important;
+            }
         }
-    }
 
-		function enviar(){
-			var clave1=document.getElementById("pas1").value;
-           var  clave2=document.getElementById("pas2").value;
-           //console.log(clave1,clave2);
-           if(clave1==clave2){
-              // console.log(clave2,clave1);
-               //alert("Enviando el formulario");
-               return true;
-           }else{
-               alert("No coincide la confirmacion de contraseña");
+        @media (max-width: 767px) {
+            #principal {
+                margin-left: 0px !important;
+            }
+        }
+    </style>
+
+    {{!-- Validaciones con JS --}}
+    <script>
+
+        function verificar(event) {
+
+            var x = event.charCode;
+            if (x == 32) {
+                event.preventDefault();
+
+            }
+        }
+
+        function enviar() {
+            var clave1 = document.getElementById("pas1").value;
+            var clave2 = document.getElementById("pas2").value;
+            //console.log(clave1,clave2);
+            if (clave1 == clave2) {
+                // console.log(clave2,clave1);
+                //alert("Enviando el formulario");
+                return true;
+            } else {
+                alert("No coincide la confirmacion de contraseña");
 
                 return false;
-           }
+            }
         }
-</script>
+    </script>
