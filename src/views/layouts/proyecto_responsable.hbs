@@ -13,9 +13,23 @@
                 <div class="w-100 mb-5" align="center">
                     <h1 class="mb-5"> Avance del Proyecto. </h1>
                     <h4 style="color: gray;">Proyecto actual:</h4>
-                    <h2 style="color: gray;" class="mb-5"> {{proyecto.titulo}} </h2><br><br><br>
+                    <h2 style="color: gray;" class="mb-5"> {{proyecto.titulo}} </h2>
+
+                    <div class="d-flex">
+          <div class="border w-100 p-2 rounded" >
+
+           <label for="">Representacion:</label>
+            <button id="enTiempo"  type="button" class="btn btn-success" >En Tiempo</button>&ensp;&ensp;
+            <button id="atrasado"  type="button" class="btn" style="background-color: #ff5c2a;">Atrasado/cancelado</button>&ensp;&ensp;
+            <button id="terminado"  type="button" class="btn btn-primary">Terminado</button>&ensp;&ensp;
+            
+
+          </div>
+        </div>
                     <h3 class="mb-5" style="color:navy;"> Avance del proyecto </h3>
                 </div>
+
+      
 
                 <div class="m-5" align="center">
                     <div class="d-flex justify-content-center">
@@ -62,6 +76,9 @@
                     </td>
                 </div>
                 {{/if}}
+                          
+
+        
 
             </div>
         </div>
