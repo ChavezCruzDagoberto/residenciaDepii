@@ -87,7 +87,9 @@ router.post("/signin", noEstaLogueado, (req, res, next) => {
     failureRedirect: "/signin",
     failureFlash: true,
   })(req, res, next);
+  console.log("usuario",req.user);
 });
+
 
 router.get("/logout", estaLogueado, (req, res) => {
   req.app.locals.lider = null;
