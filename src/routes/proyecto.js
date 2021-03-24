@@ -145,9 +145,28 @@ router.post("/add", esLider, async (req, res) => {
         };
         await conexion.query("INSERT INTO informe set ?", [newInforme]);
 
+        let notix={
+          destinatario:req.user.cvu_tecnm,
+          mensaje:"la fecha del informe "+(i+1)+ "es del" +sem_an[i] +"al "+informes[i],
+          leido:0
+        };
+        await conexion.query("INSERT INTO notificaciones set ?", [notix]);
+
         i++;
       }
       ///////////////////////////////////////
+      const admins= await conexion.query('select * from users where rol_sistema="Administrador"');
+      for(z=0;z<admins.length;z++){
+        let noti={
+          destinatario:admins[z].cvu_tecnm,
+          mensaje:"Proyecto creado por el usuario"+req.user.cvu_tecnm,
+          leido:0
+        };
+        await conexion.query("INSERT INTO notificaciones set ?", [noti]);
+      }
+
+
+
       req.flash("success", "Proyecto agreado correctamente");
 
       res.redirect("/proyecto");

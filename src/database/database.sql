@@ -214,3 +214,9 @@ create table historico(
   anio int(4) not null,
   url_archivo varchar(700) not null
   );
+   create table notificaciones(
+id_notificacion int not null auto_increment primary key,
+ destinatario varchar(10) not null,
+ mensaje varchar(800) not null,
+ leido int(1) not null
+);

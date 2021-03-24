@@ -107,19 +107,14 @@ router.post(
   estaLogueado,
   [
     //validacion de los datos que entran del formulario
-    check("username")
-      .notEmpty()
-      .withMessage("El dato username no puede estar vacio"),
-    check("password_now")
-      .notEmpty()
-      .withMessage("ERROR EN EL FORMATO DE PASSWORD   ")
-      .isLength({ min: 6 })
-      .withMessage("TAMAÑO MINIMO 6"),
+    check("username").notEmpty().withMessage("El dato username no puede estar vacio"),
+    check("password_now").notEmpty(),
+      
   ],
   async (req, res) => {
     const errores = validationResult(req);
 
-    if (!errores.notEmpty) {
+    if (errores.array().length > 0) {
       console.log(errores);
       return res.status(400).json({ errors: errores.array() });
       // res.send("algo ha salido mal");
