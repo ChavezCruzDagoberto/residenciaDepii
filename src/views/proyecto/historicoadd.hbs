@@ -14,69 +14,84 @@
 
                 <div class="w-100 mb-5">
                     <h1> Agregar Proyecto Historico </h1>
-                </div><br><br>
+                </div><br>
 
-                <form action="/proyecto/historico/add" method="POST" class="w-100" enctype="multipart/form-data">
+                <div class="d-flex justify-content-center">
+                    <form action="/proyecto/historico/add" method="POST" class="w-100" enctype="multipart/form-data">
 
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
-                        </div>
-                        <div class="col-sm-6" align="left">
-                            <input type="text" class="form-control col-sm-4" placeholder="XXXX.XX-X" id="clave_financiamiento" onkeypress="verificarClave(event)" name="clave_financiamiento" required>
-                        </div>
-                    </div><br>
+                        <div class="container">
 
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="titulo" class="m-2"> Nombre del proyecto </label>
-                        </div>
-                        <div class="col-sm-6" align="left">
-                            <input type="text" id="titulo" placeholder="Titulo" class="form-control col-sm-10" name="titulo" onkeypress="validarTitulo(event)" required>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="titulo" class="m-2"> Responsable</label>
-                        </div>
-                        <div class="col-sm-6" align="left">
-                            <input type="text" id="responsable" placeholder="Nombre Completo" onkeypress="validarResponsable(event)" class="form-control col-sm-10" name="responsable" required>
-                        </div>
-                    </div><br>
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="clave_financiamiento" class="m-2"> Clave de financiamiento </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" class="form-control col-sm-4" id="clave_financiamiento"
+                                        onkeypress="verificarClave(event)" name="clave_financiamiento" required>
+                                </div>
+                            </div><br>
 
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="titulo" class="m-2"> Nombre del proyecto </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" id="titulo" class="form-control col-sm-12" name="titulo"
+                                        onkeypress="validarTitulo(event)" required>
+                                </div>
+                            </div><br>
 
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="titulo" class="m-2"> Año</label>
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="titulo" class="m-2"> Nombre del responsable</label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <input type="text" id="responsable" onkeypress="validarResponsable(event)"
+                                        class="form-control col-sm-8" name="responsable" required>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="titulo" class="m-2"> Año de realizacion </label>
+                                </div>
+                                <div class="col-sm-6" align="left">
+                                    <select class="form-control col-sm-6" name="anio" id="ano">
+                                        <option hidden selected> Seleccione el año </option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-sm-6" align="right">
+                                    <label for="archivo" class="m-2"> Archivo PDF </label>
+                                </div>
+
+                                <div class="col-sm-6">
+
+                                    <div class="custom-file">
+                                        <input type="file" id="archivo" name="archivo" accept=".pdf" max="1" min="1"
+                                            class="custom-file-input col-sm-12" required>
+                                        <label class="custom-file-label" for="customFile" align="left">
+                                            Seleccionar
+                                            un archivo </label>
+                                    </div>
+
+                                </div>
+                            </div><br>
+
                         </div>
-                        <div class="col-sm-6" align="left">
-                            <select name="anio" id="ano">
-                                <option hidden selected> Seleccione el año </option>
-                            </select>
 
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12" align="left">
-
+                        {{!-- Boton --}}
+                        <div class="m-5" align="center">
                             <div class="form-group">
-                                <input type="file" id="archivo" title="solo se pueden cargar 1 PDF" name="archivo"
-                                    accept=".pdf" max="1" min="1" class="form-control-file" required>
+                                <button class="btn btn-secondary btn-block col-sm-4" onclick="confirmar()">
+                                    <i class="fas fa-plus"></i>&ensp;Agregar</button>
                             </div>
-
                         </div>
-                    </div><br><br>
 
-
-
-
-
-                    <div class="form-group">
-                        <button class="btn btn-secondary btn-block col-sm-4 mt-5" onclick="confirmar()">
-                            <i class="fas fa-plus"></i>&ensp;Agregar</button>
-                    </div>
-                </form>
-
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -96,6 +111,16 @@
         }
     }
 </style>
+
+{{!-- Script para mostrar el nombre del archivo que fue seleccionado --}}
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+{{!-- Validaciones con JS --}}
 <script>
     function ComboAno() {
         var n = (new Date()).getFullYear()
@@ -104,19 +129,15 @@
     };
     window.onload = ComboAno;
 
+    function confirmar() {
 
+        var r = confirm(us + "  \n ¿sus Datos son correctos para agregar?");
+        if (r != true) {
 
-    function confirmar(){
-
-    var r = confirm(us + "  \n ¿sus Datos son correctos para agregar?");
-    if (r != true) {
-    
-
-    } 
-
+        }
 
     }
-     function verificarClave(event) {
+    function verificarClave(event) {
 
         var a = document.getElementById("clave_financiamiento");
         var b = a.value;
@@ -131,24 +152,22 @@
         event.preventDefault();
     }
 
-
     function validarTitulo(event) {
         var a = document.getElementById("titulo");
         var b = a.value;
-    
-        //console.log(c);
-       
-            if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) ||(event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 32)) {
-                 a.value = (b + String.fromCharCode(event.charCode)); 
 
-            }
-        
+        //console.log(c);
+
+        if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 241) || (event.charCode == 209) || (event.charCode == 32)) {
+            a.value = (b + String.fromCharCode(event.charCode));
+
+        }
+
         event.preventDefault();
 
     }
 
-
-     function validarResponsable(event) {
+    function validarResponsable(event) {
         var a = document.getElementById("responsable");
         var b = a.value;
         var c = contarEspacios(b);

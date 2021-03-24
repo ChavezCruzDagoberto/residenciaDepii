@@ -90,7 +90,6 @@ router.post("/signin", noEstaLogueado, (req, res, next) => {
   console.log("usuario",req.user);
 });
 
-
 router.get("/logout", estaLogueado, (req, res) => {
   req.app.locals.lider = null;
   req.app.locals.admin = null;
@@ -142,7 +141,7 @@ router.post(
         ]);
         // console.log(cvu_tecnm);
 
-        req.flash("success", "Cambios guardados para " + user.id_usuario);
+        req.flash("success", "Cambios guardados para " + user.username);
         req.logOut();
         res.redirect("/signin");
       } else {
