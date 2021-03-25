@@ -12,6 +12,7 @@ router.get("/", async(req, res) => {
    
     notificaciones= await conexion.query('select * from notificaciones where destinatario=? and leido=0',[req.user.cvu_tecnm]);
     console.log(notificaciones);
+    req.app.locals.notificaciones=notificaciones;
   }else console.log("usuario no existe");
 
 
@@ -20,19 +21,23 @@ router.get("/", async(req, res) => {
 });
 
 /*
-cron.schedule(" 5 * * * * *", async function (){
-let  notificaciones= await conexion.query('select * from historico');
+cron.schedule(" * * * * * *", async function (){
 
-console.log(notificaciones);
+  var usuarioActual=req.user.cvu_tecnm;
+  var x=await conexion.query('select * from notificaciones where destinatario=? and leido=0',[usuarioActual]);
 
-});
-*/
+console.log(x);
+
+
+});*/
+
+
 
 router.get("/notificaciones/list", async(req, res) => {
 
   let usuarioActual=req.user.cvu_tecnm;
   const notificacionX =await conexion.query('select * from notificaciones where destinatario=? and leido=0',[usuarioActual]);
-
+  req.app.locals.notificaciones=notificacionX;
 
 
   res.render("notificaciones/listaNotificaciones",{notificaciones:notificacionX});
@@ -46,6 +51,7 @@ await conexion.query(
   "UPDATE   notificaciones  set ? WHERE id_notificacion=?",
   [{leido:1}, id_notificacion]
 );
+
 res.redirect("/notificaciones/list");
 
 });

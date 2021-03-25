@@ -63,6 +63,7 @@ app.use((req, res, next) => {
   app.locals.proyectodisponible ;
   app.locals.lider;
   app.locals.admin;
+  app.locals.notificaciones;
 
   next()
 });
