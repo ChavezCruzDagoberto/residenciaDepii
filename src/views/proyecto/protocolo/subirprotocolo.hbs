@@ -21,7 +21,8 @@
 
                         {{#if resultado}}
                         <input type="hidden" id="resultado" value="{{resultado.id_proyecto}}">
-                        <label for="etiqueta" style="color: red;" class="mb-5"> * Recuerde que la revision solo es una vez </label><br><br>
+                        <label for="etiqueta" style="color: red;" class="mb-5"> * Recuerde que la revision solo es una
+                            vez </label><br><br>
                         <input type="hidden" id="intentos" value="{{resultado.intentos}}">
                         {{/if}}
 
@@ -35,27 +36,30 @@
                             </div><br><br>
 
                             <div class="row">
-                                <div class="col-sm-12" align="center">
+                                <div class="col-sm-12">
                                     <form>
-                                        <div class="form-group">
-                                            <input class="form-control-file" type="file" id="archivo" name="archivo"
-                                                accept=".pdf" max="1" min="1" required>
+                                        <div class="custom-file">
+                                            <input class="custom-file-input col-sm-12" type="file" id="archivo"
+                                                name="archivo" accept=".pdf" max="1" min="1" required>
+                                            <label class="custom-file-label" for="archivo" align="left">
+                                                Seleccionar
+                                                un archivo </label>
                                         </div>
                                     </form>
                                 </div>
-                            </div><br><br>
+                            </div><br><br><br>
 
                             <div class="row">
                                 <div class="col-sm-12" align="center">
                                     <div class="form-group">
                                         <button type="submit" id="bntprotocolo"
-                                            class="btn btn-outline-success btn-block col-sm-6">
+                                            class="btn btn-secondary btn-block col-sm-6">
                                             <i class="fas fa-upload"></i>&ensp; Subir protocolo</button>
                                     </div>
                                 </div>
                             </div>
                         </div><br><br>
-                        
+
                     </form>
                 </div>
             </div>
@@ -77,6 +81,14 @@
         }
     }
 </style>
+
+{{!-- Script para mostrar el nombre del archivo que fue seleccionado --}}
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 
 {{!-- Validaciones con JS --}}
 <script>

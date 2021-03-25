@@ -266,7 +266,7 @@ router.get("/cargar/:id_informe", async (req, res) => {
             resultado: verenArchivos[0],
           });
         } else {
-          req.flash("message", "Suba su protocolo y sus entregables");
+          req.flash("message", "Falta su protocolo/entregables/gastos");
           res.redirect("/informe/mostrar/" + id_pro);
         }
 
@@ -503,7 +503,6 @@ router.post("/observaciones/:id_proyecto/:id_informe", async (req, res) => {
       [aux, id_proyecto, id_informe]
     );
 
-
     const resp= await conexion.query('select * from proyecto_participante where id_proyecto=? and rol_proyecto="Responsable"',[id_proyecto]);
 
     let noti={
@@ -512,7 +511,6 @@ router.post("/observaciones/:id_proyecto/:id_informe", async (req, res) => {
       leido:0
     };
     await conexion.query("INSERT INTO notificaciones set ?", [noti]);
-
 
     res.redirect("/informe/verInforme/" + id_informe + "/" + id_proyecto);
   }
