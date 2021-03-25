@@ -14,7 +14,7 @@
 
         {{!-- Cabecera --}}
         <div class="w-100 mb-5">
-          <h1>NOTIFICACIONES </h1>
+          <h1>Notificaciones</h1>
         </div>
 
         {{!-- Comienza la tabla --}}
@@ -22,31 +22,30 @@
           <div class=" row mx-auto">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
-                    {{#if notificaciones}}
+                <table class="table-sm table-bordered table-striped table-hover pb-5" cellspacing="0" width="100%">
+
+                  {{#if notificaciones}}
                   {{!-- Cabecera de la tabla --}}
-                  <thead>
+                  <thead align="center">
                     <tr>
-                      
                       <th scope="col">Mensaje</th>
-                      <th scope="col">Leido</th>
+                      <th scope="col">Estado</th>
                     </tr>
                   </thead>
                   {{/if}}
+
                   {{!-- Cuerpo de la tabla --}}
                   <tbody>
                     {{#each notificaciones}}
                     <tr>
-                      <th>{{mensaje}}</th>
-                      
-                    <td>
-                     <div class="form-check">
-                        <input type="checkbox"  onclick='window.location.assign("/notificaciones/update/{{id_notificacion}}")'/>Leido
-  
-</div>
-                    </td>
-                     
+                      <th style="background-color: lightgray;">{{mensaje}}</th>
 
+                      <td>
+                        <div class="form-check">
+                          <input type="checkbox"
+                            onclick='window.location.assign("/notificaciones/update/{{id_notificacion}}")' /> Leido
+                        </div>
+                      </td>
                     </tr>
 
                     {{!-- En caso de no encontrar proyectos creados --}}
@@ -54,8 +53,8 @@
                     <div class="card bg-light mb-3" style="max-width: 50rem;">
                       <div class="card-header" align="left"> ¡MENSAJE! </div>
                       <div class="card-body">
-                        <p class="card-text"> NO  HAY NINGUNA NOTIFICACION. </p>
-                        
+                        <p class="card-text"> No hay ninguna notificacion. </p>
+
                       </div>
                     </div>
                     {{/each}}

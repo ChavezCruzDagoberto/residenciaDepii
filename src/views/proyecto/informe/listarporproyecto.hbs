@@ -23,7 +23,7 @@
                 <table class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th scope="col"> No. Informe </th>
+                      <th scope="col"> No. </th>
                       <th scope="col"> Fecha de inicio </th>
                       <th scope="col"> Fecha final </th>
                       <th scope="col"> Cambiar </th>
@@ -35,7 +35,7 @@
                     {{#each consulta}}
                     <form action="/informe/edit/{{id_informe}}" method="POST">
                       <tr>
-                        <th> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
+                        <th style="background-color: lightgray;"> {{no_informe}}<input type="hidden" value={{no_informe}} name="no_informe"></th>
                         <td><input type="date" class="" value="{{fecha_inicio}}" name="fecha_inicio" required></td>
                         <td><input type="date" class="" value="{{fecha_fin}}"  name="fecha_fin" required></td>
 

@@ -230,11 +230,10 @@
             aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell" id="cantidadNotify"></i>
           </a>
 
-          <ul class="dropdown-menu dropdown-menu-right rounded"
-            aria-labelledby="navbarDropdownMenuLink" id="notify" >
+          <ul class="dropdown-menu dropdown-menu-right rounded" aria-labelledby="navbarDropdownMenuLink" id="notify">
 
             <li class="dropdown-header font-weight-bold" style="color: #f26419;">Notificaciones</li>
-            
+
             {{#each notificaciones}}
             <a class="dropdown-item" href="/notificaciones/list">{{mensaje}}</a>
             {{/each}}
@@ -283,55 +282,43 @@
       {{!-- Si es administrador y entra a los detalles de un proyecto --}}
       {{#if proyectodisponible}}
 
+      {{!-- Avance --}}
       <li data-toggle="collapse" data-target="#productsz" class="collapsed active" style="background-color:#f26419;">
-        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-chart-line"></i>&ensp;Avance
-        </a>
+        <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}"><i class="fas fa-chart-line"></i>&ensp;Avance</a>
       </li>
 
       {{!-- Protocolo --}}
       <li data-toggle="collapse" data-target="#service" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-file-powerpoint"></i>&ensp;Protocolo <span class="arrow"></span></a>
+        <a href="/protocolo/{{proyectodisponible.id_proyecto}}"><i class="fas fa-file-powerpoint"></i>&ensp;Protocolo
+        </a>
       </li>
-      <ul class="sub-menu collapse" id="service">
-        <li><a href="/protocolo/{{proyectodisponible.id_proyecto}}">Ver</a></li>
-      </ul>
 
       {{!-- Informes --}}
       <li data-toggle="collapse" data-target="#products" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-file-pdf"></i>&ensp;Informes <span class="arrow"></span></a>
+        <a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i class="fas fa-file-pdf"></i>&ensp;Informes </a>
       </li>
-      <ul class="sub-menu collapse" id="products">
-        <li><a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}">Listar</a></li>
-      </ul>
 
       {{!-- Entregables --}}
       <li data-toggle="collapse" data-target="#new1" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-copy"></i>&ensp;Entregables <span class="arrow"></span></a>
+        <a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}"><i class="fas fa-copy"></i>&ensp;Entregables
+        </a>
       </li>
-      <ul class="sub-menu collapse" id="new1">
-        <li><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">Mostrar entregables</a></li>
-      </ul>
 
       {{!-- Gastos --}}
       <li data-toggle="collapse" data-target="#new2" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-dollar-sign"></i>&ensp;Gastos<span class="arrow"></span></a>
+        <a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}"><i
+            class="fas fa-dollar-sign"></i>&ensp;Gastos</a>
       </li>
-      <ul class="sub-menu collapse" id="new2">
-        <li><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}">Mostrar</a></li>
-      </ul>
 
       {{!-- Colaboradores --}}
       <li data-toggle="collapse" data-target="#new" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-user-friends"></i>&ensp;Colaboradores <span class="arrow"></span></a>
+        <a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}"><i
+            class="fas fa-user-friends"></i>&ensp;Colaboradores</a>
       </li>
-      <ul class="sub-menu collapse" id="new">
-        <li><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}">Listar</a>
-        </li>
-      </ul>
 
-      {{!-- Proyecto --}}
+      {{!-- Regresar --}}
       <li data-toggle="collapse" data-target="#productsx" class="collapsed active">
-        <a href="/proyecto"><i class="fas fa-arrow-left"></i>&ensp;Proyectos <span class="arrow"></span></a>
+        <a href="/proyecto"><i class="fas fa-arrow-left"></i>&ensp;Regresar </a>
       </li>
 
       {{!-- Si es administrador pero no tiene proyectos disponibles --}}
@@ -382,27 +369,21 @@
         <li><a href="/reporte/proyectos">Proyectos</a></li>
       </ul>
 
+      <!--historico-->
+      <li data-toggle="collapse" data-target="#products10" class="collapsed active" style="background-color:#f26419;">
+        <a href="#"><i class="fas fa-history"></i>&ensp;Historico <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="products10">
+        <li><a href="/proyecto/historico/add">Agregar </a></li>
+        <li><a href="/proyecto/listarHistorico">Listar anteriores</a></li>
+      </ul>
+
       {{!-- Proyecto --}}
       <li data-toggle="collapse" data-target="#products5" class="collapsed active" style="background-color:#f26419;">
         <a href="/proyecto/listartodo1"><i class="fas fa-book"></i>&ensp;Proyectos</a>
       </li>
-      {{!-- <ul class="sub-menu collapse" id="products5">
-        <li><a href="/proyecto">Listar</a></li>
-      </ul>
-      <ul class="sub-menu collapse" id="products5">
-        <li><a href="/proyecto/listartodo1">Listar Todo</a></li>
-      </ul> --}}
 
       {{!-- Cuenta -> Contrasenia --}}
-
-      <!--historico-->
-      <li data-toggle="collapse" data-target="#products10" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-search"></i>&ensp;Historico <span class="arrow"></span></a>
-      </li>
-      <ul class="sub-menu collapse" id="products10">
-        <li><a href="/proyecto/historico/add">Agregar </a></li>
-        <li><a href="/proyecto/listarHistorico">Años Anteriores</a></li>
-      </ul>
       <li data-toggle="collapse" data-target="#products7" class="collapsed active">
         <a href="/reset"><i class="fas fa-cog"></i>&ensp;Cuenta</a>
       </li>
