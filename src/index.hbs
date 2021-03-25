@@ -13,6 +13,41 @@
       </small></h1>
   </div><br>
 
+
+  
+  <div class="table-responsive" hidden >
+    <table id="notifyTable" class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
+
+      {{!-- Cabecera de la tabla --}}
+      <thead>
+        {{#if notificaciones}}
+        <tr>
+          <th scope="col">id</th>
+
+          <th scope="col">Destinatario</th>
+          <th scope="col">mensaje </th>
+{{/if}}
+        </tr>
+      </thead>
+
+      {{!-- Cuerpo de la tabla --}}
+      <tbody>
+        {{#each notificaciones}}
+        <tr>
+          <th>{{id_notificacion}}</th>
+
+          <td>{{destinatario}}</td>
+          <td>{{mensaje}}</td>
+        </tr>
+
+        {{/each}}
+
+      </tbody>
+    </table>
+  </div>
+
+ 
+
   {{!-- Logotipo del ITO. --}}
   <div class="mt-2" align="center">
     <img src="images/logoito.png">
@@ -50,10 +85,29 @@
   }
 </style>
 <script>
-  window.onload=vers;
-  function vers(){
-var x=document.getElementById("navbarDropdownMenuLink");
-console.log("not",x);
+  window.onload = vers;
+  function vers() {
+    var x = document.getElementById("notify");
+   var table = document.getElementById("notifyTable").tBodies[0];
+   var verCuantos=document.getElementById("cantidadNotify");
+   
+
+  
+
+var r = 0;
+    while (row = table.rows[r++]) {
+      var valor = row.children[2].innerText;
+      
+      let elemento =document.createElement("a");
+      elemento.setAttribute("href","#");
+      elemento.setAttribute("class","dropdown-item");
+      elemento.innerHTML=valor;
+      x.appendChild(elemento);
+
+    }
+    
+verCuantos.innerHTML=table.rows.length+"";
+
 
   }
 </script>

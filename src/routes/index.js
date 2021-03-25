@@ -7,7 +7,7 @@ const conexion = require("../database");
 
 //inicio principal
 router.get("/", async(req, res) => {
-  let notificaciones={};
+  let notificaciones;
   if(req.user){
    
     notificaciones= await conexion.query('select * from notificaciones where destinatario=? and leido=0',[req.user.cvu_tecnm]);
