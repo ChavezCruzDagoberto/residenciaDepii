@@ -28,4 +28,26 @@ console.log(notificaciones);
 });
 */
 
+router.get("/notificaciones/list", async(req, res) => {
+
+  let usuarioActual=req.user.cvu_tecnm;
+  const notificacionX =await conexion.query('select * from notificaciones where destinatario=? and leido=0',[usuarioActual]);
+
+
+
+  res.render("notificaciones/listaNotificaciones",{notificaciones:notificacionX});
+});
+
+router.get("/notificaciones/update/:id_notificacion", async(req, res) => {
+
+let {id_notificacion}=req.params;
+
+await conexion.query(
+  "UPDATE   notificaciones  set ? WHERE id_notificacion=?",
+  [{leido:1}, id_notificacion]
+);
+res.redirect("/notificaciones/list");
+
+});
+
 module.exports = router;

@@ -85,6 +85,7 @@
   }
 </style>
 <script>
+    
   window.onload = vers;
   function vers() {
     var x = document.getElementById("notify");
@@ -99,10 +100,10 @@ var r = 0;
       var valor = row.children[2].innerText;
       
       let elemento =document.createElement("a");
-      elemento.setAttribute("href","#");
+      elemento.setAttribute("href","/notificaciones/list");
       elemento.setAttribute("class","dropdown-item");
       elemento.innerHTML=valor;
-      x.appendChild(elemento);
+      x.prepend(elemento);
 
     }
     

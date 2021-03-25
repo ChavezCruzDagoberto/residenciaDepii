@@ -1,0 +1,88 @@
+{{!-- LISTA DE PROYECTOS --}}
+
+{{!-- Este div ajusta el contenido para que no interfiera con la barra. --}}
+<div class="main" id="principal">
+
+  {{!-- Este div permite ocupar el 100% del espacio vertical disponible --}}
+  <div class="container w-100">
+
+    {{!-- div centra horizontalmente el contenido --}}
+    <div class="d-flex justify-content-center vh-90">
+
+      {{!-- div centra verticalmente el contenido --}}
+      <div class="align-items-start w-100 mt-5" align="center" id="contenedorprincipal">
+
+        {{!-- Cabecera --}}
+        <div class="w-100 mb-5">
+          <h1>NOTIFICACIONES </h1>
+        </div>
+
+        {{!-- Comienza la tabla --}}
+        <div class="container">
+          <div class=" row mx-auto">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table-sm table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                    {{#if notificaciones}}
+                  {{!-- Cabecera de la tabla --}}
+                  <thead>
+                    <tr>
+                      
+                      <th scope="col">Mensaje</th>
+                      <th scope="col">Leido</th>
+                    </tr>
+                  </thead>
+                  {{/if}}
+                  {{!-- Cuerpo de la tabla --}}
+                  <tbody>
+                    {{#each notificaciones}}
+                    <tr>
+                      <th>{{mensaje}}</th>
+                      
+                    <td>
+                     <div class="form-check">
+                        <input type="checkbox"  onclick='window.location.assign("/notificaciones/update/{{id_notificacion}}")'/>Leido
+  
+</div>
+                    </td>
+                     
+
+                    </tr>
+
+                    {{!-- En caso de no encontrar proyectos creados --}}
+                    {{else}}
+                    <div class="card bg-light mb-3" style="max-width: 50rem;">
+                      <div class="card-header" align="left"> ¡MENSAJE! </div>
+                      <div class="card-body">
+                        <p class="card-text"> NO  HAY NINGUNA NOTIFICACION. </p>
+                        
+                      </div>
+                    </div>
+                    {{/each}}
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Media queries --}}
+<style>
+  @media (min-width: 768px) {
+    #contenedorprincipal {
+      width: 75% !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #principal {
+      margin-left: 0px !important;
+    }
+  }
+</style>
