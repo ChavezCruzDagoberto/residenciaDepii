@@ -119,7 +119,7 @@
 
         {{!-- Busqueda --}}
         <li data-toggle="collapse" data-target="#products6" class="collapsed active d-sm-none">
-          <a href="#" class="nav-link"><i class="fas fa-search"></i>&ensp;Busqueda<span class="arrow"></span></a>
+          <a href="#" class="nav-link"><i class="fas fa-search"></i>&ensp;Búsqueda<span class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse d-sm-none" id="products6" style="list-style-type: none;">
           <li><a href="/reporte/integrantes" class="nav-link">Integrantes</a></li>
@@ -362,7 +362,7 @@
 
       {{!-- Busqueda --}}
       <li data-toggle="collapse" data-target="#products6" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-search"></i>&ensp;Busqueda <span class="arrow"></span></a>
+        <a href="#"><i class="fas fa-search"></i>&ensp;Búsqueda <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="products6">
         <li><a href="/reporte/integrantes">Integrantes</a></li>
@@ -371,7 +371,7 @@
 
       <!--historico-->
       <li data-toggle="collapse" data-target="#products10" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-history"></i>&ensp;Historico <span class="arrow"></span></a>
+        <a href="#"><i class="fas fa-history"></i>&ensp;Histórico <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="products10">
         <li><a href="/proyecto/historico/add">Agregar </a></li>
@@ -431,22 +431,21 @@
 
       {{!-- Informes --}}
       <li data-toggle="collapse" data-target="#products" class="collapsed active" style="background-color:#f26419;">
-        <a href="#"><i class="fas fa-file-pdf"></i>&ensp;Informes <span class="arrow"></span></a>
+        <a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i class="fas fa-file-pdf"></i>&ensp;Informes </a>
       </li>
-      <ul class="sub-menu collapse" id="products">
+      {{!-- <ul class="sub-menu collapse" id="products">
 
         <li><a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}">Ver</a></li>
-      </ul>
+      </ul> --}}
 
       {{!-- Colaboradores --}}
       <li data-toggle="collapse" data-target="#new" class="collapsed active" style="background-color:#f26419;">
         <a href="#"><i class="fas fa-user-friends"></i>&ensp;Colaboradores <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="new">
-        <li><a href="/integrantes/addColaborador/{{proyectodisponible.id_proyecto}}">Agregar
-            colaborador</a>
+        <li><a href="/integrantes/addColaborador/{{proyectodisponible.id_proyecto}}">Agregar</a>
         </li>
-        <li class="active"><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}">Ver colaboradores</a>
+        <li class="active"><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}">Ver</a>
         </li>
       </ul>
 
@@ -455,8 +454,8 @@
         <a href="#"><i class="fas fa-copy"></i>&ensp;Entregables <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="new1">
-        <li><a href="/entregable/add/{{proyectodisponible.id_proyecto}}">Agregar entregables</a></li>
-        <li><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">Ver entregables</a></li>
+        <li><a href="/entregable/add/{{proyectodisponible.id_proyecto}}">Agregar</a></li>
+        <li><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}">Ver</a></li>
       </ul>
 
       {{!-- Materiales y servicios --}}
