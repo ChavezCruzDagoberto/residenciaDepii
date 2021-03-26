@@ -64,6 +64,7 @@ app.use((req, res, next) => {
   app.locals.lider;
   app.locals.admin;
   app.locals.notificaciones;
+  app.locals.cronActivo;
 
   next()
 });

@@ -167,7 +167,20 @@
   }
 
   window.onload = colorear;
+
+  function contNo(){
+let v=document.getElementById("notify");
+if(v!==null){
+  
+let b=document.getElementById("cantidadNotify");
+var x=v.getElementsByClassName("dropdown-item").length;
+b.innerHTML=x+"";
+console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
+}
+
+  }
   function colorear() {
+    contNo();
     console.log("entro antes de");
     var table = document.getElementById("table").tBodies[0];
 

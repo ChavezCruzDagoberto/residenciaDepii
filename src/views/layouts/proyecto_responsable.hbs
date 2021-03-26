@@ -61,8 +61,6 @@
                     </td>
                 </div>
                 {{/if}}
-
-                <br><br><br><br><br><br>
                 <div class="border w-25 p-2 rounded" id="cuadrito">
 
                     <h6 style="color: black;">Estado del avance:</h6>
@@ -103,9 +101,20 @@
     window.onload = actualiza;
     const progress = document.getElementById("progress");
     const circles = document.querySelectorAll(".circle");
+    function contNo(){
+let v=document.getElementById("notify");
+if(v!==null){
+  
+let b=document.getElementById("cantidadNotify");
+var x=v.getElementsByClassName("dropdown-item").length;
+b.innerHTML=x+"";
+console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
+}
+
+  }
 
     function actualiza() {
-
+contNo();
         let status = parseInt(document.getElementById("estado").value);
         let currentActive = parseInt(document.getElementById("avance").value);
 

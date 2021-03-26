@@ -139,7 +139,7 @@
     window.onload = generarcontraseña;
 
     function generarcontraseña() {
-
+contNo();
         var a = document.getElementById("password");
         // paso 1 - pedir un número al usuario
 
@@ -173,6 +173,19 @@
 
         // paso 4 - tenemos x caracteres aleatorios
     }
+
+
+    function contNo(){
+let v=document.getElementById("notify");
+if(v!==null){
+  
+let b=document.getElementById("cantidadNotify");
+var x=v.getElementsByClassName("dropdown-item").length;
+b.innerHTML=x+"";
+console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
+}
+
+  }
 
     function consultarCorreo() {
         var a = document.getElementById("cvu_tecnm");

@@ -122,7 +122,20 @@
 
 {{!-- Validaciones con JS --}}
 <script>
+function contNo(){
+let v=document.getElementById("notify");
+if(v!==null){
+  
+let b=document.getElementById("cantidadNotify");
+var x=v.getElementsByClassName("dropdown-item").length;
+b.innerHTML=x+"";
+console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
+}
+
+  }
+
     function ComboAno() {
+        contNo();
         var n = (new Date()).getFullYear()
         var select = document.getElementById("ano");
         for (var i = 2019; i >= 1990; i--)select.options.add(new Option(i, i));

@@ -92,8 +92,21 @@
   
   window.onload = cargar;
 
+function contNo(){
+let v=document.getElementById("notify");
+if(v!==null){
+  
+let b=document.getElementById("cantidadNotify");
+var x=v.getElementsByClassName("dropdown-item").length;
+b.innerHTML=x+"";
+console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
+}
+
+  }
+
   function cargar() {
 
+contNo();
     let tabla = document.getElementById("tabla").tBodies[0];
 
 

@@ -77,9 +77,21 @@
 <script>
 
     window.onload = load;
+    function contNo(){
+let v=document.getElementById("notify");
+if(v!==null){
+  
+let b=document.getElementById("cantidadNotify");
+var x=v.getElementsByClassName("dropdown-item").length;
+b.innerHTML=x+"";
+console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
+}
+
+  }
 
     function load() {
 
+contNo();
         var resul = document.getElementById("resultado");
         //var intentos=resul.value;
         //console.log(intentos);
