@@ -3,33 +3,68 @@ const express = require("express");
 const router = express.Router();
 const cron= require('node-cron');
 const conexion = require("../database");
-
-
+let cronm="";
+let estado=0;
 //inicio principal
 router.get("/", async(req, res) => {
   let notificaciones;
   if(req.user){
-   
+  
     notificaciones= await conexion.query('select * from notificaciones where destinatario=? and leido=0',[req.user.cvu_tecnm]);
     console.log(notificaciones);
     req.app.locals.notificaciones=notificaciones;
-  }else console.log("usuario no existe");
+    //.app.locals.cronActivo="activo";
+ // if(cronm===""){ejecutarSiempre(req,res);}else{console.log("acax",cronm); cronm.stop();}
+ if(estado==0){
+ ejecutarSiempre(req,res);
+ 
+  cronm.start();
+//console.log("inicio");
+ estado=1;}
+else{
+
+  console.log("es mas de 0 ",estado);
+}
+ 
+
+  }else{
+    if(cronm!==""){
+      cronm.stop();
+      estado=0;
+
+      //console.log("restablecido",estado);
+    }
+  }
 
 
 
   res.render("../index",{notificaciones:notificaciones});
 });
 
-/*
-cron.schedule(" * * * * * *", async function (){
 
-  var usuarioActual=req.user.cvu_tecnm;
-  var x=await conexion.query('select * from notificaciones where destinatario=? and leido=0',[usuarioActual]);
+async function ejecutarSiempre (req,res){
+  
+  
+ cronm=cron.schedule(" 1 * * * * *", async function(){
 
-console.log(x);
+  
+  var usuario= req.user.cvu_tecnm;
+  
+  var x=await conexion.query('select * from notificaciones where destinatario=? and leido=0',[usuario]);
+
+  req.app.locals.notificaciones=x;
+  
+console.log("contenido",req.app.locals.notificaciones);
 
 
-});*/
+
+},
+{
+  scheduled:false
+});
+  
+  
+}
 
 
 
