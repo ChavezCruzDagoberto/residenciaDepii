@@ -10,7 +10,7 @@ router.get("/", async(req, res) => {
   let notificaciones;
   if(req.user){
   
-    notificaciones= await conexion.query('select * from notificaciones where destinatario=? and leido=0',[req.user.cvu_tecnm]);
+    notificaciones= await conexion.query('select * from notificaciones where destinatario=? and leido=0 order by id_notificacion desc',[req.user.cvu_tecnm]);
     console.log(notificaciones);
     req.app.locals.notificaciones=notificaciones;
     //.app.locals.cronActivo="activo";
@@ -50,7 +50,7 @@ async function ejecutarSiempre (req,res){
   
   var usuario= req.user.cvu_tecnm;
   
-  var x=await conexion.query('select * from notificaciones where destinatario=? and leido=0',[usuario]);
+  var x=await conexion.query('select * from notificaciones where destinatario=? and leido=0 order by id_notificacion desc',[usuario]);
 
   req.app.locals.notificaciones=x;
   
@@ -71,7 +71,7 @@ console.log("contenido",req.app.locals.notificaciones);
 router.get("/notificaciones/list", async(req, res) => {
 
   let usuarioActual=req.user.cvu_tecnm;
-  const notificacionX =await conexion.query('select * from notificaciones where destinatario=? and leido=0',[usuarioActual]);
+  const notificacionX =await conexion.query('select * from notificaciones where destinatario=? and leido=0 order by id_notificacion desc',[usuarioActual]);
   req.app.locals.notificaciones=notificacionX;
 
 
