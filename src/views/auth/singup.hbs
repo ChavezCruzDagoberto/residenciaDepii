@@ -35,7 +35,7 @@
                                 onchange="consultarCorreo()">
                                 <option hidden selected> Seleccione un integrante </option>
                                 {{#each responsables }}
-                                <option value="{{cvu_tecnm}}" required> {{nombre}} {{apellido1}} {{apellido2}} </option>
+                                <option value="{{cvu_tecnm}}" > {{nombre}} {{apellido1}} {{apellido2}} </option>
                                 {{/each}}
                             </select>
 
@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="form-group" align="center">
-                            <select name="rol_sistema" class="form-control col-sm-6" placehol>
+                            <select id="rol_sistema" name="rol_sistema" class="form-control col-sm-6" >
                                 <option hidden selected> Seleccione una opcion </option>
                                 <option value="Administrador">Administrador</option>
                                 <option value="Responsable"> Lider de proyecto</option>
@@ -98,7 +98,7 @@
                         <br><br>
 
                         <div class="form-group" align="center">
-                            <button class="btn btn-secondary btn-block col-sm-4"> <i
+                            <button onclick="VerificarTodos(event)" class="btn btn-secondary btn-block col-sm-4"> <i
                                     class="fas fa-user-alt"></i>&emsp;Registrar </button>
                         </div>
 
@@ -194,7 +194,7 @@ console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
 
         if (a.value == b[indice].value) {
 
-            var c = document.getElementById("username1")
+            var c = document.getElementById("username1");
             //console.log(c);
             c.value = b[indice].text;
         } else {
@@ -204,4 +204,16 @@ console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
 
     }
 
+
+function VerificarTodos(event){
+var x=parseInt(document.getElementById("cvu_tecnm").selectedIndex);
+var z=parseInt(document.getElementById("rol_sistema").selectedIndex);
+var pass=document.getElementById("password").value;
+var name=document.getElementById("username1").value;
+console.log(x,z,pass,name);
+if(x==0 ||z==0 || pass===""||name===""){
+event.preventDefault();
+alert("rellene todos los campos");
+}
+}
 </script>

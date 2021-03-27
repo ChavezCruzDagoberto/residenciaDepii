@@ -30,10 +30,10 @@
 
           <form action="/materialServicio/add" method="POST">
 
-            <div class="form-group">
+            <div class="form-group" id="lasClaves">
               {{#each restante}}
-              <label for=""> Clave: {{clave_partida}} Monto restante $</label> <label style="color: red;" for="restante"
-                id="{{clave_partida}}"> {{monto_restante}} MXN</label><br>
+              <label for="" > Clave: {{clave_partida}} Monto restante $</label> 
+              <label class="valoresActuales" style="color: red;" for="restante" id="{{clave_partida}}"> {{monto_restante}}</label><br>
               {{/each}}
             </div><br><br>
 
@@ -329,12 +329,20 @@
   }
 
   function agregar(id) {
+    var bajarvalores= document.getElementById("lasClaves").getElementsByClassName("valoresActuales");
+  var totalAcyual=0;
+    for(z=0;z<bajarvalores.length;z++){
+      //console.log(" z "+z+ "  "+bajarvalores[z].innerHTML);
+      totalAcyual=totalAcyual+parseInt(bajarvalores[z].innerHTML);
+    }
 
+console.log("totalAcyual",totalAcyual);
     cargarEntregables();
     console.log(options.length);
     console.log(incremento);
     if (incremento < inicio.length) {
       if (options.length > 0) {
+
         incremento++;
 
         añadirNuevo(id);

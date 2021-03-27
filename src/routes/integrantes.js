@@ -154,7 +154,6 @@ router.post(
       .toLowerCase()
       .isLength({ max: 100 })
       .withMessage("verificar dato email  example@algo.com"),
-    check("rol_proyecto").notEmpty().isAlpha().withMessage("solo Letras"),
     check("id_proyecto")
       .notEmpty()
       .isNumeric()
@@ -173,36 +172,48 @@ router.post(
         apellido1,
         apellido2,
         plantel_adscripcion,
-        rol_proyecto,
         email,
       } = req.body;
+      try {
 
-      const valida = await pool.query(
-        "select * from participante where cvu_tecnm=?",
-        [cvu_tecnm]
-      );
-      if (valida.length <= 0) {
-        const nuevoIntegrante = {
+        const valida = await pool.query("select * from participante where cvu_tecnm=?", [cvu_tecnm]);
+
+        if (valida.length <= 0) {
+          const nuevoIntegrante = {
+            cvu_tecnm,
+            nombre,
+            apellido1,
+            apellido2,
+            plantel_adscripcion,
+            email,
+          };
+
+          await pool.query("insert into participante set ?", [nuevoIntegrante]);
+        }
+        const nuevoInt_proyecto = {
+          id_proyecto,
           cvu_tecnm,
-          nombre,
-          apellido1,
-          apellido2,
-          plantel_adscripcion,
-          email,
+          rol_proyecto: "Colaborador",
         };
+        await pool.query("insert into proyecto_participante set ?", [
+          nuevoInt_proyecto,
+        ]);
+        req.flash("success", "Se añadio un nuevo participante a tu proyecto");
+        res.redirect("/integrantes/proyecto/" + id_proyecto);
 
-        await pool.query("insert into participante set ?", [nuevoIntegrante]);
+
+      } catch (error) {
+
+        if (error.code === "ER_DUP_ENTRY")
+          req.flash("message", "Este correo esta asociado a otro colaborador verifique e intente de nuevo");
+        else
+          req.flash("message", "Algo ha salido mal. Intente de nuevo");
+
+        res.redirect("/integrantes/addColaborador/" + id_proyecto);
+
+
       }
-      const nuevoInt_proyecto = {
-        id_proyecto,
-        cvu_tecnm,
-        rol_proyecto,
-      };
-      await pool.query("insert into proyecto_participante set ?", [
-        nuevoInt_proyecto,
-      ]);
-      req.flash("success", "Se añadio un nuevo participante a tu proyecto");
-      res.redirect("/integrantes/proyecto/" + id_proyecto);
+
     }
   }
 );

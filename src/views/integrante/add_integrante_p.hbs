@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                             </div><br>
-
+<!--
                             <div class="row">
                                 <div class="col-sm-6" align="right">
                                     <label for="rol_proyecto" class="m-2"> Rol </label>
@@ -111,6 +111,7 @@
                                     </select>
                                 </div>
                             </div><br>
+                            -->
 
                             <div class="row">
                                 <div class="col-sm-6" align="right">
@@ -127,7 +128,7 @@
                         {{!-- Boton --}}
                         <div class="m-5" align="center">
                             <div class="form-group" align="center">
-                                <button class="btn btn-secondary col-sm-4 btn-block">
+                                <button onclick="VerCampus(event)" class="btn btn-secondary col-sm-4 btn-block">
                                     <i class="fas fa-user-plus"></i>&emsp;Crear integrante
                                 </button>
                             </div>
@@ -323,4 +324,13 @@
         "Tecnológico de Estudios Superiores de San Felipe del Progreso",
         "Tecnológico de Estudios Superiores de Valle de Bravo",
         "Tecnológico de Estudios Superiores de Villa Guerrero"];
+
+function VerCampus(event){
+    let x= parseInt(document.getElementById("tecs").selectedIndex);
+
+if(x==0){
+    alert("Elija un campus");
+    event.preventDefault();
+}
+}
 </script>
