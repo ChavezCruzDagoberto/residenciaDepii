@@ -64,7 +64,7 @@
 
               <!-- Boton Agregar -->
               <label for="">Agregar</label>
-              <input class="btn btn-outline-success btn-sm" type="button" title="Agregar" Value="+"
+              <input class="btn btn-outline-success btn-sm" id="mas" type="button" title="Agregar" Value="+"
                 onclick="agregar('elementos')">&ensp;
               <!-- Boton Borrar -->
               <label for="">Eliminar</label>
@@ -84,7 +84,7 @@
             </table><br><br><br>
 
             <div class="form-group">
-              <button id="botonenviar" class="btn btn-secondary btn-block col-sm-6" onclick="activar()"><i
+              <button id="botonenviar" class="btn btn-secondary btn-block col-sm-6" onclick="activar(event)"><i
                   class="far fa-money-bill-alt"></i>&ensp;Agregar</button>
             </div>
 
@@ -121,6 +121,8 @@
   var boton1 = document.getElementById("eliminar");
   var inicio = document.getElementById('subpartidas');
   var principalc = document.getElementById('claves');
+  var mas=document.getElementById("mas");
+                  
 
   var incremento = 0;
   var validacion = true;
@@ -159,7 +161,8 @@
     var ultimo = document.getElementById("elementos").rows.length - 1;
 
     if (ultimo > 1) {
-
+      
+mas.removeAttribute("disabled");
       incremento--;
       document.getElementById(id).deleteRow(ultimo);
       var a_s = document.getElementById("subpartida" + incremento);
@@ -276,19 +279,52 @@
             console.log("total", total);
             if (total >= inmonto && inmonto > 0) {
               total = total - inmonto;
+/////////////////////////////////////////////////////////
+//validar si ya no hay mas
+/*
+ var bajarvalores= document.getElementById("lasClaves").getElementsByClassName("valoresActuales");
+  var totalAcyual=0;
+    for(z=0;z<bajarvalores.length;z++){
+      totalAcyual=totalAcyual+parseInt(bajarvalores[z].innerHTML);
+    }
+    if(totalAcyual==0){
+      console.log("Suma de partidas ",totalAcyual);
+      incremento--;
+      return;
+    }
+*/
+///////////////////////////
+
+
+
+
               if (total <= 0) {
                 for (k = 0; k < principalc.length; k++) {
                   if (principalc[k].value == desc) {
                     var borrar = principalc[k].text;
                     removerSubpartidas(options, borrar);
 
+
                   }
 
+                }
+                console.log("disponibles",options.length);
+
+                if(options.length==0){
+                  selecAnterior.setAttribute("disabled", "true");
+        campo.setAttribute("disabled", "true");
+                  mas.setAttribute("disabled","true");
+                   descontar.innerHTML = total;
+                  incremento--;
+                  return;
                 }
                 //  removerSubpartidas(desc);
               }
 
               descontar.innerHTML = total;
+
+
+
             } else {
 
               campo.value = "";
@@ -329,14 +365,9 @@
   }
 
   function agregar(id) {
-    var bajarvalores= document.getElementById("lasClaves").getElementsByClassName("valoresActuales");
-  var totalAcyual=0;
-    for(z=0;z<bajarvalores.length;z++){
-      //console.log(" z "+z+ "  "+bajarvalores[z].innerHTML);
-      totalAcyual=totalAcyual+parseInt(bajarvalores[z].innerHTML);
-    }
+   
 
-console.log("totalAcyual",totalAcyual);
+//console.log("totalAcyual",totalAcyual);
     cargarEntregables();
     console.log(options.length);
     console.log(incremento);
@@ -351,7 +382,8 @@ console.log("totalAcyual",totalAcyual);
 
   }
 
-  function activar() {
+  function activar(event) {
+    /*
     console.log(incremento);
 
     var campo = document.getElementById("monto" + incremento);
@@ -378,6 +410,16 @@ console.log("totalAcyual",totalAcyual);
           return false;
         }
       }
+    }
+    */
+    var bajarvalores= document.getElementById("lasClaves").getElementsByClassName("valoresActuales");
+  var totalAcyual=0;
+    for(z=0;z<bajarvalores.length;z++){
+      totalAcyual=totalAcyual+parseInt(bajarvalores[z].innerHTML);
+    }
+    if(totalAcyual!==0){
+      alert("Verifique su justificacion de gastos");
+      event.preventDefault();
     }
 
     for (i = 1; i <= incremento; i++) {
