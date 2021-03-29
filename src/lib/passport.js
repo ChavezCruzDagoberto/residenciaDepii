@@ -9,13 +9,16 @@ const helpers = require('../lib/helpers');
 
 const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
-
-const CLIENT_ID = '980602366636-us5ua45c6tkc4g026tttqumvo0qd5pgp.apps.googleusercontent.com';
-const CLIENT_SECRET = 'U9C9_JU1KK3JgXde-9DNtyAZ';
+//980602366636-us5ua45c6tkc4g026tttqumvo0qd5pgp.apps.googleusercontent.com
+//U9C9_JU1KK3JgXde-9DNtyAZ
+//redirect uri igual
+//1//04VMe3hye_DOBCgYIARAAGAQSNwF-L9Irvb39nTswbjW66P59MQdfVZ4S7p2t6Oye0jFgWPITXCXC2pGQ-JmjyEZfct5Act8TWXs
+const CLIENT_ID = '135738644377-er9vtm9gt58qnro6cpf9gki6fd38cus6.apps.googleusercontent.com';
+const CLIENT_SECRET = 'SlT6ErA9ohfMEe_rWAHRYVo8';
 
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04VMe3hye_DOBCgYIARAAGAQSNwF-L9Irvb39nTswbjW66P59MQdfVZ4S7p2t6Oye0jFgWPITXCXC2pGQ-JmjyEZfct5Act8TWXs';
-
+const REFRESH_TOKEN = '1//047JOlUIQDoVcCgYIARAAGAQSNwF-L9Ir0OYWeqJ-3B8ruFzEMAsfJJ-8hE_ul8tnH_KVEjHcN4Y24KE8uFoqVPod3q4NoNNSKk0';
+                       
 
 const oauth2client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 oauth2client.setCredentials({ refresh_token: REFRESH_TOKEN });
@@ -165,7 +168,7 @@ async function sendMail(destino, subject, contentHTML) {
             service: "gmail",
             auth: {
                 type: "OAuth2",
-                user: "dagochavez210795@gmail.com",
+                user: "gestion.proyectostecoaxaca@gmail.com",
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
                 refreshToken: REFRESH_TOKEN,
@@ -180,7 +183,7 @@ async function sendMail(destino, subject, contentHTML) {
 
         //console.log(transport);
         const mailOptions = {
-            from: 'dagochavez210795@gmail.com',
+            from: 'gestion.proyectostecoaxaca@gmail.com',
             to: destino,
             subject: subject,
             //text:text
