@@ -35,9 +35,6 @@ function formatearFechas(proyecto) {
     // let f = moment(proyecto[p].fecha_sometido);
     let g = moment(proyecto[p].fecha_dictamen);
 
-    //let fecha_inicio=f.format('LLL');
-    //let fecha_fin=g.format('LLL');
-    // let fecha_sometido = f.format(formato1);
     let fecha_dictamen = g.format("YYYY");
     const a = {
       id_proyecto: proyecto[p].id_proyecto,
