@@ -20,6 +20,12 @@
         {{!-- Si es administrador y entra a los detalles de un proyecto --}}
         {{#if proyectodisponible}}
 
+        {{!-- Avance --}}
+        <li data-toggle="collapse" data-target="#productsz" class="collapsed active d-sm-none">
+          <a href="/proyecto/detalle/{{proyectodisponible.id_proyecto}}" class="nav-link">
+            <i class="fas fa-chart-line"></i>&ensp;Avance</a>
+        </li>
+
         {{!-- Protocolo --}}
         <li data-toggle="collapse" data-target="#service" class="collapsed active d-sm-none">
           <a href="#" class="nav-link"><i class="fas fa-file-powerpoint"></i>&ensp;Protocolo <span
@@ -66,13 +72,10 @@
           </li>
         </ul>
 
-        {{!-- Proyecto --}}
+        {{!-- Regresar --}}
         <li data-toggle="collapse" data-target="#productsx" class="collapsed active d-sm-none">
-          <a href="#" class="nav-link"><i class="fas fa-arrow-left"></i>&ensp;Proyectos <span class="arrow"></span></a>
+          <a href="/proyecto" class="nav-link"><i class="fas fa-arrow-left"></i>&ensp;Regresar </a>
         </li>
-        <ul class="sub-menu collapse d-sm-none" id="productsx" style="list-style-type: none;">
-          <li><a href="/proyecto" class="nav-link">Regresar</a></li>
-        </ul>
 
         {{!-- Si es administrador pero entro a ningun detalle de proyecto --}}
         {{else}}
@@ -122,27 +125,32 @@
           <a href="#" class="nav-link"><i class="fas fa-search"></i>&ensp;Búsqueda<span class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse d-sm-none" id="products6" style="list-style-type: none;">
-          <li><a href="/reporte/integrantes" class="nav-link">Integrantes</a></li>
+          <li><a href="/reporte/integrantes" class="nav-link">Participantes</a></li>
           <li><a href="/reporte/proyectos" class="nav-link">Proyectos</a></li>
         </ul>
 
-        {{!-- Proyecto --}}
+        <!--historico-->
+        <li data-toggle="collapse" data-target="#products10" class="collapsed active d-sm-none">
+          <a href="#" class="nav-link"><i class="fas fa-history"></i>&ensp;Histórico <span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu collapse d-sm-none" id="products10" style="list-style-type: none;">
+          <li><a href="/proyecto/historico/add" class="nav-link">Agregar </a></li>
+          <li><a href="/proyecto/listarHistorico" class="nav-link">Listar anteriores</a></li>
+        </ul>
+
+        {{!-- Proyectos --}}
         <li data-toggle="collapse" data-target="#products5" class="collapsed active d-sm-none">
-          <a href="/proyecto/listartodo1" class="nav-link"><i class="fas fa-book"></i>&ensp;Proyectos <span
+          <a href="/proyecto/listartodo1" class="nav-link"><i class="fas fa-book"></i>&ensp;Proyectos<span
               class="arrow"></span></a>
         </li>
-        {{!-- <ul class="sub-menu collapse d-sm-none" id="products5" style="list-style-type: none;">
-          <li><a href="/proyecto" class="nav-link">Listar</a></li>
-        </ul> --}}
 
         {{/if}}
-
         {{/if}}
 
         {{!-- Si el usuario es lider --}}
         {{#if lider}}
 
-        {{!-- Si es administrador y entro a los detalles de su proyecto --}}
+        {{!-- Si es lider y entro a los detalles de su proyecto --}}
         {{#if proyectodisponible}}
 
         <li data-toggle="collapse" data-target="#productsz" class="collapsed active d-sm-none">
@@ -163,12 +171,9 @@
 
         {{!-- Informes --}}
         <li data-toggle="collapse" data-target="#products" class="collapsed active d-sm-none">
-          <a href="#" class="nav-link"><i class="fas fa-file-pdf"></i>&ensp;Informes <span class="arrow"></span></a>
+          <a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}" class="nav-link"><i
+              class="fas fa-file-pdf"></i>&ensp;Informes</a>
         </li>
-        <ul class="sub-menu collapse d-sm-none" id="products" style="list-style-type: none;">
-          <li><a href="/informe/add" class="nav-link">Agregar</a></li>
-          <li><a href="/informe/mostrar/{{proyectodisponible.id_proyecto}}" class="nav-link">Ver</a></li>
-        </ul>
 
         {{!-- Colaboradores --}}
         <li data-toggle="collapse" data-target="#new" class="collapsed active d-sm-none">
@@ -176,11 +181,9 @@
               class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse active d-sm-none" id="new" style="list-style-type: none;">
-          <li><a href="/integrantes/addColaborador/{{proyectodisponible.id_proyecto}}" class="nav-link">Agregar
-              colaborador</a>
+          <li><a href="/integrantes/addColaborador/{{proyectodisponible.id_proyecto}}" class="nav-link">Agregar</a>
           </li>
-          <li><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}" class="nav-link">Ver
-              colaboradores</a>
+          <li><a href="/integrantes/proyecto/{{proyectodisponible.id_proyecto}}" class="nav-link">Ver</a>
           </li>
         </ul>
 
@@ -189,10 +192,8 @@
           <a href="#" class="nav-link"><i class="fas fa-copy"></i>&ensp;Entregables <span class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse active d-sm-none" id="new1" style="list-style-type: none;">
-          <li><a href="/entregable/add/{{proyectodisponible.id_proyecto}}" class="nav-link">Agregar
-              entregables</a></li>
-          <li><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}" class="nav-link">Ver
-              entregables</a>
+          <li><a href="/entregable/add/{{proyectodisponible.id_proyecto}}" class="nav-link">Agregar</a></li>
+          <li><a href="/entregable/proyecto/{{proyectodisponible.id_proyecto}}" class="nav-link">Ver</a>
           </li>
         </ul>
 
@@ -202,24 +203,32 @@
             <span class="arrow"></span></a>
         </li>
         <ul class="sub-menu collapse active d-sm-none" id="new2" style="list-style-type: none;">
-          <li><a href="/materialServicio/add/{{proyectodisponible.id_proyecto}}" class="nav-link">Agregar </a></li>
-          <li><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}" class="nav-link">Ver materiales y
-              servicios</a>
+          <li><a href="/materialServicio/add/{{proyectodisponible.id_proyecto}}" class="nav-link">Agregar</a></li>
+          <li><a href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}" class="nav-link">Ver</a>
           </li>
         </ul>
-        {{/if}}
+
+        {{!-- Regresar --}}
+        <li data-toggle="collapse" data-target="#productsz" class="collapsed active d-sm-none">
+          <a href="/proyecto" class="nav-link"><i class="fas fa-arrow-left"></i>&ensp;Regresar </a>
+        </li>
 
         {{else}}
-
         {{!-- Proyecto --}}
         <li data-toggle="collapse" data-target="#productsx" class="collapsed active d-sm-none">
           <a href="#" class="nav-link"><i class="fas fa-book"></i>&ensp;Proyecto <span class="arrow"></span></a>
         </li>
-
         <ul class="sub-menu collapse d-sm-none" id="productsx" style="list-style-type: none;">
           <li><a href="/proyecto/add" class="nav-link">Agregar</a></li>
-          <li><a href="/proyecto" class="nav-link">Ver proyectos</a></li>
+          <li><a href="/proyecto" class="nav-link">Ver Proyecto</a></li>
         </ul>
+
+        {{!-- Cuenta -> Contrasenia --}}
+        <li data-toggle="collapse" data-target="#products7" class="collapsed active d-sm-none">
+          <a href="/reset" class="nav-link"><i class="fas fa-cog"></i>&ensp;Cuenta</a>
+        </li>
+
+        {{/if}}
 
         {{/if}}
 
@@ -365,7 +374,7 @@
         <a href="#"><i class="fas fa-search"></i>&ensp;Búsqueda <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="products6">
-        <li><a href="/reporte/integrantes">Integrantes</a></li>
+        <li><a href="/reporte/integrantes">Participantes</a></li>
         <li><a href="/reporte/proyectos">Proyectos</a></li>
       </ul>
 
@@ -512,16 +521,16 @@
   }
   */
 
-  window.onload=contNo;
-  function contNo(){
-let v=document.getElementById("notify");
-if(v!==null){
-  
-let b=document.getElementById("cantidadNotify");
-var x=v.getElementsByClassName("dropdown-item").length;
-b.innerHTML=x+"";
-console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
-}
+  window.onload = contNo;
+  function contNo() {
+    let v = document.getElementById("notify");
+    if (v !== null) {
+
+      let b = document.getElementById("cantidadNotify");
+      var x = v.getElementsByClassName("dropdown-item").length;
+      b.innerHTML = x + "";
+      console.log("Tiene", v.getElementsByClassName("dropdown-item").length);
+    }
 
   }
 </script>
