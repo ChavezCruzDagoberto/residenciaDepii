@@ -15,7 +15,7 @@ const { check, validationResult } = require("express-validator");
 
 //agregar un Responsable
 
-router.get("/add", (req, res) => {
+router.get("/add",estaLogueado, (req, res) => {
   //res.send('Form');
   res.render("integrante/add");
 });
@@ -23,7 +23,7 @@ router.get("/add", (req, res) => {
 //insertar a la base un integrante nuevo
 
 router.post(
-  "/add",
+  "/add",estaLogueado,
   [
     //validacion de los datos que entran del formulario
     check("cvu_tecnm")
