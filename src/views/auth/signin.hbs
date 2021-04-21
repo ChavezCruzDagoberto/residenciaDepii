@@ -17,21 +17,26 @@
             {{!-- Campos para el inicio de sesion --}}
             <form action="/signin" method="POST">
 
-                <div class="col" align="left">
+                <div class="" align="left">
 
                     <div class="form-group">
                         <label for="username"> Nombre de usuario </label>
                         <input type="email" id="username" name="username" class="form-control"
-                            style="text-align:center;" title="entrada de dato email ej example@dominio.com"
+                            style="text-align:center;" title="entrada de dato email ej: example@dominio.com"
                             onkeypress="verificar(event)" required>
                     </div>
 
                     <div class="form-group">
                         <label for="password"> Contraseña </label>
-                        <input type="password" style="text-align:center;"
-                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito, mayor a 6 caracteres"
-                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" name="password" class="form-control"
-                            required>
+                        <div class="input-group" id="show_hide_password"> 
+                            <input type="password" style="text-align:center;"
+                                title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito, mayor a 6 caracteres"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" name="password"
+                                class="form-control" required>
+                            <div class="input-group-addon">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group mt-5" align="center">
@@ -40,7 +45,6 @@
                     </div>
 
                 </div>
-
             </form>
         </div>
     </div>
@@ -48,7 +52,6 @@
 
 {{!-- Media queries --}}
 <style>
-    
     /*Cambios de ancho para los inputs del inicio de sesion*/
 
     @media (min-width: 576px) {
@@ -74,4 +77,23 @@
             event.preventDefault();
         }
     }
+</script>
+
+{{!-- Script para eyebutton --}}
+<script>
+
+    $(document).ready(function () {
+        $("#show_hide_password a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
 </script>

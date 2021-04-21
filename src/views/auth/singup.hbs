@@ -35,7 +35,7 @@
                                 onchange="consultarCorreo()">
                                 <option hidden selected> Seleccione un integrante </option>
                                 {{#each responsables }}
-                                <option value="{{cvu_tecnm}}" > {{nombre}} {{apellido1}} {{apellido2}} </option>
+                                <option value="{{cvu_tecnm}}"> {{nombre}} {{apellido1}} {{apellido2}} </option>
                                 {{/each}}
                             </select>
 
@@ -68,11 +68,17 @@
                                         <label for="password"> Contraseña generada automáticamente </label>
                                     </div>
                                     <div class="col-sm-6" align="left">
-                                        <input type="password" id="password" name="password"
-                                            class="form-control col-sm-8"
-                                            title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
-                                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-                                            onkeypress="verificar(event)" required>
+                                        <div class="input-group" id="show_hide_password">
+
+                                            <input type="password" id="password" name="password"
+                                                class="form-control col-sm-8"
+                                                title="Una contraseña válida es un conjuto de caracteres, donde cada uno consiste de una letra mayúscula o minúscula, o un dígito. La contraseña debe empezar con una letra y contener al menor un dígito"
+                                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                                onkeypress="verificar(event)" required>
+                                            <div class="input-group-addon">
+                                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div><br>
 
@@ -88,7 +94,7 @@
                         </div>
 
                         <div class="form-group" align="center">
-                            <select id="rol_sistema" name="rol_sistema" class="form-control col-sm-6" >
+                            <select id="rol_sistema" name="rol_sistema" class="form-control col-sm-6">
                                 <option hidden selected> Seleccione una opcion </option>
                                 <option value="Administrador">Administrador</option>
                                 <option value="Responsable"> Lider de proyecto</option>
@@ -125,6 +131,25 @@
     }
 </style>
 
+{{!-- Script para eyebutton --}}
+<script>
+
+    $(document).ready(function () {
+        $("#show_hide_password a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
+</script>
+
 {{!-- Validaciones con JS --}}
 <script>
     function verificar(event) {
@@ -139,7 +164,7 @@
     window.onload = generarcontraseña;
 
     function generarcontraseña() {
-contNo();
+        contNo();
         var a = document.getElementById("password");
         // paso 1 - pedir un número al usuario
 
@@ -175,17 +200,17 @@ contNo();
     }
 
 
-    function contNo(){
-let v=document.getElementById("notify");
-if(v!==null){
-  
-let b=document.getElementById("cantidadNotify");
-var x=v.getElementsByClassName("dropdown-item").length;
-b.innerHTML=x+"";
-console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
-}
+    function contNo() {
+        let v = document.getElementById("notify");
+        if (v !== null) {
 
-  }
+            let b = document.getElementById("cantidadNotify");
+            var x = v.getElementsByClassName("dropdown-item").length;
+            b.innerHTML = x + "";
+            console.log("Tiene", v.getElementsByClassName("dropdown-item").length);
+        }
+
+    }
 
     function consultarCorreo() {
         var a = document.getElementById("cvu_tecnm");
@@ -205,15 +230,15 @@ console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
     }
 
 
-function VerificarTodos(event){
-var x=parseInt(document.getElementById("cvu_tecnm").selectedIndex);
-var z=parseInt(document.getElementById("rol_sistema").selectedIndex);
-var pass=document.getElementById("password").value;
-var name=document.getElementById("username1").value;
-console.log(x,z,pass,name);
-if(x==0 ||z==0 || pass===""||name===""){
-event.preventDefault();
-alert("rellene todos los campos");
-}
-}
+    function VerificarTodos(event) {
+        var x = parseInt(document.getElementById("cvu_tecnm").selectedIndex);
+        var z = parseInt(document.getElementById("rol_sistema").selectedIndex);
+        var pass = document.getElementById("password").value;
+        var name = document.getElementById("username1").value;
+        console.log(x, z, pass, name);
+        if (x == 0 || z == 0 || pass === "" || name === "") {
+            event.preventDefault();
+            alert("rellene todos los campos");
+        }
+    }
 </script>
