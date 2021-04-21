@@ -65,6 +65,11 @@ router.get("/add", esLider, async (req, res) => {
 });
 
 router.post("/add", esLider, async (req, res) => {
+ 
+  
+  
+
+  
   //validar si ese usuario tiene un proyecto activo
   const activo = await conexion.query(
     'select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado<8',
@@ -86,6 +91,7 @@ router.post("/add", esLider, async (req, res) => {
     //console.log(validacion.length, validacion1.length);
     //console.log(validaconvocatoria.length);
     if (validacion.length == 0 && validacion1.length > 0) {
+      const {no_informes}=req.body;
       const cvu_tecnm = req.user.cvu_tecnm;
       const fecha_sometido = req.body.fecha_sometido;
       const fecha_dictamen = req.body.fecha_dictamen;
@@ -119,7 +125,50 @@ router.post("/add", esLider, async (req, res) => {
 
       //agregar informes dinamicamente
       var fecha_inicio = moment(validacion1[0].vigencia_inicio);
-      // console.log("inicio",fecha_inicio);
+        console.log("inicio",fecha_inicio);
+       
+  var b= fecha_inicio.clone();
+  var porcentaje=1/no_informes;
+  console.log(fecha_inicio,  porcentaje);
+
+  for(i=0;i<no_informes;i++){
+    if(i+1==no_informes){
+      b.add(porcentaje, 'years');
+      b.add(1, "month");
+      var c= b.clone();
+  c.subtract(1, "week");
+  console.log(b,c);
+
+    }
+    else{
+  b.add(porcentaje, 'years');
+  var c= b.clone();
+  c.subtract(1, "week");
+  console.log(b,c);
+    }
+
+  const newInforme = {
+    no_informe: i + 1,
+    fecha_inicio: c.format("YYYY-MM-DD"),
+    fecha_fin: b.format("YYYY-MM-DD"),
+    id_proyecto: p[0].id_proyecto,
+  };
+  await conexion.query("INSERT INTO informe set ?", [newInforme]);
+
+  let notix={
+    destinatario:req.user.cvu_tecnm,
+    mensaje:"la fecha del informe "+(i+1)+ " es del " +c.format("YYYY-MM-DD") +" al " +b.format("YYYY-MM-DD"),
+    leido:0
+  };
+  await conexion.query("INSERT INTO notificaciones set ?", [notix]);
+
+
+  }
+
+
+
+
+      /*
       var i = 0;
       var a = fecha_inicio;
       var informes = [];
@@ -153,7 +202,7 @@ router.post("/add", esLider, async (req, res) => {
         await conexion.query("INSERT INTO notificaciones set ?", [notix]);
 
         i++;
-      }
+      }*/
       ///////////////////////////////////////
       const admins= await conexion.query('select * from users where rol_sistema="Administrador"');
       for(z=0;z<admins.length;z++){
@@ -185,6 +234,7 @@ router.post("/add", esLider, async (req, res) => {
     );
     res.redirect("/proyecto/add");
   }
+  
 });
 
 

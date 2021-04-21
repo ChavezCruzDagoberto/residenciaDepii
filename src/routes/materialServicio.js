@@ -170,6 +170,7 @@ contador--;
 //listar de la base de datos
 router.get("/proyecto/:id_proyecto", estaLogueado, async (req, res) => {
   const { id_proyecto } = req.params;
+  const proyecto = await conexion.query('select titulo from proyecto where id_proyecto=?',[id_proyecto]);
   const consulta = await conexion.query(
     "select * from material_servicio inner join detalle_partida on material_servicio.clave_subpartida=detalle_partida.clave_subpartida  where id_proyecto  =? ",
     [id_proyecto]
@@ -180,11 +181,8 @@ router.get("/proyecto/:id_proyecto", estaLogueado, async (req, res) => {
     total = total + consulta[i].monto_solicitado;
   }
   //console.log(consulta,total);
-  res.render("proyecto/materialServicio/listarporproyecto", {
-    consulta,
-    id_proyecto,
-    total: total,
-  });
+  //res.render("proyecto/materialServicio/listarporproyecto", {consulta, id_proyecto, total: total, });
+  res.render("reportes/reporteMyS", { reporte:consulta ,titulo:proyecto[0],total:total});
 });
 
 router.post("/edit", async (req, res) => {
@@ -224,6 +222,25 @@ router.get("/delete/:id_material_servicio/:id_proyecto", async (req, res) => {
   );
   req.flash("success", "Eliminado  correctamente");
   res.redirect("/materialServicio/proyecto/" + id_proyecto);
+});
+
+
+
+router.get("/reporte/:id_proyecto", estaLogueado, async (req, res) => {
+const {id_proyecto}=req.params;
+try {
+  
+
+const proyecto = await conexion.query('select titulo from proyecto where id_proyecto=?',[id_proyecto]);
+  const gastos= await conexion.query('select * from material_servicio where id_proyecto=?',[id_proyecto]);
+  res.render("reportes/reporteMyS", { reporte:gastos ,titulo:proyecto[0]});
+
+  console.log(gastos);
+} catch (error) {
+  
+  req.flash("message", "no tiene creado la informacion para el reporte");
+  res.redirect("/proyecto/detalle/" + id_proyecto);
+}
 });
 
 module.exports = router;

@@ -148,12 +148,17 @@
         var finicial = inicial.value;
         var start = new Date(finicial);
         start.setFullYear(start.getFullYear() + 1);
+        start.setDate(start.getDate()-1);
         var startf = start.toISOString().slice(0, 10).replace(/-/g, "/");
         for (i = 0; i < startf; i++) {
             // console.log(startf[i]);
         }
         var final = startf.substring(8, 10) + "/" + startf.substring(5, 7) + "/" + startf.substring(0, 4);
-        //console.log(final);
+        
+        
+        //console.log(start);
+        //start.setDate(start.getDate()-1);
+        //console.log("editado -1",start);
         document.getElementById("fin").value = final;
     }
 
