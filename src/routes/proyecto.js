@@ -32,8 +32,8 @@ const storage = multer.diskStorage({
       //return cb(null,)
     } else {
       // const valida=
-        console.log(req.body);
-        var nombre= req.body.titulo+req.body.anio;
+      console.log(req.body);
+      var nombre = req.body.titulo + req.body.anio;
       cb(null, nombre + path.extname(file.originalname));
     }
   },
@@ -65,11 +65,11 @@ router.get("/add", esLider, async (req, res) => {
 });
 
 router.post("/add", esLider, async (req, res) => {
- 
-  
-  
 
-  
+
+
+
+
   //validar si ese usuario tiene un proyecto activo
   const activo = await conexion.query(
     'select * from proyecto natural join proyecto_participante natural join participante where rol_proyecto="Responsable" and cvu_tecnm= ? and estado<8',
@@ -91,7 +91,7 @@ router.post("/add", esLider, async (req, res) => {
     //console.log(validacion.length, validacion1.length);
     //console.log(validaconvocatoria.length);
     if (validacion.length == 0 && validacion1.length > 0) {
-      const {no_informes}=req.body;
+      const { no_informes } = req.body;
       const cvu_tecnm = req.user.cvu_tecnm;
       const fecha_sometido = req.body.fecha_sometido;
       const fecha_dictamen = req.body.fecha_dictamen;
@@ -125,45 +125,45 @@ router.post("/add", esLider, async (req, res) => {
 
       //agregar informes dinamicamente
       var fecha_inicio = moment(validacion1[0].vigencia_inicio);
-        console.log("inicio",fecha_inicio);
-       
-  var b= fecha_inicio.clone();
-  var porcentaje=1/no_informes;
-  console.log(fecha_inicio,  porcentaje);
+      console.log("inicio", fecha_inicio);
 
-  for(i=0;i<no_informes;i++){
-    if(i+1==no_informes){
-      b.add(porcentaje, 'years');
-      b.add(1, "month");
-      var c= b.clone();
-  c.subtract(1, "week");
-  console.log(b,c);
+      var b = fecha_inicio.clone();
+      var porcentaje = 1 / no_informes;
+      console.log(fecha_inicio, porcentaje);
 
-    }
-    else{
-  b.add(porcentaje, 'years');
-  var c= b.clone();
-  c.subtract(1, "week");
-  console.log(b,c);
-    }
+      for (i = 0; i < no_informes; i++) {
+        if (i + 1 == no_informes) {
+          b.add(porcentaje, 'years');
+          b.add(1, "month");
+          var c = b.clone();
+          c.subtract(1, "week");
+          console.log(b, c);
 
-  const newInforme = {
-    no_informe: i + 1,
-    fecha_inicio: c.format("YYYY-MM-DD"),
-    fecha_fin: b.format("YYYY-MM-DD"),
-    id_proyecto: p[0].id_proyecto,
-  };
-  await conexion.query("INSERT INTO informe set ?", [newInforme]);
+        }
+        else {
+          b.add(porcentaje, 'years');
+          var c = b.clone();
+          c.subtract(1, "week");
+          console.log(b, c);
+        }
 
-  let notix={
-    destinatario:req.user.cvu_tecnm,
-    mensaje:"la fecha del informe "+(i+1)+ " es del " +c.format("YYYY-MM-DD") +" al " +b.format("YYYY-MM-DD"),
-    leido:0
-  };
-  await conexion.query("INSERT INTO notificaciones set ?", [notix]);
+        const newInforme = {
+          no_informe: i + 1,
+          fecha_inicio: c.format("YYYY-MM-DD"),
+          fecha_fin: b.format("YYYY-MM-DD"),
+          id_proyecto: p[0].id_proyecto,
+        };
+        await conexion.query("INSERT INTO informe set ?", [newInforme]);
+
+        let notix = {
+          destinatario: req.user.cvu_tecnm,
+          mensaje: "la fecha del informe " + (i + 1) + " es del " + c.format("YYYY-MM-DD") + " al " + b.format("YYYY-MM-DD"),
+          leido: 0
+        };
+        await conexion.query("INSERT INTO notificaciones set ?", [notix]);
 
 
-  }
+      }
 
 
 
@@ -204,12 +204,12 @@ router.post("/add", esLider, async (req, res) => {
         i++;
       }*/
       ///////////////////////////////////////
-      const admins= await conexion.query('select * from users where rol_sistema="Administrador"');
-      for(z=0;z<admins.length;z++){
-        let noti={
-          destinatario:admins[z].cvu_tecnm,
-          mensaje:"Proyecto creado por el usuario"+req.user.cvu_tecnm,
-          leido:0
+      const admins = await conexion.query('select * from users where rol_sistema="Administrador"');
+      for (z = 0; z < admins.length; z++) {
+        let noti = {
+          destinatario: admins[z].cvu_tecnm,
+          mensaje: "Proyecto creado por el usuario" + req.user.cvu_tecnm,
+          leido: 0
         };
         await conexion.query("INSERT INTO notificaciones set ?", [noti]);
       }
@@ -234,7 +234,7 @@ router.post("/add", esLider, async (req, res) => {
     );
     res.redirect("/proyecto/add");
   }
-  
+
 });
 
 
@@ -332,8 +332,8 @@ router.get("/edit/:id_proyecto", esLider, async (req, res) => {
         req.flash(
           "message",
           "Recuerde que solo le quedan " +
-            (10 - temporal) +
-            " dias para editar "
+          (10 - temporal) +
+          " dias para editar "
         );
 
         res.render("proyecto/edit", {
@@ -439,62 +439,134 @@ router.get("/detalle/:id_proyecto", estaLogueado, async (req, res) => {
     [id_proyecto]
   );
 
-  var avance = proyecto[0].estado;
-  var estado = 1;
+  /////////////////////
 
-  let fechaActual = moment();
-  let fechaInicio = moment(proyecto[0].vigencia_inicio);
 
-  switch (avance) {
-    case 1:
-      if (fechaActual.diff(fechaInicio, "month") > 0) estado = 2;
+  //////
 
-      break;
+  console.log("tamaño de informe", fechas_inf.length);
 
-    case 2: //protocolo
-      if (fechaActual.diff(fechaInicio, "month") > 1) estado = 2;
 
-      break;
-    case 3: //material y servicio
-      let inf1_f = moment(fechas_inf[0].fecha_fin);
-      if (fechaActual.isAfter(inf1_f)) estado = 2;
 
-      break;
-    case 4:
-      let inf2_f = moment(fechas_inf[1].fecha_fin);
-      if (fechaActual.isAfter(inf2_f)) estado = 2;
-      break;
-    case 5:
-      let inf3_f = moment(fechas_inf[2].fecha_fin);
-      if (fechaActual.isAfter(inf3_f)) estado = 2;
+  if (fechas_inf.length == 3) {
+    var avance = proyecto[0].estado;
+    var estado = 1;
 
-      break;
-    case 6:
-      let inff_f = moment(fechas_inf[3].fecha_fin);
-      if (fechaActual.isAfter(inff_f)) estado = 2;
+    let fechaActual = moment();
+    let fechaInicio = moment(proyecto[0].vigencia_inicio);
 
-      break;
-    case 7:
-      estado = 1;
+    switch (avance) {
+      case 1:
+        if (fechaActual.diff(fechaInicio, "month") > 0) estado = 2;
 
-      break;
-    case 8:
-      estado = 3;
-      break;
-    case 9:
-      estado = 2;
-      break;
-    default:
-      break;
+        break;
+
+      case 2: //protocolo
+        if (fechaActual.diff(fechaInicio, "month") > 1) estado = 2;
+
+        break;
+      case 3: //material y servicio
+        let inf1_f = moment(fechas_inf[0].fecha_fin);
+        if (fechaActual.isAfter(inf1_f)) estado = 2;
+
+        break;
+      case 4:
+        let inf2_f = moment(fechas_inf[1].fecha_fin);
+        if (fechaActual.isAfter(inf2_f)) estado = 2;
+        break;
+      case 5:
+        let inf3_f = moment(fechas_inf[2].fecha_fin);
+        if (fechaActual.isAfter(inf3_f)) estado = 2;
+
+        break;
+      case 6:
+        estado = 1;
+
+        break;
+      case 7:
+        estado = 1;
+
+        break;
+      case 8:
+        estado = 3;
+        break;
+      case 9:
+        estado = 2;
+        break;
+      default:
+        break;
+    }
+
+    res.render("layouts/proyecto_responsable1", {
+      proyecto: proyecto[0],
+      avance: avance,
+      estado: estado,
+    });
+
+
+
+  }
+  if (fechas_inf.length == 4) {
+
+    var avance = proyecto[0].estado;
+    var estado = 1;
+
+    let fechaActual = moment();
+    let fechaInicio = moment(proyecto[0].vigencia_inicio);
+
+    switch (avance) {
+      case 1:
+        if (fechaActual.diff(fechaInicio, "month") > 0) estado = 2;
+
+        break;
+
+      case 2: //protocolo
+        if (fechaActual.diff(fechaInicio, "month") > 1) estado = 2;
+
+        break;
+      case 3: //material y servicio
+        let inf1_f = moment(fechas_inf[0].fecha_fin);
+        if (fechaActual.isAfter(inf1_f)) estado = 2;
+
+        break;
+      case 4:
+        let inf2_f = moment(fechas_inf[1].fecha_fin);
+        if (fechaActual.isAfter(inf2_f)) estado = 2;
+        break;
+      case 5:
+        let inf3_f = moment(fechas_inf[2].fecha_fin);
+        if (fechaActual.isAfter(inf3_f)) estado = 2;
+
+        break;
+      case 6:
+        let inff_f = moment(fechas_inf[3].fecha_fin);
+        if (fechaActual.isAfter(inff_f)) estado = 2;
+
+        break;
+      case 7:
+        estado = 1;
+
+        break;
+      case 8:
+        estado = 3;
+        break;
+      case 9:
+        estado = 2;
+        break;
+      default:
+        break;
+    }
+
+    res.render("layouts/proyecto_responsable", {
+      proyecto: proyecto[0],
+      avance: avance,
+      estado: estado,
+    });
   }
 
   //console.log(proyecto, protocolo, mys, inf, fechaActual, fechaInicio);
 
-  res.render("layouts/proyecto_responsable", {
-    proyecto: proyecto[0],
-    avance: avance,
-    estado: estado,
-  });
+
   //res.render('proyecto/seguimiento');
 
   //res.send("recibido");
@@ -518,48 +590,97 @@ router.get("/listartodo1", esAdministrador, estaLogueado, async (req, res) => {
       [id_proyecto]
     );
 
+    /////
+    /////
+    if (fechas_inf.length == 3) { 
+      switch (avanceActual) {
+        case 1:
+          if (fechaActual.diff(fechaInicio, "month") > 0) estadoActual = 2;
 
-    switch (avanceActual) {
-      case 1:
-        if (fechaActual.diff(fechaInicio, "month") > 0) estadoActual = 2;
+          break;
 
-        break;
+        case 2: //protocolo
+          if (fechaActual.diff(fechaInicio, "month") > 1) estadoActual = 2;
 
-      case 2: //protocolo
-        if (fechaActual.diff(fechaInicio, "month") > 1) estadoActual = 2;
+          break;
+        case 3: //material y servicio
+          let inf1_f = moment(fechas_inf[0].fecha_fin);
+          if (fechaActual.isAfter(inf1_f)) estadoActual = 2;
 
-        break;
-      case 3: //material y servicio
-        let inf1_f = moment(fechas_inf[0].fecha_fin);
-        if (fechaActual.isAfter(inf1_f)) estadoActual = 2;
+          break;
+        case 4:
+          let inf2_f = moment(fechas_inf[1].fecha_fin);
+          if (fechaActual.isAfter(inf2_f)) estadoActual = 2;
+          break;
+        case 5:
+          let inf3_f = moment(fechas_inf[2].fecha_fin);
+          if (fechaActual.isAfter(inf3_f)) estadoActual = 2;
 
-        break;
-      case 4:
-        let inf2_f = moment(fechas_inf[1].fecha_fin);
-        if (fechaActual.isAfter(inf2_f)) estadoActual = 2;
-        break;
-      case 5:
-        let inf3_f = moment(fechas_inf[2].fecha_fin);
-        if (fechaActual.isAfter(inf3_f)) estadoActual = 2;
+          break;
+        case 6:
+         estado=1;
+          break;
+        case 7:
+          estadoActual = 1;
 
-        break;
-      case 6:
-        let inff_f = moment(fechas_inf[3].fecha_fin);
-        if (fechaActual.isAfter(inff_f)) estadoActual = 2;
+          break;
+        case 8:
+          estadoActual = 3;
+          break;
+        case 9:
+          estadoActual = 4;
+          break;
+        default:
+          break;
+      }
 
-        break;
-      case 7:
-        estadoActual = 1;
+    }
+    if (fechas_inf.length == 4) {
 
-        break;
-      case 8:
-        estadoActual = 3;
-        break;
-      case 9:
-        estadoActual = 4;
-        break;
-      default:
-        break;
+
+
+      switch (avanceActual) {
+        case 1:
+          if (fechaActual.diff(fechaInicio, "month") > 0) estadoActual = 2;
+
+          break;
+
+        case 2: //protocolo
+          if (fechaActual.diff(fechaInicio, "month") > 1) estadoActual = 2;
+
+          break;
+        case 3: //material y servicio
+          let inf1_f = moment(fechas_inf[0].fecha_fin);
+          if (fechaActual.isAfter(inf1_f)) estadoActual = 2;
+
+          break;
+        case 4:
+          let inf2_f = moment(fechas_inf[1].fecha_fin);
+          if (fechaActual.isAfter(inf2_f)) estadoActual = 2;
+          break;
+        case 5:
+          let inf3_f = moment(fechas_inf[2].fecha_fin);
+          if (fechaActual.isAfter(inf3_f)) estadoActual = 2;
+
+          break;
+        case 6:
+          let inff_f = moment(fechas_inf[3].fecha_fin);
+          if (fechaActual.isAfter(inff_f)) estadoActual = 2;
+
+          break;
+        case 7:
+          estadoActual = 1;
+
+          break;
+        case 8:
+          estadoActual = 3;
+          break;
+        case 9:
+          estadoActual = 4;
+          break;
+        default:
+          break;
+      }
     }
 
     proyectos[i].tiempo = estadoActual;
@@ -635,18 +756,48 @@ router.get("/terminar/:id_proyecto", async (req, res) => {
     "select * from proyecto where id_proyecto=?",
     [id_proyecto]
   );
+
+
+
+  /////////////////
+
+  let fechas_inf = await conexion.query(
+    "select * from informe where id_proyecto=? order by no_informe asc",
+    [id_proyecto]
+  );
+  ////////////////
   let estado = buscar[0].estado;
-  if (estado == 7 || estado == 8) {
-    await conexion.query("UPDATE   proyecto  set ? WHERE id_proyecto= ? ", [
-      { estado: 8 },
-      id_proyecto,
-    ]);
-  } else {
-    await conexion.query("UPDATE   proyecto  set ? WHERE id_proyecto= ? ", [
-      { estado: 9 },
-      id_proyecto,
-    ]);
+  if (fechas_inf.length == 3) {
+    if (estado == 6||estado == 7 || estado == 8) {
+      await conexion.query("UPDATE   proyecto  set ? WHERE id_proyecto= ? ", [
+        { estado: 8 },
+        id_proyecto,
+      ]);
+    } else {
+      await conexion.query("UPDATE   proyecto  set ? WHERE id_proyecto= ? ", [
+        { estado: 9 },
+        id_proyecto,
+      ]);
+    }
+
+
   }
+  if (fechas_inf.length == 4) {
+    if (estado == 7 || estado == 8) {
+      await conexion.query("UPDATE   proyecto  set ? WHERE id_proyecto= ? ", [
+        { estado: 8 },
+        id_proyecto,
+      ]);
+    } else {
+      await conexion.query("UPDATE   proyecto  set ? WHERE id_proyecto= ? ", [
+        { estado: 9 },
+        id_proyecto,
+      ]);
+    }
+  }
+
+  
+  
   res.redirect("/proyecto/detalle/" + id_proyecto);
 });
 
@@ -660,40 +811,40 @@ router.get("/historico/add", async (req, res) => {
 });
 
 
-router.post("/historico/add",upload.single("archivo"), async (req, res) => {
-console.log(req.body,req.file);
-const {clave_financiamiento,titulo,responsable,anio}=req.body;
-try {
-  
-
-const valida= await conexion.query('select * from historico where clave_financiamiento=?',[clave_financiamiento]);
-if(valida.length>0){
-  req.flash("message","Ya existe un proyecto con la misma clave de financiamiento");
-  res.redirect('/proyecto/historico/add');
-}else{
-const {path}= req.file;
+router.post("/historico/add", upload.single("archivo"), async (req, res) => {
+  console.log(req.body, req.file);
+  const { clave_financiamiento, titulo, responsable, anio } = req.body;
+  try {
 
 
-const newhistorico={
-  clave_financiamiento,
-  titulo,
-  responsable,
-  anio,
-  url_archivo:path
-};
-await conexion.query("INSERT INTO historico set ?", [newhistorico]);
-   res.redirect("/proyecto/listarHistorico");
+    const valida = await conexion.query('select * from historico where clave_financiamiento=?', [clave_financiamiento]);
+    if (valida.length > 0) {
+      req.flash("message", "Ya existe un proyecto con la misma clave de financiamiento");
+      res.redirect('/proyecto/historico/add');
+    } else {
+      const { path } = req.file;
+
+
+      const newhistorico = {
+        clave_financiamiento,
+        titulo,
+        responsable,
+        anio,
+        url_archivo: path
+      };
+      await conexion.query("INSERT INTO historico set ?", [newhistorico]);
+      res.redirect("/proyecto/listarHistorico");
+    }
+  } catch (error) {
+    req.flash("message", "Lo sentimos algo ha salido mal intente de nuevo");
+    res.redirect('/proyecto/historico/add');
+  }
 }
-} catch (error) {
-  req.flash("message","Lo sentimos algo ha salido mal intente de nuevo");
- res.redirect('/proyecto/historico/add'); 
-}
-}
-      
+
 );
 router.get("/listarHistorico", async (req, res) => {
-  const proyectos=await conexion.query('select * from historico');
-  res.render("proyecto/historico",{proyectos});
+  const proyectos = await conexion.query('select * from historico');
+  res.render("proyecto/historico", { proyectos });
 });
 
 
@@ -731,4 +882,13 @@ function urlCorrecto(ubicacion) {
   //console.log(ubicacion.replace(String.fromCharCode(c),"/"));
   return ubicacion.replace(String.fromCharCode(c), "/");
 }
+router.get("/seg1", async (req, res) => {
+  res.render("proyecto/seguimiento1");
+});
+
+
+
+
+
+
 module.exports = router;

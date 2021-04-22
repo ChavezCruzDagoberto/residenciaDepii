@@ -1,0 +1,183 @@
+<div class="main" id="principal">
+
+    {{!-- Este div permite ocupar el 100% de pantalla disponible --}}
+    <div class="container-fluid">
+
+        {{!-- div centra horizontalmente el contenido --}}
+        <div class="d-flex justify-content-center vh-80">
+
+            {{!-- div centra verticalmente el contenido --}}
+            <div class="align-items-center w-100 mt-5" id="contenedorprincipal">
+
+                {{!-- Cabecera --}}
+                <div class="w-100 mb-5" align="center">
+                    <h1 class="mb-5"> Avance del Proyecto. </h1><br><br><br>
+                    <h4 style="color: gray;">Proyecto actual:</h4>
+                    <h2 style="color: gray;" class="mb-5"> {{proyecto.titulo}} </h2>
+                </div>
+
+                <div class="m-5" align="center">
+                    <div class="d-flex justify-content-center">
+                        <div class="progress-container">
+
+                            <div class="progress" id="progress"></div>
+
+                            <div class="circle active" title="Proyecto creado"><a href="/proyecto"><i
+                                        class="fas fa-folder-open"></i></a></div>
+                            <div class="circle " title="Protocolo"><a
+                                    href="/protocolo/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-file-alt"></i></a></div>
+                            <div class="circle " title="Gastos, entregables y colaboradores"><a
+                                    href="/MaterialServicio/proyecto/{{proyectodisponible.id_proyecto}}"><i
+                                        class="fas fa-list-ul"></i> </a></div>
+                            <div class="circle " title="Informe 1"><a
+                                    href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Informe 2"><a
+                                    href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-check-circle"></i></a></div>
+                            <div class="circle " title="Informe 3"><a
+                                    href="/informe/mostrar/{{proyectodisponible.id_proyecto}}"><i
+                                        class="far fa-check-circle"></i></a></div>
+                            
+                            <div class="circle " title="Proyecto terminado"><i class="far fa-flag"></i></div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="avance" id="avance" value="{{avance}}">
+                <input type="hidden" name="estado" id="estado" value="{{estado}}">
+                <input type="hidden" name="id_proyecto" id="id_proyecto" value="{{proyecto.id_proyecto}}">
+
+                {{!-- En caso de ser administrador mostrarboton de terminar --}}
+                {{#if admin}}
+                <div class="m-5" align="center" id="terminar">
+                    <td align="center">
+                        <a href="#" class="btn btn-success" onclick="ver(event)">
+                            <i class="fas fa-info"></i>&ensp;Terminar proyecto</a>
+                    </td>
+                </div>
+                {{/if}}
+                <div class="border w-25 p-2 rounded" id="cuadrito">
+
+                    <h6 style="color: black;">Estado del avance:</h6>
+                    <button class="btn btn-success"></button>&ensp; <label>En Tiempo</label><br>
+                    <button class="btn"
+                        style="background-color: #ff5c2a;"></button>&ensp;<label>Atrasado/Cancelado</label><br>
+                    <button class="btn btn-primary"></button>&ensp; <label>Terminado</label>
+
+                </div><br>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Media queries --}}
+<style>
+    @media (min-width: 768px) {
+        #contenedorprincipal {
+            width: 75% !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #principal {
+            margin-left: 0px !important;
+        }
+    }
+
+    @media (max-width: 576px){
+        #cuadrito {
+            width: 100% !important;
+        }
+    }
+</style>
+
+<script>
+    window.onload = actualiza;
+    const progress = document.getElementById("progress");
+    const circles = document.querySelectorAll(".circle");
+    function contNo(){
+let v=document.getElementById("notify");
+if(v!==null){
+  
+let b=document.getElementById("cantidadNotify");
+var x=v.getElementsByClassName("dropdown-item").length;
+b.innerHTML=x+"";
+console.log("Tiene",v.getElementsByClassName("dropdown-item").length);
+}
+
+  }
+
+    function actualiza() {
+contNo();
+        let status = parseInt(document.getElementById("estado").value);
+        let currentActive = parseInt(document.getElementById("avance").value);
+
+        if (currentActive == 8 || currentActive == 9) {
+            document.getElementById("terminar").style.visibility = 'hidden';
+        }
+
+        console.log("valor", currentActive);
+        if (currentActive > 7) {
+            currentActive = 7;
+        } else if (currentActive < 0) {
+            currentActive = -1;
+        }
+        console.log("final", currentActive);
+        circles.forEach((circle, idx) => {
+
+            if (idx < currentActive) {
+
+                if (status == 1) { circle.classList.add("active"); }
+                if (status == 2) { circle.classList.add("atrasado"); }
+                if (status == 3) { circle.classList.add("terminado"); }
+
+            } else {
+                circle.classList.remove("active");
+                circle.classList.remove("atrasado");
+                circle.classList.remove("terminado");
+
+            }
+        });
+        //const actives = document.querySelectorAll(".active");
+        // console.log(actives.length, circles.length);
+        if (currentActive > 0) {
+            if (status == 1) { progress.classList.add("active"); }
+            if (status == 2) { progress.classList.add("atrasado"); }
+            if (status == 3) { progress.classList.add("terminado"); }
+            progress.style.width = ((currentActive - 1) / (circles.length - 1)) * 100 + "%";
+        } else { progress.style.width = 0 + "%" }
+    }
+
+    function ver(event) {
+        let avance = parseInt(document.getElementById("avance").value);
+        let id_proyecto = document.getElementById("id_proyecto").value;
+        if (avance == 6) {
+            var r = confirm("  ¿desea marcar como terminado  el proyecto?");
+            if (r == true) {
+                // txt = "You pressed OK!";
+
+                window.location.href = "/proyecto/terminar/" + id_proyecto;
+
+            }
+
+        } else {
+
+            var r = confirm(" Este proyecto aun no esta terminado.\n ¿Desea marcarlo como cancelado?");
+            if (r == true) {
+                // txt = "You pressed OK!";
+
+                window.location.href = "/proyecto/terminar/" + id_proyecto;
+
+            }
+        }
+
+    }
+
+    function mensaje1() {
+
+    }
+</script>
