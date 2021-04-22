@@ -121,7 +121,8 @@ passport.use('local.signup', new LocalStrategy({
         <ul>
         <li>username: ${username}</li>
         <li>password: ${password}</li>
-        
+        <br>
+        <li>Usted tiene acceso a la plataforma para crear y gestionar su proyecto la cual fue aprobado por TecNM, comprendiendo el periodo de 1 año</li>
         </ul>    
        `;
 
