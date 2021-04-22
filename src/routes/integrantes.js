@@ -15,7 +15,7 @@ const { check, validationResult } = require("express-validator");
 
 //agregar un Responsable
 
-router.get("/add",estaLogueado, (req, res) => {
+router.get("/add", (req, res) => {
   //res.send('Form');
   res.render("integrante/add");
 });
@@ -23,7 +23,7 @@ router.get("/add",estaLogueado, (req, res) => {
 //insertar a la base un integrante nuevo
 
 router.post(
-  "/add",estaLogueado,
+  "/add",
   [
     //validacion de los datos que entran del formulario
     check("cvu_tecnm")
@@ -201,7 +201,6 @@ router.post(
         req.flash("success", "Se añadio un nuevo participante a tu proyecto");
         res.redirect("/integrantes/proyecto/" + id_proyecto);
 
-
       } catch (error) {
 
         if (error.code === "ER_DUP_ENTRY")
@@ -210,7 +209,6 @@ router.post(
           req.flash("message", "Algo ha salido mal. Intente de nuevo");
 
         res.redirect("/integrantes/addColaborador/" + id_proyecto);
-
 
       }
 

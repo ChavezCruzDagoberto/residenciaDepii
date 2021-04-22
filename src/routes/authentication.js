@@ -22,7 +22,7 @@ const intentos1 = rateLimit({
   message: "se estan recibiendo muchos intentos de esta IP reintente en 10 min",
 });
 
-router.get("/singup",estaLogueado, async (req, res) => {
+router.get("/singup", async (req, res) => {
   const responsables = await conexion.query(
     "SELECT O.cvu_tecnm,nombre,apellido1,apellido2,plantel_adscripcion,email FROM participante AS O LEFT JOIN users AS P ON O.cvu_tecnm = P.cvu_tecnm WHERE P.cvu_tecnm IS NULL "
   );
@@ -41,7 +41,7 @@ router.get("/addcapturista", async (req, res) => {
 });
 
 router.post(
-  "/singup",estaLogueado,
+  "/singup",
   [
     //validacion de los datos que entran del formulario
     check("cvu_tecnm")
