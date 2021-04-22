@@ -46,7 +46,7 @@
                                 <labelfor="fecha_sometido"> Fecha de sometido </label>
                             </div>
                             <div class="col-sm-6" align="left">
-                                <input class="form-control col-sm-6" type="date" min="2020-01-01" name="fecha_sometido" required />
+                                <input id="fecha_sometido" class="form-control col-sm-6" type="date" min="2020-01-01" name="fecha_sometido" required />
                             </div>
                         </div><br>
 
@@ -55,7 +55,7 @@
                                 <label for="fecha_dictamen"> Fecha de dictamen </label>
                             </div>
                             <div class="col-sm-6" align="left">
-                                <input class="form-control col-sm-6" type="date" min="2020-01-01" name="fecha_dictamen" required />
+                                <input id="fecha_dictaminado" class="form-control col-sm-6" type="date" min="2020-01-01" name="fecha_dictamen" required />
                             </div>
                         </div><br><br><br>
 
@@ -91,3 +91,30 @@
         }
     }
 </style>
+
+<script>
+window.onload= leerfecha;
+
+
+function leerfecha(){
+
+var sometido= document.getElementById("fecha_sometido");
+var dictaminado=document.getElementById("fecha_dictaminado");
+
+var today = new Date();
+
+var inicio= today.getFullYear()+"-"+"01-01";
+var fin= today.getFullYear()+"-"+"12-31";
+sometido.setAttribute("min",inicio);
+sometido.setAttribute("max",fin);
+dictaminado.setAttribute("min",inicio);
+dictaminado.setAttribute("max",fin);
+
+
+console.log("acabe"+ inicio + fin);
+
+}
+
+
+
+</script>
